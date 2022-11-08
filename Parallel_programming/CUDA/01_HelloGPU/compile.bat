@@ -1,6 +1,6 @@
 echo "Compiling..."
-nvcc kernel.cu -o program.exe
+nvcc kernel.cu -o app.exe
 echo "Starting program.exe..."
-del program.exp
-del program.lib
-program.exe
+del app.exp
+del app.lib
+app.exe
