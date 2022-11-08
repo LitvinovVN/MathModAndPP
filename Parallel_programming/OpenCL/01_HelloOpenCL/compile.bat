@@ -1,7 +1,6 @@
 echo "Compiling..."
-nvcc kernel.cu -o app.exe
+rustc main.rs -o app.exe
 echo "Starting app.exe..."
-del app.exp
-del app.lib
+del app.pdb
 app.exe
 set /p input="Press Enter to continue..."

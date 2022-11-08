@@ -1,7 +1,5 @@
 echo "Compiling..."
-nvcc kernel.cu -o app.exe
+go build main.go
 echo "Starting app.exe..."
-del app.exp
-del app.lib
-app.exe
+main.exe
 set /p input="Press Enter to continue..."

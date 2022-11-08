@@ -1,5 +1,5 @@
 echo "Compiling..."
-nvcc kernel.cu -o app.exe
+g++ main.cpp -o app.exe
 echo "Starting app.exe..."
 del app.exp
 del app.lib
