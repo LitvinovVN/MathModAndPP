@@ -29,7 +29,7 @@ struct arrays_t {
 typedef struct arrays_t Arrays1D;
 //////////////////////////////////////////////////
 
-void printArray1D(Array1D arr)
+void Array1D_Print(Array1D arr)
 {
     printf("Array1D:\n");
     printf("\tsize = %d\n", arr.size);
@@ -45,7 +45,7 @@ void printArray1D(Array1D arr)
     printf("\n");
 }
 
-Array1D createArray1D(int size)
+Array1D Array1D_Create(int size)
 {
     Array1D arr = {size};
     arr.data = (float*) malloc(size * sizeof(float));
@@ -63,7 +63,7 @@ Array1D createArray1D(int size)
 
 //////////////////////////////////////////////////
 
-Arrays1D createArrays1D(int numElements)
+Arrays1D Arrays1D_Create(int numElements)
 {
     Arrays1D arr = {numElements};
     arr.data = (Array1D*) malloc(numElements * sizeof(Array1D));
@@ -72,14 +72,14 @@ Arrays1D createArrays1D(int numElements)
 
     while(i < arr.numElements)
     {
-        arr.data[i] = createArray1D(5);
+        arr.data[i] = Array1D_Create(5);
         i++;
     }
 
     return arr;
 }
 
-void printArrays1D(Arrays1D arr)
+void Arrays1D_Print(Arrays1D arr)
 {
     printf("Arrays1D:\n");
     printf("\tnumElements = %d\n", arr.numElements);
@@ -89,7 +89,7 @@ void printArrays1D(Arrays1D arr)
 
     while(i < arr.numElements)
     {        
-        printArray1D(arr.data[i]);
+        Array1D_Print(arr.data[i]);
         i++;
     }
     printf("\n");
@@ -98,8 +98,8 @@ void printArrays1D(Arrays1D arr)
 //////////////////////////////////////////////////
 
 void main() { 
-    Arrays1D arrays = createArrays1D(3);
-    printArrays1D(arrays);
+    Arrays1D arrays = Arrays1D_Create(3);
+    Arrays1D_Print(arrays);
 
     getch();
 }

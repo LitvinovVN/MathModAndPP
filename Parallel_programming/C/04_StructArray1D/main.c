@@ -22,7 +22,7 @@ typedef struct array_t Array1D;
  
 //////////////////////////////////////////////////
 
-void printArray1D(Array1D arr)
+void Array1D_Print(Array1D arr)
 {
     printf("Array1D:\n");
     printf("\tsize = %d\n", arr.size);
@@ -38,7 +38,7 @@ void printArray1D(Array1D arr)
     printf("\n");
 }
 
-Array1D createArray1D(int size)
+Array1D Array1D_Create(int size)
 {
     Array1D arr = {size};
     arr.data = (float*) malloc(size * sizeof(float));
@@ -57,10 +57,10 @@ Array1D createArray1D(int size)
 //////////////////////////////////////////////////
 
 void main() {    
-    Array1D arr = createArray1D(10);
+    Array1D arr = Array1D_Create(10);
     arr.data[0] = 0.01;
     arr.data[9] = 0.09;
-    printArray1D(arr);
+    Array1D_Print(arr);
    
 
     getch();
