@@ -30,7 +30,7 @@ struct arraysRepository_t{
     Arrays1D* data;
 };
 
-//Опрелеляем новый тип
+//Определяем новый тип
 typedef struct arraysRepository_t Arrays1DRepository;
 //////////////////////////////////////////////////
 
