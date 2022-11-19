@@ -219,10 +219,7 @@ int main()
     CudaArray1D_AddNumber<<<1,numElements>>>(array1D_GPU, 10);
     CudaArray1D_GPU_Print<<<1,1>>>(array1D_GPU);
 
-    //float* fArray_RAM = FloatArray_RAM_Create(numElements);
-    //FloatArray_InitByIndexes(fArray_RAM, numElements);
-    //FloatArray_Print(fArray_RAM, numElements);
-
+    
     //float* fArray_GPU = FloatArray_GPU_Create(numElements);
     //FloatArray_CopyFromRAMtoGPU(fArray_RAM, fArray_GPU, numElements);
 
