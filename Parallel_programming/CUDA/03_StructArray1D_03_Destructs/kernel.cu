@@ -1,7 +1,5 @@
-/* Задача 03_02. Добавить функцию FloatArray_RAM_Create_From_FloatArray_GPU,
- создающую массив Array1D в памяти на основе массива Array1D в GPU.
- Инициализировать поля структуры.
- Вывести структуру в консоль
+/* Задача 03_02. Добавить функции Array1D_RAM_Destruct и Array1D_GPU_Destruct,
+ очищающие память
 
  Запуск:
  nvcc kernel.cu -o app.exe
@@ -178,7 +176,6 @@ __global__ void CudaArray1D_AddNumber(Array1D* arr, float number)
 
 
 //////////////////////////////////////////////////////////////////////////////
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 Array1D Array1DGPU_Create(int numElements)
 {
     Array1D arrGPU = {numElements};
@@ -200,7 +197,7 @@ void FloatArray_CopyFromGPUtoRAM(float* fArray_GPU, float* fArray_RAM, int numEl
 
 /* Создаёт структуру типа Array1D в ОЗУ как копию структуры Array1D,
  расположенной в GPU, и возвращает на неё указатель */
- Array1D* FloatArray_RAM_Create_From_FloatArray_GPU(Array1D* array1D_GPU)
+ Array1D* Array1D_RAM_Create_From_Array1D_GPU(Array1D* array1D_GPU)
  {
     Array1D* array1D_RAM = (Array1D*)malloc(sizeof(Array1D));
  
@@ -216,6 +213,23 @@ void FloatArray_CopyFromGPUtoRAM(float* fArray_GPU, float* fArray_RAM, int numEl
 
 //////////////////////////////////////////////////////////////////////////////
 
+void Array1D_RAM_Destruct(Array1D* array1D_RAM)
+{
+    free(array1D_RAM->data);
+    free(array1D_RAM);
+}
+
+void Array1D_GPU_Destruct(Array1D* array1D_GPU)
+{
+    Array1D* array1D_DTO = (Array1D*)malloc(sizeof(Array1D));
+    cudaMemcpy(array1D_DTO, array1D_GPU, sizeof(Array1D), cudaMemcpyDeviceToHost);
+    cudaFree(array1D_DTO->data);
+    cudaFree(array1D_DTO);
+    free(array1D_DTO);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 int main()
 {    
     int numElements = IntNumber_Input("Input number of array elements: ");
@@ -230,30 +244,17 @@ int main()
     FloatArray_InitByIndexes(data_RAM, numElements);       
     FloatArray_Print(data_RAM, numElements);
 
-    // 5. Копируем массив data_RAM из GPU в массив data_GPU в ОЗУ
-    // Получить array1D_GPU->data из GPU
-    //cudaMemcpy(&(array1D_GPU->data), data_RAM, numElements * sizeof(*(array1D_GPU->data)), cudaMemcpyHostToDevice);
-    
-
     printf("Print CudaArray1D_AddNumber=============\n");
     CudaArray1D_AddNumber<<<1,numElements>>>(array1D_GPU, 10);
     CudaArray1D_GPU_Print<<<1,1>>>(array1D_GPU);
 
-    Array1D* array1D_RAM_res = FloatArray_RAM_Create_From_FloatArray_GPU(array1D_GPU);
+    Array1D* array1D_RAM_res = Array1D_RAM_Create_From_Array1D_GPU(array1D_GPU);
     printf("Print array1D_RAM_res&&&&&&&&&&&&&&&&&&&&&&&&\n");
     Array1D_Print(array1D_RAM_res);
 
-    //float* fArray_GPU = FloatArray_GPU_Create(numElements);
-    //FloatArray_CopyFromRAMtoGPU(fArray_RAM, fArray_GPU, numElements);
-
-    //CudaFloatArray_Print<<<1,numElements>>>(fArray_GPU, numElements);
-    //cudaDeviceSynchronize();
-    //CudaFloatArray_AddNumber<<<1,numElements>>>(fArray_GPU, numElements, 5);
-    //cudaDeviceSynchronize();
-    //CudaFloatArray_Print<<<1,1>>>(fArray_GPU, numElements);
-
-    //FloatArray_CopyFromGPUtoRAM(fArray_GPU, fArray_RAM, numElements);
-    //FloatArray_Print(fArray_RAM, numElements);
-
+    // Освобождаем память
+    Array1D_RAM_Destruct(array1D_RAM_res);
+    Array1D_GPU_Destruct(array1D_GPU);
+    printf("Memory cleared!\n");
     return 0;
 }
