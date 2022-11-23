@@ -105,11 +105,11 @@ Array1D* Array1D_GPU_Create(int numElements)
     float* data_GPU = FloatArray_GPU_Create(numElements);
     
     // 4. Создаем массив data_RAM в ОЗУ и инициализируем элементы массива их индексами
-    //float* data_RAM = FloatArray_RAM_Create(numElements);
-    //FloatArray_InitByIndexes(data_RAM, numElements);       
+    float* data_RAM = FloatArray_RAM_Create(numElements);
+    FloatArray_InitByIndexes(data_RAM, numElements);       
 
     // 5. Копируем массив data_RAM из GPU в массив data_GPU в ОЗУ
-    //cudaMemcpy(data_GPU, data_RAM, numElements * sizeof(*(array1D_GPU->data)), cudaMemcpyHostToDevice);
+    cudaMemcpy(data_GPU, data_RAM, numElements * sizeof(*(array1D_GPU->data)), cudaMemcpyHostToDevice);
     
     // 6. Копируем указатель на массив data_GPU в поле data массива array1D_GPU, находящегося на GPU
     cudaMemcpy(&(array1D_GPU->data), &data_GPU, sizeof(array1D_GPU->data), cudaMemcpyHostToDevice);
