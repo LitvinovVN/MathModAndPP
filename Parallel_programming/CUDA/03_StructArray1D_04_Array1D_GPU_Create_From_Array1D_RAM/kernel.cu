@@ -12,6 +12,18 @@
 
 ///////////////////////////////////////////////////////
 
+// Получает строку-сообщение message, выводит её в консоль.
+// Считывает целое число, введённое пользователем и возвращает его.
+int IntNumber_Input(const char message[])
+{
+    int numElements;
+    printf(message);
+    scanf("%d", &numElements);
+
+    return numElements;
+}
+///////////////////////////////////////////////////////
+
 // Создаёт массив float в динамической памяти и возвращает на него указатель
 float* FloatArray_RAM_Create(int numElements)
 {
@@ -26,6 +38,20 @@ float* FloatArray_GPU_Create(int numElements)
     cudaMalloc((void**)&arrayGPU, numElements * sizeof(float));
     return arrayGPU;
 }
+
+// Копирует элементы массива fArray_RAM, расположенного в ОЗУ, в массив fArray_GPU, расположенный в видеопамяти.
+void FloatArray_CopyFromRAMtoGPU(float* fArray_RAM, float* fArray_GPU, int numElements)
+{
+    cudaMemcpy(fArray_GPU, fArray_RAM, numElements * sizeof(float), cudaMemcpyHostToDevice);
+}
+
+// Копирует элементы массива fArray_GPU, расположенного в видеопамяти, в массив fArray_RAM, расположенный в ОЗУ.
+void FloatArray_CopyFromGPUtoRAM(float* fArray_GPU, float* fArray_RAM, int numElements)
+{
+    cudaMemcpy(fArray_RAM, fArray_GPU, numElements * sizeof(float), cudaMemcpyDeviceToHost);
+}
+
+//////////////////////////////////////////////////////////////////////////////
 
 // Инициализирует элементы массива их индексами
 __host__ __device__
@@ -81,15 +107,6 @@ Array1D Array1D_RAM_Create(int numElements)
 }
 
 
-///////////////////////////////////////////////////////
-__global__ void CudaFloatArray_Print(float* fArray_GPU, int numElements)
-{
-    printf("CudaFloatArray_Print:\n");
-    FloatArray_Print(fArray_GPU, numElements);    
-}
-
-///////////////////////////////////////////////////////
-
 // Создаёт структуру типа Array1D в памяти GPU и возвращает на неё указатель
 Array1D* Array1D_GPU_Create(int numElements)
 {
@@ -119,22 +136,8 @@ Array1D* Array1D_GPU_Create(int numElements)
 }
 
 
-
-///////////////////////////////////////////////////////
-
-// Получает строку-сообщение message, выводит её в консоль.
-// Считывает целое число, введённое пользователем и возвращает его.
-int IntNumber_Input(const char message[])
-{
-    int numElements;
-    printf(message);
-    scanf("%d", &numElements);
-
-    return numElements;
-}
-
 // Инициализирует элементы массива структуры Array1D их индексами
-void Array1DRAM_InitByIndexes(Array1D arr)
+void Array1D_RAM_InitByIndexes(Array1D arr)
 {
     size_t i = 0;
     while(i < arr.size)
@@ -161,38 +164,27 @@ void Array1D_Print(Array1D* array1D)
 
 //////////////////////////////////////////////////////////////////////////////
 
-// Выводит структуру в консоль Array1D, расположенную в GPU
+// Выводит в консоль массив fArray_GPU, расположенный в видеопамяти и содержащий numElements элементов типа float
+__global__ void CudaFloatArray_Print(float* fArray_GPU, int numElements)
+{
+    printf("CudaFloatArray_Print:\n");
+    FloatArray_Print(fArray_GPU, numElements);    
+}
+
+// Выводит в консоль структуру Array1D, расположенную в GPU. 
 __global__ void CudaArray1D_GPU_Print(Array1D* array1D_GPU)
 {
     printf("CudaArray1D_GPU_Print:\n");
     Array1D_Print(array1D_GPU);    
 }
 
-// Прибавляет число number к каждому элементу массива arr.data, рсположенному в GPU
+// Прибавляет число number к каждому элементу массива arr->data, рсположенному в GPU
 __global__ void CudaArray1D_AddNumber(Array1D* arr, float number)
 {
     int index = threadIdx.x + blockIdx.x * blockDim.x;
     arr->data[index] = arr->data[index] + number; 
 }
 
-
-//////////////////////////////////////////////////////////////////////////////
-Array1D Array1DGPU_Create(int numElements)
-{
-    Array1D arrGPU = {numElements};
-    cudaMalloc((void**)&arrGPU.data, numElements * sizeof(float));
-    return arrGPU;
-}
-
-void FloatArray_CopyFromRAMtoGPU(float* fArray_RAM, float* fArray_GPU, int numElements)
-{
-    cudaMemcpy(fArray_GPU, fArray_RAM, numElements * sizeof(float), cudaMemcpyHostToDevice);
-}
-
-void FloatArray_CopyFromGPUtoRAM(float* fArray_GPU, float* fArray_RAM, int numElements)
-{
-    cudaMemcpy(fArray_RAM, fArray_GPU, numElements * sizeof(float), cudaMemcpyDeviceToHost);
-}
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -253,7 +245,7 @@ int main()
     printf("numElements = %d\n", numElements);
 
     Array1D array1D_RAM = Array1D_RAM_Create(numElements);
-    Array1DRAM_InitByIndexes(array1D_RAM);
+    Array1D_RAM_InitByIndexes(array1D_RAM);
 
     Array1D* array1D_GPU = Array1D_GPU_Create_From_Array1D_RAM(array1D_RAM);
     CudaArray1D_GPU_Print<<<1,1>>>(array1D_GPU);

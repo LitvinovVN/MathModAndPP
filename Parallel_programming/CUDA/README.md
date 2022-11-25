@@ -1,17 +1,63 @@
 # Введение в программирование графических ускорителей с использованием технологии NVIDIA CUDA
 
+
+## Вспомогательные функции для организации ввода-вывода данных
+
+| Дополнительные атрибуты функции | Тип возвращаемого значения | Функция | Аргументы  | Описание |
+| ------------- | ------------- |:-------------:| -----:|---|
+| | int | IntNumber_Input | const char message[] | Получает строку-сообщение message и выводит её в консоль. Считывает целое число, введённое пользователем и возвращает его. |
+
+
+
 ## Функции для работы с динамическим массивом, содержищим элементы типа float
 
-| Тип возвращаемого значения | Функция | Аргументы  | Описание |
-| ------------- |:-------------:| -----:|---|
-| float* | FloatArray_RAM_Create | int numElements | Создаёт массив float, содержащий numElements элементов, в динамической памяти и возвращает на него указатель |
-| float* | FloatArray_GPU_Create | int numElements | Создаёт массив float, содержащий numElements элементов, в видеопамяти GPU и возвращает на него указатель |
-| __host__ __device__ void | FloatArray_InitByIndexes | float* fArray, int numElements | Инициализирует элементы массива fArray их индексами |
-| __host__ __device__ void |FloatArray_Print | float* fArray, int numElements | Выводит элементы массива fArray в консоль |
+| Дополнительные атрибуты функции | Тип возвращаемого значения | Функция | Аргументы  | Описание |
+| ------------- | ------------- |:-------------:| -----:|---|
+| | float* | FloatArray_RAM_Create | int numElements | Создаёт массив float, содержащий numElements элементов, в динамической памяти и возвращает на него указатель |
+| | float* | FloatArray_GPU_Create | int numElements | Создаёт массив float, содержащий numElements элементов, в видеопамяти GPU и возвращает на него указатель |
+| \_\_host\_\_ \_\_device\_\_ | void | FloatArray_InitByIndexes | float* fArray, int numElements | Инициализирует элементы массива fArray их индексами |
+| \_\_host\_\_ \_\_device\_\_ | void |FloatArray_Print | float* fArray, int numElements | Выводит элементы массива fArray в консоль |
+| | void | FloatArray_CopyFromRAMtoGPU | float* fArray_RAM, float* fArray_GPU, int numElements | Копирует элементы массива fArray_RAM, расположенного в ОЗУ, в массив fArray_GPU, расположенный в видеопамяти. |
+| | void | FloatArray_CopyFromGPUtoRAM | float* fArray_GPU, float* fArray_RAM, int numElements | Копирует элементы массива fArray_GPU, расположенного в видеопамяти, в массив fArray_RAM, расположенный в ОЗУ. |
 
 
+***
+## Структура Array1D "Одномерный массив"
+
+```C
+// Создаем структуру "Одномерный массив"
+struct array_t
+{
+    int size;
+    float* data;
+};
+
+// Определяем новый тип
+typedef struct array_t Array1D;
+```
+
+***
 ## Функции для работы со структурой Array1D (одномерный массив) 
 
-| Тип возвращаемого значения | Функция | Аргументы  | Описание |
-| ------------- |:-------------:| -----:|---|
-| Array1D | Array1D_RAM_Create | int numElements | Создаёт структуру типа Array1D, содержащую numElements элементов, в ОЗУ |
+| Дополнительные атрибуты функции | Тип возвращаемого значения | Функция | Аргументы  | Описание |
+| ------------- | ------------- |:-------------:| -----:|---|
+| | Array1D | Array1D_RAM_Create | int numElements | Создаёт структуру типа Array1D, содержащую numElements элементов, в ОЗУ |
+| | Array1D* | Array1D_RAM_Create_From_Array1D_GPU | Array1D* array1D_GPU | Создаёт структуру типа Array1D в ОЗУ как копию структуры Array1D, расположенной в GPU, и возвращает на неё указатель |
+| | Array1D* | Array1D_GPU_Create | int numElements | Создаёт структуру типа Array1D, содержащую numElements элементов, в видеопамяти и возвращает на него указатель |
+| | Array1D* | Array1D_GPU_Create_From_Array1D_RAM | Array1D array1D_RAM | Создаёт структуру типа Array1D в GPU как копию структуры array1D_RAM, расположенной в RAM, и возвращает на неё указатель |
+| | void | Array1D_RAM_InitByIndexes | Array1D arr | Инициализирует элементы массива data структуры Array1D их индексами |
+| \_\_host\_\_ \_\_device\_\_ | void | Array1D_Print | Array1D* array1D | Выводит элементы массива array1D->data в консоль |
+| | void | Array1D_RAM_Destruct | Array1D* array1D_RAM | Освобождает оперативную память, выделенную под структуру array1D_RAM |
+| | void | Array1D_GPU_Destruct | Array1D* array1D_GPU | Освобождает видеопамять, выделенную под структуру array1D_GPU |
+
+
+## CUDA-ядра 
+
+| Дополнительные атрибуты функции | Тип возвращаемого значения | Функция | Аргументы  | Описание |
+| ------------- | ------------- |:-------------:| -----:|---|
+| \_\_global\_\_ | void | CudaFloatArray_Print | float* fArray_GPU, int numElements | Выводит в консоль массив fArray_GPU, расположенный в видеопамяти и содержащий numElements элементов типа float |
+| \_\_global\_\_ | void | CudaArray1D_GPU_Print | Array1D* array1D_GPU | Выводит в консоль структуру Array1D, расположенную в GPU.  |
+| \_\_global\_\_ | void | CudaArray1D_AddNumber | Array1D* arr, float number | Прибавляет число number к каждому элементу массива arr->data, рсположенному в GPU.  |
+
+
+
