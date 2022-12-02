@@ -22,21 +22,21 @@ int main()
     int numElements = IntNumber_Input("Input number of array elements: ");
     printf("numElements = %d\n", numElements);
 
-    Array1D array1D_RAM = Array1D_RAM_Create(numElements);
+    Array1D array1D_RAM = Array1D_RAM_Create(numElements * 2);
     Array1D_RAM_InitByIndexes(array1D_RAM);
 
-    Arrays1D arrays = Arrays1D_Create(3);
-    Arrays1D_AddArray1D(&arrays, 0, Array1D_RAM_Create(10));
-    Arrays1D_AddArray1D(&arrays, 1, array1D_RAM);
-    Arrays1D_Print(arrays);
+    Arrays1D arrays1D_RAM = Arrays1D_Create(numElements);
+    Arrays1D_AddArray1D(&arrays1D_RAM, 0, Array1D_RAM_Create(10));
+    Arrays1D_AddArray1D(&arrays1D_RAM, 1, array1D_RAM);
+    Arrays1D_Print(arrays1D_RAM);
 
     /////////////////////////
-    Array1D* array1D_GPU = Array1D_GPU_Create_From_Array1D_RAM(array1D_RAM);
-    CudaArray1D_GPU_Print<<<1,1>>>(array1D_GPU);
+    Arrays1D* arrays1D_GPU = Arrays1D_GPU_Create_From_Arrays1D_RAM(arrays1D_RAM);
+    CudaArrays1D_GPU_Print<<<1,1>>>(arrays1D_GPU);
 
     // Освобождаем память
-    Array1D_RAM_Destruct(&array1D_RAM);
-    Array1D_GPU_Destruct(array1D_GPU);
+    //Arrays1D_RAM_Destruct(&arrays1D_RAM);
+    //Arrays1D_GPU_Destruct(arrays1D_GPU);
 
     return 0;
 }
