@@ -149,6 +149,14 @@ __global__ void CudaArray1D_AddNumber(Array1D* arr, float number)
     return array1D_GPU;
  }
 
+//  Создаёт массив структур Array1D в GPU и возвращает на него указатель
+Array1D* Array1DArray_GPU_Create(int numElements)
+{
+    Array1D* array1D_GPU;
+    cudaMalloc((void**)&array1D_GPU, numElements * sizeof(Array1D));
+    return array1D_GPU;
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 void Array1D_RAM_Destruct(Array1D* array1D_RAM)
