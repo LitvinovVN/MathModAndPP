@@ -46,6 +46,7 @@ typedef struct array_t Array1D;
 | | Array1D* | Array1D_GPU_Create | int numElements | Создаёт структуру типа Array1D, содержащую numElements элементов, в видеопамяти и возвращает на него указатель |
 | | Array1D* | Array1DArray_GPU_Create | int numElements | Создаёт массив структур Array1D в GPU, содержащий numElements элементов, и возвращает на него указатель |
 | | Array1D* | Array1D_GPU_Create_From_Array1D_RAM | Array1D array1D_RAM | Создаёт структуру типа Array1D в GPU как копию структуры array1D_RAM, расположенной в RAM, и возвращает на неё указатель |
+| | Array1D* | Array1D_GPU_Array_Create_From_Array1D_RAM_Array | Array1D* array1D_RAM_Array, int numElements | Создаёт массив структур Array1D в GPU, содержащий numElements элементов, из массива структур Array1D ОЗУ |
 | | void | Array1D_RAM_InitByIndexes | Array1D arr | Инициализирует элементы массива data структуры Array1D их индексами |
 | \_\_host\_\_ \_\_device\_\_ | void | Array1D_Print | Array1D* array1D | Выводит элементы массива array1D->data в консоль |
 | | void | Array1D_RAM_Destruct | Array1D* array1D_RAM | Освобождает оперативную память, выделенную под структуру array1D_RAM |
@@ -91,5 +92,6 @@ typedef struct arrays_t Arrays1D;
 | ------------- | ------------- |:-------------:| -----:|---|
 | \_\_global\_\_ | void | CudaFloatArray_Print | float* fArray_GPU, int numElements | Выводит в консоль массив fArray_GPU, расположенный в видеопамяти и содержащий numElements элементов типа float |
 | \_\_global\_\_ | void | CudaArray1D_GPU_Print | Array1D* array1D_GPU | Выводит в консоль структуру Array1D, расположенную в GPU.  |
+| \_\_global\_\_ | void | CudaArray1D_GPU_Array_Print | Array1D* array1D_GPU_Array, int numElements | Выводит в консоль массив структур Array1D, расположенный в GPU.  |
 | \_\_global\_\_ | void | CudaArrays1D_GPU_Print | Arrays1D* arrays1D_GPU | Выводит в консоль структуру Arrays1D, расположенную в GPU.  |
 | \_\_global\_\_ | void | CudaArray1D_AddNumber | Array1D* arr, float number | Прибавляет число number к каждому элементу массива arr->data, рсположенному в GPU.  |

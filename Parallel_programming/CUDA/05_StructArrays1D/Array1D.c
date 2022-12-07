@@ -99,6 +99,15 @@ __global__ void CudaArray1D_GPU_Print(Array1D* array1D_GPU)
     Array1D_Print(array1D_GPU);    
 }
 
+__global__ void CudaArray1D_GPU_Array_Print(Array1D* array1D_GPU_Array, int numElements)
+{
+    printf("CudaArray1D_GPU_Array_Print:\n");
+    for(int i = 0; i < numElements; i++)
+    {
+        Array1D_Print(&array1D_GPU_Array[i]);
+    }
+}
+
 // Прибавляет число number к каждому элементу массива arr.data, рсположенному в GPU
 __global__ void CudaArray1D_AddNumber(Array1D* arr, float number)
 {
@@ -155,6 +164,39 @@ Array1D* Array1DArray_GPU_Create(int numElements)
     Array1D* array1D_GPU;
     cudaMalloc((void**)&array1D_GPU, numElements * sizeof(Array1D));
     return array1D_GPU;
+}
+
+// Создаёт массив структур Array1D в GPU, содержащий numElements элементов,
+// из массива структур Array1D ОЗУ 
+Array1D* Array1D_GPU_Array_Create_From_Array1D_RAM_Array(Array1D* array1D_RAM_Array, int numElements)
+{
+    Array1D* array1D_GPU_Array;
+    cudaMalloc((void**)&array1D_GPU_Array, numElements * sizeof(Array1D));
+
+    // 0. Создаём объект DTO (массив Array1D) для копирования в GPU
+    Array1D* array1D_RAM_Array_DTO = (Array1D*)malloc(numElements * sizeof(Array1D));
+    //Array1D* arrays1D_DTO_data = (Array1D*)malloc(arrays1D_RAM.numElements * sizeof(Array1D));
+    //cudaMemcpy(arrays1D_DTO_data, arrays1D_DTO->data, arrays1D_RAM.numElements * sizeof(Array1D), cudaMemcpyDeviceToHost);
+        
+    for(int i = 0; i < numElements; i++)
+    {
+        // 1. Создаём массив float* в GPU и сохраняем указатель на него
+        float* data_dev = FloatArray_GPU_Create(array1D_RAM_Array[i].size);
+        // 2. Копируем содержимое массива float* из ОЗУ в GPU
+        FloatArray_CopyFromRAMtoGPU(array1D_RAM_Array[i].data, data_dev, array1D_RAM_Array[i].size);
+        // 3. Настраиваем i-й элемент объекта DTO (numElements и указатель на массив float* в GPU)
+        array1D_RAM_Array_DTO[i].size = array1D_RAM_Array[i].size;
+        array1D_RAM_Array_DTO[i].data = data_dev;
+        //CudaFloatArray_Print<<<1,1>>>(array1D_RAM_Array_DTO[i].data, array1D_RAM_Array_DTO[i].size);
+    }
+
+    // 4. Копируем объект DTO в GPU
+    cudaMemcpy(array1D_GPU_Array, array1D_RAM_Array_DTO, numElements * sizeof(Array1D), cudaMemcpyHostToDevice);
+    //cudaDeviceSynchronize();
+    //CudaArray1D_GPU_Array_Print<<<1,1>>>(array1D_GPU_Array, numElements);
+    //cudaDeviceSynchronize();
+
+    return array1D_GPU_Array;
 }
 
 //////////////////////////////////////////////////////////////////////////////

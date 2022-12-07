@@ -61,7 +61,7 @@ __global__ void CudaArrays1D_GPU_Print(Arrays1D* arrays1D_GPU)
 // Создаёт структуру типа Arrays1D в памяти GPU и возвращает на неё указатель
 Arrays1D* Arrays1D_GPU_Create(int numElements)
 {
-    printf("Arrays1D_GPU_Create started\n");
+    //printf("Arrays1D_GPU_Create started\n");
     // 1. Выделяем память в GPU под структуру Arrays1D
     Arrays1D* arrays1D_GPU;    
     cudaMalloc((void**)&arrays1D_GPU, sizeof(Arrays1D));
@@ -82,7 +82,7 @@ Arrays1D* Arrays1D_GPU_Create(int numElements)
     // 6. Копируем указатель на массив data_GPU в поле data массива arrays1D_GPU, находящегося на GPU
     cudaMemcpy(&(arrays1D_GPU->data), &data_GPU, sizeof(arrays1D_GPU->data), cudaMemcpyHostToDevice);
 
-    printf("Arrays1D_GPU_Create ended\n");
+    //printf("Arrays1D_GPU_Create ended\n");
     return arrays1D_GPU;
 }
 
@@ -90,35 +90,50 @@ Arrays1D* Arrays1D_GPU_Create(int numElements)
  расположенной в RAM, и возвращает на неё указатель */
  Arrays1D* Arrays1D_GPU_Create_From_Arrays1D_RAM(Arrays1D arrays1D_RAM)
  {
-    printf("---Arrays1D_GPU_Create_From_Arrays1D_RAM started---\n");
-    Arrays1D_Print(arrays1D_RAM);
-    printf("------\n");
+    //printf("---Arrays1D_GPU_Create_From_Arrays1D_RAM START---\n");
+    //printf("---RAM object print START---\n");
+    //Arrays1D_Print(arrays1D_RAM);
+    //printf("---RAM object print END---\n\n");
 
     Arrays1D* arrays1D_GPU = Arrays1D_GPU_Create(arrays1D_RAM.numElements);
  
+    Array1D* array1D_GPU_Array = Array1D_GPU_Array_Create_From_Array1D_RAM_Array(arrays1D_RAM.data, arrays1D_RAM.numElements);
+    //cudaDeviceSynchronize();
+    //CudaArray1D_GPU_Array_Print<<<1,1>>>(array1D_GPU_Array, arrays1D_RAM.numElements);
+    //cudaDeviceSynchronize();
+
     Arrays1D* arrays1D_DTO = (Arrays1D*)malloc(sizeof(Arrays1D));
-    cudaMemcpy(arrays1D_DTO, arrays1D_GPU, sizeof(Arrays1D), cudaMemcpyDeviceToHost);
-
-    Array1D* arrays1D_DTO_data = (Array1D*)malloc(arrays1D_RAM.numElements * sizeof(Array1D));
-    cudaMemcpy(arrays1D_DTO_data, arrays1D_DTO->data, arrays1D_RAM.numElements * sizeof(Array1D), cudaMemcpyDeviceToHost);
-    //printf("arrays1D_DTO_data[0].size = %d\n", arrays1D_DTO_data[0].size);
-
-    printf("--------------------------\n\n");
-
-    for(int i = 0; i < arrays1D_RAM.numElements; i++)
-    {
-        printf("-i=%d\n",i);
-        Array1D* array1D_GPU_i = Array1D_GPU_Create_From_Array1D_RAM(arrays1D_RAM.data[i]);
-        //CudaArray1D_GPU_Print<<<1,1>>>(array1D_GPU_i); //+
-        //cudaMemcpy(arrays1D_DTO_data[i].size, )
-        //cudaMemcpy(arrays1D_DTO->data[i], arrays1D_RAM.data[i], sizeof(Array1D), cudaMemcpyHostToDevice);
-        //cudaMemset(&arrays1D_DTO_data[i].size, 111, sizeof(int));
-    }
-    //cudaMemcpy(arrays1D_DTO->data, arrays1D_RAM.data, arrays1D_DTO->numElements * sizeof(Array1D), cudaMemcpyHostToDevice);
-    
+    arrays1D_DTO->numElements = arrays1D_RAM.numElements;
+    arrays1D_DTO->data = array1D_GPU_Array;
+    cudaMemcpy(arrays1D_GPU, arrays1D_DTO, sizeof(Arrays1D), cudaMemcpyHostToDevice);
+        
     free(arrays1D_DTO);
-    printf("---Arrays1D_GPU_Create_From_Arrays1D_RAM ended---\n");
+    //printf("---Arrays1D_GPU_Create_From_Arrays1D_RAM END---\n");
     return arrays1D_GPU;
  }
 
 //////////////////////////////////////////////////
+
+void Arrays1D_RAM_Destruct(Arrays1D* arrays1D_RAM)
+{
+    for(int i = 0; i < arrays1D_RAM->numElements; i++)
+    {
+        Array1D_RAM_Destruct(&arrays1D_RAM->data[i]);
+    }
+    free(arrays1D_RAM);
+}
+
+void Arrays1D_GPU_Destruct(Arrays1D* arrays1D_GPU)
+{
+    Arrays1D* arrays1D_DTO = (Arrays1D*)malloc(sizeof(Arrays1D));
+    cudaMemcpy(arrays1D_DTO, arrays1D_GPU, sizeof(Arrays1D), cudaMemcpyDeviceToHost);
+    
+    for(int i = 0; i < arrays1D_DTO->numElements; i++)
+    {
+        Array1D_GPU_Destruct(&arrays1D_DTO->data[i]);
+    }
+    
+    cudaFree(arrays1D_DTO->data);
+    cudaFree(arrays1D_DTO);
+    free(arrays1D_DTO);
+}
