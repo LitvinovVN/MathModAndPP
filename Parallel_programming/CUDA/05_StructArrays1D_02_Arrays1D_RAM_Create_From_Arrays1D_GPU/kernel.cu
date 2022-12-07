@@ -1,5 +1,5 @@
-/* Задача 03_05. Добавить функцию Arrays1D_GPU_Create_From_Arrays1D_RAM,
- создающую в GPU структуру Arrays1D на основе структуры Arrays1D, размещённой в ОЗУ
+/* Задача 05_02. Добавить функцию Arrays1D_RAM_Create_From_Arrays1D_GPU,
+ создающую в RAM структуру Arrays1D на основе структуры Arrays1D, размещённой в GPU
 
  Запуск:
  nvcc kernel.cu -o app.exe
@@ -40,7 +40,10 @@ int main()
 
     /////////////////////////
     Arrays1D* arrays1D_GPU = Arrays1D_GPU_Create_From_Arrays1D_RAM(arrays1D_RAM);
-    CudaArrays1D_GPU_Print<<<1,1>>>(arrays1D_GPU);
+    //CudaArrays1D_GPU_Print<<<1,1>>>(arrays1D_GPU);
+
+    Arrays1D* arrays1D_RAM_From_GPU = Arrays1D_RAM_Create_From_Arrays1D_GPU(arrays1D_GPU);
+    Arrays1D_Print(*arrays1D_RAM_From_GPU);
 
     // Освобождаем память
     Arrays1D_RAM_Destruct(&arrays1D_RAM);
