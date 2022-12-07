@@ -76,13 +76,13 @@ typedef struct arrays_t Arrays1D;
 | ------------- | ------------- |:-------------:| -----:|---|
 | | Arrays1D | Arrays1D_RAM_Create | int numElements | Создаёт структуру типа Arrays1D, содержащую numElements элементов типа Array1D, в ОЗУ |
 | | void | Arrays1D_AddArray1D | Arrays1D* arrays1D, int index, Array1D array1D | Размещает Array1D в Arrays1D по указанному индексу index |
-|------ | Array1D* | Array1D_RAM_Create_From_Array1D_GPU | Array1D* array1D_GPU | Создаёт структуру типа Array1D в ОЗУ как копию структуры Array1D, расположенной в GPU, и возвращает на неё указатель |
+|------ | Arrays1D* | Arrays1D_RAM_Create_From_Arrays1D_GPU | Arrays1D* arrays1D_GPU | Создаёт структуру типа Arrays1D в ОЗУ как копию структуры Arrays1D, расположенной в GPU, и возвращает на неё указатель |
 | | Arrays1D* | Arrays1D_GPU_Create | int numElements | Создаёт структуру типа Arrays1D, содержащую numElements элементов, в видеопамяти и возвращает на него указатель |
 | | Arrays1D* | Arrays1D_GPU_Create_From_Arrays1D_RAM | Arrays1D arrays1D_RAM | Создаёт структуру типа Arrays1D в GPU как копию структуры arrays1D_RAM, расположенной в RAM, и возвращает на неё указатель |
 |------ | void | Array1D_RAM_InitByIndexes | Array1D arr | Инициализирует элементы массива data структуры Array1D их индексами |
 | \_\_host\_\_ \_\_device\_\_ | void | Arrays1D_Print | Arrays1D arr | Выводит содержимое структуры Arrays1D в консоль |
-|------ | void | Array1D_RAM_Destruct | Array1D* array1D_RAM | Освобождает оперативную память, выделенную под структуру array1D_RAM |
-|------ | void | Array1D_GPU_Destruct | Array1D* array1D_GPU | Освобождает видеопамять, выделенную под структуру array1D_GPU |
+| | void | Arrays1D_RAM_Destruct | Arrays1D* arrays1D_RAM | Освобождает оперативную память, выделенную под структуру array1D_RAM |
+| | void | Arrays1D_GPU_Destruct | Arrays1D* arrays1D_GPU | Освобождает видеопамять, выделенную под структуру array1D_GPU |
 
 
 
