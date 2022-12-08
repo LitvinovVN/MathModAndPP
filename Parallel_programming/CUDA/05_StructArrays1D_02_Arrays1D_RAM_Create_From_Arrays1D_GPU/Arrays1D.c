@@ -124,6 +124,7 @@ Arrays1D* Arrays1D_GPU_Create(int numElements)
     arrays1D_RAM->numElements = arrays1D_DTO->numElements;
 
     Array1D* array1D_RAM_Array = Array1D_RAM_Array_Create_From_Array1D_GPU_Array(arrays1D_DTO->data, arrays1D_DTO->numElements);
+    arrays1D_RAM->data = array1D_RAM_Array;
 
     return arrays1D_RAM;
  }

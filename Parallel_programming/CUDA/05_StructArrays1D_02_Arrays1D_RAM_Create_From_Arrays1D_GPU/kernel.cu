@@ -47,6 +47,7 @@ int main()
 
     // Освобождаем память
     Arrays1D_RAM_Destruct(&arrays1D_RAM);
+    Arrays1D_RAM_Destruct(arrays1D_RAM_From_GPU);
     Arrays1D_GPU_Destruct(arrays1D_GPU);
 
     return 0;

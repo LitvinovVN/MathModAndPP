@@ -90,6 +90,16 @@ void Array1D_Print(Array1D* array1D)
     printf("\n");      
 }
 
+__host__ __device__
+void Array1D_Array_Print(Array1D* array1D, int numElements)
+{    
+    for(int i = 0; i < numElements; i++)
+    {
+        Array1D_Print(&array1D[i]);
+    }
+}
+
+
 //////////////////////////////////////////////////////////////////////////////
 
 // Выводит структуру в консоль Array1D, расположенную в GPU
@@ -102,10 +112,11 @@ __global__ void CudaArray1D_GPU_Print(Array1D* array1D_GPU)
 __global__ void CudaArray1D_GPU_Array_Print(Array1D* array1D_GPU_Array, int numElements)
 {
     printf("CudaArray1D_GPU_Array_Print:\n");
-    for(int i = 0; i < numElements; i++)
+    Array1D_Array_Print(array1D_GPU_Array, numElements);
+    /*for(int i = 0; i < numElements; i++)
     {
         Array1D_Print(&array1D_GPU_Array[i]);
-    }
+    }*/
 }
 
 // Прибавляет число number к каждому элементу массива arr.data, рсположенному в GPU
@@ -197,6 +208,33 @@ Array1D* Array1D_GPU_Array_Create_From_Array1D_RAM_Array(Array1D* array1D_RAM_Ar
     //cudaDeviceSynchronize();
 
     return array1D_GPU_Array;
+}
+
+//Создаёт массив структур Array1D в RAM, содержащий numElements элементов, из массива структур Array1D GPU
+Array1D* Array1D_RAM_Array_Create_From_Array1D_GPU_Array (Array1D* array1D_GPU_Array, int numElements)
+{
+    // Создаём массив структур Array1D в RAM
+    Array1D* array1D_RAM_Array = (Array1D*)malloc(numElements * sizeof(Array1D));
+    
+    // Создаём DTO
+    Array1D* array1D_RAM_Array_DTO = (Array1D*)malloc(numElements * sizeof(Array1D));
+    // Копируем в DTO данные из GPU
+    cudaMemcpy(array1D_RAM_Array_DTO, array1D_GPU_Array, numElements * sizeof(Array1D), cudaMemcpyDeviceToHost);
+    
+
+    for(int i = 0; i < numElements; i++)
+    {
+        // 1. Создаём массив float* в RAM и сохраняем указатель на него
+        float* data = FloatArray_RAM_Create(array1D_RAM_Array_DTO[i].size);        
+        // 2. Копируем содержимое массива float* из GPU в ОЗУ
+        FloatArray_CopyFromGPUtoRAM(array1D_RAM_Array_DTO[i].data, data, array1D_RAM_Array_DTO[i].size);
+        // 3. Настраиваем i-й элемент объекта в RAM (numElements и указатель на массив float* в RAM)
+        array1D_RAM_Array[i].size = array1D_RAM_Array_DTO[i].size;
+        array1D_RAM_Array[i].data = data;
+        //CudaFloatArray_Print<<<1,1>>>(array1D_RAM_Array_DTO[i].data, array1D_RAM_Array_DTO[i].size);
+    }
+
+    return array1D_RAM_Array;
 }
 
 //////////////////////////////////////////////////////////////////////////////
