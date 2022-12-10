@@ -17,11 +17,11 @@ void printArray(float* arr_GPU, int numElements)
 }
 
 __host__ __device__
-void testCalculation(float* arr_GPU, int numElements)
+void testCalculation(float* arr, int numElements)
 {
-    for(int i = 0; i < numElements; i++)
+    for(int i = 1; i < numElements-1; i++)
     {
-        arr_GPU[i] += 10;
+        arr[i] = - arr[i-1] + 2 * arr[i] - arr[i+1] + 10;
     }  
 }
 
@@ -61,6 +61,7 @@ int main() {
     clock_t t;
     t = clock();
     testCalculation(arr_RAM_res, numElements);
+    //testCalculation(arr_RAM_res, numElements);
     t = clock() - t;
     double time_taken = ((double)t)*1000/CLOCKS_PER_SEC; // in milliseconds
  
@@ -76,14 +77,26 @@ int main() {
     cudaMalloc((void**)&arr_GPU_02, dataSize);
     cudaMemcpy(arr_GPU_02, arr_RAM, dataSize, cudaMemcpyHostToDevice);
 
+    float* arr_GPU_03;
+    cudaMalloc((void**)&arr_GPU_03, dataSize);
+    cudaMemcpy(arr_GPU_03, arr_RAM, dataSize, cudaMemcpyHostToDevice);
+
     // Prepare
+    cudaStream_t stream1, stream2, stream3;
+    cudaStreamCreate (&stream1);
+    cudaStreamCreate (&stream2);
+    cudaStreamCreate (&stream3);
+
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
     // Start record
     cudaEventRecord(start, 0);
     // Do something on GPU
-    cuda_calculation<<<1,1>>>(arr_GPU_01, arr_GPU_02, numElements);    
+    cuda_calculation<<<1,1,0,stream1>>>(arr_GPU_01, arr_GPU_01, numElements);
+    cuda_calculation<<<1,1,0,stream2>>>(arr_GPU_02, arr_GPU_02, numElements);
+    cuda_calculation<<<1,1,0,stream3>>>(arr_GPU_03, arr_GPU_03, numElements);
+    cudaDeviceSynchronize ();    
     // Stop event
     cudaEventRecord(stop, 0);
     cudaEventSynchronize(stop);
@@ -101,13 +114,27 @@ int main() {
     cudaMemcpy(arr_GPU_res1, arr_GPU_01, dataSize, cudaMemcpyDeviceToHost);
     float* arr_GPU_res2 = (float*)malloc(dataSize);
     cudaMemcpy(arr_GPU_res2, arr_GPU_02, dataSize, cudaMemcpyDeviceToHost);
+    float* arr_GPU_res3 = (float*)malloc(dataSize);
+    cudaMemcpy(arr_GPU_res3, arr_GPU_03, dataSize, cudaMemcpyDeviceToHost);
 
     for(int i = 0; i < numElements; i++)
     {
-        if(arr_GPU_res1[i] - arr_RAM_res[i] > 0.000001)
+        if(abs(arr_GPU_res1[i] - arr_RAM_res[i]) > 0.000001)
             printf("ERROR! i=%d %g %g\n", i, arr_GPU_res1[i], arr_RAM_res[i]);
     }
 
+    for(int i = 0; i < numElements; i++)
+    {
+        if(arr_GPU_res2[i] - arr_RAM_res[i] > 0.000001)
+            printf("ERROR! i=%d %g %g\n", i, arr_GPU_res2[i], arr_RAM_res[i]);
+    }
+
+    for(int i = 0; i < numElements; i++)
+    {
+        if(arr_GPU_res3[i] - arr_RAM_res[i] > 0.000001)
+            printf("ERROR! i=%d %g %g\n", i, arr_GPU_res3[i], arr_RAM_res[i]);
+    }
+    printf("\n----TESTS OK------");
     ////////////////////////////////////////////////////////
 
 
