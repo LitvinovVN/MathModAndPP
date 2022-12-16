@@ -21,7 +21,7 @@ void testCalculation(float* arr, int numElements)
 {
     for(int i = 1; i < numElements-1; i++)
     {
-        arr[i] = - 1.5f * arr[i-1] + 2.0f * arr[i] - arr[i+1] + 10;
+        arr[i] = -arr[i-1] + 2 * arr[i] - arr[i+1] + 10;
     }  
 }
 
@@ -82,7 +82,7 @@ __global__ void cuda_calculation(float* arr_GPU_01, float* arr_GPU_02, float* ar
 }
 
 int main() {
-    int numElements = 10000000;
+    int numElements = 1000000;
     size_t dataSize = numElements * sizeof(float);
     float* arr_RAM = (float*)malloc(dataSize);
     for(int i = 0; i < numElements; i++)
@@ -248,7 +248,7 @@ int main() {
     // Start record
     cudaEventRecord(start, 0);
     // Do something on GPU
-    cuda_calculation<<<28,1,0,stream1>>>(arr_GPU_01, arr_GPU_02, arr_GPU_03, arr_GPU_04,
+    cuda_calculation<<<24,1,0,stream1>>>(arr_GPU_01, arr_GPU_02, arr_GPU_03, arr_GPU_04,
         arr_GPU_05, arr_GPU_06, arr_GPU_07, arr_GPU_08,
         arr_GPU_09, arr_GPU_10, arr_GPU_11, arr_GPU_12,
         arr_GPU_13, arr_GPU_14, arr_GPU_15, arr_GPU_16,
@@ -317,7 +317,7 @@ int main() {
     cudaMemcpy(arr_GPU_res15, arr_GPU_15, dataSize, cudaMemcpyDeviceToHost);
     float* arr_GPU_res16 = (float*)malloc(dataSize);
     cudaMemcpy(arr_GPU_res16, arr_GPU_16, dataSize, cudaMemcpyDeviceToHost);
-/*
+
     for(int i = 0; i < numElements; i++)
     {
         if(abs(arr_GPU_res1[i] - arr_RAM_res[i]) > 0.000001)
@@ -379,7 +379,7 @@ int main() {
         if(arr_GPU_res9[i] - arr_RAM_res[i] > 0.000001)
             printf("ERROR! i=%d %g %g\n", i, arr_GPU_res9[i], arr_RAM_res[i]);
     }
-*/
+
 
 
     printf("\n----TESTS OK------\n");
