@@ -107,12 +107,12 @@ void Array3D_Print(Array3D* array3D, DataType dt)
     size_t k = 0;
     while(k < array3D->size_z)
     {
-        printf("\nz=%zu: \n", k);
+        printf("\nz=%d: \n", k);
 
         size_t j = 0;
         while(j < array3D->size_y)
         {
-            printf("y=%zu: | ", j);
+            printf("y=%d: | ", j);
 
             size_t i = 0;
             while(i < array3D->size_x)
@@ -133,7 +133,7 @@ void Array3D_Print(Array3D* array3D, DataType dt)
 
                 i++;
             }
-            printf("\ty=%zu\n", j);
+            printf("\ty=%d\n", j);
             j++;
         }       
         
