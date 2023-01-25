@@ -1,5 +1,4 @@
-/* Задача 05_02. Добавить функцию Arrays1D_RAM_Create_From_Arrays1D_GPU,
- создающую в RAM структуру Arrays1D на основе структуры Arrays1D, размещённой в GPU
+/* Задача 06. Array3D
 
  Запуск:
  nvcc kernel.cu -o app.exe
