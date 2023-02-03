@@ -1,4 +1,5 @@
-// Задача 12. Добавить статусы потоков. Процесс конвейерного вычисления
+// Задача 12. Реализовать в управляющем потоке механизм считывания и вывода в консоль статусов вычислительных потоков.
+// Процесс конвейерного вычисления
 // с одним управляющим и двумя рабочими потоками CPU и с тремя блоками на GPU.
 // У каждого потока и блока свой id
 // Номер шага конвейера r изменяется управляющим потоком CPU в диапазоне от 1 до 15 с паузой в 1 секунду.
@@ -74,11 +75,22 @@ void thread_function_work(int threadIndexGlobal, int* counter, int* thStatArray)
 }
 
 // Функция управляющего потока CPU
-void thread_function(int* counter)                 
+// int* counter - указатель на счетчик шагов конвейера в нуль-копируемой памяти
+// int* thStatArray - указатель на массив статусов вычислительных потоков в нуль-копируемой памяти
+// int thStatArrayLength - количество элементов массива thStatArray
+void thread_function(int* counter, int* thStatArray, int thStatArrayLength)                 
 {    
     while(*counter < NUM_R+1)
     {                
         PrintThread{} << "Controller thread function: counter = " << *counter << std::endl;
+
+        PrintThread{} << "Controller thread function: calc threads statuses = [";
+        for(int i = 0; i < thStatArrayLength; i++)
+        {
+            PrintThread{} << thStatArray[i] << " ";
+        }
+        PrintThread{} << "]" << std::endl;
+
         if(*counter > 0) std::this_thread::sleep_for(1000ms);
         (*counter)++;
     }    
@@ -172,7 +184,7 @@ int main()
     std::thread t_w1(&thread_function_work, th_id_1, counter, thStatArray);
 
     // ----- Запускаем управляющий поток -----
-    std::thread t(&thread_function, counter);   // t starts running
+    std::thread t(&thread_function, counter, thStatArray, numThreads);   // t starts running
     std::cout << "Main thread: New thread started!\n";
 
     cudaDeviceSynchronize();

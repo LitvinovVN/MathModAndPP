@@ -1,4 +1,5 @@
-// Задача 12. Добавить статусы потоков. Процесс конвейерного вычисления
+// Задача 14. Реализовать в управляющем потоке механизм ожидания статусов READE для всех вычислительных потоков.
+// Процесс конвейерного вычисления
 // с одним управляющим и двумя рабочими потоками CPU и с тремя блоками на GPU.
 // У каждого потока и блока свой id
 // Номер шага конвейера r изменяется управляющим потоком CPU в диапазоне от 1 до 15 с паузой в 1 секунду.
@@ -52,10 +53,12 @@ void thread_function_work(int threadIndexGlobal, int* counter, int* thStatArray)
 {
     thStatArray[threadIndexGlobal] = INIT;
     PrintThread{} << "thread_function_work: " << threadIndexGlobal << " | th_status = " << thStatArray[threadIndexGlobal] << std::endl;
-    
-    
+            
     while(true)
     {
+        if(thStatArray[threadIndexGlobal] != READY)
+            thStatArray[threadIndexGlobal] = READY;
+
         if(*counter > NUM_R) break;
         
         if(*counter < 1) continue; // На шаге 0 никто не считает
@@ -63,7 +66,7 @@ void thread_function_work(int threadIndexGlobal, int* counter, int* thStatArray)
         if(*counter > (NUM_R - GRID_BLOCK_DIM + threadIndexGlobal + 1)) break; // Останов конвейера
 
         thStatArray[threadIndexGlobal] = BUSY;
-        PrintThread{} << "thread_function_work: " << threadIndexGlobal << " | counter = " << *counter << " | th_status = " << thStatArray[threadIndexGlobal] << std::endl;
+        //PrintThread{} << "thread_function_work: " << threadIndexGlobal << " | counter = " << *counter << " | th_status = " << thStatArray[threadIndexGlobal] << std::endl;
         
         std::this_thread::sleep_for(200ms);// Имитация занятости потока
 
@@ -74,12 +77,46 @@ void thread_function_work(int threadIndexGlobal, int* counter, int* thStatArray)
 }
 
 // Функция управляющего потока CPU
-void thread_function(int* counter)                 
+// int* counter - указатель на счетчик шагов конвейера в нуль-копируемой памяти
+// int* thStatArray - указатель на массив статусов вычислительных потоков в нуль-копируемой памяти
+// int thStatArrayLength - количество элементов массива thStatArray
+void thread_function(int* counter, int* thStatArray, int thStatArrayLength)                 
 {    
     while(*counter < NUM_R+1)
     {                
         PrintThread{} << "Controller thread function: counter = " << *counter << std::endl;
+
         if(*counter > 0) std::this_thread::sleep_for(1000ms);
+
+        // Ожидание состояния READY для всех вычислительных потоков        
+        /*while(true)
+        {
+            bool isREADY = true;
+            for(int i = 0; i < thStatArrayLength; i++)
+            {
+                std::this_thread::sleep_for(100ms);
+                if (thStatArray[i]!=READY) isREADY = false;
+            }
+            
+
+            PrintThread{} << "Controller thread function: calc threads statuses = [";
+            for(int i = 0; i < thStatArrayLength; i++)
+            {
+                PrintThread{} << thStatArray[i] << " ";
+            }
+            PrintThread{} << "]" << std::endl;
+
+            if (isREADY) break;
+        }*/
+
+        PrintThread{} << "Controller thread function: calc threads statuses = [";
+        for(int i = 0; i < thStatArrayLength; i++)
+        {
+            PrintThread{} << thStatArray[i] << " ";
+        }
+        PrintThread{} << "]" << std::endl;
+
+        
         (*counter)++;
     }    
 }
@@ -112,9 +149,12 @@ void cuda_kernel_function(int device_threads_offset, int* dev_counter, int* dev_
     //__shared__ int shm_counter[BLOCK_DIM];
     extern __shared__ int shm_counter[];
     
+
     while(true)    
     {
         __syncthreads();
+        if (threadIndexLocal == 0) dev_thStatArray[threadIndexGlobal] = READY;
+
         if(threadIndexLocal == 0) shm_counter[blockIndex] = *dev_counter;
         int tmp_counter = shm_counter[blockIndex];
         
@@ -172,7 +212,7 @@ int main()
     std::thread t_w1(&thread_function_work, th_id_1, counter, thStatArray);
 
     // ----- Запускаем управляющий поток -----
-    std::thread t(&thread_function, counter);   // t starts running
+    std::thread t(&thread_function, counter, thStatArray, numThreads);   // t starts running
     std::cout << "Main thread: New thread started!\n";
 
     cudaDeviceSynchronize();
