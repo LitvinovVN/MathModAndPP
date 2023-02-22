@@ -25,7 +25,7 @@ using namespace std::chrono_literals;// для использования еди
 enum ThreadStatus { INIT = 0, BUSY = 1, READY = 2 };
 
 /** Thread safe cout class
-  * Exemple of use:
+  * Example of use:
   *    PrintThread{} << "Hello world!" << std::endl;
   */
 class PrintThread: public std::ostringstream
@@ -118,7 +118,14 @@ void thread_function(int* counter, int* thStatArray, int thStatArrayLength)
 
         
         (*counter)++;
-    }    
+    }
+    
+    PrintThread{} << "! Controller thread function ended: calc threads statuses = [";
+    for(int i = 0; i < thStatArrayLength; i++)
+    {
+        PrintThread{} << thStatArray[i] << " ";
+    }
+    PrintThread{} << "]" << std::endl;
 }
 
 

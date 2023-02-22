@@ -11,6 +11,15 @@
 
 using namespace std::chrono_literals;// для использования единиц измерения времени (ms)
 
+enum ThreadStatus { INIT = 0, BUSY = 1, READY = 2 };
+
+void thread_func_main(int* thStatusArr, int numThreads, int* command)
+{
+   std::cout << "! thread_func_main started !\n";
+
+   std::cout << "! thread_func_main started !\n";
+}
+
 void thread_function(double* a1, double* a2, double* a, int size)                 
 {
     //std::cout << "Thread function started. Pause 2000ms...\n";
@@ -20,8 +29,13 @@ void thread_function(double* a1, double* a2, double* a, int size)
     //std::cout << "Thread function ended!\n";
 }
 
+
 int main()
 {
+    int numThreads = 2;
+    int* thStatusArr = new int[numThreads];// Массив статусов потоков
+    int* command = NULL; // Указатель на команду для потоков
+
     // 1. Создаём массивы данных
     long N = 10000000;
     double* arr_a1 = new double[N];
@@ -43,11 +57,14 @@ int main()
 
     auto start = std::chrono::high_resolution_clock::now();
 
+    std::thread tmain(&thread_func_main, thStatusArr, numThreads, command);
+
     std::thread t1(&thread_function, arr_a1, arr_a2, arr_a, N);
     //t1.join();// Закомментировано - параллельно, Раскомментировано - последовательно
     std::thread t2(&thread_function, arr_b1, arr_b2, arr_b, N);
     t1.join();// Раскомментировано - параллельно, Закомментировано - последовательно
-    t2.join(); 
+    t2.join();
+    tmain.join();
     std::cout << "Main thread: Threads joined\n";
 
     auto end = std::chrono::high_resolution_clock::now();
