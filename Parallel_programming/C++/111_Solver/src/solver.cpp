@@ -1,11 +1,6 @@
-/* Задача 09. Основное приложение запускает поток-слушатель, дожидается его статуса READY,
- и передаёт ему команды пользователя, введённые в консоль
- */
-
 // Запуск:
-// g++ main.cpp -std=c++11 -pthread -o app
-// nvcc main.cpp -o app
-// ./app
+// nvcc solver.cpp -o ../bin/solver
+// ../bin/solver
 
 #include <condition_variable>
 #include <iostream>
