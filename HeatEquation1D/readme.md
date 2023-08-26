@@ -12,4 +12,9 @@ $$ t=0: T=T_0, 0 \le x \le L $$
 $$ x=0: T=T_l, t \gt 0 $$
 $$ x=L: T=T_r, t \gt 0 $$
 
-    
+## Запуск
+g++ main.cpp -o app
+
+./app
+
+python3 plot.py
