@@ -45,7 +45,13 @@ $ T_{i,j}^{n+1}
     \frac{ T_{i,j-1}^{n} + 2 T_{i,j}^{n} + T_{i,j+1}^{n} }{ h_{y}^{2}}\right) +
  \frac{\tau}{\rho c} q_{i, j} $
 
+$ T_{i,j}^{n+1}
+ = T_{i,j}^{n} + k \tau \left(
+    \frac{T_{i-1,j}^{n} + 2 T_{i,j}^{n} + T_{i+1,j}^{n}}{ h_{x}^{2}}+
+    \frac{ T_{i,j-1}^{n} + 2 T_{i,j}^{n} + T_{i,j+1}^{n} }{ h_{y}^{2}}\right) +
+ \frac{\tau}{\rho c} q_{i, j} $
 
+ 
 
 
 ## Источники
