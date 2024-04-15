@@ -2,14 +2,49 @@
 
 Имеется пластина с прямоугольным отверстием. Правая сторона пластины теплоизолирована, остальные поддерживаются при постоянной температуре. В противоположных углах пластины расположены источник тепла и источник холода. Необходимо рассчитать распределение температуры в последовательные моменты времени.
 
+
+
 ![Alt text](image.png)
 
 
-## Явная схема
+## Непрерывная модель
 
-$\rho c 
-\frac{\partial T}{\partial t}
- = k\left(\frac{{\partial }^{2}T}{\partial {x}^{2}}+\frac{{\partial }^{2}\Gamma }{\partial {y}^{2}}\right)+\frac{a\left({x}_{1}y\right)}{\rho c}$
+$\rho c \frac{\partial T}{\partial t}
+ = \lambda \left(\frac{\partial^{2}T}{\partial {x}^{2}}+\frac{ {\partial }^{2}T }{\partial {y}^{2}}\right) + q\left(x, y\right)$
+
+Разделим обе части уравнения на $\rho c$:
+
+$ \frac{\partial T}{\partial t}
+ = \frac{\lambda}{\rho c} \left(\frac{\partial^{2}T}{\partial {x}^{2}}+\frac{ {\partial }^{2}T }{\partial {y}^{2}}\right) +
+\frac{q\left(x, y\right)}{\rho c}$
+
+Обозначим $ k = \frac{\lambda}{\rho c} $. Тогда
+
+$ \frac{\partial T}{\partial t}
+ = k \left(\frac{\partial^{2}T}{\partial {x}^{2}}+\frac{ {\partial }^{2}T }{\partial {y}^{2}}\right) +
+\frac{q\left(x, y\right)}{\rho c}$
+
+## Дискретные модели
+
+Введём пространственно-временную равномерную расчетную сетку.
+Параметры сетки:
+$\tau$ - шаг сетки по времени, с;
+$h_x$, $h_y$ - шаги сетки по пространственным направлениям $Ox$ и $Oy$ соответственно, м.
+
+1. Явная схема
+
+$ \frac{T_{i,j}^{n+1} - T_{i,j}^{n}}{\tau}
+ = k \left(
+    \frac{T_{i-1,j}^{n} + 2 T_{i,j}^{n} + T_{i+1,j}^{n}}{ h_{x}^{2}}+
+    \frac{ T_{i,j-1}^{n} + 2 T_{i,j}^{n} + T_{i,j+1}^{n} }{ h_{y}^{2}}\right) +
+\frac{q_{i, j}}{\rho c}$
+
+$ T_{i,j}^{n+1}
+ = T_{i,j}^{n} + k \tau \left(
+    \frac{T_{i-1,j}^{n} + 2 T_{i,j}^{n} + T_{i+1,j}^{n}}{ h_{x}^{2}}+
+    \frac{ T_{i,j-1}^{n} + 2 T_{i,j}^{n} + T_{i,j+1}^{n} }{ h_{y}^{2}}\right) +
+ \frac{\tau}{\rho c} q_{i, j} $
+
 
 
 
