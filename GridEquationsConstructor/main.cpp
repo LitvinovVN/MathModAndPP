@@ -119,8 +119,7 @@ class DVal // класс "Переменная дифф. уравнения"
 DVal operator + (const DVal& c1, const DVal& c2) 
 {
     DVal res;
-
-    int resType = 0;
+    
     if(c1.type > c2.type)
     {
         res.type = c1.type;
@@ -143,6 +142,29 @@ DVal operator + (const DVal& c1, const DVal& c2)
     }
         
     return res;
+}
+
+// определяем оператор умножения на константу вне класса
+DVal operator * (const double k, const DVal& c2) 
+{
+    DVal res;
+    res.type = c2.type;
+    res.hx = c2.hx;
+    res.hy = c2.hy;
+    res.hz = c2.hz;
+
+    for(int i = 0; i < 7; i++)
+    {
+        res.koeff[i] = k * c2.koeff[i];
+    }
+        
+    return res;
+}
+
+// определяем оператор умножения на константу вне класса
+DVal operator * (const DVal& c1, const double k) 
+{            
+    return k*c1;
 }
 
 // Оператор второй производной
@@ -191,6 +213,10 @@ int main()
 
     DVal T3pT3 = T3+T3;
     T3pT3.Print();
+
+    std::cout << "2*T3: ";
+    (2.0*T3).Print();
+    (T3*3.0).Print();
 
     return 0;
 }
