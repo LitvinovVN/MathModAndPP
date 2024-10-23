@@ -3,25 +3,6 @@
 #include <iostream>
 #include "VectorGpu.cu"
 
-template<typename T>
-__global__
-void kernel_vector(VectorGpu<T> vectorGpu)
-{
-    int th_i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (th_i == 0)
-    {
-        printf("GPU: vectorGpu._size = %d\n", vectorGpu.getSize());
-        T* _dev_data_pointer = vectorGpu.get_dev_data_pointer();
-        for(size_t i=0; i<vectorGpu.getSize(); i++)
-        {
-            printf("%lf ", _dev_data_pointer[i]);
-        }
-        printf("\n");
-    }
-}
-
-////////////////////////////////
-
 // cuda-ядро для вывода вектора в консоль
 template<typename T>
 __global__
@@ -30,20 +11,20 @@ void print_kernel(VectorGpu<T> vectorGpu, size_t indStart, size_t length)
     int th_i = blockIdx.x * blockDim.x + threadIdx.x;
     if (th_i == 0)
     {
-        //printf("GPU: print_kernel() vectorGpu._size = %d\n", vectorGpu.getSize());
-        T* _dev_data_pointer = vectorGpu.get_dev_data_pointer();
+        //printf("GPU: print_kernel() vectorGpu._size = %d\n", vectorGpu.GetSize());
+        T* _dev_data_pointer = vectorGpu.Get_dev_data_pointer();
         auto indEnd = indStart + length - 1;
-        if(indEnd > vectorGpu.getSize())
+        if(indEnd > vectorGpu.GetSize())
         {
-            printf("Error! indEnd > vectorGpu.getSize()\n");
+            printf("Error! indEnd > vectorGpu.GetSize()\n");
             return;
         }
 
-        printf("[%ld..", indStart);
-        printf("%ld]: ", indEnd);
+        printf("[%d..", (long)indStart);
+        printf("%d]: ", (long)indEnd);
         for(size_t i = indStart; i <= indEnd; i++)
         {
-            printf("%lf ", _dev_data_pointer[i]);
+            printf("%f ", _dev_data_pointer[i]);
         }
         printf("\n");
     }
@@ -57,9 +38,9 @@ public:
     {
         auto indEnd = indStart + length;
         
-        if(indEnd > vectorGpu.getSize())
+        if(indEnd > vectorGpu.GetSize())
         {            
-            throw std::range_error("indEnd > vectorGpu.getSize()");                
+            throw std::range_error("indEnd > vectorGpu.GetSize()");                
         }
 
         print_kernel<double><<<1,1>>>(vectorGpu, indStart, length);
