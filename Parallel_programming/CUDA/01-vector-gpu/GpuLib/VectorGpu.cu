@@ -21,8 +21,16 @@ struct FuncResultScalar
                   << ", "  << Result
                   << ", "  << Time_mks
                   << " mks]"   << std::endl;
-    }
+    }    
 };
+
+std::ostream& operator<<(std::ostream &stream, const FuncResultScalar<> &funcResultScalar)
+{
+    return stream   << "["       << funcResultScalar.Status 
+                    << ", "      << funcResultScalar.Result
+                    << ", "      << funcResultScalar.Time_mks
+                    << " mks]";
+}
 
 /// @brief Вектор (в GPU) 
 /// @tparam T Тип элементов вектора
@@ -137,7 +145,7 @@ public:
             tmp[i] = value;
             //std::cout << tmp[i] << " ";
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
 
         // Копируем данные из временного массива в видеопамять
         cudaError_t cudaResult = cudaMemcpy(_dev_data, tmp, _size*sizeof(T), cudaMemcpyHostToDevice);
