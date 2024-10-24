@@ -1,0 +1,11 @@
+https://releases.ubuntu.com/18.04/
+драйвер 470
+cuda 9 
+
+wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run
+chmod +x cuda_10.2.89_440.33.01_linux.run
+sudo sh cuda_10.2.89_440.33.01_linux.run
+
+lspci | grep -i nvidia
+nvidia-smi
+nvcc -V
