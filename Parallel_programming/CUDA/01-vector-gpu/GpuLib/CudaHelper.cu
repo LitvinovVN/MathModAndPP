@@ -106,6 +106,29 @@ template<typename T>
 class CudaHelper
 {
 public:
+
+    static void WriteGpuSpecs(std::ofstream& out)
+    {
+        out << "WriteGpuSpecs()" << std::endl;
+
+        int nDevices;
+        cudaGetDeviceCount(&nDevices);
+        for (int i = 0; i < nDevices; i++)
+        {
+            cudaDeviceProp prop;
+            cudaGetDeviceProperties(&prop, i);
+            out << "Device Number: "             << i << std::endl;
+            out << "  Device name: "             << prop.name << std::endl;
+            out << "  Compute capability: "      << prop.major << "." << prop.minor << std::endl;
+            out << "  MultiProcessorCount: "     << prop.multiProcessorCount << std::endl;
+            out << "  asyncEngineCount: "        <<  prop.asyncEngineCount<< " (Number of asynchronous engines)" << std::endl;
+            out << "  Memory Clock Rate (KHz): " << prop.memoryClockRate << std::endl;
+            out << "  Memory Bus Width (bits): " << prop.memoryBusWidth << std::endl;
+            out << "  Peak Memory Bandwidth (GB/s): "
+                << 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6 << std::endl;
+        }
+    }
+
     static T Sum(T* dev_arr, size_t length, unsigned blocksNum, unsigned threadsNum)
     {
         #ifdef DEBUG

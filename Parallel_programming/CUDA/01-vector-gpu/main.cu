@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "GpuLib/_include.cu"
 
 // Структура для хранения параметров запуска теста производительности
@@ -13,16 +14,39 @@ struct TestConfig
     std::string dir = "results";
     std::string fileCaption = "test";
     size_t lengthStart = 1000000;
-    size_t lengthEnd = 100000000;
-    size_t lengthStep = 0;
-    size_t lengthMult = 2;
+    size_t lengthEnd   = 2000000;
+    size_t lengthStep  = 0;
+    size_t lengthMult  = 2;
     // Количество блоков GPU
     unsigned gpuBlocksMin = 1;
     unsigned gpuBlocksMax = 20;
     // Количество потоков GPU
     unsigned gpuThreadsMin = 1;
-    unsigned gpuThreadsMax = 20;
+    unsigned gpuThreadsMax = 50;
 };
+
+// Статистические параметры результатов эксперимента
+struct CalculationStatistics
+{
+    // Количество запусков численного эксперимента
+    unsigned numIter;
+    // Минимальное значение
+    double minValue;
+    // Максимальное значение
+    double maxValue;
+    // Среднее арифметическое
+    double avg;
+    // Медиана
+    double median;
+    // 
+};
+
+CalculationStatistics CalculateStatistics(std::vector<FuncResultScalar<double>> results)
+{
+    CalculationStatistics stat;
+    return stat;
+}
+
 
 // Выполняет набор тестов производительности для VectorGpu::Sum
 void StartTestVectorGpuSum(TestConfig conf)
@@ -38,6 +62,9 @@ void StartTestVectorGpuSum(TestConfig conf)
 
     out << "--- StartTestVectorGpuSum Report ---" << std::endl;
     
+    std::cout << "GPU specification:" << std::endl;
+    CudaHelper<double>::WriteGpuSpecs(out);
+
     std::cout << "Starting test Sum..." << std::endl;
     for(auto vectorLength = conf.lengthStart;
             vectorLength <=conf.lengthEnd;
@@ -58,16 +85,21 @@ void StartTestVectorGpuSum(TestConfig conf)
             for(int threadsNum = conf.gpuThreadsMin; threadsNum <= conf.gpuThreadsMax; threadsNum++)
             {
                 std::cout << threadsNum << "; ";
-                auto res = v1.Sum(blocksNum, threadsNum);
-                //std::cout << blocksNum << ", " << 10 << ": ";
-                //std::cout << res << std::endl;
-                out << blocksNum << "; " << threadsNum << "; " << res.Status << "; " << res.Result << "; "<< res.Time_mks << std::endl; 
-                //out << res << std::endl;            
-                //res.Print();
+                std::vector<FuncResultScalar<double>> results{100};
+                for(int iter = 0; iter < 100; iter++)
+                {
+                    auto res = v1.Sum(blocksNum, threadsNum);
+                    results[iter] = res;
+                    //std::cout << results[iter].Status << " | " << results[iter].Result << " | " << results[iter].Time_mks << std::endl;
+                }
+                CalculationStatistics stat = CalculateStatistics(results);
+
+                out << blocksNum << "; " << threadsNum << "; " << results[0].Status << "; " << results[0].Result << "; "<< results[0].Time_mks << std::endl;
             }
             std::cout << std::endl;
         }
-                
+        
+        out.close();
         v1.Clear_dev_data();
     }
 }
