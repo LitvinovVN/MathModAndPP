@@ -23,10 +23,10 @@ __global__ void kernel_sum(T* dev_arr, size_t length, T* dev_block_sum, T* resul
     }
     #endif
 
-    int block_start_idx = n_elem_per_thread * blockIdx.x * blockDim.x;
-    int thread_start_idx = block_start_idx
+    unsigned long long block_start_idx = n_elem_per_thread * blockIdx.x * blockDim.x;
+    unsigned long long thread_start_idx = block_start_idx
             + threadIdx.x * n_elem_per_thread;
-    int thread_end_idx = thread_start_idx + n_elem_per_thread;
+    unsigned long long thread_end_idx = thread_start_idx + n_elem_per_thread;
     if(tid == number_of_threads - 1)
     {
         thread_end_idx = length;
