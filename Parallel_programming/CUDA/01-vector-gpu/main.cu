@@ -1,7 +1,11 @@
-// nvcc main.cu -o app -allow-unsupported-compiler -DDEBUG -O3
+// nvcc main.cu -o app -O3 -allow-unsupported-compiler -DDEBUG
 // ./app
 // -allow-unsupported-compiler - в случае конфликта версий nvcc и cl
 // -DDEBUG                     - режим вывода отладочной информации
+// --- Profiling ---
+// nvprof ./app
+// nvprof ./app --print-gpu-trace
+// nvprof --analysis-metrics -o app.nvprof ./app --benchmark -numdevices=1 -i=1
 
 #include <iostream>
 #include <fstream>
@@ -23,6 +27,8 @@ struct TestConfig
     // Количество потоков GPU
     unsigned gpuThreadsMin = 1;
     unsigned gpuThreadsMax = 50;
+    // Количество повторов
+    unsigned iterNum = 10;    
 };
 
 // Статистические параметры результатов эксперимента
@@ -85,8 +91,8 @@ void StartTestVectorGpuSum(TestConfig conf)
             for(int threadsNum = conf.gpuThreadsMin; threadsNum <= conf.gpuThreadsMax; threadsNum++)
             {
                 std::cout << threadsNum << "; ";
-                std::vector<FuncResultScalar<double>> results{100};
-                for(int iter = 0; iter < 100; iter++)
+                std::vector<FuncResultScalar<double>> results{conf.iterNum};
+                for(int iter = 0; iter < conf.iterNum; iter++)
                 {
                     auto res = v1.Sum(blocksNum, threadsNum);
                     results[iter] = res;
