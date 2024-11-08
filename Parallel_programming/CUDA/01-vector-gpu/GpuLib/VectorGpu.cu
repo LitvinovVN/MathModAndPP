@@ -1,35 +1,37 @@
 #pragma once
 
 #include <iostream>
-#include "CudaHelper.cu"
 #include <chrono>
 
-/// @brief Структура для хранения результата запуска 
-template<typename T = double>
-struct FuncResultScalar
-{
-    // Статус выполнения функции
-    bool Status = true;
-    // Результат функции
-    T Result;
-    // Время выполнения функции, мкс
-    long long Time_mks;
+#include "CudaHelper.cu"
+#include "FuncResultScalar.cpp"
+#include "VectorCpu.cpp"
 
-    void Print()
+// cuda-ядро для вывода одномерного массива в консоль
+template<typename T>
+__global__
+void print_kernel(T* data, size_t indStart, size_t length)
+{
+    int th_i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (th_i == 0)
     {
-        std::cout << "["   << Status 
-                  << ", "  << Result
-                  << ", "  << Time_mks
-                  << " mks]"   << std::endl;
-    }    
-};
+        //printf("GPU: print_kernel() vectorGpu._size = %d\n", vectorGpu.GetSize());
+        T* _dev_data_pointer = data;
+        auto indEnd = indStart + length - 1;
+        /*if(indEnd > vectorGpu.GetSize())
+        {
+            printf("Error! indEnd > vectorGpu.GetSize()\n");
+            return;
+        }*/
 
-std::ostream& operator<<(std::ostream &stream, const FuncResultScalar<> &funcResultScalar)
-{
-    return stream   << "["       << funcResultScalar.Status 
-                    << ", "      << funcResultScalar.Result
-                    << ", "      << funcResultScalar.Time_mks
-                    << " mks]";
+        printf("[%d..", (long)indStart);
+        printf("%d]: ", (long)indEnd);
+        for(size_t i = indStart; i <= indEnd; i++)
+        {
+            printf("%f ", _dev_data_pointer[i]);
+        }
+        printf("\n");
+    }
 }
 
 /// @brief Вектор (в GPU) 
@@ -66,6 +68,42 @@ public:
         }
 
         //std::cout << "VectorGpu(size_t size): Device memory for VectorGpu allocated!\n";
+    }
+
+    VectorGpu(VectorCpu<T> vecCpu) : _size(vecCpu.GetSize())
+    {
+        std::cout << "VectorGpu(VectorCpu<T> vecCpu) constructor started...\n";
+
+        if (_size == 0)
+        {
+            std::string mes = "Cannot initialize vector of _size = 0";
+            //std::cerr << mes << std::endl;
+            throw std::logic_error(mes);
+        }
+
+        cudaError_t cudaResult = cudaMalloc(&_dev_data, _size*sizeof(T));
+        if (cudaResult != cudaSuccess)
+        {
+            std::string msg("Could not allocate device memory for VectorGpu: ");
+            msg += cudaGetErrorString(cudaResult);
+            throw std::runtime_error(msg);
+        }
+
+        std::cout << "VectorGpu(VectorCpu<T> vecCpu): Device memory for VectorGpu allocated!\n";
+    
+        // Копируем данные в видеопамять
+        cudaResult = cudaMemcpy(_dev_data, vecCpu.Get_data_pointer(), _size*sizeof(T), cudaMemcpyHostToDevice);
+        if (cudaResult != cudaSuccess)
+        {
+            std::string msg("Could not copy data from RAM to device memory: ");
+            msg += cudaGetErrorString(cudaResult);
+            throw std::runtime_error(msg);
+        }
+        //std::cout << "cudaMemCpy OK!\n";
+
+        // Устанавливаем флаг инициализации вектора
+        _isInitialized = true;
+    
     }
 
     ~VectorGpu()
@@ -199,4 +237,9 @@ public:
         _isInitialized = true;
     }
 
+    void Print()
+    {
+        print_kernel<T><<<1,1>>>(_dev_data, 0, _size);
+        cudaDeviceSynchronize();
+    }
 };
