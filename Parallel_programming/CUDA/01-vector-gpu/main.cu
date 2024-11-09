@@ -195,12 +195,71 @@ void StartTestVectorGpuSum(TestConfig conf)
     }
 }
 
+template<typename T>
+void func(T var)
+{    
+    std::cout << var << std::endl;
+}
+
+template<typename T>
+void func2(T* var)
+{    
+    std::cout << *var << std::endl;
+    *var += *var;
+    std::cout << *var << std::endl;
+}
+
+template<typename T>
+void func3(T& var)
+{    
+    std::cout << var << std::endl;
+    var += var;
+    std::cout << var << std::endl;
+}
+
 ////////////////////////////////
 int main()
 {   
 
     try
     {
+        double val = 1.234;        
+        std::thread t1(
+            [] (auto val)
+            {
+                func(val);
+            },
+            val // Передаём параметры для лямбда-функции в потоке
+        );
+        t1.join();        
+        getchar();
+
+        double val2 = 12.34;
+        std::cout << "before: val2 = " << val2 << std::endl;       
+        std::thread t2(
+            [] (auto val2)
+            {
+                func2(&val2);
+            },
+            std::ref(val2) // Передаём параметры для лямбда-функции в потоке
+        );
+        t2.join();
+        std::cout << "after: val2 = " << val2 << std::endl;
+        getchar();
+
+        double val3 = 123.4;
+        std::cout << "before: val3 = " << val3 << std::endl;       
+        std::thread t3(
+            [] (auto& val3)
+            {
+                func3(val3);
+            },
+            std::ref(val3) // Передаём параметры для лямбда-функции в потоке
+        );
+        t3.join();
+        std::cout << "after: val3 = " << val3 << std::endl;
+        getchar();
+
         /*VectorCpu<float> vcpu(15);
         vcpu.InitVectorByRange(-6.7, 5.9);
         vcpu.Print();

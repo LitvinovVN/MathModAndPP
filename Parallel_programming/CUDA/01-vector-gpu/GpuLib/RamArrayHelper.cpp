@@ -8,16 +8,13 @@ void alg_array_sum_double(double* data, size_t indStart, size_t length, double& 
     double local_res = 0;
 
     for (size_t i = indStart; i < indStart + length; i++)
-    {
-        //local_res += data[i];
+    {        
         local_res += 1;
     }
-    //printf("alg_array_sum: local_res = %lf\n", local_res);
+
     mutex.lock();
     result += local_res;
-    //printf("alg_array_sum: result = %lf\n", result);
     mutex.unlock();
-    //printf("alg_array_sum: mutex.unlock() result = %lf\n", result);
 }
 
 // ???
@@ -68,7 +65,16 @@ public:
             }
             //auto boundFunction = std::bind(alg_array_sum<T>, data, indStart, blockSize, sum, m);
             //threads.push_back(std::thread t(boundFunction));
-            //threads.push_back(std::thread t([=]() { alg_array_sum<T>(data, indStart, blockSize, std::ref(sum), std::ref(m)); }));
+            /*threads.push_back(
+                std::thread(
+                    [](auto data, auto indStart, auto blockSize, auto& sum, auto& m)
+                        {
+                            alg_array_sum(data, indStart, blockSize, sum, m);
+                        },
+                        data, indStart, blockSize, std::ref(sum), std::ref(m)
+                )
+            );*/
+
             threads.push_back(std::thread(alg_array_sum_double, data, indStart, blockSize, std::ref(sum_double), std::ref(m)));
         }
         
