@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RamArrayHelper.cpp"
+
 #include "FuncResultScalar.cpp"
 #include "CalculationStatistics.cpp"
 #include "TestConfig.cpp"

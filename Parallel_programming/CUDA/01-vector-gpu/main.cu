@@ -14,10 +14,128 @@
 #include <string>
 #include "GpuLib/_include.cu"
 
+/*void __cpuid(int CPUInfo[4], int InfoType)
+{
+		try
+		{
+			__asm
+			{
+				mov    esi, CPUInfo
+				mov    eax, InfoType
+				xor    ecx, ecx
+				cpuid
+				mov    dword ptr[esi + 0], eax
+				mov    dword ptr[esi + 4], ebx
+				mov    dword ptr[esi + 8], ecx
+				mov    dword ptr[esi + 12], edx
+			}
+		}
+		catch (...) { return; }
+}
+
+void GetCpu(std::string& output)
+{
+		try
+		{
+			int CPUInfo[4] = { -1 };
+			__cpuid(CPUInfo, 0x80000000);
+			unsigned int nExIds = CPUInfo[0];
+
+			char CPUBrandString[0x40] = { 0 };
+			for (unsigned int i = 0x80000000; i <= nExIds; ++i)
+			{
+				__cpuid(CPUInfo, i);
+				if (i == 0x80000002)
+				{
+					memcpy(CPUBrandString,
+						CPUInfo,
+						sizeof(CPUInfo));
+				}
+				else if (i == 0x80000003)
+				{
+					memcpy(CPUBrandString + 16,
+						CPUInfo,
+						sizeof(CPUInfo));
+				}
+				else if (i == 0x80000004)
+				{
+					memcpy(CPUBrandString + 32, CPUInfo, sizeof(CPUInfo));
+				}
+			}
+
+			output = CPUBrandString;
+		}
+		catch (...) { return; }
+}*/
+
+// Выполняет набор тестов производительности для VectorCpu::Sum
+void StartTestVectorCpuSum(TestConfig conf)
+{
+    std::string fileName = conf.dir + "/" + conf.fileCaption + "-CPU.txt";
+    std::cout << "Opening " << fileName << "...";
+    std::ofstream out(fileName);
+    if(!out.is_open())
+    {
+        throw std::runtime_error("File " + fileName + " not created!");
+    }    
+    std::cout << "OK" << std::endl;
+
+    out << "--- StartTestVectorCpuSum Report ---" << std::endl;
+    
+    std::cout << "CPU specification:" << std::endl;
+    //std::string str = "";
+    //GetCpu(str); //Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz -----
+    //std::cout << str << std::endl;
+
+    std::cout << "Starting test Sum..." << std::endl;
+    for(auto vectorLength = conf.lengthStart;
+            vectorLength <=conf.lengthEnd;
+            (conf.lengthStep == 0) ? vectorLength *= conf.lengthMult : vectorLength += conf.lengthStep )
+    {        
+
+        out << "VectorCpu._size = " << vectorLength << std::endl;
+
+        std::cout << "Init VectorCPU: " << vectorLength << "...";
+        VectorCpu<> v1{vectorLength};        
+        v1.InitVectorByScalar(0.001);
+        //getchar();
+        //v1.Print(); getchar();
+        std::cout << "OK" << std::endl;
+
+        out << "threadsNum; avg, mks; minValue; median; percentile_95; maxValue; stdDev" << std::endl;
+       
+        for(int threadsNum = conf.cpuThreadsMin; threadsNum <= conf.cpuThreadsMax; threadsNum++)
+        {
+            std::cout << "threadsNum = " << threadsNum << "; ";
+            std::vector<FuncResultScalar<double>> results{conf.iterNum};
+            for(int iter = 0; iter < conf.iterNum; iter++)
+            {
+                auto res = v1.Sum(threadsNum);
+                results[iter] = res;
+                //std::cout << results[iter].Status << " | " << results[iter].Result << " | " << results[iter].Time_mks << std::endl;
+            }
+            CalculationStatistics stat(results);
+
+            //out << blocksNum << "; " << threadsNum << "; " << results[0].Status << "; " << results[0].Result << "; "<< results[0].Time_mks << std::endl;
+            out     << threadsNum << "; "
+                    << stat.avg << "; " 
+                    << stat.minValue << "; "
+                    << stat.median << "; "
+                    << stat.percentile_95 << "; "
+                    << stat.maxValue << "; "
+                    << stat.stdDev << std::endl;
+        }
+        std::cout << std::endl;
+        
+        v1.Clear_data();
+    }
+    out.close();
+}
+
 // Выполняет набор тестов производительности для VectorGpu::Sum
 void StartTestVectorGpuSum(TestConfig conf)
 {
-    std::string fileName = conf.dir + "/" + conf.fileCaption + ".txt";
+    std::string fileName = conf.dir + "/" + conf.fileCaption + "-GPU.txt";
     std::cout << "Opening " << fileName << "...";
     std::ofstream out(fileName);
     if(!out.is_open())
@@ -90,6 +208,9 @@ int main()
         vgpu.Print();*/
         
         //getchar();
+
+        // Запускаем тесты функции суммирования на CPU
+        StartTestVectorCpuSum(TestConfig{});
 
         // Запускаем тесты функции суммирования на GPU
         StartTestVectorGpuSum(TestConfig{});

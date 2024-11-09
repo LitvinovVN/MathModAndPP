@@ -62,8 +62,8 @@ public:
         if(!CheckState())
             throw std::logic_error("Vector is not initialized!");      
 
-        //T result = RamArrayHelper<T>::Sum(_data, _size, threadsNum); 
-        T result = (T)0;      
+        T result = RamArrayHelper<T>::Sum(_data, _size, threadsNum); 
+        //T result = (T)0;      
 
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
         //std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[us]" << std::endl;

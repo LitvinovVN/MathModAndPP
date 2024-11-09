@@ -11,6 +11,9 @@ struct TestConfig
     size_t lengthEnd   = 2000000;
     size_t lengthStep  = 0;
     size_t lengthMult  = 2;
+    // Количество потоков CPU
+    unsigned cpuThreadsMin = 1;
+    unsigned cpuThreadsMax = 8;
     // Количество блоков GPU
     unsigned gpuBlocksMin = 1;
     unsigned gpuBlocksMax = 20;
