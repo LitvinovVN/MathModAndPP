@@ -14,60 +14,6 @@
 #include <string>
 #include "GpuLib/_include.cu"
 
-/*void __cpuid(int CPUInfo[4], int InfoType)
-{
-		try
-		{
-			__asm
-			{
-				mov    esi, CPUInfo
-				mov    eax, InfoType
-				xor    ecx, ecx
-				cpuid
-				mov    dword ptr[esi + 0], eax
-				mov    dword ptr[esi + 4], ebx
-				mov    dword ptr[esi + 8], ecx
-				mov    dword ptr[esi + 12], edx
-			}
-		}
-		catch (...) { return; }
-}
-
-void GetCpu(std::string& output)
-{
-		try
-		{
-			int CPUInfo[4] = { -1 };
-			__cpuid(CPUInfo, 0x80000000);
-			unsigned int nExIds = CPUInfo[0];
-
-			char CPUBrandString[0x40] = { 0 };
-			for (unsigned int i = 0x80000000; i <= nExIds; ++i)
-			{
-				__cpuid(CPUInfo, i);
-				if (i == 0x80000002)
-				{
-					memcpy(CPUBrandString,
-						CPUInfo,
-						sizeof(CPUInfo));
-				}
-				else if (i == 0x80000003)
-				{
-					memcpy(CPUBrandString + 16,
-						CPUInfo,
-						sizeof(CPUInfo));
-				}
-				else if (i == 0x80000004)
-				{
-					memcpy(CPUBrandString + 32, CPUInfo, sizeof(CPUInfo));
-				}
-			}
-
-			output = CPUBrandString;
-		}
-		catch (...) { return; }
-}*/
-
 // Выполняет набор тестов производительности для VectorCpu::Sum
 void StartTestVectorCpuSum(TestConfig conf)
 {
@@ -260,13 +206,13 @@ int main()
         std::cout << "after: val3 = " << val3 << std::endl;
         getchar();
 
-        /*VectorCpu<float> vcpu(15);
+        VectorCpu<float> vcpu(15);
         vcpu.InitVectorByRange(-6.7, 5.9);
         vcpu.Print();
         VectorGpu<float> vgpu(vcpu);
-        vgpu.Print();*/
+        vgpu.Print();
         
-        //getchar();
+        getchar();
 
         // Запускаем тесты функции суммирования на CPU
         StartTestVectorCpuSum(TestConfig{});
