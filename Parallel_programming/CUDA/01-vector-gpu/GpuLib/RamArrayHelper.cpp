@@ -18,7 +18,7 @@ void alg_array_sum_double(double* data, size_t indStart, size_t length, double& 
 }
 
 // ???
-template<typename T = double>
+template<typename T>
 void alg_array_sum(T* data, size_t indStart, size_t length, T& result, std::mutex& mutex)
 {
     T local_res = 0;
@@ -83,6 +83,17 @@ public:
             if (th.joinable())
                 th.join();                
         }
+
+        /*double sum_t1 = 0;
+        std::thread t1(
+            [](auto data_arr, size_t indStart, size_t blockSize, auto& sum, auto& m)
+                {
+                    alg_array_sum(data_arr, indStart, blockSize, sum, m);
+                },
+                data, 0, size, std::ref(sum), std::ref(m)            
+        );
+        t1.join();
+        std::cout << "sum_t1 = " << sum_t1 << std::endl;*/
 
         //double sum_double = 0;
         //std::thread t1(alg_array_sum_double, data, 0, size, std::ref(sum_double), std::ref(m));

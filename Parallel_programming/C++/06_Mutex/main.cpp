@@ -9,7 +9,8 @@
 #include <vector>
 #include <queue>
 
-class threadSafe_queue {
+class threadSafe_queue
+{
 
     std::queue<int> rawQueue; // shared structure between all threads
     std::mutex m; // rawQueue's red door
@@ -27,17 +28,17 @@ public:
         m.unlock();
         // other threads can lock the mutex now
         return front_value;
-    };
+    }
 
     void push(int val) {
         m.lock();
         rawQueue.push(val);
         m.unlock();
-    };
+    }
 
 };
 
-void main()
+int main()
 {
     std::mutex door;    // mutex declaration
     std::vector<int> v; // shared data
@@ -49,4 +50,6 @@ void main()
      */
     /*-----------------------*/
     door.unlock();
+
+    return 1;
 }

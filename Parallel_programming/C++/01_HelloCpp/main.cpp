@@ -7,7 +7,7 @@
 
 void cpp_hello()                 // определяем функцию cpp_hello
 {
-    std::cout << "Hello World!"; // выводим строку на консоль
+    std::cout << "Hello World!" << std::endl; // выводим строку на консоль
 }
 
 int main()                      // определяем функцию main
