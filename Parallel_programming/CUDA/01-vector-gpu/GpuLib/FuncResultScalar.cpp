@@ -4,7 +4,7 @@
 #include <vector>
 
 /// @brief Структура для хранения результата запуска 
-template<typename T = double>
+template<typename T>
 struct FuncResultScalar
 {
     // Статус выполнения функции
@@ -23,7 +23,8 @@ struct FuncResultScalar
     }    
 };
 
-std::ostream& operator<<(std::ostream &stream, const FuncResultScalar<> &funcResultScalar)
+template<typename T>
+std::ostream& operator<<(std::ostream &stream, const FuncResultScalar<T> &funcResultScalar)
 {
     return stream   << "["       << funcResultScalar.Status 
                     << ", "      << funcResultScalar.Result
@@ -31,7 +32,8 @@ std::ostream& operator<<(std::ostream &stream, const FuncResultScalar<> &funcRes
                     << " mks]";
 }
 
-bool compare(const FuncResultScalar<double>& left, const FuncResultScalar<double>& right) 
+template<typename T>
+bool compare(const FuncResultScalar<T>& left, const FuncResultScalar<T>& right) 
 { 
     return left.Time_mks < right.Time_mks; 
 }

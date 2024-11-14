@@ -194,7 +194,7 @@ int main()
         getchar();
 
         double val3 = 123.4;
-        std::cout << "before: val3 = " << val3 << std::endl;       
+        std::cout << "before: val3 = " << val3 << std::endl;
         std::thread t3(
             [] (auto& val3)
             {

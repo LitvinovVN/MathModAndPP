@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include "FuncResultScalar.cpp"
 
 // Статистические параметры результатов эксперимента
 struct CalculationStatistics
@@ -39,7 +40,7 @@ struct CalculationStatistics
 
         //print(std::string("---Before sort---"), results);
         // Сортируем results
-        std::sort(results.begin(), results.end(), compare);
+        std::sort(results.begin(), results.end(), compare<double>);
         //print(std::string("---After sort---"), results);        
         //std::cout << "----------" << std::endl;
 
