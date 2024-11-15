@@ -1,7 +1,7 @@
 // Задача 03. Выполнить замер времени исполнения функции void thread_function()
 // Источник: https://en.cppreference.com/w/cpp/thread/sleep_for
 // Запуск:
-// g++ main.cpp -std=c++11 -pthread -o app
+// g++ main.cpp  -o app
 // nvcc main.cpp -o app
 // ./app
 

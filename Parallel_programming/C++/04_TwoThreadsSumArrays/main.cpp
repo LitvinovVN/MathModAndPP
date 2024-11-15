@@ -1,7 +1,7 @@
 // Задача 03. Выполнить замер времени исполнения функции void thread_function()
 // Источник: https://en.cppreference.com/w/cpp/thread/sleep_for
 // Запуск:
-// g++ main.cpp -std=c++11 -pthread -o app
+// g++ main.cpp  -o app
 // nvcc main.cpp -o app
 // ./app
 
@@ -23,7 +23,7 @@ void thread_function(double* a1, double* a2, double* a, int size)
 int main()
 {
     // 1. Создаём массивы данных
-    long N = 10000000;
+    long N = 50000000;
     double* arr_a1 = new double[N];
     double* arr_b1 = new double[N];
     double* arr_a2 = new double[N];
@@ -44,9 +44,9 @@ int main()
     auto start = std::chrono::high_resolution_clock::now();
 
     std::thread t1(&thread_function, arr_a1, arr_a2, arr_a, N);
-    //t1.join();// Закомментировано - параллельно, Раскомментировано - последовательно
+    t1.join();// Закомментировано - параллельно, Раскомментировано - последовательно
     std::thread t2(&thread_function, arr_b1, arr_b2, arr_b, N);
-    t1.join();// Раскомментировано - параллельно, Закомментировано - последовательно
+    //t1.join();// Раскомментировано - параллельно, Закомментировано - последовательно
     t2.join(); 
     std::cout << "Main thread: Threads joined\n";
 

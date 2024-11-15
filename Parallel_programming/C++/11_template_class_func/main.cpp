@@ -3,10 +3,9 @@
 #include <mutex>
 #include <vector>
 #include <chrono>
+#include <functional>
 
 using namespace std::chrono;
-
-std::mutex m;
 
 template<typename T>
 struct FuncResult
@@ -28,7 +27,7 @@ struct FuncResult
 
 template<typename T>
 inline
-void thread_sum(T* data, size_t indStart, size_t indEnd, T& sum)
+void thread_sum(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
 {
     T local_sum = 0;
 
@@ -37,27 +36,30 @@ void thread_sum(T* data, size_t indStart, size_t indEnd, T& sum)
         local_sum += data[i];
     }
     
-    m.lock();
-    /*std::cout << "thread " << std::this_thread::get_id()
-        << "| local_sum = " << local_sum
-        << std::endl;*/
-    sum += local_sum;
-    m.unlock();
+    {
+        std::lock_guard<std::mutex> lock(m);
+        //m.lock();
+        /*std::cout << "thread " << std::this_thread::get_id()
+            << "| local_sum = " << local_sum
+            << std::endl;*/
+        sum += local_sum;
+        //m.unlock();
+    }
 }
 
 template<typename T>
-class Vec
+class VectorRam
 {
 public:
     T* data;
     size_t size;
 
-    Vec(size_t size) : size(size)
+    VectorRam(size_t size) : size(size)
     {
         data = new T[size];
     }
 
-    ~Vec()
+    ~VectorRam()
     {
         delete[] data;
     }
@@ -97,6 +99,7 @@ public:
 
     T Sum(size_t indStart, size_t indEnd, unsigned threadsNum)
     {
+        std::mutex m;
         T sum = 0;
         size_t blockSize = indEnd - indStart + 1;
         std::vector<std::thread> threads;
@@ -108,7 +111,7 @@ public:
             if(i == threadsNum - 1)
                 thIndEnd = indEnd;
 
-            threads.push_back(std::thread(thread_sum<T>, data, thIndStart, thIndEnd, std::ref(sum)));
+            threads.push_back(std::thread(thread_sum<T>, data, thIndStart, thIndEnd, std::ref(sum), std::ref(m)));
         }
         
         for(auto& th : threads)
@@ -122,26 +125,6 @@ public:
     T Sum(unsigned threadsNum)
     {
         return Sum(0, size - 1, threadsNum);
-        /*T sum = 0;
-
-        std::vector<std::thread> threads;
-        size_t blockSize = size / threadsNum;
-        for (size_t i = 0; i < threadsNum; i++)
-        {            
-            size_t indStart = i * blockSize;
-            size_t indEnd = indStart + blockSize - 1;
-            if(i == threadsNum - 1)
-                indEnd = size - 1;
-
-            threads.push_back(std::thread(thread_sum<T>, data, indStart, indEnd, std::ref(sum)));
-        }
-        
-        for(auto& th : threads)
-        {
-            th.join();
-        }
-
-        return sum;*/
     }
 
     FuncResult<T> SumFR(size_t indStart, size_t indEnd)
@@ -159,14 +142,6 @@ public:
     FuncResult<T> SumFR()
     {
         return SumFR(0, size - 1);
-        /*auto start = high_resolution_clock::now();
-        T result = Sum();
-        auto stop = high_resolution_clock::now();
-
-        auto duration = duration_cast<microseconds>(stop - start);        
-        auto t = duration.count();
-
-        return FuncResult<T>(result, t);*/
     }
 
     FuncResult<T> SumFR(size_t indStart, size_t indEnd, unsigned threadsNum)
@@ -184,23 +159,17 @@ public:
     FuncResult<T> SumFR(unsigned threadsNum)
     {
         return SumFR(0, size, threadsNum);
-        /*auto start = high_resolution_clock::now();
-        T result = Sum(threadsNum);
-        auto stop = high_resolution_clock::now();
-
-        auto duration = duration_cast<microseconds>(stop - start);        
-        auto t = duration.count();
-
-        return FuncResult<T>(result, t);*/
     }
 };
+
+
 
 int main()
 {
     unsigned Nthreads = 4;
-    size_t size = 100000000;
+    size_t size = 500000000;
     double elVal = 0.001;
-    Vec<double> v(size);
+    VectorRam<double> v(size);
     v.InitByVal(elVal);
     //v.PrintToConsole();
 
@@ -241,9 +210,14 @@ int main()
     auto S = (double)sumFR._time / sumFR_par._time;
     std::cout << "S = " << S << std::endl;
 
+    auto S_half = (double)sumFR_half._time / sumFR_par_half._time;
+    std::cout << "S_half = " << S_half << std::endl;
     ///////////////////////////////////////////////////
 
     auto E = S / Nthreads;
     std::cout << "E = " << E << std::endl;
+
+    auto E_half = S_half / Nthreads;
+    std::cout << "E_half = " << E_half << std::endl;
     ///////////////////////////////////////////////////
 }
