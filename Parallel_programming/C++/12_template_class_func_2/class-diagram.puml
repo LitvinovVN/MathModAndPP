@@ -1,0 +1,48 @@
+@startuml
+
+title
+ Диаграмма классов
+end title
+
+class ArrayRamHelper<T>
+{
+    +{static} void SumThread(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
+}
+
+struct          FuncResult<T>
+{
+    +T _result;
+    +long long _time;
+
+    +FuncResult(T result, double time)
+    +void Print()
+}
+
+class           VectorRam<T>
+{
+    +T* data
+    +size_t size
+    +VectorRam(size_t size)
+    +~VectorRam()
+    +void InitByVal(T val)
+    +void PrintToConsole()
+    +T Sum(size_t indStart, size_t indEnd)
+    +T Sum()
+    +T Sum(size_t indStart, size_t indEnd, unsigned threadsNum)
+    +T Sum(unsigned threadsNum)
+}
+
+class           VectorRamHelper
+{
+    +{static}FuncResult<T> SumFR(size_t indStart, size_t indEnd)
+    +{static}FuncResult<T> SumFR()
+    +{static}FuncResult<T> SumFR(size_t indStart, size_t indEnd, unsigned threadsNum)
+    +{static}FuncResult<T> SumFR(unsigned threadsNum)
+}
+
+
+
+VectorRamHelper..>FuncResult : <<Create>>
+VectorRam..>ArrayRamHelper : <<Call>>
+
+@enduml
