@@ -34,15 +34,20 @@ class           VectorRam<T>
 
 class           VectorRamHelper
 {
-    +{static}FuncResult<T> SumFR(size_t indStart, size_t indEnd)
-    +{static}FuncResult<T> SumFR()
-    +{static}FuncResult<T> SumFR(size_t indStart, size_t indEnd, unsigned threadsNum)
-    +{static}FuncResult<T> SumFR(unsigned threadsNum)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v, size_t indStart, size_t indEnd)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v, size_t indStart, size_t indEnd, unsigned threadsNum)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v, unsigned threadsNum)
 }
 
+class TestHelper
+{
+    +{static} auto LaunchSum(VectorRam<T>& v)
+}
 
-
+TestHelper..>VectorRamHelper : <<Use>>
 VectorRamHelper..>FuncResult : <<Create>>
+VectorRamHelper..>VectorRam : <<Use>>
 VectorRam..>ArrayRamHelper : <<Call>>
 
 @enduml

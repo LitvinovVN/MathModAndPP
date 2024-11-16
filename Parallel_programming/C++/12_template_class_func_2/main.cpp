@@ -178,16 +178,47 @@ public:
     }
 };
 
+class TestHelper
+{
+public:
+    template<typename T>
+    static auto LaunchSum(VectorRam<T>& v)
+    {
+        std::cout << "-------LaunchSum(T v) Start ------" << std::endl;
+        auto iterNum = 10;
+        std::vector<FuncResult<T>> results;
+        for(unsigned i{0}; i < iterNum; i++)
+        {
+            FuncResult<T> res = VectorRamHelper::Sum(v);
+            //res.Print();
+            results.push_back(res);
+            //results[i].Print();
+        }
+        
+        std::cout << "-------LaunchSum(T v) End --------" << std::endl;
+        return results;
+    }
+};
+
 int main()
 {
+    // 1. Подготовка данных
     unsigned Nthreads = 4;
     size_t size = 100000000;
     double elVal = 0.001;
     VectorRam<double> v(size);
     v.InitByVal(elVal);
     //v.PrintToConsole();
-    auto startingFunc = &VectorRam<double>::PrintToConsole;
     
+    // 2. Запуск тестов и получение массива результатов
+    auto testResults = TestHelper::LaunchSum(v);
+    std::cout << "testResults size = " << testResults.size() << std::endl;
+    testResults[0].Print();
+    testResults[1].Print();
+
+    // 3. Статистическая обработка результатов
+    
+
     std::cout << "sum must be equal " << size * elVal << std::endl;
     auto sum_seq = v.Sum();
     std::cout << "sum_seq = " << sum_seq << std::endl;
