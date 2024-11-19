@@ -9,12 +9,13 @@ class ArrayRamHelper<T>
     +{static} void SumThread(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
 }
 
-struct          FuncResult<T>
+struct FuncResult<T>
 {
-    +T _result;
-    +long long _time;
+    +bool _status
+    +T _result
+    +long long _time
 
-    +FuncResult(T result, double time)
+    +FuncResult(bool status, T result, double time)
     +void Print()
 }
 
@@ -44,6 +45,28 @@ class TestHelper
 {
     +{static} auto LaunchSum(VectorRam<T>& v)
 }
+
+struct CalculationStatistics
+{
+    ' Количество запусков численного эксперимента
+    unsigned numIter;
+    ' Минимальное значение
+    double minValue;
+    ' Максимальное значение
+    double maxValue;
+    ' Среднее арифметическое
+    double avg;
+    ' Медиана
+    double median;
+    ' 95 процентиль
+    double percentile_95;
+    ' Среднеквадратическое отклонение
+    double stdDev;
+
+    CalculationStatistics(std::vector<FuncResult<double>> results)
+    void Print()
+}
+
 
 TestHelper..>VectorRamHelper : <<Use>>
 VectorRamHelper..>FuncResult : <<Create>>

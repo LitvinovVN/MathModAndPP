@@ -4,6 +4,8 @@
 #include <vector>
 #include <chrono>
 #include <functional>
+#include <algorithm>
+#include <cmath>
 
 using namespace std::chrono;
 
@@ -118,11 +120,12 @@ public:
 template<typename T>
 struct FuncResult
 {
+    bool _status;
     T _result;
     long long _time;
 
-    FuncResult(T result, double time) : 
-        _result(result), _time(time)
+    FuncResult(bool status, T result, double time) : 
+        _status(status), _result(result), _time(time)
     { }
 
     void Print()
@@ -139,6 +142,7 @@ public:
     static
     FuncResult<T> Sum(VectorRam<T>& v, size_t indStart, size_t indEnd)
     {
+        bool calcStatus = true;
         auto start = high_resolution_clock::now();
         T result = v.Sum(indStart, indEnd);
         auto stop = high_resolution_clock::now();
@@ -146,7 +150,7 @@ public:
         auto duration = duration_cast<microseconds>(stop - start);        
         auto t = duration.count();
 
-        return FuncResult<T>(result, t);
+        return FuncResult<T>(calcStatus, result, t);
     }
 
     template<typename T>    
@@ -160,6 +164,7 @@ public:
     static
     FuncResult<T> Sum(VectorRam<T>& v, size_t indStart, size_t indEnd, unsigned threadsNum)
     {
+        bool calcStatus = true;
         auto start = high_resolution_clock::now();
         T result = v.Sum(indStart, indEnd, threadsNum);
         auto stop = high_resolution_clock::now();
@@ -167,7 +172,7 @@ public:
         auto duration = duration_cast<microseconds>(stop - start);        
         auto t = duration.count();
 
-        return FuncResult<T>(result, t);
+        return FuncResult<T>(calcStatus, result, t);
     }
 
     template<typename T>
@@ -200,6 +205,99 @@ public:
     }
 };
 
+template<typename T>
+bool compare(const FuncResult<T>& left, const FuncResult<T>& right) 
+{ 
+    return left._time < right._time; 
+}
+
+
+// Статистические параметры результатов эксперимента
+struct CalculationStatistics
+{
+    // Количество запусков численного эксперимента
+    unsigned numIter;
+    // Минимальное значение
+    double minValue;
+    // Максимальное значение
+    double maxValue;
+    // Среднее арифметическое
+    double avg;
+    // Медиана
+    double median;
+    // 95 процентиль
+    double percentile_95;
+    // Среднеквадратическое отклонение
+    double stdDev;
+
+    CalculationStatistics(std::vector<FuncResult<double>> results)
+    {
+        auto resultsSize = results.size();
+        if (resultsSize == 0)
+            throw std::logic_error("results size is 0");
+
+        // Проверяем корректность результатов        
+        for(unsigned i = 1; i < resultsSize; i++)
+        {
+            if(results[i]._status == false)
+                throw std::logic_error("results[i].Status = 0");
+            
+            if( fabs((results[i]._result - results[0]._result) / results[0]._result) > 0.0001 )
+                throw std::logic_error("fabs((results[i]._result - results[0]._result) / results[0].Result) > 0.0001");
+        }
+
+        //print(std::string("---Before sort---"), results);
+        // Сортируем results
+        std::sort(results.begin(), results.end(), compare<double>);
+        //print(std::string("---After sort---"), results);        
+        //std::cout << "----------" << std::endl;
+
+        minValue = results[0]._time;
+        maxValue = results[resultsSize - 1]._time;
+
+        if(resultsSize % 2 == 0)
+        {
+            median = (results[resultsSize / 2 - 1]._time + results[resultsSize / 2]._time)/2;
+        }
+        else
+        {
+            median = results[resultsSize / 2]._time;
+        }
+
+        // Вычисляем среднее арифметическое
+        double sum = 0;
+        for(auto& item : results)
+            sum += item._time;
+        
+        avg = sum / resultsSize;
+
+        // Вычисляем стандартное отклонение
+        double sumSq = 0;
+        for(auto& item : results)
+            sumSq += pow(item._time - avg, 2);
+        
+        stdDev = sqrt(sumSq / resultsSize);
+
+        // Вычисляем 95 перцентиль
+        double rang95 = 0.95*(resultsSize-1) + 1;
+        unsigned rang95okrVniz = (unsigned)floor(rang95);
+        percentile_95 = results[rang95okrVniz-1]._time + (rang95-rang95okrVniz)*(results[rang95okrVniz]._time - results[rang95okrVniz-1]._time);// Доделать
+
+        //Print();
+    }
+
+    void Print()
+    {
+        std::cout   << "minValue: "      << minValue << "; "
+                    << "median: "        << median   << "; "
+                    << "avg: "           << avg      << "; "
+                    << "percentile_95: " << percentile_95   << "; "
+                    << "maxValue: "      << maxValue << "; "                                                            
+                    << "stdDev: "        << stdDev   << "; "
+                    << std::endl;
+    }
+};
+
 int main()
 {
     // 1. Подготовка данных
@@ -213,11 +311,12 @@ int main()
     // 2. Запуск тестов и получение массива результатов
     auto testResults = TestHelper::LaunchSum(v);
     std::cout << "testResults size = " << testResults.size() << std::endl;
-    testResults[0].Print();
-    testResults[1].Print();
+    for(auto& res : testResults)
+        res.Print();
 
     // 3. Статистическая обработка результатов
-    
+    CalculationStatistics stat{testResults};
+    stat.Print();
 
     std::cout << "sum must be equal " << size * elVal << std::endl;
     auto sum_seq = v.Sum();
