@@ -67,6 +67,23 @@ struct CalculationStatistics
     void Print()
 }
 
+struct ParallelCalcIndicators
+{
+    unsigned Nthreads
+    double Smin
+    double Smax
+    double Savg
+    double Smedian
+    double Sperc95
+    double Emin
+    double Emax
+    double Eavg
+    double Emedian
+    double Eperc95
+
+    ParallelCalcIndicators(CalculationStatistics& stat_seq, CalculationStatistics& stat_par, unsigned Nthreads)
+    void Print()
+}
 
 TestHelper..>VectorRamHelper : <<Use>>
 VectorRamHelper..>FuncResult : <<Create>>

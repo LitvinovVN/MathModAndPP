@@ -189,18 +189,32 @@ public:
     template<typename T>
     static auto LaunchSum(VectorRam<T>& v)
     {
-        std::cout << "-------LaunchSum(T v) Start ------" << std::endl;
+        std::cout << "-------LaunchSum(VectorRam<T>& v) Start ------" << std::endl;
         auto iterNum = 10;
         std::vector<FuncResult<T>> results;
         for(unsigned i{0}; i < iterNum; i++)
         {
             FuncResult<T> res = VectorRamHelper::Sum(v);
-            //res.Print();
             results.push_back(res);
-            //results[i].Print();
         }
         
-        std::cout << "-------LaunchSum(T v) End --------" << std::endl;
+        std::cout << "-------LaunchSum(VectorRam<T>& v) End --------" << std::endl;
+        return results;
+    }
+
+    template<typename T>
+    static auto LaunchSum(VectorRam<T>& v, unsigned Nthreads)
+    {
+        std::cout << "-------LaunchSum(VectorRam<T>& v, unsigned Nthreads) Start ------" << std::endl;
+        auto iterNum = 10;
+        std::vector<FuncResult<T>> results;
+        for(unsigned i{0}; i < iterNum; i++)
+        {
+            FuncResult<T> res = VectorRamHelper::Sum(v, Nthreads);
+            results.push_back(res);
+        }
+        
+        std::cout << "-------LaunchSum(VectorRam<T>& v, unsigned Nthreads) End --------" << std::endl;
         return results;
     }
 };
@@ -298,71 +312,92 @@ struct CalculationStatistics
     }
 };
 
+/*
+   Показатели параллельного
+   вычислительного процесса
+   (ускорение, эффективность)
+*/
+struct ParallelCalcIndicators
+{
+    unsigned Nthreads;
+
+    double Smin;
+    double Smax;
+    double Savg;
+    double Smedian;
+    double Sperc95;
+
+    double Emin;
+    double Emax;
+    double Eavg;
+    double Emedian;
+    double Eperc95;
+
+    ParallelCalcIndicators(CalculationStatistics& stat_seq,
+                           CalculationStatistics& stat_par,
+                           unsigned Nthreads) : Nthreads(Nthreads)
+    {
+        Smin = stat_seq.minValue / stat_par.minValue;
+        Smax = stat_seq.maxValue / stat_par.maxValue;
+        Savg = stat_seq.avg / stat_par.avg;
+        Smedian = stat_seq.median / stat_par.median;
+        Sperc95 = stat_seq.percentile_95 / stat_par.percentile_95;
+
+        Emin = Smin / Nthreads;
+        Emax = Smax / Nthreads;
+        Eavg = Savg / Nthreads;
+        Emedian = Smedian / Nthreads;
+        Eperc95 = Sperc95 / Nthreads;
+    }
+
+    void Print()
+    {
+        std::cout << "N threads: " << Nthreads << std::endl;
+
+        std::cout << "Smin: " << Smin << std::endl;
+        std::cout << "Smax: " << Smax << std::endl;
+        std::cout << "Savg: " << Savg << std::endl;
+        std::cout << "Smedian: " << Smedian << std::endl;
+        std::cout << "Sperc95: " << Sperc95 << std::endl;
+
+        std::cout << "Emin: " << Emin << std::endl;
+        std::cout << "Emax: " << Emax << std::endl;
+        std::cout << "Eavg: " << Eavg << std::endl;
+        std::cout << "Emedian: " << Emedian << std::endl;
+        std::cout << "Eperc95: " << Eperc95 << std::endl;
+    }
+};
+
 int main()
 {
     // 1. Подготовка данных
     unsigned Nthreads = 4;
-    size_t size = 100000000;
+    size_t size = 300000000;
     double elVal = 0.001;
     VectorRam<double> v(size);
     v.InitByVal(elVal);
     //v.PrintToConsole();
     
     // 2. Запуск тестов и получение массива результатов
-    auto testResults = TestHelper::LaunchSum(v);
-    std::cout << "testResults size = " << testResults.size() << std::endl;
-    for(auto& res : testResults)
+    // 2.1 Последовательный алгоритм
+    auto testResults_seq = TestHelper::LaunchSum(v);
+    std::cout << "Seq: testResults_seq size = " << testResults_seq.size() << std::endl;
+    for(auto& res : testResults_seq)
+        res.Print();
+    // 2.2 Параллельный алгоритм
+    auto testResults_par = TestHelper::LaunchSum(v, Nthreads);
+    std::cout << "Parallel: testResults size = " << testResults_par.size() << std::endl;
+    for(auto& res : testResults_par)
         res.Print();
 
     // 3. Статистическая обработка результатов
-    CalculationStatistics stat{testResults};
-    stat.Print();
+    CalculationStatistics stat_seq{testResults_seq};
+    stat_seq.Print();
 
-    std::cout << "sum must be equal " << size * elVal << std::endl;
-    auto sum_seq = v.Sum();
-    std::cout << "sum_seq = " << sum_seq << std::endl;
+    CalculationStatistics stat_par{testResults_par};
+    stat_par.Print();
 
-    std::cout << "sum_seq_half must be equal " << (size / 2) * elVal << std::endl;
-    auto sum_seq_half = v.Sum(0, size / 2);
-    std::cout << "sum_seq_half = " << sum_seq_half << std::endl;
-    ///////////////////////////////////////////////////
-
-    auto sum_par = v.Sum(Nthreads);
-    std::cout << "sum_par = " << sum_par << std::endl;
-
-    auto sum_par_half = v.Sum(0, size / 2, Nthreads);
-    std::cout << "sum_par_half = " << sum_par_half << std::endl;
-    ///////////////////////////////////////////////////
-
-    auto sumFR = VectorRamHelper::Sum(v);
-    std::cout << "sumFR: ";
-    sumFR.Print();
-
-    auto sumFR_half = VectorRamHelper::Sum(v, 0, size / 2);
-    std::cout << "sumFR_half: ";
-    sumFR_half.Print();
-    ///////////////////////////////////////////////////
-
-    auto sumFR_par = VectorRamHelper::Sum(v, Nthreads);
-    std::cout << "sumFR_par: ";
-    sumFR_par.Print();
-
-    auto sumFR_par_half = VectorRamHelper::Sum(v, 0, size / 2, Nthreads);
-    std::cout << "sumFR_par_half: ";
-    sumFR_par_half.Print();
-    ///////////////////////////////////////////////////
-
-    auto S = (double)sumFR._time / sumFR_par._time;
-    std::cout << "S = " << S << std::endl;
-
-    auto S_half = (double)sumFR_half._time / sumFR_par_half._time;
-    std::cout << "S_half = " << S_half << std::endl;
-    ///////////////////////////////////////////////////
-
-    auto E = S / Nthreads;
-    std::cout << "E = " << E << std::endl;
-
-    auto E_half = S_half / Nthreads;
-    std::cout << "E_half = " << E_half << std::endl;
-    ///////////////////////////////////////////////////
+    // 4. Вычисляем ускорение и эффективность
+    ParallelCalcIndicators parallelCalcIndicators(stat_seq, stat_par, Nthreads);
+    parallelCalcIndicators.Print();
 }
