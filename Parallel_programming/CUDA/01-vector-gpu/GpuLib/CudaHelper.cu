@@ -13,7 +13,7 @@ __global__ void kernel_sum(T* dev_arr, size_t length, T* dev_block_sum, T* resul
     const int tid = threadIdx.x + blockDim.x * blockIdx.x;
     //printf("\nkernel_sum: tid = %ld\n", tid);    
     const int number_of_threads = gridDim.x * blockDim.x;
-    int n_elem_per_thread = length / (gridDim.x * blockDim.x);
+    int n_elem_per_thread = length / number_of_threads;
         
     #ifdef DEBUG
     if(tid == 0)

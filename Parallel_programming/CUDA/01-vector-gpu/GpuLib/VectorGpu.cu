@@ -129,10 +129,10 @@ public:
     /// @brief Возвращает сумму элементов вектора
     FuncResultScalar<T> Sum(unsigned blocksNum, unsigned threadsNum)
     {
-        std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-
         if(!CheckState())
-            throw std::logic_error("Vector is not initialized!");      
+            throw std::logic_error("Vector is not initialized!");   
+        
+        std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();   
 
         T result = CudaHelper<T>::Sum(_dev_data, _size, blocksNum, threadsNum);       
 
