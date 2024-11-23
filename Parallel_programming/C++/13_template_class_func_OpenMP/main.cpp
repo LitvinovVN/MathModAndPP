@@ -7,12 +7,40 @@
 #include <algorithm>
 #include <cmath>
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
+
 using namespace std::chrono;
 
-template<typename T>
-class ArrayRamHelper
+struct ArrayRamHelper
 {
-public:
+    ////////////////////////// Суммирование элементов массива (начало) /////////////////////////////
+
+    ///// Последовательное суммирование /////
+    template<typename T>
+    static T Sum(T* data, size_t indStart, size_t indEnd)
+    {
+        T result = 0;
+        for (size_t i = indStart; i <= indEnd; i++)
+        {
+            result += data[i];
+        }
+        return result;
+    }
+
+    template<typename T>
+    static T Sum(T* data, size_t size)
+    {
+        T result = Sum(data, 0, size-1);
+        return result;
+    }
+    ///////////////////////////////////////////////
+
+    ///// Суммирование с помощью std::thread //////
+    // Функция для исполнения потоком std::thread
+    template<typename T>
     static void SumThread(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
     {
         T local_sum = 0;
@@ -32,6 +60,67 @@ public:
             //m.unlock();
         }
     }
+
+    template<typename T>
+    static T Sum(T* data, size_t indStart, size_t indEnd, unsigned threadsNum)
+    {
+        std::mutex m;
+        T sum = 0;
+        size_t blockSize = indEnd - indStart + 1;
+        std::vector<std::thread> threads;
+        size_t thBlockSize = blockSize / threadsNum;
+        for (size_t i = 0; i < threadsNum; i++)
+        {            
+            size_t thIndStart = i * thBlockSize;
+            size_t thIndEnd = thIndStart + thBlockSize - 1;
+            if(i == threadsNum - 1)
+                thIndEnd = indEnd;
+
+            threads.push_back(std::thread(SumThread<T>, data, thIndStart, thIndEnd, std::ref(sum), std::ref(m)));
+        }
+        
+        for(auto& th : threads)
+        {
+            th.join();
+        }
+
+        return sum;
+    }
+
+    template<typename T>
+    static T Sum(T* data, size_t size, unsigned threadsNum)
+    {
+        return Sum(data, 0, size - 1, threadsNum);
+    }
+    ///////////////////////////////////////////////
+
+    ///// Суммирование с помошью OpenMP /////
+    template<typename T>
+    static T SumOpenMP(T* data, size_t indStart, size_t indEnd, unsigned threadsNum)
+    {
+        #ifdef _OPENMP
+        omp_set_num_threads(threadsNum);
+        T sum = 0;
+        #pragma omp parallel for reduction(+:sum)
+        for (size_t i = indStart; i <= indEnd; i++)
+        {
+            sum += data[i];
+        }
+        return sum;
+        #else
+            throw std::runtime_error("OpenMP not supported!");
+        #endif
+    }
+
+    template<typename T>
+    static T SumOpenMP(T* data, size_t size, unsigned threadsNum)
+    {
+        return SumOpenMP(data, 0, size - 1, threadsNum);
+    }
+    ////////////////////////// Суммирование элементов массива (конец) /////////////////////////////
+
+    /*  ---   Другие алгоритмы   ---  */
+
 };
 
 template<typename T>
@@ -68,61 +157,15 @@ public:
         std::cout << std::endl;     
     }
 
-    T Sum(size_t indStart, size_t indEnd)
-    {
-        T result = 0;
-        for (size_t i = indStart; i <= indEnd; i++)
-        {
-            result += data[i];
-        }
-        return result;
-    }
-
-    T Sum()
-    {
-        T result = Sum(0, size-1);
-        return result;
-    }
-
-    T Sum(size_t indStart, size_t indEnd, unsigned threadsNum)
-    {
-        std::mutex m;
-        T sum = 0;
-        size_t blockSize = indEnd - indStart + 1;
-        std::vector<std::thread> threads;
-        size_t thBlockSize = blockSize / threadsNum;
-        for (size_t i = 0; i < threadsNum; i++)
-        {            
-            size_t thIndStart = i * thBlockSize;
-            size_t thIndEnd = thIndStart + thBlockSize - 1;
-            if(i == threadsNum - 1)
-                thIndEnd = indEnd;
-
-            threads.push_back(std::thread(ArrayRamHelper<T>::SumThread, data, thIndStart, thIndEnd, std::ref(sum), std::ref(m)));
-        }
-        
-        for(auto& th : threads)
-        {
-            th.join();
-        }
-
-        return sum;
-    }
-
-    T Sum(unsigned threadsNum)
-    {
-        return Sum(0, size - 1, threadsNum);
-    }
-
 };
 
 
 template<typename T>
 struct FuncResult
 {
-    bool _status;
-    T _result;
-    long long _time;
+    bool        _status;
+    T           _result;
+    long long   _time;
 
     FuncResult(bool status, T result, double time) : 
         _status(status), _result(result), _time(time)
@@ -132,6 +175,11 @@ struct FuncResult
     {
         std::cout << "[val: " << _result
                   << "; time: " << _time << "]" << std::endl;
+    }
+    
+    static bool compare(const FuncResult<T>& left, const FuncResult<T>& right) 
+    { 
+        return left._time < right._time; 
     }
 };
 
@@ -144,7 +192,7 @@ public:
     {
         bool calcStatus = true;
         auto start = high_resolution_clock::now();
-        T result = v.Sum(indStart, indEnd);
+        T result = ArrayRamHelper::Sum(v.data, indStart, indEnd);
         auto stop = high_resolution_clock::now();
 
         auto duration = duration_cast<microseconds>(stop - start);        
@@ -166,7 +214,7 @@ public:
     {
         bool calcStatus = true;
         auto start = high_resolution_clock::now();
-        T result = v.Sum(indStart, indEnd, threadsNum);
+        T result = ArrayRamHelper::Sum(v.data, indStart, indEnd, threadsNum);
         auto stop = high_resolution_clock::now();
 
         auto duration = duration_cast<microseconds>(stop - start);        
@@ -179,7 +227,30 @@ public:
     static
     FuncResult<T> Sum(VectorRam<T>& v, unsigned threadsNum)
     {
-        return Sum(v, 0, v.size, threadsNum);
+        return Sum(v, 0, v.size - 1, threadsNum);
+    }
+
+    /////////////////// OpenMP ////////////////////
+    template<typename T>
+    static
+    FuncResult<T> SumOpenMP(VectorRam<T>& v, size_t indStart, size_t indEnd, unsigned threadsNum)
+    {
+        bool calcStatus = true;
+        auto start = high_resolution_clock::now();
+        T result = ArrayRamHelper::SumOpenMP(v.data, indStart, indEnd, threadsNum);
+        auto stop = high_resolution_clock::now();
+
+        auto duration = duration_cast<microseconds>(stop - start);        
+        auto t = duration.count();
+
+        return FuncResult<T>(calcStatus, result, t);
+    }
+
+    template<typename T>
+    static
+    FuncResult<T> SumOpenMP(VectorRam<T>& v, unsigned threadsNum)
+    {
+        return SumOpenMP(v, 0, v.size - 1, threadsNum);
     }
 };
 
@@ -217,13 +288,29 @@ public:
         std::cout << "-------LaunchSum(VectorRam<T>& v, unsigned Nthreads) End --------" << std::endl;
         return results;
     }
+
+    template<typename T>
+    static auto LaunchSumOpenMP(VectorRam<T>& v, unsigned Nthreads)
+    {
+        std::cout << "-------LaunchSumOpenMP(VectorRam<T>& v, unsigned Nthreads) Start ------" << std::endl;
+        auto iterNum = 10;
+        std::vector<FuncResult<T>> results;
+
+        #ifdef _OPENMP
+
+        for(unsigned i{0}; i < iterNum; i++)
+        {
+            FuncResult<T> res = VectorRamHelper::SumOpenMP(v, Nthreads);
+            results.push_back(res);
+        }
+
+        #endif
+        
+        std::cout << "-------LaunchSumOpenMP(VectorRam<T>& v, unsigned Nthreads) End --------" << std::endl;
+        return results;
+    }
 };
 
-template<typename T>
-bool compare(const FuncResult<T>& left, const FuncResult<T>& right) 
-{ 
-    return left._time < right._time; 
-}
 
 
 // Статистические параметры результатов эксперимента
@@ -244,7 +331,11 @@ struct CalculationStatistics
     // Среднеквадратическое отклонение
     double stdDev;
 
-    CalculationStatistics(std::vector<FuncResult<double>> results)
+    CalculationStatistics()
+    {}
+
+    template<typename T>
+    CalculationStatistics(std::vector<FuncResult<T>> results)
     {
         auto resultsSize = results.size();
         if (resultsSize == 0)
@@ -256,13 +347,13 @@ struct CalculationStatistics
             if(results[i]._status == false)
                 throw std::logic_error("results[i].Status = 0");
             
-            if( fabs((results[i]._result - results[0]._result) / results[0]._result) > 0.0001 )
+            if( fabs((results[i]._result - results[0]._result) / (double)results[0]._result) > 0.0001 )
                 throw std::logic_error("fabs((results[i]._result - results[0]._result) / results[0].Result) > 0.0001");
         }
 
         //print(std::string("---Before sort---"), results);
         // Сортируем results
-        std::sort(results.begin(), results.end(), compare<double>);
+        std::sort(results.begin(), results.end(), FuncResult<T>::compare);
         //print(std::string("---After sort---"), results);        
         //std::cout << "----------" << std::endl;
 
@@ -384,10 +475,15 @@ int main()
     std::cout << "Seq: testResults_seq size = " << testResults_seq.size() << std::endl;
     for(auto& res : testResults_seq)
         res.Print();
-    // 2.2 Параллельный алгоритм
+    // 2.2 Параллельный алгоритм std::thread
     auto testResults_par = TestHelper::LaunchSum(v, Nthreads);
     std::cout << "Parallel: testResults size = " << testResults_par.size() << std::endl;
     for(auto& res : testResults_par)
+        res.Print();
+    // 2.3 Параллельный алгоритм OpenMP
+    auto testResults_par_OpenMP = TestHelper::LaunchSumOpenMP(v, Nthreads);
+    std::cout << "Parallel OpenMP: testResults size = " << testResults_par_OpenMP.size() << std::endl;
+    for(auto& res : testResults_par_OpenMP)
         res.Print();
 
     // 3. Статистическая обработка результатов
@@ -397,7 +493,45 @@ int main()
     CalculationStatistics stat_par{testResults_par};
     stat_par.Print();
 
+    CalculationStatistics stat_par_OpenMP;
+    try
+    {
+        stat_par_OpenMP = CalculationStatistics{testResults_par_OpenMP};
+        stat_par_OpenMP.Print();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
+
     // 4. Вычисляем ускорение и эффективность
+    std::cout << "--- std::thread ---" << std::endl;
     ParallelCalcIndicators parallelCalcIndicators(stat_seq, stat_par, Nthreads);
     parallelCalcIndicators.Print();
+
+    try
+    {
+        std::cout << "--- OpenMP ---" << std::endl;
+        ParallelCalcIndicators parallelCalcIndicators_OpenMP(stat_seq, stat_par_OpenMP, Nthreads);
+        parallelCalcIndicators_OpenMP.Print();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
+    
+    // Вызов функции суммирования с помощью OpenMP
+    try
+    {
+        double sum = ArrayRamHelper::SumOpenMP(v.data, 0, v.size, Nthreads);
+        std::cout << "ArrayRamHelper::SumOpenMP(v.data, 0, v.size): " << sum << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+    
+    
 }
