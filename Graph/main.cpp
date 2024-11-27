@@ -5,7 +5,8 @@
 
 #include "Graph.hpp"
 
-enum class CalcProcess
+/// @brief Перечисление типов этапов вычислительного процесса
+enum class CalcProcessStep
 {
     Start,
     CreateVector,
@@ -14,12 +15,76 @@ enum class CalcProcess
     End
 };
 
-std::ostream& operator<<(std::ostream& os, CalcProcess calcProcess)
+/// @brief Перегрузка оператора << для перечисления CalcProcess
+std::ostream &operator<<(std::ostream &os, CalcProcessStep step)
 {
-    os << "!!! ";
+    switch (step)
+    {
+    case CalcProcessStep::Start:
+        os << "Start";
+        break;
+    case CalcProcessStep::CreateVector:
+        os << "CreateVector";
+        break;
+    case CalcProcessStep::InitVector:
+        os << "InitVector";
+        break;
+    case CalcProcessStep::ScalarProduct:
+        os << "ScalarProduct";
+        break;
+    case CalcProcessStep::End:
+        os << "End";
+        break;
+    default:
+        os << "!!! ";
+        break;
+    }
 
     return os;
 }
+
+////////////////////////////////////////////////////////////////
+
+/// @brief Перечисление мест расположения данных
+enum class DataLocation
+{
+    RAM,
+    VRAM,
+    RAM_VRAM
+};
+
+/// @brief Перегрузка оператора << для перечисления CalcProcess
+std::ostream &operator<<(std::ostream &os, DataLocation dataLocation)
+{
+    switch (dataLocation)
+    {
+    case DataLocation::RAM:
+        os << "RAM";
+        break;
+    case DataLocation::VRAM:
+        os << "VRAM";
+        break;
+    case DataLocation::RAM_VRAM:
+        os << "RAM_VRAM";
+        break;
+    default:
+        os << "!!! ";
+        break;
+    }
+
+    return os;
+}
+
+/////////////////////////////////////////////////////
+
+struct Algorythm
+{
+    CalcProcessStep _calcProcessStep;
+
+    Algorythm(CalcProcessStep calcProcessStep) : _calcProcessStep(calcProcessStep)
+    {
+    }
+};
 
 int main()
 {
@@ -41,18 +106,33 @@ int main()
     /////////////////////////////
 
     std::cout << "---Graph<unsigned, std::string>---" << std::endl;
-    Graph<unsigned, CalcProcess> graph3;
-    graph3.AddNode(0, CalcProcess::Start);
-    graph3.AddNode(1, CalcProcess::CreateVector, 0);
-    graph3.AddNode(2, CalcProcess::CreateVector, 0);
-    graph3.AddNode(3, CalcProcess::InitVector, 1);
-    graph3.AddNode(4, CalcProcess::InitVector, 2);
-    graph3.AddNode(5, CalcProcess::ScalarProduct, {3, 4});
-    graph3.AddNode(6, CalcProcess::End, 5);
+    Graph<unsigned, CalcProcessStep> graph3;
+    graph3.AddNode(0, CalcProcessStep::Start);
+    graph3.AddNode(1, CalcProcessStep::CreateVector, 0);
+    graph3.AddNode(2, CalcProcessStep::CreateVector, 0);
+    graph3.AddNode(3, CalcProcessStep::InitVector, 1);
+    graph3.AddNode(4, CalcProcessStep::InitVector, 2);
+    graph3.AddNode(5, CalcProcessStep::ScalarProduct, {3, 4});
+    graph3.AddNode(6, CalcProcessStep::End, 5);
     graph3.Print();
 
     std::cout << "---Copy---" << std::endl;
     Graph g4 = graph3;
     g4.Print();
-    
+
+    /////////////////
+    std::map<CalcProcessStep, std::vector<DataLocation>> calcProcessStepDataLocations;
+    calcProcessStepDataLocations[CalcProcessStep::CreateVector] =
+        {DataLocation::RAM, DataLocation::VRAM, DataLocation::RAM_VRAM};
+
+    for (const auto &[key, value] : calcProcessStepDataLocations)
+    {
+        std::cout << key << " -> ";
+        std::cout << "{ ";
+        for (auto &el : calcProcessStepDataLocations[key])
+        {
+            std::cout << el << " ";
+        }
+        std::cout << "}" << std::endl;
+    }
 }
