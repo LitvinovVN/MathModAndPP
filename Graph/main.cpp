@@ -3,80 +3,27 @@
 // g++ main.cpp -o app
 // ./app
 
-#include <iostream>
-#include <map>
-#include <vector>
+#include "Graph.hpp"
 
-/// @brief Класс "Вершина графа"
-struct Node
+enum class CalcProcess
 {
-
+    Start,
+    CreateVector,
+    InitVector,
+    ScalarProduct,
+    End
 };
 
-/// @brief Класс "Ребро графа"
-struct Edge
+std::ostream& operator<<(std::ostream& os, CalcProcess calcProcess)
 {
+    os << "!!! ";
 
-};
-
-/// @brief Класс "Граф"
-/// @tparam T1 Тип ключа вершины графа
-/// @tparam T2 Тип вершины графа
-template<typename T1, typename T2>
-class Graph
-{
-    /// @brief Вершины графа
-    std::map<T1, T2> _nodes;
-    /// @brief Список смежности
-    std::map<T1, std::vector<T1>> _adgList;
-
-public:
-    Graph()
-    {
-        
-    }
-
-    void AddNode(T1 key, T2 value)
-    {
-        _nodes[key] = value;
-    }
-
-    void AddNode(T1 key, T2 value, T1 keyPrev)
-    {
-        _nodes[key] = value;
-        _adgList[keyPrev].push_back(key);
-    }
-
-    void AddNode(T1 key, T2 value, std::initializer_list<T1> keys)
-    {
-        _nodes[key] = value;
-
-        for(auto& keyPrev : keys)
-        {
-            _adgList[keyPrev].push_back(key);
-        }
-    }
-
-    void Print()
-    {
-        std::cout << "Graph" << std::endl;
-        for (const auto& [key, value] : _nodes)
-        {
-            std::cout << key << " (" << value << ") -> ";
-            std::cout << "{ ";
-            for(auto& node : _adgList[key])
-            {
-                std::cout << node << " ";
-            }
-            std::cout << "}" << std::endl;
-        }
-            
-    }
-};
+    return os;
+}
 
 int main()
 {
-    std::cout << "---" << std::endl;
+    std::cout << "---Graph<unsigned, std::string>---" << std::endl;
     Graph<unsigned, std::string> graph;
     graph.AddNode(0, "start");
     graph.AddNode(1, "create a", 0);
@@ -86,4 +33,26 @@ int main()
     graph.AddNode(5, "(a, b)", {3, 4});
     graph.AddNode(6, "end", 5);
     graph.Print();
+
+    std::cout << "---Copy---" << std::endl;
+    Graph g2 = graph;
+    g2.Print();
+
+    /////////////////////////////
+
+    std::cout << "---Graph<unsigned, std::string>---" << std::endl;
+    Graph<unsigned, CalcProcess> graph3;
+    graph3.AddNode(0, CalcProcess::Start);
+    graph3.AddNode(1, CalcProcess::CreateVector, 0);
+    graph3.AddNode(2, CalcProcess::CreateVector, 0);
+    graph3.AddNode(3, CalcProcess::InitVector, 1);
+    graph3.AddNode(4, CalcProcess::InitVector, 2);
+    graph3.AddNode(5, CalcProcess::ScalarProduct, {3, 4});
+    graph3.AddNode(6, CalcProcess::End, 5);
+    graph3.Print();
+
+    std::cout << "---Copy---" << std::endl;
+    Graph g4 = graph3;
+    g4.Print();
+    
 }
