@@ -8,11 +8,11 @@
 /// @brief Перечисление типов этапов вычислительного процесса
 enum class CalcProcessStep
 {
-    Start,
-    CreateVector,
-    InitVector,
-    ScalarProduct,
-    End
+    Start,          // Начало (обязательный, первый, единственный)
+    CreateVector,   // Создание вектора
+    InitVector,     // Инициализация вектора
+    ScalarProduct,  // Вычисление скалярного произведения
+    End             // Конец (обязательный, последний, единственный)
 };
 
 /// @brief Перегрузка оператора << для перечисления CalcProcess
