@@ -156,11 +156,6 @@ struct CudaHelper
         #endif
     }
 
-
-    
-
-    
-
 };
 /////////////////// CUDA (END) /////////////////////////
 
@@ -179,7 +174,7 @@ struct LibSupport
 
         // CUDA        
         #ifdef __NVCC__
-        IsCuda = true;        
+        IsCuda = true;
         #endif
     }
 
@@ -298,6 +293,30 @@ struct ArrayRamHelper
     {
         return SumOpenMP(data, 0, size - 1, threadsNum);
     }
+
+
+    ///// Суммирование с помошью Cuda /////
+    template<typename T>
+    static T SumCuda(T* data, size_t indStart, size_t indEnd, unsigned threadsNum)
+    {
+        #ifdef __NVCC__
+        
+        T sum = 0;
+        
+
+
+        return sum;
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    template<typename T>
+    static T SumCuda(T* data, size_t size, unsigned threadsNum)
+    {
+        return SumCuda(data, 0, size - 1, threadsNum);
+    }
+
     ////////////////////////// Суммирование элементов массива (конец) /////////////////////////////
 
     /*  ---   Другие алгоритмы   ---  */
