@@ -1,0 +1,1 @@
+set PATH=%PATH%;C:\mingw64\bin
