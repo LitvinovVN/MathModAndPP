@@ -1127,10 +1127,37 @@ main:
     std::cin>>a;
 //*/
 
-/////////////////////////////////
-
-int main()
+// Темтирование функций класса ArrayHelper
+bool TestArrayHelper()
 {
+    // Вызов функции суммирования с помощью OpenMP
+    try
+    {
+        size_t size = 10;
+        double* data = new double[size];
+        for (size_t i = 0; i < size; i++)
+        {
+            data[i] = 0.1;
+        }
+        
+
+        int Nthreads = 4;
+        double sum = ArrayHelper::SumOpenMP(data, 0, size, Nthreads);
+        std::cout << "ArrayRamHelper::SumOpenMP(v.data, 0, v.size): " << sum << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+/////////////////////////////////
+/// Проверка работы VectorGpu ///
+bool TestVectorGpu()
+{
+    // Добавить разные тесты
     try
     {
         VectorGpu<double> v1{350000};        
@@ -1153,8 +1180,16 @@ int main()
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        return false;
     }
-    
+
+    return true;
+}
+///////////////////////////////////////////////////////////
+/// Тестирование функции суммирования элементов массива ///
+bool TestSum()
+{
+    TestParams testParams;
 
     // 1. Подготовка данных
     unsigned Nthreads = 4;
@@ -1163,9 +1198,17 @@ int main()
     VectorRam<double> v(size);
     v.InitByVal(elVal);
     //v.Print();
-    VectorGpu<double> vGpu(size);
-    vGpu.InitByVal(elVal);
-    TestParams testParams;
+
+    VectorGpu<double>* vGpu_p = nullptr;
+    try
+    {
+        vGpu_p = new VectorGpu<double>(size);
+        vGpu_p->InitByVal(elVal);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     
     // 2. Запуск тестов и получение массива результатов
     // 2.1 Последовательный алгоритм
@@ -1186,23 +1229,38 @@ int main()
 
     // 2.4 Параллельный алгоритм Cuda
     int numBlocks = 10;
-    auto testResults_par_Cuda = TestHelper::LaunchSumCuda(vGpu, numBlocks, Nthreads, testParams);
+    auto testResults_par_Cuda = TestHelper::LaunchSumCuda(*vGpu_p, numBlocks, Nthreads, testParams);
     std::cout << "Parallel CUDA: testResults size = " << testResults_par_Cuda.size() << std::endl;
     for(auto& res : testResults_par_Cuda)
         res.Print();
 
     // 3. Статистическая обработка результатов
     CalculationStatistics stat_seq{testResults_seq};
+    std::cout << "CalculationStatistics seq: " << std::endl;
     stat_seq.Print();
 
     CalculationStatistics stat_par{testResults_par};
+    std::cout << "CalculationStatistics parallel std::thread: " << std::endl;
     stat_par.Print();
 
     CalculationStatistics stat_par_OpenMP;
     try
     {
         stat_par_OpenMP = CalculationStatistics{testResults_par_OpenMP};
+        std::cout << "CalculationStatistics parallel OpenMP: " << std::endl;
         stat_par_OpenMP.Print();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';        
+    }
+
+    CalculationStatistics stat_par_Cuda;
+    try
+    {
+        stat_par_Cuda = CalculationStatistics{testResults_par_Cuda};
+        std::cout << "CalculationStatistics parallel Cuda: " << std::endl;
+        stat_par_Cuda.Print();
     }
     catch(const std::exception& e)
     {
@@ -1224,30 +1282,62 @@ int main()
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
+        return false;
     }
-    
-        
-    // Вызов функции суммирования с помощью OpenMP
+
     try
     {
-        double sum = ArrayHelper::SumOpenMP(v.data, 0, v.size, Nthreads);
-        std::cout << "ArrayRamHelper::SumOpenMP(v.data, 0, v.size): " << sum << std::endl;
+        std::cout << "--- CUDA ---" << std::endl;
+        ParallelCalcIndicators parallelCalcIndicators_Cuda(stat_seq, stat_par_Cuda, numBlocks*Nthreads);
+        parallelCalcIndicators_Cuda.Print();
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << e.what() << '\n';
+        return false;
+    }
+
+    return true;
+}
+/////////////////////////////////
+
+int main()
+{
+    LibSupport support;
+    support.Print();// Выводим список поддерживаемых библиотек
+    
+    if(TestArrayHelper())
+        std::cout << "TestArrayHelper correct!" << std::endl;
+    else
+        std::cout << "TestArrayHelper not correct!" << std::endl;
+
+    int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+    std::cout << "Cuda devices number: " << cudaDeviceNumber << std::endl;
+    //CudaHelper::PrintCudaDeviceProperties();
+
+    if(cudaDeviceNumber > 0)
+    {
+        for(int i = 0; i < cudaDeviceNumber; i++)
+        {
+            auto devProps = CudaHelper::GetCudaDeviceProperties();
+            devProps.Print();
+        }
+        
+        std::ofstream f("gpu-specs.txt");
+        CudaHelper::WriteGpuSpecs(f);
+        f.close();
     }
     
-    LibSupport support;
-    support.Print();
+    // Запускаем тест работоспособности VectorGpu
+    if(TestVectorGpu())
+        std::cout << "VectorGpu correct!" << std::endl;
+    else
+        std::cout << "VectorGpu not correct!" << std::endl;
 
-    std::cout << "Cuda devices number: " << CudaHelper::GetCudaDeviceNumber() << std::endl;
-    CudaHelper::PrintCudaDeviceProperties();
+    // Запускаем функцию тестирования суммирования массивов
+    if(TestSum())
+        std::cout << "TestSum correct!" << std::endl;
+    else
+        std::cout << "TestSum not correct!" << std::endl;
 
-    auto devProps = CudaHelper::GetCudaDeviceProperties();
-    devProps.Print();
-
-    std::ofstream f("gpu-specs.txt");
-    CudaHelper::WriteGpuSpecs(f);
-    f.close();
 }
