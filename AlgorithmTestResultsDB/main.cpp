@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 
 namespace TestResDb
 {
@@ -19,12 +20,12 @@ enum class TaskType
 {
     None  = 0, // Резерв (неинициализировано)
     // TaskTypeGroup::Vector = 1 // Операции с одним вектором
-    V_Sum = 1, // Сумма элементов вектора
-    V_Min = 2, // Минимальное значение элементов вектора
-    V_Max = 3, // Максимальное значение элементов вектора
+    Sum = 1, // Сумма элементов вектора
+    Min = 2, // Минимальное значение элементов вектора
+    Max = 3, // Максимальное значение элементов вектора
 
     // TaskTypeGroup::VecVec = 2 // Операции с двумя векторами
-    VV_DotProduct = 4 // Скалярное произведение двух векторов
+    DotProduct = 4 // Скалярное произведение двух векторов
 };
 
 /// @brief Вычислительная задача
@@ -45,6 +46,9 @@ struct Task
         case TaskTypeGroup::Vector:
             taskTypeGroupName = "Vector";
             break;
+        case TaskTypeGroup::VecVec:
+            taskTypeGroupName = "VecVec";
+            break;
         
         default:
             break;
@@ -53,8 +57,8 @@ struct Task
         std::string taskTypeName = "None";
         switch (taskType)
         {
-        case TaskType::V_Sum:
-            taskTypeName = "V_Sum";
+        case TaskType::Sum:
+            taskTypeName = "Sum";
             break;
         
         default:
@@ -68,16 +72,69 @@ struct Task
 
 }
 
+/// @brief База данных результатов тестов производительности вычислительной системы
+template<typename T>
+class CompSystemPerfDb
+{
+    size_t lastId = 0;// Последний добавленный идентификатор
+    std::map<size_t, T> _data;
+public:
+    /// @brief Добавляет элемент в словарь и возвращает его ключ
+    /// @param entry 
+    /// @return 
+    size_t Add(T entry)
+    {
+        auto nextId = lastId + 1;
+        while(_data.count(nextId))
+            nextId++;
 
+        _data[nextId] = entry;
+        return nextId;
+    }
+
+    void Print()
+    {
+        for(auto& [key, value] : _data)
+        {
+            std::cout << "[" << key << ": " << value << "]" << std::endl;
+        }
+    }
+
+};
+
+/// @brief Запись в файле БД результатов эксперимента
+struct FileDbRow
+{
+    size_t          id;// ID записи, 8 байт
+    unsigned short  idCompSystem;//ID вычислительной системы, 2 байта
+    unsigned short  idTaskTypeGroup;//ID группы задач, 2 байта
+    unsigned short  idTaskType;//ID задачи, 2 байта
+};
+
+bool TestingCompSystemPerfDb()
+{
+    CompSystemPerfDb<std::string> db;
+    db.Add("111");
+    db.Add("222");
+    db.Add("333");
+    db.Add("444");
+    db.Print();
+
+    return true;
+}
 
 int main()
 {
     std::cout << "---" << std::endl;
-    std::cout << (int)TestResDb::TaskType::V_Sum << std::endl;
+    std::cout << (int)TestResDb::TaskType::Sum << std::endl;
 
     TestResDb::Task task(TestResDb::TaskTypeGroup::Vector,
-                         TestResDb::TaskType::V_Sum);
+                         TestResDb::TaskType::Sum);
     task.Print();
+
+    TestingCompSystemPerfDb();
+
+    // Генерируем id    
 
     // Запрос к БД
     // TestParameters testParameters;
