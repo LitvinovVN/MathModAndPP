@@ -1,6 +1,7 @@
 // g++  main.cpp -o app -fopenmp -O3
 // g++  main.cpp -o app -lpthread -O3
-// nvcc main.cpp -o app -Xcompiler="/openmp" -x cu -allow-unsupported-compiler
+// nvcc main.cpp -o app -Xcompiler="/openmp"  -x cu -allow-unsupported-compiler
+// nvcc main.cpp -o app -Xcompiler="-fopenmp" -x cu
 #include <iostream>
 #include <fstream>
 #include <thread>
@@ -90,8 +91,9 @@ struct CudaHelper
     {
         #ifdef __NVCC__
         return true;        
-        #endif
+        #else
         return false;
+        #endif
     }
 
     /// @brief Возвращает количество Cuda-совместимых устройств
@@ -269,24 +271,50 @@ struct ArrayHelper
     ///////////////////////////////////////////////
 
     ///// Суммирование с помощью std::thread на CPU //////
+    // Структура для передачи аргументов в потоковую функцию
+    template<typename T>
+    struct SumThreadArgs
+    {
+        T* data;
+        size_t indStart;
+        size_t indEnd;
+        T& sum;
+        std::mutex& m;
+
+        SumThreadArgs(T* data,
+            size_t indStart,
+            size_t indEnd,
+            T& sum,
+            std::mutex& m) : 
+                data(data),
+                indStart(indStart),
+                indEnd(indEnd),
+                sum(sum),
+                m(m)
+        {}
+    };
+
     // Функция для исполнения потоком std::thread
     template<typename T>
-    static void SumThread(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
+    static void SumThread(SumThreadArgs<T> args)
     {
+        T* data = args.data;
+        auto indStart = args.indStart;
+        auto indEnd = args.indEnd;
         T local_sum = 0;
-
+        
         for (size_t i = indStart; i <= indEnd; i++)
         {
             local_sum += data[i];
         }
         
         {
-            std::lock_guard<std::mutex> lock(m);
+            std::lock_guard<std::mutex> lock(args.m);
             //m.lock();
             /*std::cout << "thread " << std::this_thread::get_id()
                 << "| local_sum = " << local_sum
                 << std::endl;*/
-            sum += local_sum;
+            args.sum += local_sum;
             //m.unlock();
         }
     }
@@ -299,14 +327,18 @@ struct ArrayHelper
         size_t blockSize = indEnd - indStart + 1;
         std::vector<std::thread> threads;
         size_t thBlockSize = blockSize / threadsNum;
+
+        //auto argsArray = new SumThreadArgs<T>[threadsNum];
         for (size_t i = 0; i < threadsNum; i++)
-        {            
+        {
             size_t thIndStart = i * thBlockSize;
             size_t thIndEnd = thIndStart + thBlockSize - 1;
             if(i == threadsNum - 1)
                 thIndEnd = indEnd;
-
-            threads.push_back(std::thread(SumThread<T>, data, thIndStart, thIndEnd, std::ref(sum), std::ref(m)));
+            
+            //threads.push_back(std::thread(SumThread<T>, data, thIndStart, thIndEnd, std::ref(sum), std::ref(m)));
+            SumThreadArgs<T> args(data, thIndStart, thIndEnd, sum, m);
+            threads.push_back(std::thread(SumThread<T>, args));
         }
         
         for(auto& th : threads)
@@ -1194,7 +1226,7 @@ bool TestSum()
 
     // 1. Подготовка данных
     unsigned Nthreads = 4;
-    size_t size = 100000000;
+    size_t size = 1000000000;
     double elVal = 0.001;
     VectorRam<double> v(size);
     v.InitByVal(elVal);
