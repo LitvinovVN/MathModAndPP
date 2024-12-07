@@ -1,6 +1,6 @@
 // g++  main.cpp -o app -fopenmp -O3 -Wall
 // g++  main.cpp -o app -lpthread -O3 -Wall
-// nvcc main.cpp -o app -Xcompiler="/openmp -Wall"  -x cu -allow-unsupported-compiler
+// nvcc main.cpp -o app -Xcompiler="/openmp -Wall"  -x cu -allow-unsupported-compiler -std=c++17
 // nvcc main.cpp -o app -Xcompiler="-fopenmp -Wall" -x cu
 #include <iostream>
 #include <fstream>
