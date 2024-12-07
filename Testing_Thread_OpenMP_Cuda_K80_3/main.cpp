@@ -1,7 +1,7 @@
 // g++  main.cpp -o app -fopenmp -O3 -Wall
 // g++  main.cpp -o app -lpthread -O3 -Wall
-// nvcc main.cpp -o app -Xcompiler="/openmp"  -x cu -allow-unsupported-compiler -Wall
-// nvcc main.cpp -o app -Xcompiler="-fopenmp" -x cu -Wall
+// nvcc main.cpp -o app -Xcompiler="/openmp -Wall"  -x cu -allow-unsupported-compiler
+// nvcc main.cpp -o app -Xcompiler="-fopenmp -Wall" -x cu
 #include <iostream>
 #include <fstream>
 #include <thread>
@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <cmath>
 #include <fstream>
+#include <string>
 
 #ifdef _OPENMP
 #include <omp.h>
