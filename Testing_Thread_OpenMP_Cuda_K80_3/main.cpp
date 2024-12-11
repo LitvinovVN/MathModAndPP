@@ -13,6 +13,7 @@
 #include <cmath>
 #include <fstream>
 #include <string>
+#include <map>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -1103,66 +1104,8 @@ struct ParallelCalcIndicators
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-/*#include <cmath>
 
-template <typename T>
-class MyVector
-{
-public:
-    //T x, y;
-    T* data;
-
-
-    __device__ MyVector(T xVal, T yVal)
-    {
-        data = new T[2];
-        data[0] = xVal;
-        data[1] = yVal;
-    }
-
-    __device__ T getMagnitude() const {
-        T x = data[0];
-        T y = data[1];
-        return sqrt(x * x + y * y);
-    }
-
-    __device__ void print() const {
-        T x = data[0];
-        T y = data[1];
-        printf("Vector: (%f, %f)\n", static_cast<float>(x), static_cast<float>(y));
-    }
-};
-
-__device__
-MyVector<float>* vec_dev;
-
-__global__ void kernel() {
-    MyVector<float> vec(3.0f, 4.0f);
-    vec.print();
-    printf("Magnitude: %f\n", vec.getMagnitude());
-
-    vec_dev = new MyVector<float>(33.0f, 44.0f);
-    vec_dev->print();
-    printf("Magnitude: %f\n", vec_dev->getMagnitude());
-}
-__global__ void kernel2() {
-    
-    vec_dev->data[0] = 10;
-    vec_dev->print();
-    printf("Magnitude: %f\n", vec_dev->getMagnitude());
-}
-
-main:
-    std::cout << "---GPU---\n";
-    // Запускаем ядро
-    kernel<<<1, 1>>>();
-    kernel2<<<1, 1>>>();
-    cudaDeviceSynchronize();  // Ждем завершения выполнения ядра
-    int a;
-    std::cin>>a;
-//*/
-
-// Темтирование функций класса ArrayHelper
+// Тестирование функций класса ArrayHelper
 bool TestArrayHelper()
 {
     // Вызов функции суммирования с помощью OpenMP
@@ -1404,7 +1347,6 @@ public:
         return true;
     }
 };
-
 /////////////////// Файловая система (конец) ///////////////////
 
 
@@ -1586,8 +1528,6 @@ public:
     }
 
 };
-
-
 //////////////// Вычислительная система (конец) //////////////
 
 
@@ -1730,80 +1670,365 @@ public:
     }
 
 };
-
 //////////////// Конфигурация приложения (конец) //////////////
+
+/// @brief Перечисление команд меню
+enum class MenuCommand
+{
+    None,                   // Не выбрано
+    Exit,                   // Выход из меню
+    Help,                   // Вывод в консоль справки
+    PrintLibSupport,        // Вывод в консоль списка поддерживаемых библиотек
+    PrintGpuParameters,     // Вывод в консоль параметров GPU
+    WriteGpuSpecsToTxtFile, // Записывает параметры видеокарт в текстовый файл gpu-specs.txt
+    Testing_TestArrayHelper,// Тестирование класса TestArrayHelper
+    Testing_TestVectorGpu,  // Тестирование класса VectorGpu
+    Testing_TestSum,        // Тестирование функций суммирования
+    Application_Config      // Конфигурация приложения
+};
+
+/// @brief Элемент меню
+struct MenuCommandItem
+{
+    MenuCommand comm = MenuCommand::None;// Команда
+    std::vector<std::string> keys;// Список ключей
+    std::function<void()> func;// Вызываемая функция
+    std::string desc;// Описание команды
+
+    MenuCommandItem()
+    {}
+
+    MenuCommandItem(MenuCommand comm,
+        std::vector<std::string> keys,
+        std::function<void()> func,
+        std::string desc)
+            : comm(comm), keys(keys), func(func), desc(desc)
+    {}
+
+    void Reset()
+    {
+        comm = MenuCommand::None;
+        keys = {};
+        func = nullptr;
+        desc = "Command not choosed!";
+    }
+
+    bool CheckKey(const std::string& str)
+    {
+        bool isKey = false;
+        for(auto& key : keys)
+        {
+            if(key == str)
+            {
+                isKey = true;
+                break;
+            }
+        }
+        return isKey;
+    }
+};
+
+
+
+/// @brief Функции меню
+struct MenuFunctions
+{    
+    /// @brief Выводит параметры GPU
+    static void PrintGpuParameters()
+    {
+        CudaHelper::PrintCudaDeviceProperties();
+    }
+
+    /// @brief Выводит в консоль список поддерживаемых библиотек
+    static void PrintLibSupport()
+    {
+        // Определяем перечень поддерживаемых библиотек
+        LibSupport support;
+        support.Print();// Выводим список поддерживаемых библиотек
+    }
+
+    /// @brief Тестирование функций класса ArrayHelper
+    static void Testing_TestArrayHelper()
+    {
+        if(TestArrayHelper())
+            std::cout << "TestArrayHelper correct!" << std::endl;
+        else
+            std::cout << "TestArrayHelper not correct!" << std::endl;
+    }
+
+    /// @brief Записывает параметры видеокарт в текстовый файл gpu-specs.txt
+    static void WriteGpuSpecsToTxtFile()
+    {
+        int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+        std::cout << "Cuda devices number: " << cudaDeviceNumber << std::endl;
+        //CudaHelper::PrintCudaDeviceProperties();
+
+        if(cudaDeviceNumber > 0)
+        {
+            for(int i = 0; i < cudaDeviceNumber; i++)
+            {
+                auto devProps = CudaHelper::GetCudaDeviceProperties();
+                devProps.Print();
+            }
+            
+            std::ofstream f("gpu-specs.txt");
+            CudaHelper::WriteGpuSpecs(f);
+            f.close();
+        }
+    }
+
+    /// @brief Запускает тест работоспособности VectorGpu
+    static void Testing_TestVectorGpu()
+    {
+        // Запускаем тест работоспособности VectorGpu
+        if(TestVectorGpu())
+            std::cout << "VectorGpu correct!" << std::endl;
+        else
+            std::cout << "VectorGpu not correct!" << std::endl;
+    }
+
+    /// @brief Запускает функцию тестирования суммирования массивов
+    static void Testing_TestSum()
+    {
+        // Запускаем функцию тестирования суммирования массивов
+        if(TestSum())
+            std::cout << "TestSum correct!" << std::endl;
+        else
+            std::cout << "TestSum not correct!" << std::endl;
+    }
+    
+    /// @brief Конфигурирование приложения
+    static void Application_Config()
+    {
+        //auto config = app->GetAppConfig();
+        //config.Print();
+        std::cout << "Not realized!" << std::endl;
+    }
+
+};
+
+
+
+
+/// @brief Главное меню приложения
+class MainMenu
+{
+    // Список команд меню
+    std::vector<MenuCommandItem> menuCommands;
+
+    //MenuCommand command = MenuCommand::None;// Выбранная команда меню
+    MenuCommandItem command;// Выбранная команда меню
+    
+    /// @brief Распознаёт команду
+    /// @param commandString 
+    /// @return 
+    bool RecognizeCommand(std::string commandString)
+    {        
+        command.Reset();
+        for(auto& menuItem : menuCommands)
+        {
+            if(menuItem.CheckKey(commandString))
+            {
+                command = menuItem;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// @brief Исполняет команду
+    void RunCommand()
+    {
+        if(command.func == nullptr)        
+            return;
+        
+        std::cout << "----- Starting: " << command.desc << "-----------" << std::endl;
+        command.func();
+        std::cout << "-------------------------------------" << std::endl;
+    }
+
+    /// @brief Выводит в консоль справочную информацию
+    void PrintHelp()
+    {
+        std::cout << "----- Command list -----" << std::endl;
+        for(auto& menuItem : menuCommands)
+        {            
+            for(auto& key : menuItem.keys)
+            {
+                std::cout << key << " ";
+            }
+            std::cout << "\t" << menuItem.desc << std::endl;
+        }
+    }
+
+public:
+
+    MainMenu()
+    {
+        // Инициализация меню
+        MenuCommandItem item1;
+        item1.comm = MenuCommand::Help;
+        item1.keys = {"1","?","h","help"};
+        item1.func = nullptr;
+        item1.desc = "Print help";
+        menuCommands.push_back(item1);
+
+        MenuCommandItem item2;
+        item2.comm = MenuCommand::Exit;
+        item2.keys = {"2","exit"};
+        item2.func = nullptr;
+        item2.desc = "Exit from menu";
+        menuCommands.push_back(item2);
+        
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::PrintLibSupport,
+                {"3","libs"},
+                MenuFunctions::PrintLibSupport,
+                "Print supported libs (OpenMP, Cuda etc.)"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::PrintGpuParameters,
+                {"4","gpu"},
+                MenuFunctions::PrintGpuParameters,
+                "Print default (0) Cuda-device properties"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::WriteGpuSpecsToTxtFile,
+                {"5","gpu"},
+                MenuFunctions::WriteGpuSpecsToTxtFile,
+                "Write GPU specification to txt file gpu-specs.txt"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::Testing_TestArrayHelper,
+                {"6","test-arr-help"},
+                MenuFunctions::Testing_TestArrayHelper,
+                "Testing TestArrayHelper class"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::Testing_TestVectorGpu,
+                {"7","test-vec-gpu"},
+                MenuFunctions::Testing_TestVectorGpu,
+                "Testing VectorGpu class"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::Testing_TestSum,
+                {"8","test-sum"},
+                MenuFunctions::Testing_TestSum,
+                "Testing sum functions"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::Application_Config,
+                {"9","app-conf"},
+                MenuFunctions::Application_Config,
+                "Application configuration"
+            }
+        );
+    }
+
+    /// @brief Запуск главного меню
+    void Start()
+    {
+        std::cout << "--- Main Menu ('1', '?', 'h' or 'help' for print help)---" << std::endl;
+        std::string commandString;// Введённая пользователем команда
+        
+        while(command.comm != MenuCommand::Exit)
+        {
+            std::cout << "Enter command: ";
+            std::cin >> commandString;
+            if ( !RecognizeCommand(commandString))// Распознаём команду
+            {
+                std::cout << "Error! Command not recognized! Please enter command again. '?' or 'help' for print help." << std::endl;
+                continue;
+            }
+
+            if (command.comm == MenuCommand::Help)
+                PrintHelp();
+            else
+                RunCommand();
+        }
+        std::cout << "--- Good bye! ---" << std::endl;
+    }
+
+};
+
+/// @brief Приложение
+class Application
+{
+    MainMenu menu; // Главное меню
+    AppConfig appConfig;// Конфигурация приложения
+    ComputingSystemRepository computingSystemRepository;// Контейнер сведений о вычислительных сстемах
+
+public:
+
+    AppConfig& GetAppConfig()
+    {
+        return appConfig;
+    }
+
+    void Start()
+    {
+        // 1. Считываем конфигурацию из файла
+        std::string appConfigFileName {"config.txt"};
+        appConfig = AppConfig(appConfigFileName);
+        if(!appConfig.IsInitialized())
+        {
+            std::cerr << appConfig.GetMessage() << std::endl;
+            exit(-1);
+        }
+        appConfig.Print();
+        std::cout << "Application initialization: OK" << std::endl;
+
+        // 2. Считываем сведения о вычислительной системе
+        computingSystemRepository = ComputingSystemRepository {appConfig.GetDirComputingSystemRepository()};
+
+        ComputingSystem computingSystem1;
+        computingSystem1.SetId(123);
+
+        if(computingSystemRepository.TryAddComputingSystem(computingSystem1))
+        {
+            std::cout << "computingSystem1.SetId(123) add success!" << std::endl;
+        }
+        else
+        {
+            std::cout << "computingSystem1.SetId(123) add error!" << std::endl;
+        }
+
+        // 3. Запускаем главное меню
+        menu.Start();
+    }
+};
+
 
 //////////////////////////// main ////////////////////////////
 int main()
 {
-    // 1. Считываем конфигурацию из файла
-    std::string appConfigFileName {"config.txt"};
-    AppConfig appConfig(appConfigFileName);
-    if(!appConfig.IsInitialized())
-    {
-        std::cerr << appConfig.GetMessage() << std::endl;
-        exit(-1);
-    }
-    appConfig.Print();
-    std::cout << "1. Reading config: OK" << std::endl;
-
-    // 2. Считываем сведения о вычислительной системе
-    ComputingSystemRepository computingSystemRepository{appConfig.GetDirComputingSystemRepository()};
-
-    ComputingSystem computingSystem1;
-    computingSystem1.SetId(123);
-
-    if(computingSystemRepository.TryAddComputingSystem(computingSystem1))
-    {
-        std::cout << "computingSystem1.SetId(123) success!" << std::endl;
-    }
-    else
-    {
-        std::cout << "computingSystem1.SetId(123) error!" << std::endl;
-    }
-
-
-
-
-
-    // Определяем перечень поддерживаемых библиотек
-    LibSupport support;
-    support.Print();// Выводим список поддерживаемых библиотек
-    
-
-    if(TestArrayHelper())
-        std::cout << "TestArrayHelper correct!" << std::endl;
-    else
-        std::cout << "TestArrayHelper not correct!" << std::endl;
-
-
-    int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
-    std::cout << "Cuda devices number: " << cudaDeviceNumber << std::endl;
-    //CudaHelper::PrintCudaDeviceProperties();
-
-    if(cudaDeviceNumber > 0)
-    {
-        for(int i = 0; i < cudaDeviceNumber; i++)
-        {
-            auto devProps = CudaHelper::GetCudaDeviceProperties();
-            devProps.Print();
-        }
-        
-        std::ofstream f("gpu-specs.txt");
-        CudaHelper::WriteGpuSpecs(f);
-        f.close();
-    }
-    
-    // Запускаем тест работоспособности VectorGpu
-    if(TestVectorGpu())
-        std::cout << "VectorGpu correct!" << std::endl;
-    else
-        std::cout << "VectorGpu not correct!" << std::endl;
-
-    // Запускаем функцию тестирования суммирования массивов
-    if(TestSum())
-        std::cout << "TestSum correct!" << std::endl;
-    else
-        std::cout << "TestSum not correct!" << std::endl;
-
+     Application app;
+    app.Start();
 }

@@ -1,9 +1,0 @@
-WriteGpuSpecs()
-Device Number: 0
-  Device name: NVIDIA GeForce MX250
-  Compute capability: 6.1
-  MultiProcessorCount: 3
-  asyncEngineCount: 1 (Number of asynchronous engines)
-  Memory Clock Rate (KHz): 3004000
-  Memory Bus Width (bits): 64
-  Peak Memory Bandwidth (GB/s): 48.064
