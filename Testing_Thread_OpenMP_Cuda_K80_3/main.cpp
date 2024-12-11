@@ -1675,16 +1675,17 @@ public:
 /// @brief Перечисление команд меню
 enum class MenuCommand
 {
-    None,                   // Не выбрано
-    Exit,                   // Выход из меню
-    Help,                   // Вывод в консоль справки
-    PrintLibSupport,        // Вывод в консоль списка поддерживаемых библиотек
-    PrintGpuParameters,     // Вывод в консоль параметров GPU
-    WriteGpuSpecsToTxtFile, // Записывает параметры видеокарт в текстовый файл gpu-specs.txt
-    Testing_TestArrayHelper,// Тестирование класса TestArrayHelper
-    Testing_TestVectorGpu,  // Тестирование класса VectorGpu
-    Testing_TestSum,        // Тестирование функций суммирования
-    Application_Config      // Конфигурация приложения
+    None,                     // Не выбрано
+    Exit,                     // Выход из меню
+    Help,                     // Вывод в консоль справки
+    PrintLibSupport,          // Вывод в консоль списка поддерживаемых библиотек
+    PrintGpuParameters,       // Вывод в консоль параметров GPU
+    WriteGpuSpecsToTxtFile,   // Записывает параметры видеокарт в текстовый файл gpu-specs.txt
+    Testing_TestArrayHelper,  // Тестирование класса TestArrayHelper
+    Testing_TestVectorGpu,    // Тестирование класса VectorGpu
+    Testing_TestSum,          // Тестирование функций суммирования
+    Application_Config,       // Конфигурация приложения
+    ComputingSystemRepository_Config // Конфигурирование хранилища сведений о вычислительных системах
 };
 
 /// @brief Элемент меню
@@ -1798,16 +1799,88 @@ struct MenuFunctions
     }
     
     /// @brief Конфигурирование приложения
-    static void Application_Config()
+    static void Application_Config(AppConfig& config)
     {
-        //auto config = app->GetAppConfig();
-        //config.Print();
-        std::cout << "Not realized!" << std::endl;
+        std::cout   << "----- Application configuration -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 Print config" << std::endl;
+
+        
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << "Enter app config command: ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                config.Print();
+                break;
+            
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    
+    }
+
+    /// @brief Конфигурирование приложения
+    static void ComputingSystemRepository_Config(ComputingSystemRepository& config)
+    {
+        std::cout   << "----- Computing system repository configuration -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 Print config" << std::endl;
+
+        
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << "Enter app config command: ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout << "IsExists(11) returned " << config.IsExists(11) << std::endl;
+                break;
+            
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    
     }
 
 };
-
-
 
 
 /// @brief Главное меню приложения
@@ -1946,14 +2019,24 @@ public:
             {
                 MenuCommand::Application_Config,
                 {"9","app-conf"},
-                MenuFunctions::Application_Config,
+                nullptr,
                 "Application configuration"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::ComputingSystemRepository_Config,
+                {"10","cs-repo-conf"},
+                nullptr,
+                "Computing system repository configuration"
             }
         );
     }
 
     /// @brief Запуск главного меню
-    void Start()
+    void Start(AppConfig& appConfig, ComputingSystemRepository& compSysRepo)
     {
         std::cout << "--- Main Menu ('1', '?', 'h' or 'help' for print help)---" << std::endl;
         std::string commandString;// Введённая пользователем команда
@@ -1968,15 +2051,28 @@ public:
                 continue;
             }
 
-            if (command.comm == MenuCommand::Help)
+            switch (command.comm)
+            {
+            case MenuCommand::Help:
                 PrintHelp();
-            else
+                break;
+            case MenuCommand::Application_Config:
+                MenuFunctions::Application_Config(appConfig);
+                break;
+            case MenuCommand::ComputingSystemRepository_Config:
+                MenuFunctions::ComputingSystemRepository_Config(compSysRepo);
+                break;
+            default:
                 RunCommand();
+                break;
+            }            
         }
         std::cout << "--- Good bye! ---" << std::endl;
     }
 
 };
+
+
 
 /// @brief Приложение
 class Application
@@ -2021,7 +2117,7 @@ public:
         }
 
         // 3. Запускаем главное меню
-        menu.Start();
+        menu.Start(appConfig, computingSystemRepository);
     }
 };
 
@@ -2029,6 +2125,6 @@ public:
 //////////////////////////// main ////////////////////////////
 int main()
 {
-     Application app;
+    Application app;
     app.Start();
 }
