@@ -313,12 +313,7 @@ struct ArrayHelper
         
         {
             std::lock_guard<std::mutex> lock(args.m);
-            //m.lock();
-            /*std::cout << "thread " << std::this_thread::get_id()
-                << "| local_sum = " << local_sum
-                << std::endl;*/
             args.sum += local_sum;
-            //m.unlock();
         }
     }
 
@@ -330,16 +325,14 @@ struct ArrayHelper
         size_t blockSize = indEnd - indStart + 1;
         std::vector<std::thread> threads;
         size_t thBlockSize = blockSize / threadsNum;
-
-        //auto argsArray = new SumThreadArgs<T>[threadsNum];
+        
         for (size_t i = 0; i < threadsNum; i++)
         {
             size_t thIndStart = i * thBlockSize;
             size_t thIndEnd = thIndStart + thBlockSize - 1;
             if(i == threadsNum - 1)
                 thIndEnd = indEnd;
-            
-            //threads.push_back(std::thread(SumThread<T>, data, thIndStart, thIndEnd, std::ref(sum), std::ref(m)));
+                        
             SumThreadArgs<T> args(data, thIndStart, thIndEnd, sum, m);
             threads.push_back(std::thread(SumThread<T>, args));
         }
@@ -1397,6 +1390,33 @@ public:
     }
 };
 
+/// @brief Вспомогательный класс для работы с консолью
+struct ConsoleHelper
+{
+    /// @brief Запрашивает у пользователя целое число
+    /// @param message Сообщение для пользователя
+    /// @param errorMessage Сообщение об ошибке
+    /// @return Введённое пользователем число
+    static int GetIntFromUser(std::string message, std::string errorMessage = "Error! Enter integer number")
+    {
+        while (1)
+        {
+            try
+            {
+                std::cout << message;
+                std::string userInput;
+                std::cin >> userInput;
+                int value = std::stoi(userInput);
+            
+                return value;
+            }
+            catch(const std::exception& e)
+            {
+                std::cout << errorMessage << '\n';
+            }
+        }
+    }
+};
 
 /// @brief Репозиторий сведений о вычислительных системах
 class ComputingSystemRepository
@@ -1455,7 +1475,7 @@ class ComputingSystemRepository
         int value;
         while(f >> value)
         {
-            std::cout << value << std::endl;
+            //std::cout << value << std::endl;
             computerSystemIds.push_back(value);
         }
 
@@ -1530,13 +1550,17 @@ public:
     /// @brief 2 Print config
     void PrintConfig()
     {
-        std::cout << "PrintConfig()" << std::endl;
+        std::cout << "dir_name: "  << dir_name  << "; ";
+        std::cout << "file_name: " << file_name << std::endl;
     }
 
     /// @brief 3 Print computing system list
     void PrintList()
     {
-        std::cout << "PrintList()" << std::endl;
+        std::cout << "Computing system ids: [";
+        for(auto& id : computerSystemIds)
+            std::cout << id << " ";
+        std::cout << "]" << std::endl;
     }
     
     /// @brief 4 Print computing system details
@@ -1549,6 +1573,18 @@ public:
     void Add()
     {
         std::cout << "Add()" << std::endl;
+        int id = ConsoleHelper::GetIntFromUser("Enter computing system id: ");
+        ComputingSystem computingSystem1;
+        computingSystem1.SetId(id);
+
+        if(TryAddComputingSystem(computingSystem1))
+        {
+            std::cout << "Computing system " << id << " added." << std::endl;
+        }
+        else
+        {
+            std::cout << "Error in adding computing system " << id << "!" << std::endl;
+        }
     }
 
     /// @brief 6 Change computing system
@@ -1566,7 +1602,11 @@ public:
     /// @brief 8 Is computing system exists
     void IsExists()
     {
-        std::cout << "IsExists()" << std::endl;
+        int compSystemId = ConsoleHelper::GetIntFromUser("Enter computing system id: ", "Error! Enter integer number!");                
+        bool isExists = IsExists(compSystemId);
+
+        std::cout << "id: "       << compSystemId << "; ";
+        std::cout << "isExists: " << isExists     << std::endl;
     }
 
 };
@@ -1622,13 +1662,13 @@ class AppConfig
         std::string param, value;
         while(f >> param >> value)
         {
-            std::cout << param << ": " << value << std::endl;
+            //std::cout << param << ": " << value << std::endl;
             if(param == "compSystemId")
             {
                 try
                 {
                     compSystemId = std::stoi(value);
-                    std::cout << "!!! " << compSystemId << std::endl;
+                    //std::cout << "!!! " << compSystemId << std::endl;
                 }
                 catch(const std::exception& e)
                 {                    
@@ -1851,7 +1891,7 @@ struct MenuFunctions
         int command = 0;
         while(command != 1)
         {
-            std::cout << "Enter app config command: ";
+            std::cout << ">> ";
             std::string commandString;
             std::cin >> commandString;
             
@@ -1892,14 +1932,12 @@ struct MenuFunctions
                     << "5 Add computing system\n"
                     << "6 Change computing system\n"
                     << "7 Remove computing system\n"
-                    << "8 Is computing system exists\n"
-                    << std::endl;
+                    << "8 Is computing system exists\n";
 
-        
         int command = 0;
         while(command != 1)
         {
-            std::cout << "Enter app config command: ";
+            std::cout << ">> ";
             std::string commandString;
             std::cin >> commandString;
             
@@ -2116,7 +2154,7 @@ public:
         
         while(command.comm != MenuCommand::Exit)
         {
-            std::cout << "Enter command: ";
+            std::cout << "> ";
             std::cin >> commandString;
             if ( !RecognizeCommand(commandString))// Распознаём команду
             {
@@ -2147,6 +2185,31 @@ public:
 
 
 
+/// @brief Рузультаты тестового запуска алгоритма
+class AlgTestingResult
+{
+    size_t id;// УИД тестового запуска
+    unsigned compSystemId;// УИД вычислительной системы
+    unsigned taskGroupId;// УИД группы задач (вектор, вектор-матрица и пр)
+    unsigned taskId;// УИД задачи (сумма элементов вектора, скалярное произведение векторов и пр)
+    //
+    // ???
+    //
+};
+
+
+/// @brief Репозиторий результатов тестовых запусков алгоритмов
+class AlgTestingResultRepository
+{
+    std::string dir = "AlgTestingResultRepository";// Каталог с данными
+    std::vector<AlgTestingResult> cache;
+
+    public:
+    AlgTestingResultRepository()
+    {}
+};
+
+
 /// @brief Приложение
 class Application
 {
@@ -2170,24 +2233,12 @@ public:
         {
             std::cerr << appConfig.GetMessage() << std::endl;
             exit(-1);
-        }
-        appConfig.Print();
+        }        
         std::cout << "Application initialization: OK" << std::endl;
 
         // 2. Считываем сведения о вычислительной системе
         computingSystemRepository = ComputingSystemRepository {appConfig.GetDirComputingSystemRepository()};
-
-        ComputingSystem computingSystem1;
-        computingSystem1.SetId(123);
-
-        if(computingSystemRepository.TryAddComputingSystem(computingSystem1))
-        {
-            std::cout << "computingSystem1.SetId(123) add success!" << std::endl;
-        }
-        else
-        {
-            std::cout << "computingSystem1.SetId(123) add error!" << std::endl;
-        }
+        std::cout << "Computing system repository initialization: OK" << std::endl;
 
         // 3. Запускаем главное меню
         menu.Start(appConfig, computingSystemRepository);
@@ -2198,6 +2249,7 @@ public:
 //////////////////////////// main ////////////////////////////
 int main()
 {
+    std::cout << "Starting application..." << std::endl;
     Application app;
     app.Start();
 }
