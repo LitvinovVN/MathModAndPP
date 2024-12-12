@@ -1527,6 +1527,48 @@ public:
         return true;
     }
 
+    /// @brief 2 Print config
+    void PrintConfig()
+    {
+        std::cout << "PrintConfig()" << std::endl;
+    }
+
+    /// @brief 3 Print computing system list
+    void PrintList()
+    {
+        std::cout << "PrintList()" << std::endl;
+    }
+    
+    /// @brief 4 Print computing system details
+    void PrintDetails()
+    {
+        std::cout << "PrintDetails()" << std::endl;
+    }
+
+    /// @brief 5 Add computing system
+    void Add()
+    {
+        std::cout << "Add()" << std::endl;
+    }
+
+    /// @brief 6 Change computing system
+    void Change()
+    {
+        std::cout << "Change()" << std::endl;
+    }
+
+    /// @brief 7 Remove computing system
+    void Remove()
+    {
+        std::cout << "Remove()" << std::endl;
+    }
+
+    /// @brief 8 Is computing system exists
+    void IsExists()
+    {
+        std::cout << "IsExists()" << std::endl;
+    }
+
 };
 //////////////// Вычислительная система (конец) //////////////
 
@@ -1840,11 +1882,18 @@ struct MenuFunctions
     }
 
     /// @brief Конфигурирование приложения
-    static void ComputingSystemRepository_Config(ComputingSystemRepository& config)
+    static void ComputingSystemRepository_Config(ComputingSystemRepository& repo)
     {
         std::cout   << "----- Computing system repository configuration -----\n"
                     << "1 Back to main menu\n"
-                    << "2 Print config" << std::endl;
+                    << "2 Print config\n"
+                    << "3 Print computing system list\n"
+                    << "4 Print computing system details\n"
+                    << "5 Add computing system\n"
+                    << "6 Change computing system\n"
+                    << "7 Remove computing system\n"
+                    << "8 Is computing system exists\n"
+                    << std::endl;
 
         
         int command = 0;
@@ -1869,9 +1918,33 @@ struct MenuFunctions
                 std::cout << "Back to main menu" << std::endl;
                 break;
             case 2:
-                std::cout << "IsExists(11) returned " << config.IsExists(11) << std::endl;
+                std::cout   << "Command: 2 Print config\n";
+                repo.PrintConfig();
                 break;
-            
+            case 3:
+                std::cout   << "Command: 3 Print computing system list\n";
+                repo.PrintList();
+                break;
+            case 4:
+                std::cout   << "Command: 4 Print computing system details\n";
+                repo.PrintDetails();
+                break;
+            case 5:
+                std::cout   << "Command: 5 Add computing system\n";
+                repo.Add();
+                break;
+            case 6:
+                std::cout   << "Command: 6 Change computing system\n";
+                repo.Change();
+                break;
+            case 7:
+                std::cout   << "Command: 7 Remove computing system\n";
+                repo.Remove();
+                break;
+            case 8:
+                std::cout   << "Command: 8 Is computing system exists\n";
+                repo.IsExists();
+                break;
             default:
                 std::cout << "Command not recognized!" << std::endl;
                 break;
@@ -1949,7 +2022,7 @@ public:
 
         MenuCommandItem item2;
         item2.comm = MenuCommand::Exit;
-        item2.keys = {"2","exit"};
+        item2.keys = {"2","q","exit"};
         item2.func = nullptr;
         item2.desc = "Exit from menu";
         menuCommands.push_back(item2);
