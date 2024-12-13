@@ -1,3 +1,4 @@
+// set PATH=%PATH%;C:\mingw64\bin
 // g++  main.cpp -o app -fopenmp -O3 -Wall
 // g++  main.cpp -o app -lpthread -O3 -Wall
 // nvcc main.cpp -o app -Xcompiler="/openmp -Wall"  -x cu -allow-unsupported-compiler -std=c++17
@@ -957,19 +958,19 @@ public:
 struct CalculationStatistics
 {
     // Количество запусков численного эксперимента
-    unsigned numIter;
+    unsigned numIter = 0;
     // Минимальное значение
-    double minValue;
+    double minValue = 0;
     // Максимальное значение
-    double maxValue;
+    double maxValue = 0;
     // Среднее арифметическое
-    double avg;
+    double avg = 0;
     // Медиана
-    double median;
+    double median = 0;
     // 95 процентиль
-    double percentile_95;
+    double percentile_95 = 0;
     // Среднеквадратическое отклонение
-    double stdDev;
+    double stdDev = 0;
 
     CalculationStatistics()
     {}
@@ -1613,6 +1614,131 @@ public:
 //////////////// Вычислительная система (конец) //////////////
 
 
+
+/////////////////////////////////////////////////
+
+/// @brief Группы задач
+enum class TaskGroup
+{
+    None,
+    Vector,
+    VecVec,
+    Matrix,
+    MatVec,
+    VecMat,
+    MatMat
+};
+
+/// @brief Задача
+enum class Task
+{
+    None,
+    Init,// Инициализация
+    Copy,// Копирование
+    Sum, // Суммирование
+    Min, // Минимум
+    Max  // Максимум
+};
+
+/// @brief Рузультаты тестового запуска алгоритма
+struct AlgTestingResult
+{
+    // УИД тестового запуска
+    size_t id = 0;
+    // УИД вычислительной системы
+    unsigned compSystemId = 0;
+    // УИД группы задач (вектор, вектор-матрица и пр) | TaskGroup
+    unsigned taskGroupId = 0;
+    // УИД задачи (сумма элементов вектора, скалярное произведение векторов и пр) | Task
+    unsigned taskId = 0;
+    // УИД алгоритма
+    unsigned algorithmId = 0;
+    // Длина типа данных, используемая в алгоритме (float: 4; double: 8)
+    unsigned algorithmDataTypeLength = 0;
+    // Тип алгоритма:
+    // 1 - последовательный CPU
+    // 2 - последовательный GPU
+    // 3 - параллельный CPU std::thread
+    // 4 - параллельный CPU OpenMP
+    // 5 - параллельный CUDA
+    unsigned algorithmType = 0;
+    // Количество потоков CPU
+    unsigned threadsNumCpu = 0;
+    // Количество блоков GPU
+    unsigned threadBlocksNumGpu = 0;
+    // Количество нитей GPU в блоке
+    unsigned threadsNumGpu = 0;
+    // Статистики вычислительного эксперимента
+    CalculationStatistics calculationStatistics;
+};
+
+
+/// @brief Репозиторий результатов тестовых запусков алгоритмов
+class AlgTestingResultRepository
+{
+    std::string dir_name = "AlgTestingResultRepository";// Каталог с данными
+    std::string file_name = "data.txt";  // Файл с данными
+    std::vector<AlgTestingResult> cache; // Кэш данных в памяти
+    // Ключ - compSystemId;
+    // значение - вектор индексов УИД тестовых запусков
+    // вычислительной системы compSystemId
+    std::map<unsigned, std::vector<size_t>> compSystemIndex;
+
+    /// @brief Проверка существования каталогов
+    void CheckDirectories()
+    {        
+        if(!FileSystemHelper::IsDirExists(dir_name))
+            FileSystemHelper::CreateDir(dir_name);
+    }
+
+    public:
+    AlgTestingResultRepository()
+    {
+        CheckDirectories();
+    }
+
+    bool Write(AlgTestingResult& data)
+    {
+        std::string filePath = FileSystemHelper::CombinePath(dir_name, "1.txt");
+        std::ofstream fout(filePath, std::ios::app);
+        fout << data.id << " "
+             << data.compSystemId << " "
+             << data.taskGroupId << " "
+             << data.taskId << " "
+             << data.algorithmId << " "
+             << data.algorithmDataTypeLength << " "
+             << data.algorithmType << " "
+             << data.threadsNumCpu << " "
+             << data.threadBlocksNumGpu << " "
+             << data.threadsNumGpu << " "
+             << data.calculationStatistics.minValue << " "
+             << data.calculationStatistics.median << " "
+             << data.calculationStatistics.avg << " "
+             << data.calculationStatistics.percentile_95 << " "
+             << data.calculationStatistics.maxValue << " "
+             << data.calculationStatistics.stdDev << " "
+             << data.calculationStatistics.numIter << " "
+             << "\n";
+        fout.close();
+
+        return true;
+    }
+
+    /// @brief Запуск по команде меню
+    void Write()
+    {
+        AlgTestingResult res;
+        res.id = 111;
+        res.compSystemId = 222;
+
+        Write(res);
+    }
+};
+
+/////////////////////////////////////////////////
+
+
+
 //////////////// Конфигурация приложения (начало) //////////////
 
 /// @brief Конфигурация приложения
@@ -1767,7 +1893,8 @@ enum class MenuCommand
     Testing_TestVectorGpu,    // Тестирование класса VectorGpu
     Testing_TestSum,          // Тестирование функций суммирования
     Application_Config,       // Конфигурация приложения
-    ComputingSystemRepository_Config // Конфигурирование хранилища сведений о вычислительных системах
+    ComputingSystemRepository_Config, // Конфигурирование хранилища сведений о вычислительных системах
+    AlgTestingResultRepository_Config // Работа с хранилищем результатов тестовых запусков
 };
 
 /// @brief Элемент меню
@@ -1991,6 +2118,73 @@ struct MenuFunctions
     
     }
 
+    static void AlgTestingResultRepository_Config(AlgTestingResultRepository& repo)
+    {
+        std::cout   << "----- AlgTestingResultRepository configuration -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 Print config\n"
+                    << "3 Print AlgTestingResultRepository list\n"
+                    << "4 Print AlgTestingResultRepository details\n"
+                    << "5 Add test alg result data\n"
+                    << "6 Change AlgTestingResultRepository\n"
+                    << "7 Remove AlgTestingResultRepository\n"
+                    << "8 Is AlgTestingResultRepository exists\n";
+
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << ">> ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout   << "Command: 2 Print config\n";
+                //repo.PrintConfig();
+                break;
+            case 3:
+                std::cout   << "Command: 3 Print computing system list\n";
+                //repo.PrintList();
+                break;
+            case 4:
+                std::cout   << "Command: 4 Print computing system details\n";
+                //repo.PrintDetails();
+                break;
+            case 5:
+                std::cout   << "Command: 5 Add test alg result data\n";
+                repo.Write();
+                break;
+            case 6:
+                std::cout   << "Command: 6 Change computing system\n";
+                //repo.Change();
+                break;
+            case 7:
+                std::cout   << "Command: 7 Remove computing system\n";
+                //repo.Remove();
+                break;
+            case 8:
+                std::cout   << "Command: 8 Is computing system exists\n";
+                //repo.IsExists();
+                break;
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    }
 };
 
 
@@ -2144,10 +2338,20 @@ public:
                 "Computing system repository configuration"
             }
         );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::AlgTestingResultRepository_Config,
+                {"11","algtr-repo-conf"},
+                nullptr,
+                "AlgTestingResultRepository configuration"
+            }
+        );
     }
 
     /// @brief Запуск главного меню
-    void Start(AppConfig& appConfig, ComputingSystemRepository& compSysRepo)
+    void Start(AppConfig& appConfig, ComputingSystemRepository& compSysRepo, AlgTestingResultRepository& algTestingResultRepo)
     {
         std::cout << "--- Main Menu ('1', '?', 'h' or 'help' for print help)---" << std::endl;
         std::string commandString;// Введённая пользователем команда
@@ -2173,6 +2377,8 @@ public:
             case MenuCommand::ComputingSystemRepository_Config:
                 MenuFunctions::ComputingSystemRepository_Config(compSysRepo);
                 break;
+            case MenuCommand::AlgTestingResultRepository_Config:
+                MenuFunctions::AlgTestingResultRepository_Config(algTestingResultRepo);
             default:
                 RunCommand();
                 break;
@@ -2184,38 +2390,13 @@ public:
 };
 
 
-
-/// @brief Рузультаты тестового запуска алгоритма
-class AlgTestingResult
-{
-    size_t id;// УИД тестового запуска
-    unsigned compSystemId;// УИД вычислительной системы
-    unsigned taskGroupId;// УИД группы задач (вектор, вектор-матрица и пр)
-    unsigned taskId;// УИД задачи (сумма элементов вектора, скалярное произведение векторов и пр)
-    //
-    // ???
-    //
-};
-
-
-/// @brief Репозиторий результатов тестовых запусков алгоритмов
-class AlgTestingResultRepository
-{
-    std::string dir = "AlgTestingResultRepository";// Каталог с данными
-    std::vector<AlgTestingResult> cache;
-
-    public:
-    AlgTestingResultRepository()
-    {}
-};
-
-
 /// @brief Приложение
 class Application
 {
     MainMenu menu; // Главное меню
     AppConfig appConfig;// Конфигурация приложения
-    ComputingSystemRepository computingSystemRepository;// Контейнер сведений о вычислительных сстемах
+    ComputingSystemRepository computingSystemRepository;// Репозиторий сведений о вычислительных сстемах
+    AlgTestingResultRepository algTestingResultRepository;// Репозиторий сведений о тестовых запусках различных алгоритмов
 
 public:
 
@@ -2241,7 +2422,10 @@ public:
         std::cout << "Computing system repository initialization: OK" << std::endl;
 
         // 3. Запускаем главное меню
-        menu.Start(appConfig, computingSystemRepository);
+        menu.Start(appConfig,
+            computingSystemRepository,
+            algTestingResultRepository
+        );
     }
 };
 
