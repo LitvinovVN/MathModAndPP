@@ -1,0 +1,4 @@
+AppConfig
+compSystemId 1
+dir_calcTestResults CalcTestResults
+dir_computingSystemRepository ComputingSystemRepository
