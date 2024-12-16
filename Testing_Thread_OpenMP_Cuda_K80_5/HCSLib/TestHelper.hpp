@@ -47,12 +47,11 @@ public:
     static std::vector<FuncResult<T>> LaunchSumOpenMP(VectorRam<T>& v, unsigned Nthreads, TestParams p)
     {
         std::cout << "-------LaunchSumOpenMP(VectorRam<T>& v, unsigned Nthreads) Start ------" << std::endl;
-        auto iterNum = p.IterNum;
         std::vector<FuncResult<T>> results;
 
         #ifdef _OPENMP
 
-        for(unsigned i{0}; i < iterNum; i++)
+        for(unsigned i{0}; i < p.IterNum; i++)
         {
             FuncResult<T> res = VectorRamHelper::SumOpenMP(v, Nthreads);
             results.push_back(res);

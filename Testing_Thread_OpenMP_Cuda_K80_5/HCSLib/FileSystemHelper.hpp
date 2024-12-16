@@ -6,6 +6,11 @@
 //#include <filesystem> // C++17
 #include <fstream>
 #include "sys/stat.h"
+
+#if defined(_WIN32)
+#include<windows.h>
+#endif
+
 class FileSystemHelper
 {
 public:
@@ -116,10 +121,17 @@ public:
         if(IsDirExists(path_dir))
             return false;
 
-        int errCode = mkdir(path_dir.c_str(), S_IRWXU);
+        int errCode = 0;
+        #if defined(_WIN32)
+        bool res = CreateDirectory(path_dir.c_str(), nullptr);
+        return res;
+        #else
+        errCode = mkdir(path_dir.c_str(), S_IRWXU);
+        #endif
+
         bool result = !(bool)errCode;
         return result;
-        //return std::experimental::create_directory(path_dir);
+        //return std::create_directory(path_dir);
     }
 
     static bool CreateDir()
