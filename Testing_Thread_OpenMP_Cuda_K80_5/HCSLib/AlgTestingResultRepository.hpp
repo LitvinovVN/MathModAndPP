@@ -25,6 +25,20 @@ class AlgTestingResultRepository
         CheckDirectories();
     }
 
+    /// @brief Считывает значение пути к каталогу с данными
+    /// @param dir 
+    std::string Get_dir_name()
+    {
+        return dir_name;
+    }
+
+    /// @brief Устанавливает значение пути к каталогу с данными
+    /// @param dir 
+    void Set_dir_name(std::string dir)
+    {
+        dir_name = dir;
+    }
+
     bool Write(AlgTestingResult& data)
     {
         std::string filePath = FileSystemHelper::CombinePath(dir_name, "1.txt");

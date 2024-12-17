@@ -10,14 +10,18 @@ class AppConfig
     std::string fileConfig{"config.txt"};// Имя файла конфигурации
 
     int compSystemId {1};// Идентификатор вычислительной системы
-    std::string dir_calcTestResults{"CalcTestResults"}; // Каталог с данными о результатах вычислительных экспериментов
+    std::string dir_data{"data"};// Каталог с данными
+    std::string dir_algTestingResultRepository{"AlgTestingResultRepository"}; // Каталог с данными о результатах вычислительных экспериментов
     std::string dir_computingSystemRepository{"ComputingSystemRepository"}; // Каталог с данными о вычислительных системах
 
     /// @brief Проверка существования каталогов
     void CheckDirectories()
-    {        
-        if(!FileSystemHelper::IsDirExists(dir_calcTestResults))
-            FileSystemHelper::CreateDir(dir_calcTestResults);
+    {
+        if(!FileSystemHelper::IsDirExists(dir_data))
+            FileSystemHelper::CreateDir(dir_data);
+
+        if(!FileSystemHelper::IsDirExists(dir_algTestingResultRepository))
+            FileSystemHelper::CreateDir(dir_algTestingResultRepository);
 
         if(!FileSystemHelper::IsDirExists(dir_computingSystemRepository))
             FileSystemHelper::CreateDir(dir_computingSystemRepository);
@@ -62,8 +66,10 @@ class AppConfig
                     return false;
                 }                
             }
-            else if (param == "dir_calcTestResults")
-                dir_calcTestResults = value;
+            else if (param == "dir_data")
+                dir_data = value;
+            else if (param == "dir_algTestingResultRepository")
+                dir_algTestingResultRepository = value;
             else if (param == "dir_computingSystemRepository")
                 dir_computingSystemRepository = value;
             else
@@ -114,9 +120,11 @@ public:
         return message;
     }
 
+    // Возвращает путь к каталогу с репозиторием вычислительных систем
     std::string GetDirComputingSystemRepository() const
     {
-        return dir_computingSystemRepository;
+        std::string path = FileSystemHelper::CombinePath(dir_data, dir_computingSystemRepository);
+        return path;
     }
 
     void Print()
@@ -132,7 +140,8 @@ public:
 
         std::cout   << "AppConfig: ["
                     << "compSystemId: " << compSystemId << "; "
-                    << "dir_calcTestResults: " << dir_calcTestResults << "; "
+                    << "dir_data: " << dir_data << "; "
+                    << "dir_algTestingResultRepository: " << dir_algTestingResultRepository << "; "
                     << "dir_computingSystemRepository: " << dir_computingSystemRepository
                     << "]" << std::endl;
     }
