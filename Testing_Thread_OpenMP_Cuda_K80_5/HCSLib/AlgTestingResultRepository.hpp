@@ -36,11 +36,50 @@ class AlgTestingResultRepository
         CheckDirectories();
     }
 
+    void PrintConfig()
+    {
+        std::cout   << "isInitialized: " << isInitialized << "; "
+                    << "dir_name: " << dir_name << "; "
+                    << "file_name: " << file_name << std::endl;
+    }
+
     /// @brief Считывает значение пути к каталогу с данными
     /// @param dir 
     std::string Get_dir_name()
     {
         return dir_name;
+    }
+
+    /// @brief Возвращает полный путь к файлу с данными 
+    std::string GetFullPath()
+    {
+        return FileSystemHelper::CombinePath(dir_name, file_name);
+    }
+
+    /// @brief Возвращает наибольший использованный УИД тестового запуска
+    /// @return 
+    size_t GetLastId()
+    {
+        std::ifstream fin(GetFullPath());
+
+        if(!fin.is_open())
+            throw std::runtime_error("File not opened!");
+
+        size_t id_max = 0;
+
+        while(!fin.eof())
+        {
+            std::string line;
+            std::getline(fin,line);
+            //std::cout << line << std::endl;
+            if(line.size() < 2)
+                continue;
+            AlgTestingResult algTestingResult(line);
+            if(algTestingResult.id > id_max)
+                id_max = algTestingResult.id;
+        }
+
+        return id_max;
     }
 
     /// @brief Устанавливает значение пути к каталогу с данными
@@ -55,7 +94,7 @@ class AlgTestingResultRepository
     /// @return 
     bool Write(AlgTestingResult& data)
     {
-        std::string filePath = FileSystemHelper::CombinePath(dir_name, "1.txt");
+        std::string filePath = GetFullPath();
         std::ofstream fout(filePath, std::ios::app);
         fout << data;
         fout.close();
@@ -71,6 +110,14 @@ class AlgTestingResultRepository
         res.compSystemId = 222;
 
         Write(res);
+    }
+
+    /// @brief Поиск записи в файле по команде меню
+    void Find()
+    {
+        size_t id = ConsoleHelper::GetUnsignedLongLongFromUser("Enter id: ");
+        std::cout << "ull: " << id << std::endl;
+        AlgTestingResult entry = TryFind(id);
     }
 };
 

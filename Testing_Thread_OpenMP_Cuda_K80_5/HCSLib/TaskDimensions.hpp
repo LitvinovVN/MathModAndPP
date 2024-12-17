@@ -62,7 +62,7 @@ struct TaskDimensions
              << data.x << " "
              << data.y << " "
              << data.z << " "
-             << data.t << " ";
+             << data.t;
 
         return fout;
     }

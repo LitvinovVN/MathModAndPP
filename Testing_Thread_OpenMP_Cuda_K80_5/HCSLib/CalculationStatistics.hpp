@@ -11,14 +11,14 @@ struct CalculationStatistics
     unsigned numIter = 0;
     // Минимальное значение
     double minValue = 0;
-    // Максимальное значение
-    double maxValue = 0;
     // Среднее арифметическое
     double avg = 0;
     // Медиана
     double median = 0;
     // 95 процентиль
     double percentile_95 = 0;
+    // Максимальное значение
+    double maxValue = 0;
     // Среднеквадратическое отклонение
     double stdDev = 0;
 
@@ -84,14 +84,13 @@ struct CalculationStatistics
 
     void Print()
     {
-        std::cout   << "numIter:       " << numIter  << "; "
-                    << "minValue:      " << minValue << "; "
-                    << "median:        " << median   << "; "
-                    << "avg:           " << avg      << "; "
+        std::cout   << "numIter: " << numIter  << "; "
+                    << "minValue: " << minValue << "; "
+                    << "median: " << median   << "; "
+                    << "avg: " << avg      << "; "
                     << "percentile_95: " << percentile_95   << "; "
-                    << "maxValue:      " << maxValue << "; "                                                            
-                    << "stdDev:        " << stdDev   << "; "
-                    << std::endl;
+                    << "maxValue: " << maxValue << "; "                                                            
+                    << "stdDev: " << stdDev   << "; ";
     }
 
     friend std::ofstream& operator<<(std::ofstream& fout, const CalculationStatistics& data)

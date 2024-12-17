@@ -1,7 +1,8 @@
 #pragma once
 
+#include <sstream>
 
-/// @brief Рузультаты тестового запуска алгоритма
+/// @brief Результаты тестового запуска алгоритма
 struct AlgTestingResult
 {
     // УИД тестового запуска
@@ -34,6 +35,61 @@ struct AlgTestingResult
     // Статистики вычислительного эксперимента
     CalculationStatistics calculationStatistics;
 
+    AlgTestingResult()
+    {
+    }
+
+    AlgTestingResult(std::string strToParse)
+    {
+        std::stringstream obj_ss(strToParse);
+        //std::cout <<"Source String to Split: " << strToParse << "\n\n";
+        obj_ss >> id;
+        obj_ss >> compSystemId;
+        obj_ss >> taskGroupId;
+        obj_ss >> taskId;
+        obj_ss >> taskDimensions.dim;
+        obj_ss >> taskDimensions.x;
+        obj_ss >> taskDimensions.y;
+        obj_ss >> taskDimensions.z;
+        obj_ss >> taskDimensions.t;
+        obj_ss >> algorithmId;
+        obj_ss >> algorithmDataTypeLength;
+        obj_ss >> algorithmType;
+        obj_ss >> threadsNumCpu;
+        obj_ss >> threadBlocksNumGpu;
+        obj_ss >> threadsNumGpu;
+        obj_ss >> calculationStatistics.numIter;
+        obj_ss >> calculationStatistics.minValue;
+        obj_ss >> calculationStatistics.median;
+        obj_ss >> calculationStatistics.avg;
+        obj_ss >> calculationStatistics.percentile_95;
+        obj_ss >> calculationStatistics.maxValue;
+        obj_ss >> calculationStatistics.stdDev;
+
+        //std::cout << "Parsed: ";
+        //Print();
+    }
+
+    void Print()
+    {
+        std::cout << "id: " << id << "; ";
+        std::cout << "compSystemId: " << compSystemId << "; ";
+        std::cout << "taskGroupId: "     << taskGroupId << "; ";
+        std::cout << "taskId: "          << taskId << "; ";
+        std::cout << "taskDimensions.dim: " << taskDimensions.dim << "; ";
+        std::cout << "taskDimensions.x: "   << taskDimensions.x << "; ";
+        std::cout << "taskDimensions.y: "   << taskDimensions.y << "; ";
+        std::cout << "taskDimensions.z: "   << taskDimensions.z << "; ";
+        std::cout << "taskDimensions.t: "   << taskDimensions.t << "; ";
+        std::cout << "algorithmId: "             << algorithmId << "; ";
+        std::cout << "algorithmDataTypeLength: " << algorithmDataTypeLength << "; ";
+        std::cout << "algorithmType: "           << algorithmType << "; ";
+        std::cout << "threadsNumCpu: "      << threadsNumCpu << "; ";
+        std::cout << "threadBlocksNumGpu: " << threadBlocksNumGpu << "; ";
+        std::cout << "threadsNumGpu: "      << threadsNumGpu << "; ";
+        calculationStatistics.Print();
+        std::cout << std::endl;
+    }
 
     friend std::ofstream& operator<<(std::ofstream& fout, const AlgTestingResult& data)
     {

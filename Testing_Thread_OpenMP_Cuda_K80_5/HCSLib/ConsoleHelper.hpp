@@ -1,7 +1,5 @@
 #pragma once
 
-//////////////// Работа с консолью (начало) ///////////////////
-
 /// @brief Вспомогательный класс для работы с консолью
 struct ConsoleHelper
 {
@@ -48,5 +46,28 @@ struct ConsoleHelper
             }
         }
     }
+
+    static size_t GetUnsignedLongLongFromUser(std::string message, std::string errorMessage = "Error! Enter integer number")
+    {
+        while (1)
+        {
+            try
+            {
+                std::cout << message;
+                std::string userInput;
+                std::cin >> userInput;
+
+                if(isdigit(userInput[0]))
+                {
+                    size_t value = std::stoull(userInput);
+                    return value;
+                }
+                std::cout << errorMessage << std::endl;
+            }
+            catch(const std::exception& e)
+            {
+                std::cout << errorMessage << std::endl;
+            }
+        }
+    }
 };
-//////////////// Работа с консолью (конец) ///////////////////

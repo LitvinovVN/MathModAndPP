@@ -184,12 +184,13 @@ struct MenuFunctions
         std::cout   << "----- AlgTestingResultRepository configuration -----\n"
                     << "1 Back to main menu\n"
                     << "2 Print config\n"
-                    << "3 Print AlgTestingResultRepository list\n"
-                    << "4 Print AlgTestingResultRepository details\n"
+                    << "3 Get last Id\n"
+                    << "4 Find alg testing result\n"
                     << "5 Add test alg result data\n"
                     << "6 Change AlgTestingResultRepository\n"
                     << "7 Remove AlgTestingResultRepository\n"
                     << "8 Is AlgTestingResultRepository exists\n";
+                    
 
         int command = 0;
         while(command != 1)
@@ -214,15 +215,23 @@ struct MenuFunctions
                 break;
             case 2:
                 std::cout   << "Command: 2 Print config\n";
-                //repo.PrintConfig();
+                repo.PrintConfig();
                 break;
             case 3:
-                std::cout   << "Command: 3 Print computing system list\n";
-                //repo.PrintList();
+                std::cout   << "Command: 3 Get last Id\n";
+                try
+                {
+                    std::cout << repo.GetLastId() << std::endl;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+                                
                 break;
             case 4:
-                std::cout   << "Command: 4 Print computing system details\n";
-                //repo.PrintDetails();
+                std::cout   << "Command: 4 Find alg testing result\n";
+                repo.Find();
                 break;
             case 5:
                 std::cout   << "Command: 5 Add test alg result data\n";
