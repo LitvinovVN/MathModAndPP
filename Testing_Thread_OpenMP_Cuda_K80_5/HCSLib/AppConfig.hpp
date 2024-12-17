@@ -11,8 +11,8 @@ class AppConfig
 
     int compSystemId {1};// Идентификатор вычислительной системы
     std::string dir_data{"data"};// Каталог с данными
-    std::string dir_algTestingResultRepository{"AlgTestingResultRepository"}; // Каталог с данными о результатах вычислительных экспериментов
     std::string dir_computingSystemRepository{"ComputingSystemRepository"}; // Каталог с данными о вычислительных системах
+    std::string dir_algTestingResultRepository{"AlgTestingResultRepository"}; // Каталог с данными о результатах вычислительных экспериментов
 
     /// @brief Проверка существования каталогов
     void CheckDirectories()
@@ -20,11 +20,11 @@ class AppConfig
         if(!FileSystemHelper::IsDirExists(dir_data))
             FileSystemHelper::CreateDir(dir_data);
 
-        if(!FileSystemHelper::IsDirExists(dir_algTestingResultRepository))
-            FileSystemHelper::CreateDir(dir_algTestingResultRepository);
-
-        if(!FileSystemHelper::IsDirExists(dir_computingSystemRepository))
-            FileSystemHelper::CreateDir(dir_computingSystemRepository);
+        if(!FileSystemHelper::IsDirExists(GetDirComputingSystemRepository()))
+            FileSystemHelper::CreateDir(GetDirComputingSystemRepository());
+        
+        if(!FileSystemHelper::IsDirExists(GetDirAlgTestingResultRepository()))
+            FileSystemHelper::CreateDir(GetDirAlgTestingResultRepository());
     }
 
     /// @brief Считывает конфигурацию из файла
@@ -124,6 +124,13 @@ public:
     std::string GetDirComputingSystemRepository() const
     {
         std::string path = FileSystemHelper::CombinePath(dir_data, dir_computingSystemRepository);
+        return path;
+    }
+
+    // Возвращает путь к каталогу с репозиторием результатов тестовых запусков алгоритмов
+    std::string GetDirAlgTestingResultRepository() const
+    {
+        std::string path = FileSystemHelper::CombinePath(dir_data, dir_algTestingResultRepository);
         return path;
     }
 

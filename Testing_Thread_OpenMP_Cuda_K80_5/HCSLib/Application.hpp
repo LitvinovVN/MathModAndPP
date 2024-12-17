@@ -6,8 +6,8 @@ class Application
 {
     MainMenu menu; // Главное меню
     AppConfig appConfig;// Конфигурация приложения
-    ComputingSystemRepository computingSystemRepository;// Репозиторий сведений о вычислительных сстемах
-    AlgTestingResultRepository algTestingResultRepository;// Репозиторий сведений о тестовых запусках различных алгоритмов
+    ComputingSystemRepository computingSystemRepository{false};// Репозиторий сведений о вычислительных сстемах
+    AlgTestingResultRepository algTestingResultRepository{false};// Репозиторий сведений о тестовых запусках различных алгоритмов
 
 public:
 
@@ -32,11 +32,15 @@ public:
         computingSystemRepository = ComputingSystemRepository {appConfig.GetDirComputingSystemRepository()};
         std::cout << "Computing system repository initialization: OK" << std::endl;
 
-        // 3. Запускаем главное меню
+        // 3. Считываем сведения о результатах тестовых запусков алгоритмов
+        algTestingResultRepository = AlgTestingResultRepository {appConfig.GetDirAlgTestingResultRepository()};
+        std::cout << "Computing system repository initialization: OK" << std::endl;
+
+        // 4. Запускаем главное меню
         menu.Start(appConfig,
             computingSystemRepository,
             algTestingResultRepository
-        );
+        );//*/
     }
 };
 

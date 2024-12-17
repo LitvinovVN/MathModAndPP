@@ -12,6 +12,8 @@ struct AlgTestingResult
     unsigned taskGroupId = 0;
     // УИД задачи (сумма элементов вектора, скалярное произведение векторов и пр) | Task
     unsigned taskId = 0;
+    // Размерность задачи (кол-во )
+    TaskDimensions taskDimensions {};
     // УИД алгоритма
     unsigned algorithmId = 0;
     // Длина типа данных, используемая в алгоритме (float: 4; double: 8)
@@ -31,5 +33,25 @@ struct AlgTestingResult
     unsigned threadsNumGpu = 0;
     // Статистики вычислительного эксперимента
     CalculationStatistics calculationStatistics;
+
+
+    friend std::ofstream& operator<<(std::ofstream& fout, const AlgTestingResult& data)
+    {
+        fout << data.id << " "
+             << data.compSystemId << " "
+             << data.taskGroupId << " "
+             << data.taskId << " ";
+        fout << data.taskDimensions << " ";
+        fout << data.algorithmId << " "
+             << data.algorithmDataTypeLength << " "
+             << data.algorithmType << " "
+             << data.threadsNumCpu << " "
+             << data.threadBlocksNumGpu << " "
+             << data.threadsNumGpu << " ";
+        fout << data.calculationStatistics;
+        fout << "\n";
+
+        return fout;
+    }
 };
 

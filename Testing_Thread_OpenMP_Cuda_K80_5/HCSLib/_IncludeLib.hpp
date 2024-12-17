@@ -43,6 +43,7 @@ using namespace std::chrono;
 
 #include "TaskGroup.hpp"
 #include "Task.hpp"
+#include "TaskDimensions.hpp"
 #include "AlgTestingResult.hpp"
 #include "AlgTestingResultRepository.hpp"
 #include "AppConfig.hpp"

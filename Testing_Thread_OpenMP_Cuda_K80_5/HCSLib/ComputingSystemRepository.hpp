@@ -4,6 +4,8 @@
 /// @brief Репозиторий сведений о вычислительных системах
 class ComputingSystemRepository
 {
+    bool isInitialized = false;
+
     std::string dir_name = "ComputingSystemRepository";// Имя каталога со сведениями о вычислительных системах
     std::string file_name = "List.txt";// Имя файла со сведениями о вычислительных системах
 
@@ -85,19 +87,27 @@ class ComputingSystemRepository
     }
 
 public:
-    ComputingSystemRepository()
+    ComputingSystemRepository(bool isInitialized = true)
+        : isInitialized(isInitialized)
     {
-        CheckDirectories();
-        CheckFiles();
-        ReadFile();
+        CheckAndReadIfInitialized();        
     }
 
     ComputingSystemRepository(std::string dir_name)
         : dir_name(dir_name)
     {
-        CheckDirectories();
-        CheckFiles();
-        ReadFile();
+        isInitialized = true;
+        CheckAndReadIfInitialized();
+    }
+
+    void CheckAndReadIfInitialized()
+    {
+        if(isInitialized)
+        {
+            CheckDirectories();
+            CheckFiles();
+            ReadFile();
+        }
     }
 
     bool IsExists(int computingSystemId) const

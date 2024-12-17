@@ -84,13 +84,27 @@ struct CalculationStatistics
 
     void Print()
     {
-        std::cout   << "minValue: "      << minValue << "; "
-                    << "median: "        << median   << "; "
-                    << "avg: "           << avg      << "; "
+        std::cout   << "numIter:       " << numIter  << "; "
+                    << "minValue:      " << minValue << "; "
+                    << "median:        " << median   << "; "
+                    << "avg:           " << avg      << "; "
                     << "percentile_95: " << percentile_95   << "; "
-                    << "maxValue: "      << maxValue << "; "                                                            
-                    << "stdDev: "        << stdDev   << "; "
+                    << "maxValue:      " << maxValue << "; "                                                            
+                    << "stdDev:        " << stdDev   << "; "
                     << std::endl;
+    }
+
+    friend std::ofstream& operator<<(std::ofstream& fout, const CalculationStatistics& data)
+    {
+        fout << data.numIter << " "
+             << data.minValue << " "
+             << data.median << " "
+             << data.avg << " "
+             << data.percentile_95 << " "
+             << data.maxValue << " "
+             << data.stdDev << " ";
+
+        return fout;
     }
 };
 

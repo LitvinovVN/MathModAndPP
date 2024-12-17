@@ -4,6 +4,7 @@
 /// @brief Репозиторий результатов тестовых запусков алгоритмов
 class AlgTestingResultRepository
 {
+    bool isInitialized = false;
     std::string dir_name = "AlgTestingResultRepository";// Каталог с данными
     std::string file_name = "data.txt";  // Файл с данными
     std::vector<AlgTestingResult> cache; // Кэш данных в памяти
@@ -14,14 +15,24 @@ class AlgTestingResultRepository
 
     /// @brief Проверка существования каталогов
     void CheckDirectories()
-    {        
+    {
+        if (!isInitialized) return;
+
         if(!FileSystemHelper::IsDirExists(dir_name))
             FileSystemHelper::CreateDir(dir_name);
     }
 
     public:
-    AlgTestingResultRepository()
+    AlgTestingResultRepository(bool isInitialized = true)
+        : isInitialized(isInitialized)
     {
+        CheckDirectories();
+    }
+
+    AlgTestingResultRepository(std::string dir_name)
+        : dir_name(dir_name)
+    {
+        isInitialized = true;
         CheckDirectories();
     }
 
@@ -39,28 +50,14 @@ class AlgTestingResultRepository
         dir_name = dir;
     }
 
+    /// @brief Записывает результаты тестового запуска в файл
+    /// @param data 
+    /// @return 
     bool Write(AlgTestingResult& data)
     {
         std::string filePath = FileSystemHelper::CombinePath(dir_name, "1.txt");
         std::ofstream fout(filePath, std::ios::app);
-        fout << data.id << " "
-             << data.compSystemId << " "
-             << data.taskGroupId << " "
-             << data.taskId << " "
-             << data.algorithmId << " "
-             << data.algorithmDataTypeLength << " "
-             << data.algorithmType << " "
-             << data.threadsNumCpu << " "
-             << data.threadBlocksNumGpu << " "
-             << data.threadsNumGpu << " "
-             << data.calculationStatistics.minValue << " "
-             << data.calculationStatistics.median << " "
-             << data.calculationStatistics.avg << " "
-             << data.calculationStatistics.percentile_95 << " "
-             << data.calculationStatistics.maxValue << " "
-             << data.calculationStatistics.stdDev << " "
-             << data.calculationStatistics.numIter << " "
-             << "\n";
+        fout << data;
         fout.close();
 
         return true;
