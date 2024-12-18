@@ -1,7 +1,7 @@
 #pragma once
 
 
-/// @brief Задача
+/// @brief Задача (копирование, суммаривоние и пр.)
 enum class Task
 {
     None,
@@ -11,3 +11,32 @@ enum class Task
     Min, // Минимум
     Max  // Максимум
 };
+
+std::ostream& operator<<(std::ostream& os, Task tg)
+{
+    switch (tg)
+    {
+    case Task::None:
+        os << "None";
+        break;
+    case Task::Init:
+        os << "Init";
+        break;
+    case Task::Copy:
+        os << "Copy";
+        break;
+    case Task::Sum:
+        os << "Sum";
+        break;
+    case Task::Min:
+        os << "Min";
+        break;
+    case Task::Max:
+        os << "Max";
+        break;
+    default:
+        break;
+    }
+
+    return os;
+}

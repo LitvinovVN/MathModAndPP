@@ -13,7 +13,7 @@ struct AlgTestingResult
     unsigned taskGroupId = 0;
     // УИД задачи (сумма элементов вектора, скалярное произведение векторов и пр) | Task
     unsigned taskId = 0;
-    // Размерность задачи (кол-во )
+    // Размерность задачи (кол-во измерений и кол-во элементов по осям координат x, y, z, t)
     TaskDimensions taskDimensions {};
     // УИД алгоритма
     unsigned algorithmId = 0;

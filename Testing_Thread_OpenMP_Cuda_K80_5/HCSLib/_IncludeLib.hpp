@@ -21,6 +21,7 @@ using namespace std::chrono;
 #include "kernels.cu"
 #endif
 
+#include "PrintParams.hpp"
 #include "ConsoleHelper.hpp"
 #include "FileSystemHelper.hpp"
 #include "CudaHelper.hpp"
@@ -44,6 +45,11 @@ using namespace std::chrono;
 #include "TaskGroup.hpp"
 #include "Task.hpp"
 #include "TaskDimensions.hpp"
+#include "DataLocation.hpp"
+#include "AlgorithmType.hpp"
+#include "Algorithm.hpp"
+#include "AlgorithmRepository.hpp"
+#include "AlgorithmMetrics.hpp"
 #include "AlgTestingResult.hpp"
 #include "AlgTestingResultRepository.hpp"
 #include "AppConfig.hpp"

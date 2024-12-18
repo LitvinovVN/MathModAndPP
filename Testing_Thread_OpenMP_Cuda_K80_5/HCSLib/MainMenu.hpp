@@ -171,10 +171,23 @@ public:
                 "Testing FileSystemHelper"
             }
         );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::AlgorithmRepository,
+                {"13","alg-repo"},
+                nullptr,
+                "Testing AlgorithmRepository"
+            }
+        );
     }
 
     /// @brief Запуск главного меню
-    void Start(AppConfig& appConfig, ComputingSystemRepository& compSysRepo, AlgTestingResultRepository& algTestingResultRepo)
+    void Start(AppConfig& appConfig,
+        ComputingSystemRepository& compSysRepo,
+        AlgorithmRepository& algorithmRepository,
+        AlgTestingResultRepository& algTestingResultRepo)
     {
         std::cout << "--- Main Menu ('1', '?', 'h' or 'help' for print help)---" << std::endl;
         std::string commandString;// Введённая пользователем команда
@@ -202,6 +215,8 @@ public:
                 break;
             case MenuCommand::AlgTestingResultRepository_Config:
                 MenuFunctions::AlgTestingResultRepository_Config(algTestingResultRepo);
+            case MenuCommand::AlgorithmRepository:
+                MenuFunctions::AlgorithmRepository(algorithmRepository);
             default:
                 RunCommand();
                 break;

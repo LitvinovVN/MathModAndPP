@@ -32,13 +32,17 @@ public:
         computingSystemRepository = ComputingSystemRepository {appConfig.GetDirComputingSystemRepository()};
         std::cout << "Computing system repository initialization: OK" << std::endl;
 
-        // 3. Считываем сведения о результатах тестовых запусков алгоритмов
+        // 3. Инициализируем репозиторий алгоритмов
+        AlgorithmRepository algorithmRepository;        
+
+        // 4. Считываем сведения о результатах тестовых запусков алгоритмов
         algTestingResultRepository = AlgTestingResultRepository {appConfig.GetDirAlgTestingResultRepository()};
         std::cout << "Computing system repository initialization: OK" << std::endl;
 
-        // 4. Запускаем главное меню
+        // 5. Запускаем главное меню
         menu.Start(appConfig,
             computingSystemRepository,
+            algorithmRepository,
             algTestingResultRepository
         );//*/
     }

@@ -16,6 +16,7 @@ enum class MenuCommand
     Application_Config,       // Конфигурация приложения
     ComputingSystemRepository_Config, // Конфигурирование хранилища сведений о вычислительных системах
     AlgTestingResultRepository_Config, // Работа с хранилищем результатов тестовых запусков
-    Testing_FileSystemHelper  // Тестирование вспомогательного класса для работы с файловой системой
+    Testing_FileSystemHelper, // Тестирование вспомогательного класса для работы с файловой системой
+    AlgorithmRepository       // Тестирование репозитория алгоритмов
 };
 

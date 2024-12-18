@@ -3,10 +3,12 @@
 #include <iostream>
 #include <fstream>
 
-/// @brief Размерность задачи
+#include "PrintParams.hpp"
+
+/// @brief Размерности задачи
 struct TaskDimensions
 {
-    unsigned dim = 1;// 1 - 1D, 2 - 2D, 3 - 3D, 
+    unsigned dim = 1;// 1 - 1D, 2 - 2D, 3 - 3D, 4 - 3D+t
     size_t x = 1;// Количество элементов по x
     size_t y = 1;// Количество элементов по y
     size_t z = 1;// Количество элементов по z
@@ -46,14 +48,19 @@ struct TaskDimensions
         return false;
     }
 
-    void Print()
+    void Print(PrintParams pp)
     {
-        std::cout   << "dim:    " << dim    << "; "
-                    << "size_x: " << x << "; "
-                    << "size_y: " << y << "; "
-                    << "size_z: " << z << "; "
-                    << "size_t: " << t << "; "
-                    << std::endl;
+        std::cout << pp.startMes;
+
+        std::cout << "dim" << pp.splitterKeyValue << dim << pp.splitter;
+        std::cout << "x"   << pp.splitterKeyValue << x   << pp.splitter;
+        std::cout << "y"   << pp.splitterKeyValue << y   << pp.splitter;
+        std::cout << "z"   << pp.splitterKeyValue << z   << pp.splitter;
+        std::cout << "t"   << pp.splitterKeyValue << t   << pp.splitter;
+                    
+        std::cout << pp.endMes;
+        if(pp.isEndl)
+            std::cout << std::endl;
     }
 
     friend std::ofstream& operator<<(std::ofstream& fout, const TaskDimensions& data)

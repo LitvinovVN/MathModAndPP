@@ -235,19 +235,19 @@ struct MenuFunctions
                 break;
             case 5:
                 std::cout   << "Command: 5 Add test alg result data\n";
-                repo.Write();
+                repo.Add();
                 break;
             case 6:
-                std::cout   << "Command: 6 Change computing system\n";
+                std::cout   << "Command: 6 Change alg testing result\n";
                 //repo.Change();
                 break;
             case 7:
-                std::cout   << "Command: 7 Remove computing system\n";
+                std::cout   << "Command: 7 Remove alg testing result\n";
                 //repo.Remove();
                 break;
             case 8:
-                std::cout   << "Command: 8 Is computing system exists\n";
-                //repo.IsExists();
+                std::cout   << "Command: 8 Is alg testing result exists\n";
+                repo.IsExists();
                 break;
             default:
                 std::cout << "Command not recognized!" << std::endl;
@@ -317,6 +317,68 @@ struct MenuFunctions
             case 8:
                 std::cout   << "Command: 8 RemoveDir\n";
                 FileSystemHelper::RemoveDir();
+                break;            
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    }
+
+    static void AlgorithmRepository(AlgorithmRepository& repo)
+    {
+        std::cout   << "----- AlgorithmRepository configuration -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 Print algorithms\n"
+                    << "3 Get algorithm\n"
+                    << "4 Find alg testing result\n"
+                    << "5 Is AlgTestingResultRepository exists\n";
+                    
+
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << ">> ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout   << "Command: 2 Print config\n";
+                repo.Print(PrintParams{});
+                break;
+            case 3:
+                std::cout   << "Command: 3 Get last Id\n";
+                try
+                {
+                    //std::cout << repo.GetLastId() << std::endl;
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+                                
+                break;
+            case 4:
+                std::cout   << "Command: 4 Find alg testing result\n";
+                //repo.Find();
+                break;
+            case 5:
+                std::cout   << "Command: 5 Add test alg result data\n";
+                //repo.Add();
                 break;            
             default:
                 std::cout << "Command not recognized!" << std::endl;
