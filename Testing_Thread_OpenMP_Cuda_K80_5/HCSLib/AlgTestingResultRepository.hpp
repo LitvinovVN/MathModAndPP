@@ -20,6 +20,10 @@ class AlgTestingResultRepository
 
         if(!FileSystemHelper::IsDirExists(dir_name))
             FileSystemHelper::CreateDir(dir_name);
+
+        std::string filePath = GetFullPath();
+        if(!FileSystemHelper::IsFileExists(filePath))
+            FileSystemHelper::CreateFile(dir_name, file_name, "");
     }
 
     public:

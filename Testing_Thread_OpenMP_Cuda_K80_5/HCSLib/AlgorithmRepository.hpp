@@ -62,7 +62,6 @@ void AlgorithmRepository::Init()
     alg1.algorithmType = AlgorithmType::SeqCpu;
     alg1.dataLocationInput = DataLocation::Ram;
     alg1.dataLocationOutput = DataLocation::Ram;
-
     Add(alg1);
 
     Algorithm alg2;
@@ -70,6 +69,5 @@ void AlgorithmRepository::Init()
     alg2.algorithmType = AlgorithmType::SeqGpuCuda;
     alg2.dataLocationInput = DataLocation::Gpu;
     alg2.dataLocationOutput = DataLocation::Gpu;
-
     Add(alg2);
 }
