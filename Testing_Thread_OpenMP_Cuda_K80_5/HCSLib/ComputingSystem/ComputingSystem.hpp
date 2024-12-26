@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 
 /// @brief Вычислительная система
 class ComputingSystem
@@ -9,6 +10,7 @@ class ComputingSystem
     std::string description{"TestSystem description"}; // Описание вычислительной системы
     std::string file_name{"ComputingSystem.txt"};// Имя файла с описанием вычислительной системы
     
+    std::map<unsigned, ComputingSystemNode> nodes;// Вычислительные узлы
 
 public:
     ComputingSystem()
@@ -24,6 +26,12 @@ public:
             file_name(file_name)
     {}
 
+    /// @brief Добавляет вычислительный узел в вычислительную систему
+    void AddNode(ComputingSystemNode node)
+    {
+        nodes[node.GetId()] = node;
+    }
+
     /// @brief Выводит в консоль сведения о вычислительной системе
     void Print()
     {
@@ -33,6 +41,27 @@ public:
                     << "\ndescription: " << description
                     << "\nfile_name:   " << file_name
                     << std::endl;
+        std::cout   << "Nodes number: " << GetNodesNumber() << std::endl;
+        
+        for ( auto& node : nodes)
+        {
+            node.second.Print(PrintParams{});
+        }
+    }
+
+    /// @brief Возвращает количество узлов вычислительной системы
+    /// @return 
+    unsigned GetNodesNumber()
+    {
+        unsigned cnt{0};
+
+        /*for ( auto& node : nodes)
+        {
+            cnt++;
+        }*/
+        cnt = nodes.size();
+
+        return cnt;
     }
 
     /// @brief Возвращает идентификатор вычислительной системы

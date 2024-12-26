@@ -120,7 +120,9 @@ struct MenuFunctions
                     << "5 Add computing system\n"
                     << "6 Change computing system\n"
                     << "7 Remove computing system\n"
-                    << "8 Is computing system exists\n";
+                    << "8 Is computing system exists\n"
+                    << "9 Clear computing system repository\n"
+                    << "10 Init computing system repository\n";
 
         int command = 0;
         while(command != 1)
@@ -170,6 +172,14 @@ struct MenuFunctions
             case 8:
                 std::cout   << "Command: 8 Is computing system exists\n";
                 repo.IsExists();
+                break;
+            case 9:
+                std::cout   << "Command: 9 Clear computing system repository \n";
+                repo.Clear();
+                break;
+            case 10:
+                std::cout   << "Command: 10 Init computing system repository \n";
+                repo.Init();
                 break;
             default:
                 std::cout << "Command not recognized!" << std::endl;
@@ -330,9 +340,7 @@ struct MenuFunctions
         std::cout   << "----- AlgorithmRepository configuration -----\n"
                     << "1 Back to main menu\n"
                     << "2 Print algorithms\n"
-                    << "3 Get algorithm\n"
-                    << "4 Find alg testing result\n"
-                    << "5 Is AlgTestingResultRepository exists\n";
+                    << "3 Get algorithm\n";
                     
 
         int command = 0;
@@ -361,25 +369,17 @@ struct MenuFunctions
                 repo.Print(PrintParams{});
                 break;
             case 3:
-                std::cout   << "Command: 3 Get last Id\n";
+                std::cout   << "Command: 3 Get algorithm\n";
                 try
                 {
-                    //std::cout << repo.GetLastId() << std::endl;
+                    repo.Get();
                 }
                 catch(const std::exception& e)
                 {
                     std::cerr << e.what() << '\n';
                 }
-                                
                 break;
-            case 4:
-                std::cout   << "Command: 4 Find alg testing result\n";
-                //repo.Find();
-                break;
-            case 5:
-                std::cout   << "Command: 5 Add test alg result data\n";
-                //repo.Add();
-                break;            
+            
             default:
                 std::cout << "Command not recognized!" << std::endl;
                 break;

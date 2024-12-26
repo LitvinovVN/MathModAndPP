@@ -11,6 +11,9 @@ class ComputingSystemRepository
 
     std::vector<int> computerSystemIds;// Вектор идентификаторов вычислительных систем
 
+    // Кэш сведений о вычислительных системах
+    std::map<unsigned, ComputingSystem> computingSystemCache;
+
     /// @brief Проверка существования каталогов
     void CheckDirectories()
     {        
@@ -27,7 +30,7 @@ class ComputingSystemRepository
             {
                 std::cerr << "File " + file_name + " in directory " + dir_name + " is not created!";
                 exit(-1);
-            }            
+            }
         }
     }
 
@@ -90,7 +93,7 @@ public:
     ComputingSystemRepository(bool isInitialized = true)
         : isInitialized(isInitialized)
     {
-        CheckAndReadIfInitialized();        
+        CheckAndReadIfInitialized();
     }
 
     ComputingSystemRepository(std::string dir_name)
@@ -107,6 +110,7 @@ public:
             CheckDirectories();
             CheckFiles();
             ReadFile();
+            Init();
         }
     }
 
@@ -145,6 +149,16 @@ public:
         if(!IsExists(id))
             throw std::logic_error("Computing system not found!");
 
+        try
+        {
+            auto entry = computingSystemCache[id];
+            return entry;
+        }
+        catch(const std::exception& e)
+        {
+            //std::cerr << e.what() << '\n';
+        }
+        
         return ComputingSystem::Deserialize(dir_name, id);
     }
 
@@ -176,8 +190,16 @@ public:
             return;
         }
 
-        ComputingSystem computingSystem = GetComputingSystem(id);
-        computingSystem.Print();
+        try
+        {
+            ComputingSystem computingSystem = GetComputingSystem(id);
+            computingSystem.Print();
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
     }
 
     /// @brief 5 Add computing system
@@ -199,13 +221,13 @@ public:
     /// @brief 6 Change computing system
     void Change()
     {
-        std::cout << "Change()" << std::endl;
+        std::cout << "ComputingSystemRepository::Change()" << std::endl;
     }
 
     /// @brief 7 Remove computing system
     void Remove()
     {
-        std::cout << "Remove()" << std::endl;
+        std::cout << "ComputingSystemRepository::Remove()" << std::endl;
     }
 
     /// @brief 8 Is computing system exists
@@ -216,6 +238,39 @@ public:
 
         std::cout << "id: "       << compSystemId << "; ";
         std::cout << "isExists: " << isExists     << std::endl;
+    }
+
+    /// @brief 9 Clear computing system repository
+    void Clear()
+    {
+        std::cout << "ComputingSystemRepository::Clear()" << std::endl;
+        bool result = FileSystemHelper::RemoveDir(dir_name);
+        if(result)
+            std::cout << "Clearing success!" << std::endl;
+        else
+            std::cout << "Clearing error!" << std::endl;
+    }
+
+    /// @brief 10 Init computing system repository. Fill repository computing systems data.
+    void Init()
+    {
+        std::cout << "ComputingSystemRepository::Init()" << std::endl;
+        
+        ////////////////////////////////
+        ComputingSystem cs1{1, "i3-8G-MX250-2G","Notebook i3-8G-MX250-2G"};
+
+        GpuParams gpu1cs1n1{};
+        gpu1cs1n1.id = 0;
+        gpu1cs1n1.VRamSizeGb = 3.9;
+        gpu1cs1n1.SmNumber = 3;
+
+        ComputingSystemNode cs1n1{};
+        cs1n1.AddGpu(gpu1cs1n1);
+
+        cs1.AddNode(cs1n1);
+        computingSystemCache[cs1.GetId()] = cs1;
+        computerSystemIds.push_back(cs1.GetId());
+        ////////////////////////////////
     }
 
 };

@@ -38,8 +38,9 @@ using namespace std::chrono;
 #include "CalculationStatistics.hpp"
 #include "ParallelCalcIndicators.hpp"
 //////////////// Вычислительная система (начало) //////////////
-#include "ComputingSystem.hpp"
-#include "ComputingSystemRepository.hpp"
+#include "ComputingSystem/ComputingSystemNode.hpp"
+#include "ComputingSystem/ComputingSystem.hpp"
+#include "ComputingSystem/ComputingSystemRepository.hpp"
 //////////////// Вычислительная система (конец) //////////////
 
 #include "TaskGroup.hpp"

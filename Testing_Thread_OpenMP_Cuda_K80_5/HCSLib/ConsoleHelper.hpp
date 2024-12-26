@@ -47,6 +47,30 @@ struct ConsoleHelper
         }
     }
 
+    static unsigned GetUnsignedIntFromUser(std::string message, std::string errorMessage = "Error! Enter integer number")
+    {
+        while (1)
+        {
+            try
+            {
+                std::cout << message;
+                std::string userInput;
+                std::cin >> userInput;
+
+                if(isdigit(userInput[0]))
+                {
+                    unsigned value = std::stoul(userInput);
+                    return value;
+                }
+                std::cout << errorMessage << std::endl;
+            }
+            catch(const std::exception& e)
+            {
+                std::cout << errorMessage << std::endl;
+            }
+        }
+    }
+
     static size_t GetUnsignedLongLongFromUser(std::string message, std::string errorMessage = "Error! Enter integer number")
     {
         while (1)
