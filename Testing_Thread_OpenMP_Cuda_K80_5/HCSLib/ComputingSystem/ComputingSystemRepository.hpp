@@ -259,13 +259,26 @@ public:
         ////////////////////////////////
         ComputingSystem cs1{1, "i3-8G-MX250-2G","Notebook i3-8G-MX250-2G"};
 
+        CpuParams cpu1cs1n1{};
+        cpu1cs1n1.id = 0;
+        cpu1cs1n1.name = "Intel Core i3-10110U 2.1GHz";
+        cpu1cs1n1.ThreadsNumber = 4;
+
+        RamParams ramcs1n1{};
+        ramcs1n1.RamSizeGb = 8;
+        ramcs1n1.RamBandwidthGbS = 19.2;
+
         GpuParams gpu1cs1n1{};
         gpu1cs1n1.id = 0;
+        gpu1cs1n1.name = "NVIDIA GeForce MX250";
         gpu1cs1n1.VRamSizeGb = 3.9;
         gpu1cs1n1.SmNumber = 3;
+        gpu1cs1n1.PeakMemoryBandwidthGbS = 48.064;
 
         ComputingSystemNode cs1n1{};
         cs1n1.AddGpu(gpu1cs1n1);
+        cs1n1.AddCpu(cpu1cs1n1);
+        cs1n1.AddRam(ramcs1n1);
 
         cs1.AddNode(cs1n1);
         computingSystemCache[cs1.GetId()] = cs1;

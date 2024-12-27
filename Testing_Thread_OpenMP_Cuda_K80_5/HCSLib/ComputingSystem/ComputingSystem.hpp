@@ -45,7 +45,7 @@ public:
         
         for ( auto& node : nodes)
         {
-            node.second.Print(PrintParams{});
+            node.second.Print(PrintParams{"--- Node [", ": ", "; ", "] ---"});
         }
     }
 
