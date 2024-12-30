@@ -5,7 +5,7 @@
 /// @brief Тип алгоритма:
 enum class AlgorithmType
 {
-    None,        // Неинициализировано
+    None,        // 0 - Неинициализировано
     SeqCpu,      // 1 - последовательный CPU
     SeqGpuCuda,  // 2 - последовательный GPU CUDA
     ParCpuThread,// 3 - параллельный CPU std::thread

@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-#include "TaskGroup.hpp"
-#include "Task.hpp"
-#include "TaskDimensions.hpp"
+#include "../Tasks/TaskGroup.hpp"
+#include "../Tasks/Task.hpp"
+#include "../Tasks/TaskDimensions.hpp"
 #include "AlgorithmType.hpp"
 #include "DataLocation.hpp"
-#include "PrintParams.hpp"
+#include "../PrintParams.hpp"
 
 /// @brief Сведения об алгоритме
 struct Algorithm

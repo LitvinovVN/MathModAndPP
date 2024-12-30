@@ -284,6 +284,35 @@ public:
         computingSystemCache[cs1.GetId()] = cs1;
         computerSystemIds.push_back(cs1.GetId());
         ////////////////////////////////
+
+        ////////////////////////////////
+        ComputingSystem cs2{2, "i5-32G-RTX2060S-8G","PC i5-32G-RTX2060S-8G"};
+
+        CpuParams cpu1cs2n1{};
+        cpu1cs2n1.id = 0;
+        cpu1cs2n1.name = "Intel Core i5-6600 3.3GHz";
+        cpu1cs2n1.ThreadsNumber = 4;
+
+        RamParams ramcs2n1{};
+        ramcs2n1.RamSizeGb = 32;
+        ramcs2n1.RamBandwidthGbS = 19.2;
+
+        GpuParams gpu1cs2n1{};
+        gpu1cs2n1.id = 0;
+        gpu1cs2n1.name = "NVIDIA GeForce RTX 2060 SUPER";
+        gpu1cs2n1.VRamSizeGb = 7.9;
+        gpu1cs2n1.SmNumber = 34;
+        gpu1cs2n1.PeakMemoryBandwidthGbS = 448.064;
+
+        ComputingSystemNode cs2n1{};
+        cs2n1.AddGpu(gpu1cs2n1);
+        cs2n1.AddCpu(cpu1cs2n1);
+        cs2n1.AddRam(ramcs2n1);
+
+        cs2.AddNode(cs2n1);
+        computingSystemCache[cs2.GetId()] = cs2;
+        computerSystemIds.push_back(cs2.GetId());
+        ////////////////////////////////
     }
 
 };

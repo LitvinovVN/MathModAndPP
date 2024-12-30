@@ -4,7 +4,7 @@
 #include <map>
 
 #include "Algorithm.hpp"
-#include "PrintParams.hpp"
+#include "../PrintParams.hpp"
 
 /// @brief Репозиторий алгоритмов
 class AlgorithmRepository

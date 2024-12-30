@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "PrintParams.hpp"
+#include "../PrintParams.hpp"
 
 /// @brief Метрики алгоритма
 struct AlgorithmMetrics

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "PrintParams.hpp"
+#include "../PrintParams.hpp"
 
 /// @brief Размерности задачи
 struct TaskDimensions
