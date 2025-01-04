@@ -81,7 +81,7 @@ void AlgorithmRepository::Init()
     alg1.taskGroup          = TaskGroup::Vector;
     alg1.task               = Task::Sum;
     alg1.taskDimensions     = TaskDimensions{1};
-    alg1.dataTypeLength     = sizeof(double);
+    alg1.dataTypeLength     = sizeof(float);
     alg1.algorithmType      = AlgorithmType::SeqCpu;
     alg1.dataLocationInput  = DataLocation::Ram;
     alg1.dataLocationOutput = DataLocation::Ram;
@@ -93,8 +93,8 @@ void AlgorithmRepository::Init()
     alg1.task               = Task::Sum;
     alg1.taskDimensions     = TaskDimensions{1};
     alg1.dataTypeLength     = sizeof(double);
-    alg2.algorithmType      = AlgorithmType::SeqGpuCuda;
-    alg2.dataLocationInput  = DataLocation::Gpu;
-    alg2.dataLocationOutput = DataLocation::Gpu;
+    alg2.algorithmType      = AlgorithmType::SeqCpu;
+    alg2.dataLocationInput  = DataLocation::Ram;
+    alg2.dataLocationOutput = DataLocation::Ram;
     Add(alg2);
 }

@@ -83,15 +83,12 @@ public:
 
 void AlgorithmImplementationRepository::Init()
 {
-    Function f1{};
-    
-
-    AlgorithmImplementation algImpl_01{1, 1, "Init", f1};   
+    Function f1{ArrayHelper::Sum<float>};
+    AlgorithmImplementation algImpl_01{1, 1, "ArrayHelper::Sum<float>", f1};   
     Add(algImpl_01);
     ///////////////////////////////
-
-    Function f2{};
-    AlgorithmImplementation algImpl_02{2, 2, "Sum", f2};   
+    Function f2{ArrayHelper::Sum<double>};
+    AlgorithmImplementation algImpl_02{2, 2, "ArrayHelper::Sum<double>", f2};   
     Add(algImpl_02);
 
 }

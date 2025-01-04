@@ -17,9 +17,12 @@ using namespace std::chrono;
 #include <omp.h>
 #endif
 
+///////////// CUDA (начало) /////////////
 #ifdef __NVCC__
-#include "kernels.cu"
+#include "Cuda/kernels.cu"
 #endif
+#include "Cuda/CudaHelper.hpp"
+///////////// CUDA (конец) /////////////
 
 ///// Вспомогательные типы (начало) /////
 #include "CommonHelpers/PrintParams.hpp"
@@ -27,19 +30,33 @@ using namespace std::chrono;
 #include "CommonHelpers/FileSystemHelper.hpp"
 ///// Вспомогательные типы (конец) /////
 
-#include "CudaHelper.hpp"
+
 #include "LibSupport.hpp"
-#include "ArrayHelper.hpp"
-#include "Vector.hpp"
-#include "VectorRam.hpp"
-#include "VectorGpu.hpp"
 #include "FuncResult.hpp"
-#include "VectorRamHelper.hpp"
-#include "VectorGpuHelper.hpp"
+
+////////// Функции (начало) ////////////
+#include "Functions/FunctionReturnType.hpp"
+#include "Functions/FunctionArgumentsType.hpp"
+#include "Functions/Function.hpp"
+////////// Функции (конец) ////////////
+
+////////// Массивы (начало) ////////////
+#include "Arrays/ArrayHelper.hpp"
+////////// Массивы (конец) ////////////
+
+////////// Векторы (начало) ////////////
+#include "Vectors/Vector.hpp"
+#include "Vectors/VectorRam.hpp"
+#include "Vectors/VectorGpu.hpp"
+#include "Vectors/VectorRamHelper.hpp"
+#include "Vectors/VectorGpuHelper.hpp"
+////////// Векторы (конец) ////////////
+
 #include "TestParams.hpp"
 #include "TestHelper.hpp"
 #include "CalculationStatistics.hpp"
 #include "ParallelCalcIndicators.hpp"
+
 //////// Вычислительная система (начало) //////////////
 #include "ComputingSystem/RamParams.hpp"
 #include "ComputingSystem/CpuParams.hpp"

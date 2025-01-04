@@ -2,8 +2,8 @@
 
 #include <vector>
 #include "FuncResult.hpp"
-#include "VectorRam.hpp"
-#include "VectorGpu.hpp"
+#include "Vectors/VectorRam.hpp"
+#include "Vectors/VectorGpu.hpp"
 #include "TestParams.hpp"
 
 
