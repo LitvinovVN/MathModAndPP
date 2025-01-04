@@ -78,7 +78,7 @@ void AlgorithmRepository::Init()
 {
     Algorithm alg1;
     alg1.id                 = 1;
-    alg1.taskGroup          = TaskGroup::Vector;
+    alg1.taskGroup          = TaskGroup::Array;
     alg1.task               = Task::Sum;
     alg1.taskDimensions     = TaskDimensions{1};
     alg1.dataTypeLength     = sizeof(float);
@@ -89,10 +89,10 @@ void AlgorithmRepository::Init()
 
     Algorithm alg2;
     alg2.id = 2;
-    alg1.taskGroup          = TaskGroup::Vector;
-    alg1.task               = Task::Sum;
-    alg1.taskDimensions     = TaskDimensions{1};
-    alg1.dataTypeLength     = sizeof(double);
+    alg2.taskGroup          = TaskGroup::Array;
+    alg2.task               = Task::Sum;
+    alg2.taskDimensions     = TaskDimensions{1};
+    alg2.dataTypeLength     = sizeof(double);
     alg2.algorithmType      = AlgorithmType::SeqCpu;
     alg2.dataLocationInput  = DataLocation::Ram;
     alg2.dataLocationOutput = DataLocation::Ram;

@@ -5,6 +5,7 @@
 enum class TaskGroup
 {
     None,
+    Array,// Массив вида T* array
     Vector,
     VecVec,
     Matrix,
@@ -19,6 +20,9 @@ std::ostream& operator<<(std::ostream& os, TaskGroup tg)
     {
     case TaskGroup::None:
         os << "None";
+        break;
+    case TaskGroup::Array:
+        os << "Array";
         break;
     case TaskGroup::Vector:
         os << "Vector";
