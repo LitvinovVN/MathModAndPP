@@ -11,7 +11,7 @@
 class AlgorithmImplementationRepository
 {
     std::map<unsigned, AlgorithmImplementation> data;
-    
+
     /// @brief Инициализация репозитория реализаций алгоритмов
     void Init();
 public:
@@ -38,15 +38,15 @@ public:
     }
 
     /// @brief Проверяет наличие алгоритма с указанным УИД
-    /// @return 
+    /// @return
     bool IsExists(unsigned id)
     {
         return data.count(id) > 0;
     }
 
     /// @brief Возвращает алгоритм по УИД
-    /// @param id 
-    /// @return 
+    /// @param id
+    /// @return
     AlgorithmImplementation Get(unsigned id)
     {
         return data[id];
@@ -65,7 +65,7 @@ public:
     }
 
     /// @brief Добавляет реализацию алгоритма в репозиторий
-    /// @param algImpl 
+    /// @param algImpl
     /// @return Результат (true - добавлен, false - не добавлен)
     bool Add(AlgorithmImplementation algImpl)
     {
@@ -84,11 +84,11 @@ public:
 void AlgorithmImplementationRepository::Init()
 {
     Function f1{ArrayHelper::Sum<float>};
-    AlgorithmImplementation algImpl_01{1, 1, "ArrayHelper::Sum<float>", f1};   
+    AlgorithmImplementation algImpl_01{1, 1, "ArrayHelper::Sum<float>", f1};
     Add(algImpl_01);
     ///////////////////////////////
     Function f2{ArrayHelper::Sum<double>};
-    AlgorithmImplementation algImpl_02{2, 2, "ArrayHelper::Sum<double>", f2};   
+    AlgorithmImplementation algImpl_02{2, 2, "ArrayHelper::Sum<double>", f2};
     Add(algImpl_02);
 
 }

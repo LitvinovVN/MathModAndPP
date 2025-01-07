@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../GlobalTestFunctions.hpp"
+#include "../Algorithms/AlgorithmImplementationExecutor.hpp"
+#include "../Algorithms/AlgorithmImplementationExecutorHelper.hpp"
 
 /// @brief Функции меню
 struct MenuFunctions
@@ -389,7 +392,7 @@ struct MenuFunctions
 
     /// @brief Работа с репозиторием реализаций алгоритмов
     /// @param repo Объект типа AlgorithmImplementationRepository
-    static void AlgorithmImplementationRepository(AlgorithmImplementationRepository& repo)
+    static void Menu_AlgorithmImplementationRepository(AlgorithmImplementationRepository& repo)
     {
         std::cout   << "----- AlgorithmImplementationRepository configuration -----\n"
                     << "1 Back to main menu\n"
@@ -424,6 +427,60 @@ struct MenuFunctions
                 break;
             case 3:
                 std::cout   << "3 Get algorithm implementation\n";
+                try
+                {
+                    //repo.Get();
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                }
+                break;
+            
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    }
+
+    /// @brief Запуск различных реализаций алгоритмов
+    /// @param repo Объект типа AlgorithmImplementationRepository
+    static void Menu_AlgorithmImplementationExecutor(AlgorithmImplementationExecutor& algorithmImplementationExecutor)
+    {
+        std::cout   << "----- AlgorithmImplementationExecutor -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 Exec T* Sum\n"
+                    << "3 Get T* Sum results\n";
+                    
+
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << ">> ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout   << "2 Exec T* Sum\n";                
+                AlgorithmImplementationExecutorHelper::Exec(algorithmImplementationExecutor);                
+                break;
+            case 3:
+                std::cout   << "3 Get T* Sum results\n";
                 try
                 {
                     //repo.Get();

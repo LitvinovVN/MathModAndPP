@@ -1,6 +1,5 @@
 #pragma once
 
-
 /// @brief Главное меню приложения
 class MainMenu
 {
@@ -191,6 +190,16 @@ public:
                 "AlgorithmImplementationRepository"
             }
         );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::AlgorithmImplementationExecutor,
+                {"15","alg-impl-exec"},
+                nullptr,
+                "AlgorithmImplementationExecutor"
+            }
+        );
     }
 
     /// @brief Запуск главного меню
@@ -198,7 +207,8 @@ public:
         ComputingSystemRepository& compSysRepo,
         AlgorithmRepository& algorithmRepository,
         AlgorithmImplementationRepository& algorithmImplementationRepo,
-        AlgTestingResultRepository& algTestingResultRepo)
+        AlgTestingResultRepository& algTestingResultRepo,
+        AlgorithmImplementationExecutor& algorithmImplementationExecutor)
     {
         std::cout << "--- Main Menu ('1', '?', 'h' or 'help' for print help)---" << std::endl;
         std::string commandString;// Введённая пользователем команда
@@ -229,7 +239,9 @@ public:
             case MenuCommand::AlgorithmRepository:
                 MenuFunctions::AlgorithmRepository(algorithmRepository);
             case MenuCommand::AlgorithmImplementationRepository:
-                MenuFunctions::AlgorithmImplementationRepository(algorithmImplementationRepo);
+                MenuFunctions::Menu_AlgorithmImplementationRepository(algorithmImplementationRepo);
+            case MenuCommand::AlgorithmImplementationExecutor:
+                MenuFunctions::Menu_AlgorithmImplementationExecutor(algorithmImplementationExecutor);
             default:
                 RunCommand();
                 break;

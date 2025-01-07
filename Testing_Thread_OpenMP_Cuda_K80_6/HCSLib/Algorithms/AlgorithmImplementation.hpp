@@ -4,7 +4,8 @@
 #include "../CommonHelpers/PrintParams.hpp"
 #include "../Functions/Function.hpp"
 
-/// @brief Класс сопоставления УИД алгоритма с функцией реализации
+/// @brief Класс реализации алгоритма
+/// (сопоставляет УИД алгоритма с функцией реализации)
 class AlgorithmImplementation
 {
     unsigned id;// УИД сопоставления

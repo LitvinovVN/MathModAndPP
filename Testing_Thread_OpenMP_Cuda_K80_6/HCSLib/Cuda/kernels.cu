@@ -1,3 +1,5 @@
+#pragma once
+
 // cuda-ядро для вывода одномерного массива в консоль
 template<typename T>
 __global__

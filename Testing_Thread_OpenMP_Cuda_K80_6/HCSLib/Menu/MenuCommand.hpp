@@ -18,6 +18,7 @@ enum class MenuCommand
     AlgTestingResultRepository_Config, // Работа с хранилищем результатов тестовых запусков
     Testing_FileSystemHelper, // Тестирование вспомогательного класса для работы с файловой системой
     AlgorithmRepository,       // Тестирование репозитория алгоритмов
-    AlgorithmImplementationRepository // Работа с репозиторием реализаций алгоритмов
+    AlgorithmImplementationRepository, // Работа с репозиторием реализаций алгоритмов
+    AlgorithmImplementationExecutor// Запуск различных реализаций алгоритмов
 };
 

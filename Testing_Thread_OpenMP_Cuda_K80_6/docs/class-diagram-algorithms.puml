@@ -166,6 +166,45 @@ class AlgorithmRepository
     bool Add(Algorithm alg)
 }
 
+'Класс реализации алгоритма (сопоставляет УИД алгоритма с функцией реализации)
+class AlgorithmImplementation
+{
+    ' УИД сопоставления
+    - unsigned id
+    ' УИД алгоритма
+    - unsigned algorithmId
+    ' Объект функции, реализующей алгоритм
+    - Function function;
+    ' Описание
+    - std::string description;
+
+    + AlgorithmImplementation()
+    + AlgorithmImplementation(unsigned id, unsigned algorithmId,
+        std::string description, Function function)
+    + void Print(PrintParams pp)
+    ' Возвращает УИД сопоставления (id) алгоритма и его реализации 
+    + unsigned GetId() const
+}
+
+' Репозиторий реализаций алгоритмов.
+' Сопоставляет УИД алгоритма с функцией, реализующей алгоритм
+class AlgorithmImplementationRepository
+{
+    - std::map<unsigned, AlgorithmImplementation> data;
+    ' Инициализация репозитория реализаций алгоритмов
+    + void Init()
+    + AlgorithmImplementationRepository()
+}
+
+' Класс для запуска алгоритма на заданной вычислительной системе
+class AlgorithmImplementationExecutor
+{
+    
+}
+
+AlgorithmImplementation ..> Algorithm
+AlgorithmImplementationRepository *-- AlgorithmImplementation
+
 Algorithm *-- TaskGroup
 Algorithm *-- Task
 Algorithm *-- TaskDimensions

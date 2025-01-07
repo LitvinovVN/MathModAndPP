@@ -50,12 +50,17 @@ public:
         algTestingResultRepository = AlgTestingResultRepository {appConfig.GetDirAlgTestingResultRepository()};
         std::cout << "Computing system repository initialization: OK" << std::endl;
 
-        // 5. Запускаем главное меню
+        // 6. Запуск различных реализаций алгоритмов
+        AlgorithmImplementationExecutor algorithmImplementationExecutor{computingSystemRepository,
+            algorithmImplementationRepository, algTestingResultRepository};
+
+        // 7. Запускаем главное меню
         menu.Start(appConfig,
             computingSystemRepository,
             algorithmRepository,
             algorithmImplementationRepository,
-            algTestingResultRepository
+            algTestingResultRepository,
+            algorithmImplementationExecutor
         );//*/
     }
 };
