@@ -36,8 +36,8 @@ using namespace std::chrono;
 
 ////////// Функции (начало) ////////////
 #include "Functions/FunctionDataType.hpp"
-#include "Functions/FunctionReturnType.hpp"
-#include "Functions/FunctionArgumentsType.hpp"
+#include "Functions/FunctionDataTypes.hpp"
+#include "Functions/FunctionArgument.hpp"
 #include "Functions/FunctionArguments.hpp"
 #include "Functions/Function.hpp"
 ////////// Функции (конец) ////////////

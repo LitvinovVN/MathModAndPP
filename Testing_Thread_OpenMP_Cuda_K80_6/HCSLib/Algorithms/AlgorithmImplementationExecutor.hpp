@@ -66,6 +66,10 @@ public:
     AlgTestingResult Exec(unsigned AlgorithmImplementationId,
         AlgorithmImplementationExecParams params)
     {
+        AlgorithmImplementation alg = algorithmImplementationRepository.Get(AlgorithmImplementationId);
+        Function func = alg.GetFunction();
+        
+
         return AlgTestingResult{};
     }
     

@@ -6,6 +6,6 @@
 struct AlgorithmImplementationExecParams
 {
     // Тип списка аргументов функции, реализующей алгоритм
-    FunctionArgumentsType argsList;
-    FunctionArguments argsData;
+    //FunctionArgumentsTypes argsList;
+    FunctionArguments functionArguments;
 };

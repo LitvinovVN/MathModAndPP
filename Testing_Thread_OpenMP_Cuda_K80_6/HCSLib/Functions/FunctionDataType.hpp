@@ -6,6 +6,7 @@
 enum class FunctionDataType
 {
     fdt_void,
+    fdt_int,
     fdt_float,
     fdt_ptr_float,
     fdt_double,
@@ -19,6 +20,9 @@ std::ostream& operator<<(std::ostream& os, FunctionDataType fdt)
     {
     case FunctionDataType::fdt_void:
         os << "void";
+        break;
+    case FunctionDataType::fdt_int:
+        os << "int";
         break;
     case FunctionDataType::fdt_float:
         os << "float";

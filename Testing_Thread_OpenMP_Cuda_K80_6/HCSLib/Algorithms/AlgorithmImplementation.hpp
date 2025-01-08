@@ -8,12 +8,12 @@
 /// (сопоставляет УИД алгоритма с функцией реализации)
 class AlgorithmImplementation
 {
-    unsigned id;// УИД сопоставления
-    unsigned algorithmId;// УИД алгоритма
+    unsigned id{};// УИД сопоставления
+    unsigned algorithmId{};// УИД алгоритма
     // Объект функции, реализующей алгоритм
-    Function function;
+    Function function{};
     // Описание
-    std::string description;
+    std::string description{};
 
 public:
     AlgorithmImplementation()
@@ -25,8 +25,8 @@ public:
         Function function) :
             id(id),
             algorithmId(algorithmId),
-            description(description),
-            function(function)
+            function(function),
+            description(description)
     {}
 
     void Print(PrintParams pp)
@@ -52,5 +52,12 @@ public:
     unsigned GetId() const
     {
         return id;
+    }
+
+    /// @brief Возвращает объект функции
+    /// @return Объект типа Function
+    Function GetFunction()
+    {
+        return function;
     }
 };

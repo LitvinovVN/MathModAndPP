@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "FuncResult.hpp"
+#include "../FuncResult.hpp"
 #include "VectorRam.hpp"
 
 class VectorRamHelper

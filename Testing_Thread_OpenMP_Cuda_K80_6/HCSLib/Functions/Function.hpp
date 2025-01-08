@@ -4,17 +4,17 @@
 #include <functional>
 
 #include "../CommonHelpers/PrintParams.hpp"
-#include "FunctionReturnType.hpp"
-#include "FunctionArgumentsType.hpp"
+#include "FunctionDataType.hpp"
+#include "FunctionDataTypes.hpp"
 
 class Function
 {
     // Указатель на функцию, реализующую алгоритм
     void* func = nullptr;
     // Тип возвращаемого значения
-    FunctionReturnType returnType;
-    // Тип аргументов функции
-    FunctionArgumentsType argumentsType;
+    FunctionDataType returnType;
+    // Список типов аргументов функции
+    FunctionDataTypes argumentsTypes;
 
 public:
     Function()
@@ -27,18 +27,23 @@ public:
         
         if(typeid(T) == typeid(float))
         {
-            returnType = FunctionReturnType::rt_float;
-            argumentsType = FunctionArgumentsType::arg_pfloat_ull_ull;
+            returnType = FunctionDataType::fdt_float;
+            argumentsTypes.Add(FunctionDataType::fdt_float);
+            //argumentsType = FunctionArgumentsType::arg_pfloat_ull_ull;
         }
         else if(typeid(T) == typeid(double))
         {
-            returnType = FunctionReturnType::rt_double;
-            argumentsType = FunctionArgumentsType::arg_pdouble_ull_ull;
+            returnType = FunctionDataType::fdt_double;
+            argumentsTypes.Add(FunctionDataType::fdt_double);
+            //argumentsType = FunctionArgumentsType::arg_pdouble_ull_ull;
         }
         else
         {
             throw std::runtime_error("Function argument type not realized");
         }
+
+        argumentsTypes.Add(FunctionDataType::fdt_ull);
+        argumentsTypes.Add(FunctionDataType::fdt_ull);
     }
     /*Function(double(*function)(double*, size_t, size_t))
     {
@@ -58,7 +63,7 @@ public:
         std::cout << pp.splitter;
         std::cout << "returnType" << pp.splitterKeyValue << returnType;
         std::cout << pp.splitter;
-        std::cout << "argumentsType" << pp.splitterKeyValue << argumentsType;
+        std::cout << "argumentsTypes" << pp.splitterKeyValue << argumentsTypes;
         
         std::cout << pp.endMes;
         if(pp.isEndl)
