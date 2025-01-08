@@ -65,7 +65,7 @@ public:
 
     AlgTestingResult Exec(AlgorithmImplementationExecParams params)
     {
-        FuncResult<float> res = function.Exec(params.functionArguments);
+        AlgTestingResult res = function.Exec(params);
         std::cout << "\n\nAlgorithmImplementation::Exec str 69\n\n";
         return AlgTestingResult{};
     }

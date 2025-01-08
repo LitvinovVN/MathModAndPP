@@ -3,7 +3,7 @@
 #include "../Functions/FunctionDataType.hpp"
 #include "../CommonHelpers/PrintParams.hpp"
 
-/// @brief Аргументы функции
+/// @brief Аргумент функции
 struct FunctionArgument
 {
     FunctionDataType dataType;

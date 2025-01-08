@@ -6,6 +6,8 @@
 #include "../CommonHelpers/PrintParams.hpp"
 #include "FunctionDataType.hpp"
 #include "FunctionDataTypes.hpp"
+#include "../Algorithms/AlgorithmImplementationExecParams.hpp"
+#include "../AlgTestingResults/AlgTestingResult.hpp"
 
 class Function
 {
@@ -67,8 +69,9 @@ public:
         return true;
     }
 
-    FuncResult<float> Exec(FunctionArguments functionArguments)
+    AlgTestingResult Exec(AlgorithmImplementationExecParams params)
     {
+        FunctionArguments functionArguments = params.functionArguments;
         if(argumentsTypes.Count()==3)
         {
             if(argumentsTypes[0] == FunctionDataType::fdt_ptr_float
@@ -86,6 +89,8 @@ public:
                 std::cout << "arg2 = " << arg2 << std::endl;
                 float res_f = func_ptr(arg0, arg1, arg2);
                 std::cout << "!!! res_f = " << res_f << std::endl;
+                FunctionArgument functionResult(res_f);
+                //return functionResult;
             }
             else
             {
@@ -99,9 +104,9 @@ public:
             throw std::runtime_error("Error! Function::Exec(...) argumentsTypes.Count() not realized!");
         }
 
-        FuncResult<float> res;
+        //FuncResult<float> res;
 
-        return res;
+        //return res;
     }
 
     void Print(PrintParams pp) const
