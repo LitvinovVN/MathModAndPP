@@ -3,9 +3,12 @@
 template<typename T>
 struct FuncResult
 {
-    bool        _status;
-    T           _result;
-    long long   _time;
+    bool        _status{};
+    T           _result{};
+    long long   _time{};
+
+    FuncResult()
+    { }
 
     FuncResult(bool status, T result, double time) : 
         _status(status), _result(result), _time(time)

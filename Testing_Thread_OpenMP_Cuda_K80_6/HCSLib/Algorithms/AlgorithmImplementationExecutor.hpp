@@ -68,7 +68,15 @@ public:
     {
         AlgorithmImplementation alg = algorithmImplementationRepository.Get(AlgorithmImplementationId);
         Function func = alg.GetFunction();
-        
+        // Проверка соответствия тепов аргументов функции
+        if(!func.CheckArgumentsTypes(params.functionArguments.GetFunctionArgumentsDataTypes()))
+        {
+            std::cout << "\nError in AlgorithmImplementationExecutor::Exec(...)! Arguments types not equals!\n";
+            throw std::runtime_error("Arguments types not equals!");
+        }
+
+        AlgTestingResult res = alg.Exec(params);
+        res.Print();
 
         return AlgTestingResult{};
     }

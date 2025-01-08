@@ -3,6 +3,8 @@
 #include <iostream>
 #include "../CommonHelpers/PrintParams.hpp"
 #include "../Functions/Function.hpp"
+#include "AlgorithmImplementationExecParams.hpp"
+#include "../AlgTestingResults/AlgTestingResult.hpp"
 
 /// @brief Класс реализации алгоритма
 /// (сопоставляет УИД алгоритма с функцией реализации)
@@ -59,5 +61,12 @@ public:
     Function GetFunction()
     {
         return function;
+    }
+
+    AlgTestingResult Exec(AlgorithmImplementationExecParams params)
+    {
+        FuncResult<float> res = function.Exec(params.functionArguments);
+        std::cout << "\n\nAlgorithmImplementation::Exec str 69\n\n";
+        return AlgTestingResult{};
     }
 };

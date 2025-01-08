@@ -28,14 +28,12 @@ public:
         if(typeid(T) == typeid(float))
         {
             returnType = FunctionDataType::fdt_float;
-            argumentsTypes.Add(FunctionDataType::fdt_float);
-            //argumentsType = FunctionArgumentsType::arg_pfloat_ull_ull;
+            argumentsTypes.Add(FunctionDataType::fdt_ptr_float);
         }
         else if(typeid(T) == typeid(double))
         {
             returnType = FunctionDataType::fdt_double;
-            argumentsTypes.Add(FunctionDataType::fdt_double);
-            //argumentsType = FunctionArgumentsType::arg_pdouble_ull_ull;
+            argumentsTypes.Add(FunctionDataType::fdt_ptr_double);
         }
         else
         {
@@ -45,17 +43,68 @@ public:
         argumentsTypes.Add(FunctionDataType::fdt_ull);
         argumentsTypes.Add(FunctionDataType::fdt_ull);
     }
-    /*Function(double(*function)(double*, size_t, size_t))
+    
+    /// @brief Возвращает количество аргументов функции
+    /// @return 
+    unsigned GetArgumentsTypesCount() const
     {
-        func = (void*)function;
+        return argumentsTypes.Count();
     }
 
-    Function(float(*function)(float*, size_t, size_t))
+    /// @brief Проверка типов аргументов функции
+    /// @return 
+    bool CheckArgumentsTypes(FunctionDataTypes argsTypes) const
     {
-        func = (void*)function;
-    }*/
+        if(GetArgumentsTypesCount() != argsTypes.Count())
+            return false;
+        
+        for(unsigned i{0}; i < GetArgumentsTypesCount(); i++)
+        {
+            if(argumentsTypes[i] != argsTypes[i])
+                return false;
+        }
+        
+        return true;
+    }
 
-    void Print(PrintParams pp)
+    FuncResult<float> Exec(FunctionArguments functionArguments)
+    {
+        if(argumentsTypes.Count()==3)
+        {
+            if(argumentsTypes[0] == FunctionDataType::fdt_ptr_float
+                && argumentsTypes[1] == FunctionDataType::fdt_ull
+                && argumentsTypes[2] == FunctionDataType::fdt_ull)
+            {
+                // Преобразовываем указатель func к нужному виду
+                // float* (*func_ptr)(size_t, size_t);
+                auto func_ptr = (float (*)(float*, size_t, size_t))func;
+                float* arg0 = functionArguments.GetArgumentValue<float*>(0);
+                std::cout << "arg0 = " << arg0 << std::endl;
+                size_t arg1 = functionArguments.GetArgumentValue<size_t>(1);
+                std::cout << "arg1 = " << arg1 << std::endl;
+                size_t arg2 = functionArguments.GetArgumentValue<size_t>(2);
+                std::cout << "arg2 = " << arg2 << std::endl;
+                float res_f = func_ptr(arg0, arg1, arg2);
+                std::cout << "!!! res_f = " << res_f << std::endl;
+            }
+            else
+            {
+                std::cout << "\n\nNot realized!\n";
+                throw std::runtime_error("Error! Function::Exec(...) argumentsTypes.Count()==3 types combination not realized!");
+            }
+        }
+        else
+        {
+            std::cout << "\n\nNot realized!\n";
+            throw std::runtime_error("Error! Function::Exec(...) argumentsTypes.Count() not realized!");
+        }
+
+        FuncResult<float> res;
+
+        return res;
+    }
+
+    void Print(PrintParams pp) const
     {
         std::cout << pp.startMes;
         

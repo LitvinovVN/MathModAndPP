@@ -15,7 +15,7 @@ public:
         functionDataTypes.push_back(dataType);
     }
 
-    void Print(PrintParams pp)
+    void Print(PrintParams pp = PrintParams{}) const
     {
         for (size_t i = 0; i < functionDataTypes.size(); i++)
         {
