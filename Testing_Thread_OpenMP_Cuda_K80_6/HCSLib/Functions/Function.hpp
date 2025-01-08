@@ -87,10 +87,28 @@ public:
                 std::cout << "arg1 = " << arg1 << std::endl;
                 size_t arg2 = functionArguments.GetArgumentValue<size_t>(2);
                 std::cout << "arg2 = " << arg2 << std::endl;
-                float res_f = func_ptr(arg0, arg1, arg2);
-                std::cout << "!!! res_f = " << res_f << std::endl;
-                FunctionArgument functionResult(res_f);
-                //return functionResult;
+                
+                std::vector<FuncResult<float>> results;
+                for(unsigned i{0}; i < params.iterNumber; i++)
+                {                    
+                    bool calcStatus = true;
+                    auto start = high_resolution_clock::now();
+                    float result_f = func_ptr(arg0, arg1, arg2);                    
+                    auto stop = high_resolution_clock::now();
+                    std::cout << "!!! result_f = " << result_f << std::endl;
+
+                    auto duration = duration_cast<microseconds>(stop - start);        
+                    auto t = duration.count();
+
+                    FuncResult<float> funcResF(calcStatus, result_f, t);
+                    results.push_back(funcResF);
+                }
+                //
+                CalculationStatistics stats{results};
+                AlgTestingResult algTestingResult;
+                algTestingResult.calculationStatistics = stats;
+                algTestingResult.Print();
+                return algTestingResult;
             }
             else
             {

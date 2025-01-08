@@ -5,7 +5,8 @@
 /// @brief Параметры запуска реализации алгоритма
 struct AlgorithmImplementationExecParams
 {
-    // Тип списка аргументов функции, реализующей алгоритм
-    //FunctionArgumentsTypes argsList;
+    // Аргументы функции, реализующей алгоритм
     FunctionArguments functionArguments;
+    // Количество запусков функции
+    unsigned iterNumber{100};
 };

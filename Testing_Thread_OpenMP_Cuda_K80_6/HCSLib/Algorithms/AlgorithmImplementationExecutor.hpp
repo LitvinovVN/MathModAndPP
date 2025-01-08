@@ -76,9 +76,13 @@ public:
         }
 
         AlgTestingResult res = alg.Exec(params);
+        res.algorithmId = alg.GetId();
+        res.compSystemId = computingSystemId;        
+        res.id = algTestingResultRepository.GetLastId() + 1;
         res.Print();
+        algTestingResultRepository.Add(res);
 
-        return AlgTestingResult{};
+        return res;
     }
     
 };
