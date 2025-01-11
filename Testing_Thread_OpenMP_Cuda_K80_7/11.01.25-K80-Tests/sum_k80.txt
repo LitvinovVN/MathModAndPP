@@ -1,0 +1,1127 @@
+1
+
+size_t size = 1000000000;
+
+
+//////////////////////////////////////////////////
+
+unsigned Nthreads = 2;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.6887e+06; median: 2.691e+06; avg: 2.69206e+06; percentile_95: 2.69538e+06; maxValue: 2.70885e+06; stdDev: 4071.02; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 1.36568e+06; median: 1.36853e+06; avg: 1.37408e+06; percentile_95: 1.4157e+06; maxValue: 1.42263e+06; stdDev: 15392.9; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 1.36495e+06; median: 1.37328e+06; avg: 1.37665e+06; percentile_95: 1.39236e+06; maxValue: 1.41568e+06; stdDev: 11525.1; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 5.44395e+06; median: 5.46483e+06; avg: 5.46908e+06; percentile_95: 5.48271e+06; maxValue: 5.56688e+06; stdDev: 24105.7; 
+
+--- std::thread ---
+N threads: 2
+Smin: 1.96876
+Smax: 1.90411
+Savg: 1.95917
+Smedian: 1.96634
+Sperc95: 1.90391
+Emin: 0.984382
+Emax: 0.952057
+Eavg: 0.979584
+Emedian: 0.983172
+Eperc95: 0.951957
+
+--- OpenMP ---
+N threads: 2
+Smin: 1.96981
+Smax: 1.91347
+Savg: 1.95551
+Smedian: 1.95954
+Sperc95: 1.93584
+Emin: 0.984905
+Emax: 0.956734
+Eavg: 0.977754
+Emedian: 0.979772
+Eperc95: 0.96792
+
+--- CUDA ---
+N threads: 20
+Smin: 0.493887
+Smax: 0.486602
+Savg: 0.492233
+Smedian: 0.492421
+Sperc95: 0.491615
+Emin: 0.0246943
+Emax: 0.0243301
+Eavg: 0.0246116
+Emedian: 0.0246211
+Eperc95: 0.0245807
+
+
+//////////////////////////////////////////////////
+
+unsigned Nthreads = 4;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.69003e+06; median: 2.6907e+06; avg: 2.69153e+06; percentile_95: 2.69443e+06; maxValue: 2.70388e+06; stdDev: 2972.07; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 755993; median: 759016; avg: 765204; percentile_95: 792977; maxValue: 798196; stdDev: 12706.1;
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 746574; median: 751831; avg: 759822; percentile_95: 783229; maxValue: 783781; stdDev: 13512; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 3.0092e+06; median: 3.00933e+06; avg: 3.01417e+06; percentile_95: 3.01426e+06; maxValue: 3.10635e+06; stdDev: 21148.1;
+
+--- std::thread ---
+N threads: 4
+Smin: 3.55827
+Smax: 3.38749
+Savg: 3.5174
+Smedian: 3.54498
+Sperc95: 3.39786
+Emin: 0.889568
+Emax: 0.846873
+Eavg: 0.879349
+Emedian: 0.886245
+Eperc95: 0.849466
+
+--- OpenMP ---
+N threads: 4
+Smin: 3.60316
+Smax: 3.44979
+Savg: 3.54232
+Smedian: 3.57886
+Sperc95: 3.44015
+Emin: 0.900791
+Emax: 0.862448
+Eavg: 0.885579
+Emedian: 0.894715
+Eperc95: 0.860038
+
+--- CUDA ---
+N threads: 40
+Smin: 0.893934
+Smax: 0.870436
+Savg: 0.892958
+Smedian: 0.894119
+Sperc95: 0.893893
+Emin: 0.0223484
+Emax: 0.0217609
+Eavg: 0.022324
+Emedian: 0.022353
+Eperc95: 0.0223473
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 6;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.68755e+06; median: 2.68976e+06; avg: 2.69084e+06; percentile_95: 2.6931e+06; maxValue: 2.70755e+06; stdDev: 3987.81; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 543607; median: 549114; avg: 556046; percentile_95: 579084; maxValue: 585857; stdDev: 13036.3;
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 542745; median: 563798; avg: 561424; percentile_95: 567398; maxValue: 576401; stdDev: 7108.23;
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 2.17405e+06; median: 2.18275e+06; avg: 2.18852e+06; percentile_95: 2.1924e+06; maxValue: 2.31709e+06; stdDev: 29669.7;
+
+--- std::thread ---
+N threads: 6
+Smin: 4.94393
+Smax: 4.62151
+Savg: 4.83924
+Smedian: 4.89837
+Sperc95: 4.65063
+Emin: 0.823988
+Emax: 0.770252
+Eavg: 0.80654
+Emedian: 0.816395
+Eperc95: 0.775105
+
+--- OpenMP ---
+N threads: 6
+Smin: 4.95178
+Smax: 4.69733
+Savg: 4.79288
+Smedian: 4.77079
+Sperc95: 4.74641
+Emin: 0.825296
+Emax: 0.782888
+Eavg: 0.798814
+Emedian: 0.795132
+Eperc95: 0.791069
+
+--- CUDA ---
+N threads: 60
+Smin: 1.2362
+Smax: 1.16851
+Savg: 1.22952
+Smedian: 1.23228
+Sperc95: 1.22838
+Emin: 0.0206033
+Emax: 0.0194752
+Eavg: 0.0204921
+Emedian: 0.020538
+Eperc95: 0.020473
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 8;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.69022e+06; median: 2.69195e+06; avg: 2.69378e+06; percentile_95: 2.70177e+06; maxValue: 2.70792e+06; stdDev: 4321.5;
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 436291; median: 441460; avg: 444457; percentile_95: 458825; maxValue: 470587; stdDev: 8896.33;
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 443176; median: 454277; avg: 452640; percentile_95: 456564; maxValue: 457049; stdDev: 4394.78;
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.71735e+06; median: 1.72003e+06; avg: 1.72565e+06; percentile_95: 1.72776e+06; maxValue: 1.83065e+06; stdDev: 24125.7;
+
+--- std::thread ---
+N threads: 8
+Smin: 6.1661
+Smax: 5.75435
+Savg: 6.06083
+Smedian: 6.09784
+Sperc95: 5.88846
+Emin: 0.770763
+Emax: 0.719293
+Eavg: 0.757603
+Emedian: 0.76223
+Eperc95: 0.736058
+
+--- OpenMP ---
+N threads: 8
+Smin: 6.07031
+Smax: 5.92479
+Savg: 5.95125
+Smedian: 5.92579
+Sperc95: 5.91762
+Emin: 0.758789
+Emax: 0.740599
+Eavg: 0.743906
+Emedian: 0.740724
+Eperc95: 0.739702
+
+--- CUDA ---
+N threads: 80
+Smin: 1.56649
+Smax: 1.47922
+Savg: 1.56102
+Smedian: 1.56506
+Sperc95: 1.56374
+Emin: 0.0195812
+Emax: 0.0184902
+Eavg: 0.0195127
+Emedian: 0.0195632
+Eperc95: 0.0195468
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 10;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.68967e+06; median: 2.69096e+06; avg: 2.6921e+06; percentile_95: 2.69731e+06; maxValue: 2.70354e+06; stdDev: 3129.99; CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 361528; median: 364538; avg: 369713; percentile_95: 390197; maxValue: 403579; stdDev: 11326.2; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 363521; median: 372110; avg: 372392; percentile_95: 379888; maxValue: 380083; stdDev: 6163.22; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.50639e+06; median: 1.50723e+06; avg: 1.51512e+06; percentile_95: 1.5158e+06; maxValue: 1.6663e+06; stdDev: 34686.8; 
+
+--- std::thread ---
+N threads: 10
+Smin: 7.43973
+Smax: 6.6989
+Savg: 7.28158
+Smedian: 7.38184
+Sperc95: 6.91268
+Emin: 0.743973
+Emax: 0.66989
+Eavg: 0.728158
+Emedian: 0.738184
+Eperc95: 0.691268
+
+--- OpenMP ---
+N threads: 10
+Smin: 7.39894
+Smax: 7.11302
+Savg: 7.2292
+Smedian: 7.23163
+Sperc95: 7.10027
+Emin: 0.739894
+Emax: 0.711302
+Eavg: 0.72292
+Emedian: 0.723163
+Eperc95: 0.710027
+
+--- CUDA ---
+N threads: 100
+Smin: 1.7855
+Smax: 1.62248
+Savg: 1.77682
+Smedian: 1.78537
+Sperc95: 1.77947
+Emin: 0.017855
+Emax: 0.0162248
+Eavg: 0.0177682
+Emedian: 0.0178537
+Eperc95: 0.0177947
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 12;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.69378e+06; median: 2.71375e+06; avg: 2.72002e+06; percentile_95: 2.75183e+06; maxValue: 2.81335e+06; stdDev: 26551.6; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 401261; median: 404736; avg: 408020; percentile_95: 430909; maxValue: 431213; stdDev: 8612.98; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 376379; median: 392270; avg: 392580; percentile_95: 404366; maxValue: 405336; stdDev: 7983.16; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.43398e+06; median: 1.43574e+06; avg: 1.4424e+06; percentile_95: 1.44323e+06; maxValue: 1.57124e+06; stdDev: 29565.2; 
+
+--- std::thread ---
+N threads: 12
+Smin: 6.71328
+Smax: 6.52426
+Savg: 6.66637
+Smedian: 6.70499
+Sperc95: 6.38611
+Emin: 0.55944
+Emax: 0.543689
+Eavg: 0.555531
+Emedian: 0.558749
+Eperc95: 0.532176
+
+--- OpenMP ---
+N threads: 12
+Smin: 7.15708
+Smax: 6.94078
+Savg: 6.92855
+Smedian: 6.91807
+Sperc95: 6.8053
+Emin: 0.596424
+Emax: 0.578398
+Eavg: 0.57738
+Emedian: 0.576506
+Eperc95: 0.567109
+
+--- CUDA ---
+N threads: 120
+Smin: 1.87854
+Smax: 1.79053
+Savg: 1.88576
+Smedian: 1.89014
+Sperc95: 1.90671
+Emin: 0.0156545
+Emax: 0.0149211
+Eavg: 0.0157147
+Emedian: 0.0157512
+Eperc95: 0.0158893
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 14;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.69034e+06; median: 2.70588e+06; avg: 2.71269e+06; percentile_95: 2.74067e+06; maxValue: 2.7506e+06; stdDev: 16739.1; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 354578; median: 361144; avg: 361522; percentile_95: 372615; maxValue: 375214; stdDev: 5305.45; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 337576; median: 343496; avg: 343866; percentile_95: 350934; maxValue: 360283; stdDev: 5049.52; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.32482e+06; median: 1.32544e+06; avg: 1.33208e+06; percentile_95: 1.33261e+06; maxValue: 1.45838e+06; stdDev: 28974.4; 
+
+--- std::thread ---
+N threads: 14
+Smin: 7.58746
+Smax: 7.33075
+Savg: 7.50354
+Smedian: 7.49253
+Sperc95: 7.35525
+Emin: 0.541961
+Emax: 0.523625
+Eavg: 0.535967
+Emedian: 0.535181
+Eperc95: 0.525375
+
+--- OpenMP ---
+N threads: 14
+Smin: 7.9696
+Smax: 7.63455
+Savg: 7.88881
+Smedian: 7.87748
+Sperc95: 7.80966
+Emin: 0.569257
+Emax: 0.545325
+Eavg: 0.563486
+Emedian: 0.562677
+Eperc95: 0.557833
+
+--- CUDA ---
+N threads: 140
+Smin: 2.03073
+Smax: 1.88607
+Savg: 2.03643
+Smedian: 2.04149
+Sperc95: 2.05663
+Emin: 0.0145052
+Emax: 0.0134719
+Eavg: 0.0145459
+Emedian: 0.0145821
+Eperc95: 0.0146902
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 16;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.68897e+06; median: 2.69038e+06; avg: 2.69144e+06; percentile_95: 2.69476e+06; maxValue: 2.70846e+06; stdDev: 4051.51; CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 316678; median: 318342; avg: 319019; percentile_95: 320812; maxValue: 331444; stdDev: 3061.19; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 302544; median: 306513; avg: 310585; percentile_95: 329884; maxValue: 331572; stdDev: 8942.51; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.19404e+06; median: 1.19551e+06; avg: 1.20347e+06; percentile_95: 1.20411e+06; maxValue: 1.35887e+06; stdDev: 35656.7; 
+
+--- std::thread ---
+N threads: 16
+Smin: 8.49118
+Smax: 8.17169
+Savg: 8.43662
+Smedian: 8.45121
+Sperc95: 8.39981
+Emin: 0.530699
+Emax: 0.51073
+Eavg: 0.527289
+Emedian: 0.528201
+Eperc95: 0.524988
+
+--- OpenMP ---
+N threads: 16
+Smin: 8.88786
+Smax: 8.16853
+Savg: 8.66571
+Smedian: 8.77736
+Sperc95: 8.16881
+Emin: 0.555491
+Emax: 0.510533
+Eavg: 0.541607
+Emedian: 0.548585
+Eperc95: 0.510551
+
+--- CUDA ---
+10 блоков
+N threads: 160
+Smin: 2.252
+Smax: 1.99316
+Savg: 2.23641
+Smedian: 2.2504
+Sperc95: 2.23797
+Emin: 0.014075
+Emax: 0.0124573
+Eavg: 0.0139776
+Emedian: 0.014065
+Eperc95: 0.0139873
+
+--- CUDA ---
+13 блоков
+N threads: 208
+Smin: 2.91443
+Smax: 2.58122
+Savg: 2.93753
+Smedian: 2.95414
+Sperc95: 3.00147
+Emin: 0.0140117
+Emax: 0.0124097
+Eavg: 0.0141227
+Emedian: 0.0142026
+Eperc95: 0.0144301
+
+--- CUDA ---
+26 блоков
+N threads: 416
+Smin: 5.21589
+Smax: 4.16431
+Savg: 5.14608
+Smedian: 5.21712
+Sperc95: 5.0453
+Emin: 0.0125382
+Emax: 0.0100104
+Eavg: 0.0123704
+Emedian: 0.0125411
+Eperc95: 0.0121281
+
+--- CUDA ---
+30 блоков
+N threads: 480
+Smin: 5.41876
+Smax: 4.48936
+Savg: 5.36225
+Smedian: 5.41927
+Sperc95: 5.32825
+Emin: 0.0112891
+Emax: 0.00935284
+Eavg: 0.0111713
+Emedian: 0.0112902
+Eperc95: 0.0111005
+
+--- CUDA ---
+32 блока
+N threads: 512
+Smin: 5.73919
+Smax: 4.48609
+Savg: 5.65812
+Smedian: 5.74354
+Sperc95: 5.56141
+Emin: 0.0112094
+Emax: 0.00876189
+Eavg: 0.011051
+Emedian: 0.0112179
+Eperc95: 0.0108621
+
+--- CUDA ---
+34 блока		MAX S!
+N threads: 544
+Smin: 5.99598
+Smax: 4.65307
+Savg: 5.90373
+Smedian: 5.99664
+Sperc95: 5.77691
+Emin: 0.011022
+Emax: 0.00855343
+Eavg: 0.0108524
+Emedian: 0.0110232
+Eperc95: 0.0106193
+
+--- CUDA ---
+36 блоков
+N threads: 576
+Smin: 5.88548
+Smax: 4.47204
+Savg: 5.78234
+Smedian: 5.88243
+Sperc95: 5.62651
+Emin: 0.0102179
+Emax: 0.00776395
+Eavg: 0.0100388
+Emedian: 0.0102125
+Eperc95: 0.00976824
+
+--- CUDA ---
+40 блоков
+N threads: 640
+Smin: 5.14961
+Smax: 3.96955
+Savg: 5.0722
+Smedian: 5.14873
+Sperc95: 5.05634
+Emin: 0.00804627
+Emax: 0.00620242
+Eavg: 0.00792531
+Emedian: 0.00804488
+Eperc95: 0.00790053
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 18;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.69169e+06; median: 2.70411e+06; avg: 2.74048e+06; percentile_95: 2.89566e+06; maxValue: 2.93554e+06; stdDev: 69373; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 287376; median: 289115; avg: 289922; percentile_95: 293089; maxValue: 304075; stdDev: 3426.58; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 274796; median: 275906; avg: 276665; percentile_95: 280192; maxValue: 283346; stdDev: 2084; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.25419e+06; median: 1.25451e+06; avg: 1.26172e+06; percentile_95: 1.26218e+06; maxValue: 1.39885e+06; stdDev: 31461.2; 
+
+--- std::thread ---
+N threads: 18
+Smin: 9.36644
+Smax: 9.654
+Savg: 9.4525
+Smedian: 9.35305
+Sperc95: 9.87978
+Emin: 0.520358
+Emax: 0.536334
+Eavg: 0.525139
+Emedian: 0.519614
+Eperc95: 0.548877
+
+--- OpenMP ---
+N threads: 18
+Smin: 9.79523
+Smax: 10.3603
+Savg: 9.90543
+Smedian: 9.80082
+Sperc95: 10.3345
+Emin: 0.54418
+Emax: 0.575571
+Eavg: 0.550302
+Emedian: 0.54449
+Eperc95: 0.574141
+
+--- CUDA ---
+10 блоков
+N threads: 180
+Smin: 2.14617
+Smax: 2.09853
+Savg: 2.17202
+Smedian: 2.15551
+Sperc95: 2.29417
+Emin: 0.0119231
+Emax: 0.0116585
+Eavg: 0.0120668
+Emedian: 0.011975
+Eperc95: 0.0127454
+
+--- CUDA ---
+13 блоков
+N threads: 234
+Smin: 3.02633
+Smax: 2.6619
+Savg: 3.00712
+Smedian: 3.0269
+Sperc95: 3.02009
+Emin: 0.0129331
+Emax: 0.0113757
+Eavg: 0.0128509
+Emedian: 0.0129355
+Eperc95: 0.0129064
+
+--- CUDA ---
+20 блоков
+N threads: 360
+Smin: 4.13622
+Smax: 3.4543
+Savg: 4.09571
+Smedian: 4.1364
+Sperc95: 4.08856
+Emin: 0.0114895
+Emax: 0.00959527
+Eavg: 0.011377
+Emedian: 0.01149
+Eperc95: 0.0113571
+
+--- CUDA ---
+30 блоков
+N threads: 540
+Smin: 4.95577
+Smax: 3.72913
+Savg: 4.87079
+Smedian: 4.95548
+Sperc95: 4.80447
+Emin: 0.00917734
+Emax: 0.0069058
+Eavg: 0.00901998
+Emedian: 0.00917682
+Eperc95: 0.00889716
+
+--- CUDA ---
+36 блоков
+N threads: 648
+Smin: 5.04705
+Smax: 3.83935
+Savg: 4.96609
+Smedian: 5.04616
+Sperc95: 4.92387
+Emin: 0.00778865
+Emax: 0.00592493
+Eavg: 0.00766372
+Emedian: 0.00778729
+Eperc95: 0.00759857
+
+--- CUDA ---
+37 блоков
+N threads: 666
+Smin: 5.11712
+Smax: 4.30062
+Savg: 5.0819
+Smedian: 5.12018
+Sperc95: 5.26147
+Emin: 0.00768336
+Emax: 0.00645738
+Eavg: 0.00763048
+Emedian: 0.00768795
+Eperc95: 0.0079001
+
+--- CUDA ---
+38 блоков		MAX S!
+N threads: 684
+Smin: 5.69333
+Smax: 4.25636
+Savg: 5.59683
+Smedian: 5.69332
+Sperc95: 5.50661
+Emin: 0.00832358
+Emax: 0.00622275
+Eavg: 0.00818251
+Emedian: 0.00832357
+Eperc95: 0.00805059
+
+--- CUDA ---
+39 блоков
+N threads: 702
+Smin: 5.05787
+Smax: 3.80087
+Savg: 4.97295
+Smedian: 5.0593
+Sperc95: 4.91845
+Emin: 0.00720494
+Emax: 0.00541435
+Eavg: 0.00708398
+Emedian: 0.00720697
+Eperc95: 0.00700633
+
+--- CUDA ---
+40 блоков
+N threads: 720
+Smin: 4.44204
+Smax: 3.44656
+Savg: 4.37933
+Smedian: 4.44424
+Sperc95: 4.36608
+Emin: 0.00616949
+Emax: 0.00478689
+Eavg: 0.0060824
+Emedian: 0.00617255
+Eperc95: 0.006064
+
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 20;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.68869e+06; median: 2.69131e+06; avg: 2.70497e+06; percentile_95: 2.76929e+06; maxValue: 2.82783e+06; stdDev: 34831.5; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 261999; median: 268436; avg: 270024; percentile_95: 284087; maxValue: 291045; stdDev: 6937.44; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 256584; median: 257802; avg: 260313; percentile_95: 265431; maxValue: 298781; stdDev: 8999.34; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.10854e+06; median: 1.10981e+06; avg: 1.11646e+06; percentile_95: 1.11704e+06; maxValue: 1.24333e+06; stdDev: 29111.1; 
+
+--- std::thread ---
+N threads: 20
+Smin: 10.2622
+Smax: 9.71614
+Savg: 10.0175
+Smedian: 10.0259
+Sperc95: 9.74802
+Emin: 0.513111
+Emax: 0.485807
+Eavg: 0.500876
+Emedian: 0.501295
+Eperc95: 0.487401
+
+--- OpenMP ---
+N threads: 20
+Smin: 10.4788
+Smax: 9.46457
+Savg: 10.3912
+Smedian: 10.4395
+Sperc95: 10.4332
+Emin: 0.52394
+Emax: 0.473229
+Eavg: 0.519561
+Emedian: 0.521973
+Eperc95: 0.521658
+
+--- CUDA ---
+N threads: 200
+Smin: 2.42543
+Smax: 2.2744
+Savg: 2.42282
+Smedian: 2.42503
+Sperc95: 2.47913
+Emin: 0.0121271
+Emax: 0.011372
+Eavg: 0.0121141
+Emedian: 0.0121251
+Eperc95: 0.0123957
+
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 22;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.68696e+06; median: 2.70377e+06; avg: 2.71546e+06; percentile_95: 2.75111e+06; maxValue: 2.82048e+06; stdDev: 31009.5; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 313454; median: 323768; avg: 324412; percentile_95: 333403; maxValue: 336913; stdDev: 5643.47; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 298986; median: 313144; avg: 313925; percentile_95: 331819; maxValue: 335985; stdDev: 9986.48; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.16401e+06; median: 1.165e+06; avg: 1.17234e+06; percentile_95: 1.17294e+06; maxValue: 1.31433e+06; stdDev: 32577; 
+
+--- std::thread ---
+N threads: 22
+Smin: 8.57209
+Smax: 8.37153
+Savg: 8.37042
+Smedian: 8.35094
+Sperc95: 8.25161
+Emin: 0.38964
+Emax: 0.380524
+Eavg: 0.380473
+Emedian: 0.379588
+Eperc95: 0.375073
+
+--- OpenMP ---
+N threads: 22
+Smin: 8.9869
+Smax: 8.39465
+Savg: 8.65002
+Smedian: 8.63426
+Sperc95: 8.29099
+Emin: 0.408495
+Emax: 0.381575
+Eavg: 0.393183
+Emedian: 0.392466
+Eperc95: 0.376863
+
+--- CUDA ---
+N threads: 220
+Smin: 2.30837
+Smax: 2.14594
+Savg: 2.31627
+Smedian: 2.32084
+Sperc95: 2.34547
+Emin: 0.0104926
+Emax: 0.00975429
+Eavg: 0.0105285
+Emedian: 0.0105493
+Eperc95: 0.0106612
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 24;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.69044e+06; median: 2.69229e+06; avg: 2.69314e+06; percentile_95: 2.69774e+06; maxValue: 2.70699e+06; stdDev: 3610.85; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 292859; median: 311327; avg: 311465; percentile_95: 329030; maxValue: 329894; stdDev: 8925.65; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 285178; median: 299660; avg: 297911; percentile_95: 306050; maxValue: 306293; stdDev: 6339.87; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 1.14915e+06; median: 1.14989e+06; avg: 1.15899e+06; percentile_95: 1.15936e+06; maxValue: 1.33302e+06; stdDev: 39925.9; 
+
+--- std::thread ---
+N threads: 24
+Smin: 9.18682
+Smax: 8.20565
+Savg: 8.64668
+Smedian: 8.64779
+Sperc95: 8.19907
+Emin: 0.382784
+Emax: 0.341902
+Eavg: 0.360278
+Emedian: 0.360325
+Eperc95: 0.341628
+
+--- OpenMP ---
+N threads: 24
+Smin: 9.43426
+Smax: 8.83792
+Savg: 9.04007
+Smedian: 8.98449
+Sperc95: 8.8147
+Emin: 0.393094
+Emax: 0.368247
+Eavg: 0.376669
+Emedian: 0.374354
+Eperc95: 0.367279
+
+--- CUDA ---
+10 блоков
+N threads: 240
+Smin: 2.34125
+Smax: 2.03072
+Savg: 2.32368
+Smedian: 2.34134
+Sperc95: 2.32692
+Emin: 0.0097552
+Emax: 0.00846132
+Eavg: 0.00968201
+Emedian: 0.00975559
+Eperc95: 0.00969551
+
+--- CUDA ---
+13 блоков
+N threads: 312
+Smin: 3.2632
+Smax: 2.77381
+Savg: 3.23679
+Smedian: 3.26457
+Sperc95: 3.24666
+Emin: 0.010459
+Emax: 0.00889043
+Eavg: 0.0103743
+Emedian: 0.0104634
+Eperc95: 0.010406
+
+--- CUDA ---
+20 блоков
+N threads: 480
+Smin: 4.54533
+Smax: 3.89885
+Savg: 4.50948
+Smedian: 4.54677
+Sperc95: 4.52143
+Emin: 0.00946944
+Emax: 0.0081226
+Eavg: 0.00939476
+Emedian: 0.00947244
+Eperc95: 0.00941965
+
+--- CUDA ---
+24 блока
+N threads: 576
+Smin: 5.07041
+Smax: 3.89783
+Savg: 4.99129
+Smedian: 5.06885
+Sperc95: 4.95404
+Emin: 0.0088028
+Emax: 0.00676707
+Eavg: 0.00866543
+Emedian: 0.00880009
+Eperc95: 0.00860076
+
+--- CUDA ---
+26 блоков
+N threads: 624
+Smin: 5.72196
+Smax: 4.22486
+Savg: 5.61448
+Smedian: 5.72167
+Sperc95: 5.4892
+Emin: 0.00916981
+Emax: 0.00677061
+Eavg: 0.00899757
+Emedian: 0.00916934
+Eperc95: 0.0087968
+
+--- CUDA ---
+28 блоков
+N threads: 672
+Smin: 4.16298
+Smax: 3.18242
+Savg: 4.09883
+Smedian: 4.16263
+Sperc95: 4.08856
+Emin: 0.00619492
+Emax: 0.00473575
+Eavg: 0.00609945
+Emedian: 0.00619439
+Eperc95: 0.00608417
+
+--- CUDA ---
+30 блоков
+N threads: 720
+Smin: 4.4747
+Smax: 3.58916
+Savg: 4.42157
+Smedian: 4.4758
+Sperc95: 4.44106
+Emin: 0.00621485
+Emax: 0.00498494
+Eavg: 0.00614107
+Emedian: 0.00621639
+Eperc95: 0.00616814
+
+--- CUDA ---
+40 блоков
+N threads: 960
+Smin: 3.23811
+Smax: 2.77731
+Savg: 3.21955
+Smedian: 3.24161
+Sperc95: 3.25849
+Emin: 0.00337303
+Emax: 0.00289303
+Eavg: 0.0033537
+Emedian: 0.00337667
+Eperc95: 0.00339426
+
+
+///////////////////////////////////////////
+
+unsigned Nthreads = 32;
+
+CalculationStatistics seq: 
+numIter: 0; minValue: 2.68811e+06; median: 2.6891e+06; avg: 2.69009e+06; percentile_95: 2.69358e+06; maxValue: 2.70269e+06; stdDev: 3127.94; 
+
+CalculationStatistics parallel std::thread: 
+numIter: 0; minValue: 274771; median: 281319; avg: 282596; percentile_95: 294119; maxValue: 298840; stdDev: 5863.08; 
+
+CalculationStatistics parallel OpenMP: 
+numIter: 0; minValue: 265443; median: 270123; avg: 270925; percentile_95: 277689; maxValue: 282820; stdDev: 4023.96; 
+
+CalculationStatistics parallel Cuda: 
+numIter: 0; minValue: 5.19084e+06; median: 5.19506e+06; avg: 5.20354e+06; percentile_95: 5.20846e+06; maxValue: 5.35876e+06; stdDev: 35766.6; 
+
+--- std::thread ---
+N threads: 32
+Smin: 9.78311
+Smax: 9.04393
+Savg: 9.51921
+Smedian: 9.5589
+Sperc95: 9.15813
+Emin: 0.305722
+Emax: 0.282623
+Eavg: 0.297475
+Emedian: 0.298715
+Eperc95: 0.286191
+
+--- OpenMP ---
+N threads: 32
+Smin: 10.1269
+Smax: 9.55621
+Savg: 9.92927
+Smedian: 9.95509
+Sperc95: 9.7
+Emin: 0.316466
+Emax: 0.298632
+Eavg: 0.31029
+Emedian: 0.311097
+Eperc95: 0.303125
+
+--- CUDA ---
+2 блока
+N threads: 64
+Smin: 0.517857
+Smax: 0.50435
+Savg: 0.516973
+Smedian: 0.517627
+Sperc95: 0.517156
+Emin: 0.00809151
+Emax: 0.00788046
+Eavg: 0.0080777
+Emedian: 0.00808792
+Eperc95: 0.00808056
+
+--- CUDA ---
+10 блоков
+N threads: 320
+Smin: 2.53925
+Smax: 2.20478
+Savg: 2.52077
+Smedian: 2.53976
+Sperc95: 2.52499
+Emin: 0.00793516
+Emax: 0.00688994
+Eavg: 0.00787741
+Emedian: 0.00793675
+Eperc95: 0.0078906
+
+--- CUDA ---
+13 блоков
+N threads: 416
+Smin: 3.10977
+Smax: 2.61202
+Savg: 3.08009
+Smedian: 3.10916
+Sperc95: 3.08445
+Emin: 0.00747541
+Emax: 0.00627891
+Eavg: 0.00740407
+Emedian: 0.00747394
+Eperc95: 0.00741454
+
+--- CUDA ---
+20 блоков
+N threads: 640
+Smin: 4.69911
+Smax: 3.78829
+Savg: 4.64346
+Smedian: 4.69951
+Sperc95: 4.63411
+Emin: 0.00734235
+Emax: 0.00591921
+Eavg: 0.00725541
+Emedian: 0.00734298
+Eperc95: 0.00724079
+
+--- CUDA ---
+24 блока
+N threads: 768
+Smin: 4.07996
+Smax: 3.40651
+Savg: 4.04231
+Smedian: 4.08156
+Sperc95: 4.06031
+Emin: 0.00531245
+Emax: 0.00443556
+Eavg: 0.00526343
+Emedian: 0.00531453
+Eperc95: 0.00528686
+
+--- CUDA ---
+26 блоков
+N threads: 832
+Smin: 4.44416
+Smax: 3.52729
+Savg: 4.3862
+Smedian: 4.44393
+Sperc95: 4.37429
+Emin: 0.00534153
+Emax: 0.00423953
+Eavg: 0.00527187
+Emedian: 0.00534126
+Eperc95: 0.00525756
+
+--- CUDA ---
+28 блоков
+N threads: 896
+Smin: 3.25045
+Smax: 2.66696
+Savg: 3.21393
+Smedian: 3.24914
+Sperc95: 3.21282
+Emin: 0.00362774
+Emax: 0.00297652
+Eavg: 0.00358697
+Emedian: 0.00362628
+Eperc95: 0.00358574
+
+

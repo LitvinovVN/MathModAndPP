@@ -65,7 +65,7 @@ bool TestSum()
     TestParams testParams;
 
     // 1. Подготовка данных
-    unsigned Nthreads = 4;
+    unsigned Nthreads = 18;
     size_t size = 1000000000;
     double elVal = 0.001;
     VectorRam<double> v(size);
@@ -101,7 +101,7 @@ bool TestSum()
         res.Print();
 
     // 2.4 Параллельный алгоритм Cuda
-    int numBlocks = 10;
+    int numBlocks = 37;
     auto testResults_par_Cuda = TestHelper::LaunchSumCuda(*vGpu_p, numBlocks, Nthreads, testParams);
     std::cout << "Parallel CUDA: testResults size = " << testResults_par_Cuda.size() << std::endl;
     for(auto& res : testResults_par_Cuda)

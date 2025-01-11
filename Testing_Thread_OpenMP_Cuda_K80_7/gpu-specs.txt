@@ -1,9 +1,0 @@
-WriteGpuSpecs()
-Device Number: 0
-  Device name: NVIDIA GeForce RTX 2060 SUPER
-  Compute capability: 7.5
-  MultiProcessorCount: 34
-  asyncEngineCount: 6 (Number of asynchronous engines)
-  Memory Clock Rate (KHz): 7001000
-  Memory Bus Width (bits): 256
-  Peak Memory Bandwidth (GB/s): 448.064

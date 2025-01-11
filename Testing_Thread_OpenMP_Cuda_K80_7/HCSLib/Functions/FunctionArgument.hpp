@@ -1,5 +1,7 @@
 #pragma once
 
+#include <typeinfo>
+
 #include "../Functions/FunctionDataType.hpp"
 #include "../CommonHelpers/PrintParams.hpp"
 
@@ -15,9 +17,19 @@ struct FunctionArgument
         Print(PrintParams{});
     }
 
+    FunctionArgument(float argument)
+    {        
+        dataType = FunctionDataType::fdt_float;        
+        auto ptr = new float;
+        *ptr = argument;
+        data = (void*)ptr;
+        Print(PrintParams{});
+    }
+
     template<typename T>
     FunctionArgument(T argument)
     {
+        std::cout << "FunctionArgument(T argument): argument = " << argument << std::endl;
         if(typeid(T)==typeid(int))
             dataType = FunctionDataType::fdt_int;
         else if(typeid(T)==typeid(float))
@@ -28,11 +40,12 @@ struct FunctionArgument
             dataType = FunctionDataType::fdt_double;
         else if(typeid(T)==typeid(double*))
             dataType = FunctionDataType::fdt_ptr_double;
-        else if(typeid(T)==typeid(size_t))
+        else if(typeid(T)==typeid(unsigned long long))
             dataType = FunctionDataType::fdt_ull;
         else
         {
-            std::cout << "\nError in FunctionArgument constructor!\n";
+            std::cout << "\nError in FunctionArgument constructor!\n";            
+            //std::cout << "typeid(T): " << typeid(argument).name() << std::cout;
             throw std::runtime_error("Type not recognized!");
         }
 

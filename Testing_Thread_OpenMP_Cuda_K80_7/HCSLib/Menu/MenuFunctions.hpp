@@ -61,10 +61,10 @@ struct MenuFunctions
             std::cout << "VectorGpu not correct!" << std::endl;
     }
 
-    /// @brief Запускает функцию тестирования суммирования массивов
+    /// @brief Запускает функцию тестирования суммирования элементов массивов
     static void Testing_TestSum()
     {
-        // Запускаем функцию тестирования суммирования массивов
+        // Запускаем функцию тестирования суммирования элементов массивов
         if(TestSum())
             std::cout << "TestSum correct!" << std::endl;
         else
