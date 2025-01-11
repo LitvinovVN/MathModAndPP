@@ -1,0 +1,215 @@
+@startuml
+
+title
+ Диаграмма классов. Алгоритмы
+end title
+
+
+' Группы задач (работа с векторами, матрицами ипр.)
+enum TaskGroup
+{
+    None
+    Vector
+    VecVec
+    Matrix
+    MatVec
+    VecMat
+    MatMat
+}
+
+'Задача (копирование, суммаривоние и пр.)
+enum Task
+{
+    None
+    Init
+    Copy
+    Sum
+    Min
+    Max
+}
+
+' Размерности задачи
+struct TaskDimensions
+{
+    ' Используется ли пространственная ось Ox
+    bool is_used_X = false;
+    ' Используется ли пространственная ось Oy
+    bool is_used_Y = false;
+    ' Используется ли пространственная ось Oz
+    bool is_used_Z = false;
+    ' Используется ли ось времени Ot
+    bool is_used_t = false;
+    ' Возвращает суммарное количество измерений задачи
+    unsigned GetDimensionsNumber() const
+    ' Является ли задача стационарной
+    ' true - стационарная, false - нестационарная
+    bool IsStationaryProblem()
+    'Является ли задача нестационарной
+    ' true - нестационарная, false - стационарная
+    bool IsNonStationaryProblem()
+    ' Является ли задача одномерной
+    ' true - одномерная, false - неодномерная
+    bool Is1DProblem()
+    void Print(PrintParams pp)
+    friend std::ofstream& operator<<(std::ofstream& fout, const TaskDimensions& data)
+}
+
+enum AlgorithmType
+{
+    None        
+    SeqCpu      
+    SeqGpuCuda  
+    ParCpuThread
+    ParCpuOpenMP
+    ParGpuCuda
+}
+
+note Bottom of AlgorithmType
+    Перечисление "Типы алгоритмов"
+    0 - неинициализировано
+    1 - последовательный CPU
+    2 - последовательный GPU CUDA
+    3 - параллельный CPU std::thread
+    4 - параллельный CPU OpenMP
+    5 - параллельный GPU CUDA
+end note
+
+
+' Метрики алгоритма
+struct AlgorithmMetrics
+{
+    ' Объём дополнительной памяти ОЗУ
+    size_t allocRam
+    ' Объём дополнительной памяти Gpu
+    size_t allocGpu
+    ' количество считываний из памяти ОЗУ
+    size_t readRam
+    ' количество считываний из глобальной памяти Gpu
+    size_t readGpu
+    ' количество суммирований и вычитаний
+    size_t arifmSumSub
+    ' количество умножений и делений
+    size_t arifmMultDiv
+
+    void Print(PrintParams pp)
+}
+
+note Top of AlgorithmMetrics
+    Метрики алгоритма
+end note
+
+
+' Место расположения данных
+enum DataLocation
+{
+    None
+    Ram
+    Gpu
+    RamGpu
+}
+
+note Bottom of DataLocation
+    Перечисление "Место расположения данных"
+    None,   0 - Неинициализировано
+    Ram,    1 - ОЗУ
+    Gpu,    2 - видеопамять GPU
+    RamGpu, 3 - ОЗУ + видеопамять GPU
+end note
+
+
+' Сведения об алгоритме
+struct Algorithm
+{
+    ' УИД алгоритма
+    unsigned id = 0;
+    ' Группа задач
+    TaskGroup taskGroup;
+    ' Задача
+    Task task;
+    ' Размерности задачи
+    TaskDimensions taskDimensions {};
+    ' Длина типа данных, используемая в алгоритме (float: 4; double: 8)
+    unsigned dataTypeLength = 0;
+    ' Тип алгоритма (послед., параллельный и пр.)
+    AlgorithmType algorithmType;
+    ' Место расположения исходных данных
+    DataLocation dataLocationInput;
+    ' Место расположения результатов
+    DataLocation dataLocationOutput;
+
+    void Print(PrintParams pp)
+}
+
+'note Top of Algorithm
+'    Сведения об алгоритме
+'end note
+
+
+
+
+' Репозиторий алгоритмов
+class AlgorithmRepository
+{
+    std::map<unsigned, Algorithm> data;
+    ' Инициализация репозитория алгоритмов
+    void Init()
+    AlgorithmRepository()
+    void Print(PrintParams pp)
+    ' Проверяет наличие алгоритма с указанным УИД
+    bool IsExists(unsigned id)
+    ' Возвращает алгоритм по УИД    
+    Algorithm Get(unsigned id)
+    ' Запрашивает у пользователя id алгоритма и выводит в консоль сведения о нём
+    void Get()
+    ' Добавляет алгоритм в репозиторий
+    ' Результат (true - добавлен, false - не добавлен)
+    bool Add(Algorithm alg)
+}
+
+'Класс реализации алгоритма (сопоставляет УИД алгоритма с функцией реализации)
+class AlgorithmImplementation
+{
+    ' УИД сопоставления
+    - unsigned id
+    ' УИД алгоритма
+    - unsigned algorithmId
+    ' Объект функции, реализующей алгоритм
+    - Function function;
+    ' Описание
+    - std::string description;
+
+    + AlgorithmImplementation()
+    + AlgorithmImplementation(unsigned id, unsigned algorithmId,
+        std::string description, Function function)
+    + void Print(PrintParams pp)
+    ' Возвращает УИД сопоставления (id) алгоритма и его реализации 
+    + unsigned GetId() const
+}
+
+' Репозиторий реализаций алгоритмов.
+' Сопоставляет УИД алгоритма с функцией, реализующей алгоритм
+class AlgorithmImplementationRepository
+{
+    - std::map<unsigned, AlgorithmImplementation> data;
+    ' Инициализация репозитория реализаций алгоритмов
+    + void Init()
+    + AlgorithmImplementationRepository()
+}
+
+' Класс для запуска алгоритма на заданной вычислительной системе
+class AlgorithmImplementationExecutor
+{
+    
+}
+
+AlgorithmImplementation ..> Algorithm
+AlgorithmImplementationRepository *-- AlgorithmImplementation
+
+Algorithm *-- TaskGroup
+Algorithm *-- Task
+Algorithm *-- TaskDimensions
+Algorithm *-- AlgorithmType
+Algorithm *-- DataLocation
+AlgorithmRepository *--Algorithm
+
+@enduml
