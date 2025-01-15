@@ -59,14 +59,14 @@ public:
         // Инициализация меню
         MenuCommandItem item1;
         item1.comm = MenuCommand::Help;
-        item1.keys = {"1","?","h","help"};
+        item1.keys = {std::to_string((int)MenuCommand::Help),"?","h","help"};
         item1.func = nullptr;
         item1.desc = "Print help";
         menuCommands.push_back(item1);
 
         MenuCommandItem item2;
         item2.comm = MenuCommand::Exit;
-        item2.keys = {"2","q","exit"};
+        item2.keys = {std::to_string((int)MenuCommand::Exit),"q","exit"};
         item2.func = nullptr;
         item2.desc = "Exit from menu";
         menuCommands.push_back(item2);
@@ -75,7 +75,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::PrintLibSupport,
-                {"3","libs"},
+                {std::to_string((int)MenuCommand::PrintLibSupport),"libs"},
                 MenuFunctions::PrintLibSupport,
                 "Print supported libs (OpenMP, Cuda etc.)"
             }
@@ -85,7 +85,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::PrintGpuParameters,
-                {"4","gpu"},
+                {std::to_string((int)MenuCommand::PrintGpuParameters),"gpu"},
                 MenuFunctions::PrintGpuParameters,
                 "Print default (0) Cuda-device properties"
             }
@@ -95,7 +95,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::WriteGpuSpecsToTxtFile,
-                {"5","gpu"},
+                {std::to_string((int)MenuCommand::WriteGpuSpecsToTxtFile),"gpu"},
                 MenuFunctions::WriteGpuSpecsToTxtFile,
                 "Write GPU specification to txt file gpu-specs.txt"
             }
@@ -105,7 +105,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::Testing_TestArrayHelper,
-                {"6","test-arr-help"},
+                {std::to_string((int)MenuCommand::Testing_TestArrayHelper),"test-arr-help"},
                 MenuFunctions::Testing_TestArrayHelper,
                 "Testing TestArrayHelper class"
             }
@@ -115,7 +115,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::Testing_TestVectorGpu,
-                {"7","test-vec-gpu"},
+                {std::to_string((int)MenuCommand::Testing_TestVectorGpu),"test-vec-gpu"},
                 MenuFunctions::Testing_TestVectorGpu,
                 "Testing VectorGpu class"
             }
@@ -124,8 +124,18 @@ public:
         menuCommands.push_back(
             MenuCommandItem
             {
+                MenuCommand::Testing_Matrices,
+                {std::to_string((int)MenuCommand::Testing_Matrices),"test-mat"},
+                MenuFunctions::Testing_Matrices,
+                "Testing Matrices classes"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
                 MenuCommand::Testing_TestSum,
-                {"8","test-sum"},
+                {"9","test-sum"},
                 MenuFunctions::Testing_TestSum,
                 "Testing sum functions"
             }
@@ -135,7 +145,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::Application_Config,
-                {"9","app-conf"},
+                {"10","app-conf"},
                 nullptr,
                 "Application configuration"
             }
@@ -145,7 +155,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::ComputingSystemRepository_Config,
-                {"10","cs-repo-conf"},
+                {"11","cs-repo-conf"},
                 nullptr,
                 "Computing system repository configuration"
             }
@@ -155,7 +165,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::AlgTestingResultRepository_Config,
-                {"11","algtr-repo-conf"},
+                {"12","algtr-repo-conf"},
                 nullptr,
                 "AlgTestingResultRepository configuration"
             }
@@ -165,7 +175,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::Testing_FileSystemHelper,
-                {"12","fs-hlp"},
+                {"13","fs-hlp"},
                 MenuFunctions::Testing_FileSystemHelper,
                 "Testing FileSystemHelper"
             }
@@ -175,7 +185,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::AlgorithmRepository,
-                {"13","alg-repo"},
+                {"14","alg-repo"},
                 nullptr,
                 "Testing AlgorithmRepository"
             }
@@ -185,7 +195,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::AlgorithmImplementationRepository,
-                {"14","alg-impl-repo"},
+                {"15","alg-impl-repo"},
                 nullptr,
                 "AlgorithmImplementationRepository"
             }
@@ -195,7 +205,7 @@ public:
             MenuCommandItem
             {
                 MenuCommand::AlgorithmImplementationExecutor,
-                {"15","alg-impl-exec"},
+                {"16","alg-impl-exec"},
                 nullptr,
                 "AlgorithmImplementationExecutor"
             }

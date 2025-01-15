@@ -4,14 +4,15 @@
 /// @brief Перечисление команд меню
 enum class MenuCommand
 {
-    None,                     // Не выбрано
-    Exit,                     // Выход из меню
+    None,                     // Не выбрано    
     Help,                     // Вывод в консоль справки
+    Exit,                     // Выход из меню
     PrintLibSupport,          // Вывод в консоль списка поддерживаемых библиотек
     PrintGpuParameters,       // Вывод в консоль параметров GPU
     WriteGpuSpecsToTxtFile,   // Записывает параметры видеокарт в текстовый файл gpu-specs.txt
     Testing_TestArrayHelper,  // Тестирование класса TestArrayHelper
     Testing_TestVectorGpu,    // Тестирование класса VectorGpu
+    Testing_Matrices,         // Тестирование классов матриц
     Testing_TestSum,          // Тестирование функций суммирования
     Application_Config,       // Конфигурация приложения
     ComputingSystemRepository_Config, // Конфигурирование хранилища сведений о вычислительных системах

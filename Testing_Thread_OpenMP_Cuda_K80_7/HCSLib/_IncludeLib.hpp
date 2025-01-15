@@ -54,6 +54,13 @@ using namespace std::chrono;
 #include "Vectors/VectorGpuHelper.hpp"
 ////////// Векторы (конец) ////////////
 
+////////// Матрицы (начало) ////////////
+#include "Matrices/IMatrix.hpp"
+#include "Matrices/MatrixRam.hpp"
+#include "Matrices/MatrixRamZero.hpp"
+#include "Matrices/MatrixRamE.hpp"
+////////// Матрицы (конец) ////////////
+
 #include "TestParams.hpp"
 #include "TestHelper.hpp"
 #include "CalculationStatistics.hpp"

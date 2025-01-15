@@ -3,6 +3,7 @@
 #include "../GlobalTestFunctions.hpp"
 #include "../Algorithms/AlgorithmImplementationExecutor.hpp"
 #include "../Algorithms/AlgorithmImplementationExecutorHelper.hpp"
+#include "../Matrices/MatricesHelper.hpp"
 
 /// @brief Функции меню
 struct MenuFunctions
@@ -59,6 +60,16 @@ struct MenuFunctions
             std::cout << "VectorGpu correct!" << std::endl;
         else
             std::cout << "VectorGpu not correct!" << std::endl;
+    }
+
+    /// @brief Запускает тесты работоспособности классов матриц
+    static void Testing_Matrices()
+    {
+        std::cout << "Testing_Matrices()" << std::endl;
+        std::cout << "-- MatrixRamZeroTesting()" << std::endl;
+        MatricesHelper::MatrixRamZeroTesting();
+        std::cout << "-- MatrixRamETesting()" << std::endl;
+        MatricesHelper::MatrixRamETesting();
     }
 
     /// @brief Запускает функцию тестирования суммирования элементов массивов
