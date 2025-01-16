@@ -84,5 +84,26 @@ public:
         std::cout << "-------LaunchSumCuda(VectorGpu<T>& v, unsigned NumBlocks, unsigned Nthreads, TestParams p) End --------" << std::endl;
         return results;
     }
+
+    template<typename T>
+    static std::vector<FuncResult<T>> LaunchSumCudaDevNum1GpuNum2(VectorGpu<T>& v, unsigned NumBlocks, unsigned Nthreads, TestParams p)
+    {
+        std::cout << "-------LaunchSumCudaDevNum1GpuNum2(VectorGpu<T>& v, unsigned NumBlocks, unsigned Nthreads, TestParams p) Start ------" << std::endl;
+        std::vector<FuncResult<T>> results;
+
+        #ifdef __NVCC__
+
+        auto iterNum = p.IterNum;
+        for(unsigned i{0}; i < iterNum; i++)
+        {
+            FuncResult<T> res = VectorGpuHelper::SumCudaDevNum1GpuNum2(v, NumBlocks, Nthreads);
+            results.push_back(res);
+        }
+
+        #endif
+        
+        std::cout << "-------LaunchSumCudaDevNum1GpuNum2(VectorGpu<T>& v, unsigned NumBlocks, unsigned Nthreads, TestParams p) End --------" << std::endl;
+        return results;
+    }
 };
 

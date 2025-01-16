@@ -233,7 +233,7 @@ public:
     void Print() const override
     {
         #ifdef __NVCC__
-        print_kernel<T><<<1,1>>>(_dev_data, 0, _size);
+        kernel_print<T><<<1,1>>>(_dev_data, 0, _size);
         cudaDeviceSynchronize();
         #else
             throw std::runtime_error("CUDA not supported!");

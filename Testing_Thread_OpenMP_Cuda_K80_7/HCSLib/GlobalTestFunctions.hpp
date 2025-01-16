@@ -63,9 +63,10 @@ bool TestVectorGpu()
 bool TestSum()
 {
     TestParams testParams;
+    testParams.IterNum = 1;
 
     // 1. Подготовка данных
-    unsigned Nthreads = 18;
+    unsigned Nthreads = 10;
     size_t size = 1000000000;
     double elVal = 0.001;
     VectorRam<double> v(size);
@@ -101,11 +102,22 @@ bool TestSum()
         res.Print();
 
     // 2.4 Параллельный алгоритм Cuda
-    int numBlocks = 37;
+    int numBlocks = 10;
     auto testResults_par_Cuda = TestHelper::LaunchSumCuda(*vGpu_p, numBlocks, Nthreads, testParams);
     std::cout << "Parallel CUDA: testResults size = " << testResults_par_Cuda.size() << std::endl;
     for(auto& res : testResults_par_Cuda)
         res.Print();
+
+    // 2.5 Параллельный алгоритм Cuda на 1 GPU с двумя видеочипами
+    //int numBlocks = 37;
+    auto testResults_par2_Cuda = TestHelper::LaunchSumCudaDevNum1GpuNum2(*vGpu_p, numBlocks, Nthreads, testParams);
+    std::cout   << "Parallel CUDA LaunchSumCudaDevNum1GpuNum2: testResults size = "
+                << testResults_par2_Cuda.size() << std::endl;
+    for(auto& res : testResults_par2_Cuda)
+        res.Print();
+
+    // Освобождаем видеопамять
+    vGpu_p->Clear_dev_data();
 
     // 3. Статистическая обработка результатов
     CalculationStatistics stat_seq{testResults_seq};
@@ -139,6 +151,18 @@ bool TestSum()
     {
         std::cerr << e.what() << '\n';
     }
+
+    CalculationStatistics stat_par2_Cuda;
+    try
+    {
+        stat_par2_Cuda = CalculationStatistics{testResults_par2_Cuda};
+        std::cout << "CalculationStatistics parallel Cuda LaunchSumCudaDevNum1GpuNum2: " << std::endl;
+        stat_par2_Cuda.Print();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     
 
     // 4. Вычисляем ускорение и эффективность
@@ -163,6 +187,18 @@ bool TestSum()
         std::cout << "--- CUDA ---" << std::endl;
         ParallelCalcIndicators parallelCalcIndicators_Cuda(stat_seq, stat_par_Cuda, numBlocks*Nthreads);
         parallelCalcIndicators_Cuda.Print();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return false;
+    }
+
+    try
+    {
+        std::cout << "--- CUDA, 1 dev, 2 videochips ---" << std::endl;
+        ParallelCalcIndicators parallelCalcIndicators_Cuda2(stat_seq, stat_par2_Cuda, numBlocks*Nthreads);
+        parallelCalcIndicators_Cuda2.Print();
     }
     catch(const std::exception& e)
     {

@@ -3,33 +3,28 @@
 // cuda-ядро для вывода одномерного массива в консоль
 template<typename T>
 __global__
-void print_kernel(T* data, size_t indStart, size_t length)
+void kernel_print(T* data, size_t indStart, size_t length)
 {
     int th_i = blockIdx.x * blockDim.x + threadIdx.x;
     if (th_i == 0)
     {
         //printf("GPU: print_kernel() vectorGpu._size = %d\n", vectorGpu.GetSize());
         T* _dev_data_pointer = data;
-        auto indEnd = indStart + length - 1;
-        /*if(indEnd > vectorGpu.GetSize())
-        {
-            printf("Error! indEnd > vectorGpu.GetSize()\n");
-            return;
-        }*/
-
+        size_t indEnd = indStart + length - 1;
+        
         printf("[%d..", (long)indStart);
         printf("%d]: ", (long)indEnd);
         for(size_t i = indStart; i <= indEnd; i++)
         {
             printf("%f ", _dev_data_pointer[i]);
-        }
+        }        
         printf("\n");
     }
 }
 
 
 template<typename T>
-__global__ void kernel_sum(T* dev_arr, size_t length, T* dev_block_sum, T* result)
+__global__ void kernel_sum(T* dev_arr, size_t length, T* dev_block_sum)
 {
     // Массив в распределенной памяти GPU
     // для хранения локальных сумм отдельных потоков блока
@@ -44,10 +39,13 @@ __global__ void kernel_sum(T* dev_arr, size_t length, T* dev_block_sum, T* resul
     #ifdef DEBUG
     if(tid == 0)
     {
+        printf("\nkernel_sum: dev_arr = %p\n", dev_arr);
+        printf("\nkernel_sum: length = %d\n", length);
+        printf("\nkernel_sum: dev_block_sum = %p\n", dev_block_sum);
         printf("\nkernel_sum: number_of_threads = %d\n", number_of_threads);
         printf("\nkernel_sum: n_elem_per_thread = %d\n", n_elem_per_thread);
     }
-    #endif
+    #endif    
 
     unsigned long long block_start_idx = n_elem_per_thread * blockIdx.x * blockDim.x;
     unsigned long long thread_start_idx = block_start_idx

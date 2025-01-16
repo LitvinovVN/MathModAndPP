@@ -5,6 +5,25 @@
 /// @brief Структура для хранения методов обработки массивов T*
 struct ArrayHelper
 {
+    ////////////////////////// Вывод массивов в консоль (начало) /////////////////////////////
+
+    ///////// Вывод значений элементов массивов GPU в консоль
+    template<typename T>
+    static void PrintArrayCuda(T* data, size_t indStart, size_t length)
+    {
+        #ifdef __NVCC__
+        
+        kernel_print<T><<<1,1>>>(data, indStart, length);
+        cudaDeviceSynchronize();
+
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    ////////////////////////// Вывод массивов в консоль (конец) /////////////////////////////
+
+
     ////////////////////////// Суммирование элементов массива (начало) /////////////////////////////
 
     ///// Последовательное суммирование на CPU /////
@@ -131,8 +150,12 @@ struct ArrayHelper
     }
 
 
+
+
+
     ///// Суммирование с помощью Cuda /////      
 
+    // Суммирование на одном GPU
     template<typename T>
     static T SumCuda(T* dev_arr, size_t indStart, size_t indEnd, unsigned blocksNum, unsigned threadsNum)
     {
@@ -147,8 +170,8 @@ struct ArrayHelper
         #endif
         
         T sum{0};
-        T* dev_sum;
-        cudaMalloc(&dev_sum, sizeof(T));
+        //T* dev_sum;
+        //cudaMalloc(&dev_sum, sizeof(T));
         //cudaMemcpy(d, h, size, cudaMemcpyHostToDevice);
 
         // Выделяем в распределяемой памяти каждого SM массив для хранения локальных сумм каждого потока блока
@@ -160,7 +183,7 @@ struct ArrayHelper
         T* block_sum = (T*)malloc(blocksNum * sizeof(T));
         T* dev_block_sum;
         cudaMalloc(&dev_block_sum, blocksNum * sizeof(T));
-        kernel_sum<<<blocksNum, threadsNum, shared_mem_size>>>(dev_arr, length, dev_block_sum, dev_sum);
+        kernel_sum<<<blocksNum, threadsNum, shared_mem_size>>>(dev_arr, length, dev_block_sum);
 
         //cudaMemcpy(&sum, dev_sum, sizeof(T), cudaMemcpyDeviceToHost);
         cudaMemcpy(block_sum, dev_block_sum, blocksNum * sizeof(T), cudaMemcpyDeviceToHost);
@@ -188,6 +211,103 @@ struct ArrayHelper
     static T SumCuda(T* data, size_t size, unsigned blocksNum, unsigned threadsNum)
     {
         return SumCuda(data, 0, size - 1, blocksNum, threadsNum);
+    }
+
+    // Суммирование на одном GPU с двумя чипами (Tesla K80)
+    template<typename T>
+    static T SumCudaDevNum1GpuNum2(T* dev_arr, size_t indStart, size_t indEnd,
+                unsigned blocksNum, unsigned threadsNum)
+    {
+        #ifdef __NVCC__
+
+        size_t length = indEnd - indStart + 1;
+                        
+        #ifdef DEBUG
+        std::cout << "T Sum(" << dev_arr << ", "
+                  << length << ", "<< blocksNum << ", "
+                  << threadsNum << ")" <<std::endl;
+        #endif
+        
+        T sum{0};
+        //T* dev_sum;
+        //cudaMalloc(&dev_sum, sizeof(T));
+        //cudaMemcpy(d, h, size, cudaMemcpyHostToDevice);
+
+        // Выделяем в распределяемой памяти каждого SM массив для хранения локальных сумм каждого потока блока
+        unsigned shared_mem_size = threadsNum * sizeof(T);
+        #ifdef DEBUG
+        std::cout << "shared_mem_size = " << shared_mem_size << std::endl;
+        #endif
+        // Выделяем в RAM и глобальной памяти GPU массив для локальных сумм каждого блока
+        T* block_sum = (T*)malloc(blocksNum * sizeof(T));
+        T* dev_block_sum;
+        cudaMalloc(&dev_block_sum, blocksNum * sizeof(T));
+        
+        std::cout << "dev_arr: " << dev_arr << std::endl;
+        std::cout << "&dev_arr[0]: " << &dev_arr[0] << std::endl;
+
+        std::cout << "dev_arr + length/2: " << (dev_arr + length/2) << std::endl;
+        std::cout << "&dev_arr[length/2]: " << &dev_arr[length/2] << std::endl;
+
+
+        std::cout << "\n\n\n!!!!!!!!!!!!!!!\n\nPrintArrayCuda(dev_block_sum, 0, blocksNum-1);\n\n";
+        cudaSetDevice(1);
+        PrintArrayCuda<T>(dev_arr, 0, blocksNum);
+        int a;
+        std::cin >> a;
+
+
+        #pragma omp parallel for num_threads(2)
+        for(int i=0;i<2;i++)
+        {
+            cudaSetDevice(i);
+            //kernel_sum<<<blocksNum, threadsNum, shared_mem_size>>>(dev_arr, length, dev_block_sum);
+            if(i==0)
+            {
+                kernel_sum<<<blocksNum/2, threadsNum, shared_mem_size>>>(dev_arr, length/2, dev_block_sum);
+            }
+            else if(i==1)
+            {
+                kernel_sum<<<blocksNum - blocksNum/2, threadsNum, shared_mem_size>>>(dev_arr + length/2, length - length/2, dev_block_sum + blocksNum/2);
+            }
+                        
+            //cudaMemcpy(...);
+            //k_my_kernel<<<...>>>(...);
+            //cudaMemcpy(...);
+        }
+
+        
+        cudaSetDevice(1); cudaDeviceSynchronize();
+        cudaSetDevice(0); cudaDeviceSynchronize();
+
+        
+        //cudaDeviceSynchronize();
+        //cudaMemcpy(&sum, dev_sum, sizeof(T), cudaMemcpyDeviceToHost);
+        cudaMemcpy(block_sum, dev_block_sum, blocksNum * sizeof(T), cudaMemcpyDeviceToHost);
+        for(unsigned i=0; i<blocksNum;i++)
+        {
+            std::cout << "block_sum[" << i << "] = " << block_sum[i] << std::endl;
+            sum += block_sum[i];
+        }
+
+        #ifdef DEBUG
+        std::cout << "Sum is " << sum << std::endl;
+        #endif
+
+        free(block_sum);
+        cudaFree(dev_block_sum);
+
+        return sum;
+
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    template<typename T>
+    static T SumCudaDevNum1GpuNum2(T* data, size_t size, unsigned blocksNum, unsigned threadsNum)
+    {
+        return SumCudaDevNum1GpuNum2(data, 0, size - 1, blocksNum, threadsNum);
     }
 
     ////////////////////////// Суммирование элементов массива (конец) /////////////////////////////
