@@ -11,14 +11,15 @@ void kernel_array_init_by_value(T* data, size_t indStart, size_t length, T value
     {
         //printf("GPU: print_kernel() vectorGpu._size = %d\n", vectorGpu.GetSize());
         T* _dev_data_pointer = data;
-        size_t indEnd = indStart + length - 1;
+        unsigned long long indEnd = indStart + length - 1;
         
         printf("[%d..", (long)indStart);
         printf("%d]: ", (long)indEnd);
-        for(size_t i = indStart; i <= indEnd; i++)
+        for(unsigned long long i = indStart; i <= indEnd; i++)
         {
             _dev_data_pointer[i] = value;
-        }  
+        }
+        printf(" initialized by %f\n", value); 
     }
 }
 

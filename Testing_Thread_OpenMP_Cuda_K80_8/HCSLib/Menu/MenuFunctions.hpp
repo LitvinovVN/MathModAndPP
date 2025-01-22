@@ -101,12 +101,12 @@ struct MenuFunctions
     {        
         std::cout   << "----- ArrayHelper -----\n"
                     << "1 Back to main menu\n"
-                    << "2 ArrayHelper::SumOpenMP_ConsoleUI()\n"
-                    << "3 ArrayHelper::SumCudaMultiGpu_ConsoleUI()\n"
-                    << "4 -\n"
-                    << "5 -\n"
-                    << "6 -\n"
-                    << "7 -\n"
+                    << "2 ArrayHelper::SumOpenMP\n"
+                    << "3 ArrayHelper::SumCudaMultiGpu\n"
+                    << "4 ArrayHelper::CopyRamToGpu\n"
+                    << "5 ArrayHelper::CopyGpuToRam\n"
+                    << "6 ArrayHelper::ScalarProductRamRamSeq\n"
+                    << "7 ArrayHelper::ScalarProductRamRamParThread\n"
                     << "8 -\n";
 
         int command = 0;
@@ -139,20 +139,20 @@ struct MenuFunctions
                 ArrayHelper::SumCudaMultiGpu_ConsoleUI();
                 break;
             case 4:
-                std::cout << "Command: 4 -\n";
-                //CudaHelper::PrintCudaDeviceProperties_ConsoleUI();
+                std::cout << "Command: 4 ArrayHelper::CopyRamToGpu_ConsoleUI()\n";
+                ArrayHelper::CopyRamToGpu_ConsoleUI();
                 break;
             case 5:
-                std::cout   << "Command: 5 -\n";
-                //CudaHelper::WriteGpuSpecsToTxtFile_ConsoleUI();               
+                std::cout   << "Command: 5 ArrayHelper::CopyGpuToRam_ConsoleUI()\n";
+                ArrayHelper::CopyGpuToRam_ConsoleUI();               
                 break;
             case 6:
-                std::cout   << "Command: 6 -\n";
-                //FileSystemHelper::IsDirExists();
+                std::cout   << "Command: 6 ArrayHelper::ScalarProductRamRamSeq\n";
+                ArrayHelper::ScalarProductRamRamSeq_ConsoleUI();
                 break;
             case 7:
-                std::cout   << "Command: 7 -\n";
-                //FileSystemHelper::RemoveFile();
+                std::cout   << "Command: 7 ArrayHelper::ScalarProductRamRamParThread\n";
+                ArrayHelper::ScalarProductRamRamParThread_ConsoleUI();
                 break;
             case 8:
                 std::cout   << "Command: 8 -\n";

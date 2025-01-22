@@ -107,7 +107,7 @@ struct ConsoleHelper
 
                 if(isdigit(userInput[0]))
                 {
-                    size_t value = std::stod(userInput);
+                    double value = std::stod(userInput);
                     return value;
                 }
                 std::cout << errorMessage << std::endl;

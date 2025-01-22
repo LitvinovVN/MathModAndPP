@@ -4,6 +4,19 @@
 #include "CudaDeviceProperties.hpp"
 /////////////// CUDA ////////////////
 
+#define cudaCheckErrors(msg) \
+  do { \
+    cudaError_t __err = cudaGetLastError(); \
+    if (__err != cudaSuccess) { \
+        fprintf(stderr, "Fatal error: %s (%s at %s:%d)\n", \
+            msg, cudaGetErrorString(__err), \
+            __FILE__, __LINE__); \
+        fprintf(stderr, "*** FAILED - THROWING EXCEPTION ***\n"); \
+        throw std::runtime_error(msg); \
+    } \
+  } while (0)
+
+
 /// @brief Класс для хранения вспомогательных функций Cuda
 struct CudaHelper
 {
