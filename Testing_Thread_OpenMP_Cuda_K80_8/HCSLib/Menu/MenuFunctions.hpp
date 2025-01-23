@@ -105,9 +105,9 @@ struct MenuFunctions
                     << "3 ArrayHelper::SumCudaMultiGpu\n"
                     << "4 ArrayHelper::CopyRamToGpu\n"
                     << "5 ArrayHelper::CopyGpuToRam\n"
-                    << "6 ArrayHelper::ScalarProductRamRamSeq\n"
-                    << "7 ArrayHelper::ScalarProductRamRamParThread\n"
-                    << "8 -\n";
+                    << "6 ArrayHelper::ScalarProductRamSeq\n"
+                    << "7 ArrayHelper::ScalarProductRamParThread\n"
+                    << "8 ArrayHelper::ScalarProductGpuParThread\n";
 
         int command = 0;
         while(command != 1)
@@ -131,32 +131,32 @@ struct MenuFunctions
                 std::cout << "Back to main menu" << std::endl;
                 break;
             case 2:
-                std::cout   << "Command: 2 ArrayHelper::SumOpenMP_ConsoleUI()\n";                
-                ArrayHelper::SumOpenMP_ConsoleUI();
+                std::cout   << "Command: 2 ArrayHelper::SumOpenMP()\n";                
+                ArrayHelper_ConsoleUI::SumOpenMP_ConsoleUI();
                 break;
             case 3:
-                std::cout   << "Command: 3 ArrayHelper::SumCudaMultiGpu_ConsoleUI()\n";
-                ArrayHelper::SumCudaMultiGpu_ConsoleUI();
+                std::cout   << "Command: 3 ArrayHelper::SumCudaMultiGpu()\n";
+                ArrayHelper_ConsoleUI::SumCudaMultiGpu_ConsoleUI();
                 break;
             case 4:
-                std::cout << "Command: 4 ArrayHelper::CopyRamToGpu_ConsoleUI()\n";
-                ArrayHelper::CopyRamToGpu_ConsoleUI();
+                std::cout << "Command: 4 ArrayHelper::CopyRamToGpu()\n";
+                ArrayHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
                 break;
             case 5:
-                std::cout   << "Command: 5 ArrayHelper::CopyGpuToRam_ConsoleUI()\n";
-                ArrayHelper::CopyGpuToRam_ConsoleUI();               
+                std::cout   << "Command: 5 ArrayHelper::CopyGpuToRam()\n";
+                ArrayHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
                 break;
             case 6:
-                std::cout   << "Command: 6 ArrayHelper::ScalarProductRamRamSeq\n";
-                ArrayHelper::ScalarProductRamRamSeq_ConsoleUI();
+                std::cout   << "Command: 6 ArrayHelper::ScalarProductRamSeq\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
                 break;
             case 7:
-                std::cout   << "Command: 7 ArrayHelper::ScalarProductRamRamParThread\n";
-                ArrayHelper::ScalarProductRamRamParThread_ConsoleUI();
+                std::cout   << "Command: 7 ArrayHelper::ScalarProductRamParThread\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
                 break;
             case 8:
-                std::cout   << "Command: 8 -\n";
-                //FileSystemHelper::RemoveDir();
+                std::cout   << "Command: 8 ArrayHelper::ScalarProductGpuParCuda\n";
+                ArrayHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
                 break;            
             default:
                 std::cout << "Command not recognized!" << std::endl;

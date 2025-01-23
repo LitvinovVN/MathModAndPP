@@ -10,14 +10,15 @@ struct FuncResult
     FuncResult()
     { }
 
-    FuncResult(bool status, T result, double time) : 
+    FuncResult(bool status, T result, long long time) : 
         _status(status), _result(result), _time(time)
     { }
 
     void Print()
     {
-        std::cout << "[val: " << _result
-                  << "; time: " << _time << "]" << std::endl;
+        std::cout << "[status: " << std::boolalpha << _status
+                  << "; val: " << _result
+                  << "; time: " << _time << " mks]" << std::endl;
     }
     
     static bool compare(const FuncResult<T>& left, const FuncResult<T>& right) 

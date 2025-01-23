@@ -26,14 +26,13 @@ using namespace std::chrono;
 ///////////// CUDA (конец) /////////////
 
 ///// Вспомогательные типы (начало) /////
+#include "CommonHelpers/LibSupport.hpp"
+#include "CommonHelpers/FuncResult.hpp"
 #include "CommonHelpers/PrintParams.hpp"
 #include "CommonHelpers/ConsoleHelper.hpp"
 #include "CommonHelpers/FileSystemHelper.hpp"
 ///// Вспомогательные типы (конец) /////
 
-
-#include "LibSupport.hpp"
-#include "FuncResult.hpp"
 
 ////////// Функции (начало) ////////////
 #include "Functions/FunctionDataType.hpp"
@@ -46,6 +45,7 @@ using namespace std::chrono;
 ////////// Массивы (начало) ////////////
 #include "Arrays/ArrayGpuProcessingParams.hpp"
 #include "Arrays/ArrayHelper.hpp"
+#include "Arrays/ArrayHelper_ConsoleUI.hpp"
 ////////// Массивы (конец) ////////////
 
 ////////// Векторы (начало) ////////////

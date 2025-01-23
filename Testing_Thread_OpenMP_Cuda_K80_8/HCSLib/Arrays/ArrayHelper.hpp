@@ -50,6 +50,415 @@ struct ArrayHelper
     ////////////////////////// Вывод массивов в консоль (конец) /////////////////////////////
 
 
+    ////////////////////////// Создание и освобождение массивов (начало) /////////////////////////////
+
+    /// @brief Выделяет память для массива в RAM
+    /// @tparam T Тип элементов массива
+    /// @param size Количество элементов
+    /// @return Указатель на созданный массив
+    template<typename T>
+    static T* CreateArrayRam(unsigned long long size)
+    {
+        return new T[size];
+    }
+
+    template<typename T>
+    static void DeleteArrayRam(T* arrayRam)
+    {
+        if(arrayRam == nullptr)
+            return;
+
+        delete[] arrayRam;
+        arrayRam = nullptr;
+    }
+
+
+    /// @brief Выделяет память для массива на текущем GPU
+    /// @tparam T Тип элементов массива
+    /// @param size Количество элементов
+    /// @return Указатель на созданный массив
+    template<typename T>
+    static T* CreateArrayGpu(unsigned long long size)
+    {
+        #ifdef __NVCC__
+
+        if (size == 0)
+        {
+            std::string mes = "Cannot initialize array of 0 elements";
+            //std::cerr << mes << std::endl;
+            throw std::logic_error(mes);
+        }
+        
+        //std::cout << "Allocating GPU memory: " << size << " * " << sizeof(T) << " = " << size*sizeof(T) << " bytes... ";
+        T* dev_array = nullptr;
+        cudaMalloc(&dev_array, size*sizeof(T));
+        
+        std::string msg("Could not allocate device memory for GPU array: ");
+        msg += std::to_string(size*sizeof(T));
+        msg += " bytes not allocated!\n";
+        cudaCheckErrors(msg.c_str());        
+        cudaDeviceSynchronize();
+
+        std::cout << "OK\n";
+        
+        return dev_array;
+        
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+
+    /// @brief Выделяет память для массива на GPU
+    /// @tparam T Тип элементов массива
+    /// @param size Количество элементов
+    /// @param deviceId Идентификатор устройства
+    /// @return Указатель на созданный массив
+    template<typename T>
+    static T* CreateArrayGpu(unsigned long long size, int deviceId)
+    {
+        #ifdef __NVCC__
+
+        if (size == 0)
+        {
+            std::string mes = "Cannot initialize array of 0 elements";
+            //std::cerr << mes << std::endl;
+            throw std::logic_error(mes);
+        }
+
+        T* dev_array = nullptr;
+
+        if(deviceId == 0)
+        {
+            dev_array = CreateArrayGpu<T>(size);
+        }
+        else
+        {
+            std::thread th{
+                [&](){
+                    // Set CUDA device.
+                    cudaSetDevice(deviceId);                    
+                    cudaCheckErrors("Cannot set CUDA device\n");
+                    
+                    dev_array = CreateArrayGpu<T>(size);
+                }
+            };
+            th.join();
+        }
+
+        return dev_array;
+        
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+
+    /// @brief Освобождает массив на текущем GPU
+    /// @tparam T Указатель на массив в GPU
+    template<typename T>
+    static void DeleteArrayGpu(T* arrayGpu)
+    {
+        #ifdef __NVCC__
+        //std::cout << "Clearing gpu array " << arrayGpu << ": ";
+        if (arrayGpu == nullptr)
+            return;
+
+        cudaFree(arrayGpu);
+        cudaCheckErrors("Error in cudaFree!");
+        arrayGpu = nullptr;
+        //std::cout << "OK (" << arrayGpu << ")\n";
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    /// @brief Освобождает массив на GPU c
+    /// @tparam T Указатель на массив в GPU
+    /// @tparam deviceId Идентификатор GPU
+    template<typename T>
+    static void DeleteArrayGpu(T* arrayGpu, int deviceId)
+    {
+        #ifdef __NVCC__
+        if (deviceId == 0)
+        {
+            DeleteArrayGpu(arrayGpu);
+            return;
+        }
+
+        std::thread th{
+            [&](){
+                cudaSetDevice(deviceId);
+                cudaCheckErrors("Error in cudaSetDevice!");
+                DeleteArrayGpu(arrayGpu);
+            }
+        };
+
+        th.join();
+        
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+    ////////////////////////// Создание и освобождение массивов (конец) /////////////////////////////
+
+
+    ////////////////////////// Инициализация массивов (начало) /////////////////////////////
+
+    /// @brief Заполняет массив dev_array на текущем GPU значением value
+    /// @tparam T Тип элементов массива
+    /// @param dev_array Указатель на инициализируемый массив
+    /// @param size Количество элементов массива
+    /// @param value Значение, присваиваемое всем элементам массива dev_array
+    template<typename T>
+    static void InitArrayGpu(T* dev_array,
+                        unsigned long long size,
+                        T value)
+    {
+        #ifdef __NVCC__                       
+        
+        const unsigned blockSize = 100000000;
+        if(size < blockSize)
+        {
+            kernel_array_init_by_value<<<1,1>>>(dev_array, 0, size, value);
+            cudaError_t cudaResult = cudaGetLastError();
+            if (cudaResult != cudaSuccess)
+            {
+                std::string msg("Could not init GPU array by value: ");
+                msg += cudaGetErrorString(cudaResult);
+                throw std::runtime_error(msg);
+            }
+            cudaDeviceSynchronize();
+        }
+        else
+        {
+            T* dev_array_ptr = dev_array;
+            unsigned blocksNum = size / blockSize;
+            for(unsigned blockIndex = 0; blockIndex < blocksNum; blockIndex++)
+            {
+                //std::cout << "Init block " << blockIndex << std::endl;
+
+                kernel_array_init_by_value<<<1,1>>>(dev_array_ptr, 0, blockSize, value);
+                cudaError_t cudaResult = cudaGetLastError();
+                if (cudaResult != cudaSuccess)
+                {
+                    std::string msg("Could not init GPU array by value: ");
+                    msg += cudaGetErrorString(cudaResult);
+                    throw std::runtime_error(msg);
+                }
+                cudaDeviceSynchronize();
+
+                dev_array_ptr += blockSize;
+            }
+
+            unsigned lastBlockSize = size % blockSize;
+            if(lastBlockSize > 0)
+            {
+                //std::cout << "Init last block " << lastBlockSize << " elements" << std::endl;
+
+                kernel_array_init_by_value<<<1,1>>>(dev_array_ptr, 0, lastBlockSize, value);
+                cudaError_t cudaResult = cudaGetLastError();
+                if (cudaResult != cudaSuccess)
+                {
+                    std::string msg("Could not init GPU array by value: ");
+                    msg += cudaGetErrorString(cudaResult);
+                    throw std::runtime_error(msg);
+                }
+                cudaDeviceSynchronize();
+            }
+
+        }
+        
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    template<typename T>
+    static void InitArrayGpu(T* dev_array,
+                        unsigned long long size,
+                        T value,
+                        int deviceId)
+    {
+        #ifdef __NVCC__
+        
+        if(deviceId == 0)
+        {
+            InitArrayGpu(dev_array, size, value);
+        }
+        else
+        {
+            std::thread th{
+                [&](){
+                    // Set curent CUDA device.
+                    cudaError_t cudaResult = cudaSetDevice(deviceId);
+                    if (cudaResult != cudaSuccess)
+                    {
+                        fprintf(stderr, "Cannot set current CUDA device, status = %d: %s\n",
+                        cudaResult, cudaGetErrorString(cudaResult));
+                        throw std::runtime_error("Cannot set current CUDA device");
+                    }
+                    InitArrayGpu(dev_array, size, value);
+                }
+            };
+            th.join();
+        }
+        
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    ////////////////////////// Инициализация массивов (конец) /////////////////////////////
+
+
+    ////////////////////////// Копирование массивов (начало) /////////////////////////////
+    
+    template<typename T>
+    static void CopyRamToGpu(T* arrayRam, T* arrayGpu, size_t length)
+    {
+        #ifdef __NVCC__
+
+        size_t dataSize = length * sizeof(T);
+        cudaMemcpy(arrayGpu, arrayRam, dataSize, cudaMemcpyKind::cudaMemcpyHostToDevice);
+        cudaCheckErrors("Error in cudaMemcpy()");
+
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif        
+    }
+
+    
+    template<typename T>
+    static void CopyRamToGpu(T* arrayRam, T* arrayGpu,
+        size_t ind_start, size_t length, int deviceId = 0)
+    {
+        #ifdef __NVCC__
+
+        if(deviceId == 0)
+        {
+            CopyRamToGpu(arrayRam + ind_start, arrayGpu + ind_start, length);
+        }
+        else
+        {
+            std::thread th{
+                [&]() {
+                    cudaSetDevice(deviceId);
+                    CopyRamToGpu(arrayRam + ind_start, arrayGpu + ind_start, length);
+                }
+            };
+            th.join();
+        }
+
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    template<typename T>
+    static void CopyGpuToRam(T* arrayGpu, T* arrayRam, size_t length)
+    {
+        #ifdef __NVCC__
+
+        size_t dataSize = length * sizeof(T);
+        cudaMemcpy(arrayRam, arrayGpu, dataSize, cudaMemcpyKind::cudaMemcpyDeviceToHost);
+        cudaCheckErrors("Error in cudaMemcpy()");
+
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    
+    template<typename T>
+    static void CopyGpuToRam(T* arrayGpu, T* arrayRam,
+        size_t ind_start, size_t length, int deviceId = 0)
+    {
+        #ifdef __NVCC__
+        if(deviceId == 0)
+        {
+            CopyGpuToRam(arrayGpu + ind_start, arrayRam + ind_start, length);
+        }
+        else
+        {
+            std::thread th{
+                [&]() {
+                    cudaSetDevice(deviceId);
+                    CopyGpuToRam(arrayGpu + ind_start, arrayRam + ind_start, length);
+                }
+            };
+            th.join();
+        }
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    ////////////////////////// Копирование массивов (конец) /////////////////////////////
+
+
+    ////////////////////////// Сравнение массивов (начало) /////////////////////////////
+
+    template<typename T>
+    static bool IsEqualsRamRam(T* arrayRam1, T*arrayRam2,
+        size_t length, double eps = 0.00000001)
+    {
+        for (size_t i = 0; i < length; i++)
+        {
+            if(fabs(arrayRam2[i] - arrayRam1[i]) > eps)
+                return false;
+        }
+        return true;
+    }
+
+
+    /// @brief Сравнивает содержимое массивов, расположенных на RAM и GPU
+    /// @tparam T 
+    /// @param arrayRam 
+    /// @param arrayGpu 
+    /// @param length 
+    /// @param eps 
+    /// @return 
+    template<typename T>
+    static bool IsEqualsRamGpu(T* arrayRam, T* arrayGpu,
+        size_t length, double eps = 0.00000001)
+    {
+        #ifdef __NVCC__
+
+        bool isEquals = true;
+        const unsigned blockSize = 1000000;
+
+        unsigned blocksNum     = length / blockSize;
+        unsigned lastBlockSize = length % blockSize;
+        
+        T* arrayRamTmp = new T[blockSize];
+
+        for (size_t blockInd = 0; blockInd < blocksNum; blockInd++)
+        {
+            CopyGpuToRam(arrayGpu+blockInd*blockSize, arrayRamTmp, blockSize);
+            isEquals = IsEqualsRamRam(arrayRam+blockInd*blockSize, arrayRamTmp, blockSize);
+            if(!isEquals) break;            
+        }
+
+        if(isEquals && lastBlockSize > 0)
+        {
+            CopyGpuToRam(arrayGpu+blocksNum*blockSize, arrayRamTmp, lastBlockSize);
+            isEquals = IsEqualsRamRam(arrayRam+blocksNum*blockSize, arrayRamTmp, lastBlockSize);
+        }
+
+        delete[] arrayRamTmp;
+        return isEquals;
+
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+    
+    ////////////////////////// Сравнение массивов (конец) /////////////////////////////
+
+
+
+
     ////////////////////////// Суммирование элементов массива (начало) /////////////////////////////
 
     ///// Последовательное суммирование на CPU /////
@@ -176,9 +585,6 @@ struct ArrayHelper
     }
 
 
-
-
-
     ///// Суммирование с помощью Cuda /////      
 
     // Суммирование на одном GPU
@@ -239,9 +645,7 @@ struct ArrayHelper
         return SumCuda(data, 0, size - 1, blocksNum, threadsNum);
     }
 
-    
-
-    // Суммирование на нескольких GPU (Tesla K80)
+    // Суммирование на нескольких GPU
     template<typename T>
     static T SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)
     {
@@ -294,8 +698,104 @@ struct ArrayHelper
         #endif
     }
 
-
     ////////////////////////// Суммирование элементов массива (конец) /////////////////////////////
+
+    
+    ////////////////////////// Скалярное произведение элементов массива (начало) /////////////////////////////
+    
+    template<typename T>
+    static T ScalarProductRamSeq(T* arrayRam1, T* arrayRam2, size_t length)
+    {
+        T scalarProduct{0};
+
+        for (size_t i = 0; i < length; i++)
+        {
+            scalarProduct += arrayRam1[i] * arrayRam2[i];            
+        }
+        return scalarProduct;
+    }
+
+    template<typename T>
+    static T ScalarProductRamParThread(T* arrayRam1, T* arrayRam2, size_t length, unsigned threadsNum)
+    {
+        T scalarProduct{0};
+        std::mutex mutex;
+        std::vector<std::thread> threads;
+
+        size_t blockSize = length / threadsNum;
+            
+        for (size_t i = 0; i < threadsNum; i++)
+        {
+            threads.push_back(
+                std::thread{
+                    [=, &mutex, &scalarProduct](){
+                        T localSum = ScalarProductRamSeq(arrayRam1 + i*blockSize,
+                            arrayRam2 + i*blockSize,
+                            (i < threadsNum-1) ? blockSize : blockSize + length % threadsNum);
+                        
+                        {
+                            std::lock_guard<std::mutex> guard{mutex};
+                            scalarProduct += localSum;
+                        }
+                    }
+                }
+            );
+            
+        }
+
+        for(auto& thread : threads)
+        {
+            thread.join();
+        }
+
+        return scalarProduct;
+    }
+
+    template<typename T>
+    static T ScalarProductGpuParCuda(T* arrayGpu1, T* arrayGpu2, size_t length,
+        unsigned kernelBlocks, unsigned kernelThreads)
+    {
+        // Выделяем в распределяемой памяти каждого SM массив для хранения локальных сумм каждого потока блока
+        unsigned shared_mem_size = kernelThreads * sizeof(T);
+        // Выделяем в RAM и глобальной памяти GPU массив для локальных сумм каждого блока
+        T* blockSumsRam = CreateArrayRam<T>(kernelBlocks);
+        T* blockSumsGpu = CreateArrayGpu<T>(kernelBlocks);
+        // Запуск ядра вычисления скалярного произведения
+        kernel_scalar_product<<<kernelBlocks, kernelThreads, shared_mem_size>>>(arrayGpu1, arrayGpu2, length, blockSumsGpu);
+        cudaCheckErrors("Error in kernel_scalar_product!\n");
+        // Копируем частичные суммы из GPU в RAM
+        CopyGpuToRam(blockSumsGpu, blockSumsRam, kernelBlocks);
+        T result = Sum(blockSumsRam, kernelBlocks);
+        // Освобождаем память        
+        DeleteArrayRam(blockSumsRam);
+        DeleteArrayGpu(blockSumsGpu);
+        return result;
+    }
+
+    template<typename T>
+    static FuncResult<T> ScalarProductGpuParCuda(size_t length,
+        unsigned kernelBlocks, unsigned kernelThreads)
+    {
+        T* arrayGpu1 = CreateArrayGpu<T>(length);
+        T* arrayGpu2 = CreateArrayGpu<T>(length);
+        ArrayHelper::InitArrayGpu(arrayGpu1, length, (T)10.0);
+        ArrayHelper::InitArrayGpu(arrayGpu2, length, (T)0.1);
+
+        auto start = high_resolution_clock::now();
+        T scalarProduct = ScalarProductGpuParCuda(arrayGpu1, arrayGpu2, length, kernelBlocks, kernelThreads);
+        auto stop = high_resolution_clock::now();
+
+        auto duration = duration_cast<microseconds>(stop - start);
+        auto t = duration.count();
+        
+        DeleteArrayGpu(arrayGpu1);
+        DeleteArrayGpu(arrayGpu2);
+
+        return FuncResult<T>{true, scalarProduct, t};
+    }
+
+    ////////////////////////// Скалярное произведение элементов массива (конец) /////////////////////////////
+
 
     /*  ---   Другие алгоритмы   ---  */
 
@@ -304,434 +804,7 @@ struct ArrayHelper
 
 
     //////// 
-
-    // Работа с функцией SumOpenMP
-    static void SumOpenMP_ConsoleUI()
-    {
-        // Вызов функции суммирования с помощью OpenMP
-        try
-        {            
-            size_t size  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
-            double value = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
-            int Nthreads = ConsoleHelper::GetIntFromUser("Enter num threads: ");
-
-            double* data = new double[size];
-            for (size_t i = 0; i < size; i++)
-            {
-                data[i] = value;
-            }            
-            
-            auto start = high_resolution_clock::now();
-            double sum = ArrayHelper::SumOpenMP(data, 0, size, Nthreads);
-            auto stop = high_resolution_clock::now();
-
-            auto duration = duration_cast<microseconds>(stop - start);        
-            auto t = duration.count();
-
-            std::cout << "ArrayRamHelper::SumOpenMP(data, 0, size, Nthreads): " << sum << std::endl;
-            std::cout << "Expected sum: " << size*value << std::endl;
-            std::cout << "Time, mks: " << t << std::endl;
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;            
-        }
-    }
-
-
-    /// @brief Выделяет память для массива на текущем GPU
-    /// @tparam T Тип элементов массива
-    /// @param size Количество элементов
-    /// @return Указатель на созданный массив
-    template<typename T>
-    static T* CreateArrayGpu(unsigned long long size)
-    {
-        #ifdef __NVCC__
-
-        if (size == 0)
-        {
-            std::string mes = "Cannot initialize array of 0 elements";
-            //std::cerr << mes << std::endl;
-            throw std::logic_error(mes);
-        }
-        
-        T* dev_array = nullptr;
-        cudaMalloc(&dev_array, size*sizeof(T));
-        
-        std::string msg("Could not allocate device memory for GPU array: ");
-        msg += std::to_string(size*sizeof(T));
-        msg += " bytes not allocated!\n";
-        cudaCheckErrors(msg.c_str());
-        
-        cudaDeviceSynchronize();
-
-        return dev_array;
-        
-        #else
-            throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-
-    /// @brief Выделяет память для массива на GPU
-    /// @tparam T Тип элементов массива
-    /// @param size Количество элементов
-    /// @param deviceId Идентификатор устройства
-    /// @return Указатель на созданный массив
-    template<typename T>
-    static T* CreateArrayGpu(unsigned long long size, int deviceId)
-    {
-        #ifdef __NVCC__
-
-        if (size == 0)
-        {
-            std::string mes = "Cannot initialize array of 0 elements";
-            //std::cerr << mes << std::endl;
-            throw std::logic_error(mes);
-        }
-
-        T* dev_array = nullptr;
-
-        if(deviceId == 0)
-        {
-            dev_array = CreateArrayGpu<T>(size);
-        }
-        else
-        {
-            std::thread th{
-                [&](){
-                    // Set CUDA device.
-                    cudaSetDevice(deviceId);                    
-                    cudaCheckErrors("Cannot set CUDA device\n");
-                    
-                    dev_array = CreateArrayGpu<T>(size);
-                }
-            };
-            th.join();
-        }
-                  
-        
-
-        return dev_array;
-        
-        #else
-            throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-    /// @brief Заполняет массив dev_array на текущем GPU значением value
-    /// @tparam T Тип элементов массива
-    /// @param dev_array Указатель на инициализируемый массив
-    /// @param size Количество элементов массива
-    /// @param value Значение, присваиваемое всем элементам массива dev_array
-    template<typename T>
-    static void InitArrayGpu(T* dev_array,
-                        unsigned long long size,
-                        T value)
-    {
-        #ifdef __NVCC__                       
-        
-        const unsigned blockSize = 100000000;
-        if(size < blockSize)
-        {
-            kernel_array_init_by_value<<<1,1>>>(dev_array, 0, size, value);
-            cudaError_t cudaResult = cudaGetLastError();
-            if (cudaResult != cudaSuccess)
-            {
-                std::string msg("Could not init GPU array by value: ");
-                msg += cudaGetErrorString(cudaResult);
-                throw std::runtime_error(msg);
-            }
-            cudaDeviceSynchronize();
-        }
-        else
-        {
-            T* dev_array_ptr = dev_array;
-            unsigned blocksNum = size / blockSize;
-            for(unsigned blockIndex = 0; blockIndex < blocksNum; blockIndex++)
-            {
-                std::cout << "Init block " << blockIndex << std::endl;
-
-                kernel_array_init_by_value<<<1,1>>>(dev_array_ptr, 0, blockSize, value);
-                cudaError_t cudaResult = cudaGetLastError();
-                if (cudaResult != cudaSuccess)
-                {
-                    std::string msg("Could not init GPU array by value: ");
-                    msg += cudaGetErrorString(cudaResult);
-                    throw std::runtime_error(msg);
-                }
-                cudaDeviceSynchronize();
-
-                dev_array_ptr += blockSize;
-            }
-
-            unsigned lastBlockSize = size % blockSize;
-            if(lastBlockSize > 0)
-            {
-                std::cout << "Init last block " << lastBlockSize << " elements" << std::endl;
-
-                kernel_array_init_by_value<<<1,1>>>(dev_array_ptr, 0, lastBlockSize, value);
-                cudaError_t cudaResult = cudaGetLastError();
-                if (cudaResult != cudaSuccess)
-                {
-                    std::string msg("Could not init GPU array by value: ");
-                    msg += cudaGetErrorString(cudaResult);
-                    throw std::runtime_error(msg);
-                }
-                cudaDeviceSynchronize();
-            }
-
-        }
-        
-        
-        #else
-            throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-    template<typename T>
-    static void InitArrayGpu(T* dev_array,
-                        unsigned long long size,
-                        T value,
-                        int deviceId)
-    {
-        #ifdef __NVCC__
-        
-        if(deviceId == 0)
-        {
-            InitArrayGpu(dev_array, size, value);
-        }
-        else
-        {
-            std::thread th{
-                [&](){
-                    // Set curent CUDA device.
-                    cudaError_t cudaResult = cudaSetDevice(deviceId);
-                    if (cudaResult != cudaSuccess)
-                    {
-                        fprintf(stderr, "Cannot set current CUDA device, status = %d: %s\n",
-                        cudaResult, cudaGetErrorString(cudaResult));
-                        throw std::runtime_error("Cannot set current CUDA device");
-                    }
-                    InitArrayGpu(dev_array, size, value);
-                }
-            };
-            th.join();
-        }
-        
-        #else
-            throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-
-    // Работа с функцией SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)
-    static void SumCudaMultiGpu_ConsoleUI()
-    {
-        std::cout << "SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)\n";
-        // Вызов функции суммирования с помощью Cuda на нескольких GPU
-        try
-        {
-            int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
-            //cudaDeviceNumber = 1;
-            std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
-            double expectedResult = 0;
-            std::vector<ArrayGpuProcessingParams<double>> params;
-            for(int i = 0; i < cudaDeviceNumber; i++)
-            {
-                std::cout << "--- Init " << i << " array starting...\n";
-                //size_t size    = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
-                //double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
-                //int blocksNum  = ConsoleHelper::GetIntFromUser("Enter num blocks: ");
-                //int threadsNum = ConsoleHelper::GetIntFromUser("Enter num threads: ");
-                size_t size    = 500000000ull;
-                double value   = 0.001;
-                int blocksNum  = 34;
-                int threadsNum = 16;
-                
-                expectedResult += size*value;
-
-                ArrayGpuProcessingParams<double> param;
-                param.deviceId   = i;
-                param.indStart   = 0;
-                param.indEnd     = size-1;
-                param.blocksNum  = blocksNum;
-                param.threadsNum = threadsNum;
-                try
-                {
-                    param.dev_arr = CreateArrayGpu<double>(size, i);
-                    std::cout << "array " << i << " created\n";
-                    std::cout << "First 10 elements of " << i << " array: ";                
-                    PrintArrayGpu(param.dev_arr, 0, 10, i);
-
-                    InitArrayGpu(param.dev_arr, size, value, i);
-                    std::cout << "array " << i << " initialized\n";
-                    std::cout << "First 10 elements of " << i << " array: ";                
-                    PrintArrayGpu(param.dev_arr, 0, 10, i);
-                }
-                catch(const std::exception& e)
-                {
-                    std::cerr << e.what() << '\n';
-                    std::exit(-1);
-                }
-                                
-                params.push_back(param);
-                params[i].Print();
-                std::cout << "--- Initializing " << i << " array completed!\n";
-            }
-            
-            auto start = high_resolution_clock::now();
-            double sum = ArrayHelper::SumCudaMultiGpu(params);
-            auto stop = high_resolution_clock::now();
-
-            auto duration = duration_cast<microseconds>(stop - start);        
-            auto t = duration.count();
-
-            std::cout << "ArrayRamHelper::SumCudaMultiGpu(...): " << sum << std::endl;
-            std::cout << "Expected sum: " << expectedResult << std::endl;
-            std::cout << "Time, mks: " << t << std::endl;
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << std::endl;            
-        }
-    }
-
-
-    template<typename T>
-    static void CopyRamToGpu(T* arrayRam, T* arrayGpu, size_t length)
-    {
-        #ifdef __NVCC__
-
-        size_t dataSize = length * sizeof(T);
-        cudaMemcpy(arrayGpu, arrayRam, dataSize, cudaMemcpyKind::cudaMemcpyHostToDevice);
-        cudaCheckErrors("Error in cudaMemcpy()");
-
-        #else
-        throw std::runtime_error("CUDA not supported!");
-        #endif        
-    }
-
-    
-    template<typename T>
-    static void CopyRamToGpu(T* arrayRam, T* arrayGpu,
-        size_t ind_start, size_t length, int deviceId = 0)
-    {
-        #ifdef __NVCC__
-
-        if(deviceId == 0)
-        {
-            CopyRamToGpu(arrayRam + ind_start, arrayGpu + ind_start, length);
-        }
-        else
-        {
-            std::thread th{
-                [&]() {
-                    cudaSetDevice(deviceId);
-                    CopyRamToGpu(arrayRam + ind_start, arrayGpu + ind_start, length);
-                }
-            };
-            th.join();
-        }
-
-        #else
-        throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-    template<typename T>
-    static void CopyGpuToRam(T* arrayGpu, T* arrayRam, size_t length)
-    {
-        #ifdef __NVCC__
-
-        size_t dataSize = length * sizeof(T);
-        cudaMemcpy(arrayRam, arrayGpu, dataSize, cudaMemcpyKind::cudaMemcpyDeviceToHost);
-        cudaCheckErrors("Error in cudaMemcpy()");
-
-        #else
-        throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-    
-    template<typename T>
-    static void CopyGpuToRam(T* arrayGpu, T* arrayRam,
-        size_t ind_start, size_t length, int deviceId = 0)
-    {
-        #ifdef __NVCC__
-        if(deviceId == 0)
-        {
-            CopyGpuToRam(arrayGpu + ind_start, arrayRam + ind_start, length);
-        }
-        else
-        {
-            std::thread th{
-                [&]() {
-                    cudaSetDevice(deviceId);
-                    CopyGpuToRam(arrayGpu + ind_start, arrayRam + ind_start, length);
-                }
-            };
-            th.join();
-        }
-        #else
-        throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-
-    template<typename T>
-    static bool IsEqualsRamRam(T* arrayRam1, T*arrayRam2,
-        size_t length, double eps = 0.00000001)
-    {
-        for (size_t i = 0; i < length; i++)
-        {
-            if(fabs(arrayRam2[i] - arrayRam1[i]) > eps)
-                return false;
-        }
-        return true;
-    }
-
-    /// @brief Сравнивает содержимое массивов, расположенных на RAM и GPU
-    /// @tparam T 
-    /// @param arrayRam 
-    /// @param arrayGpu 
-    /// @param length 
-    /// @param eps 
-    /// @return 
-    template<typename T>
-    static bool IsEqualsRamGpu(T* arrayRam, T* arrayGpu,
-        size_t length, double eps = 0.00000001)
-    {
-        #ifdef __NVCC__
-
-        bool isEquals = true;
-        const unsigned blockSize = 1000000;
-
-        unsigned blocksNum     = length / blockSize;
-        unsigned lastBlockSize = length % blockSize;
-        
-        T* arrayRamTmp = new T[blockSize];
-
-        for (size_t blockInd = 0; blockInd < blocksNum; blockInd++)
-        {
-            CopyGpuToRam(arrayGpu+blockInd*blockSize, arrayRamTmp, blockSize);
-            isEquals = IsEqualsRamRam(arrayRam+blockInd*blockSize, arrayRamTmp, blockSize);
-            if(!isEquals) break;            
-        }
-
-        if(isEquals && lastBlockSize > 0)
-        {
-            CopyGpuToRam(arrayGpu+blocksNum*blockSize, arrayRamTmp, lastBlockSize);
-            isEquals = IsEqualsRamRam(arrayRam+blocksNum*blockSize, arrayRamTmp, lastBlockSize);
-        }
-
-        delete[] arrayRamTmp;
-        return isEquals;
-
-        #else
-        throw std::runtime_error("CUDA not supported!");
-        #endif
-    }
-    
+/*
     /// @brief Копирование данных из RAM в GPU
     static void CopyRamToGpu_ConsoleUI()
     {
@@ -891,50 +964,148 @@ struct ArrayHelper
         }
     }
 
-
-
-    template<typename T>
-    static T ScalarProductRamRamSeq(T* arrayRam1, T* arrayRam2, size_t length)
+    /// @brief Работа с функцией SumOpenMP
+    static void SumOpenMP_ConsoleUI()
     {
-        T scalarProduct{0};
-
-        for (size_t i = 0; i < length; i++)
+        // Вызов функции суммирования с помощью OpenMP
+        try
         {
-            scalarProduct += arrayRam1[i] * arrayRam2[i];
-        }
+            size_t size  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
+            double value = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+            int Nthreads = ConsoleHelper::GetIntFromUser("Enter num threads: ");
 
-        return scalarProduct;
+            double* data = new double[size];
+            for (size_t i = 0; i < size; i++)
+            {
+                data[i] = value;
+            }            
+            
+            auto start = high_resolution_clock::now();
+            double sum = ArrayHelper::SumOpenMP(data, 0, size, Nthreads);
+            auto stop = high_resolution_clock::now();
+
+            auto duration = duration_cast<microseconds>(stop - start);        
+            auto t = duration.count();
+
+            std::cout << "ArrayRamHelper::SumOpenMP(data, 0, size, Nthreads): " << sum << std::endl;
+            std::cout << "Expected sum: " << size*value << std::endl;
+            std::cout << "Time, mks: " << t << std::endl;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;            
+        }
     }
 
-    template<typename T>
-    static T ScalarProductRamRamParThread(T* arrayRam1, T* arrayRam2, size_t length, unsigned threadsNum)
+    /// @brief Работа с функцией SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)
+    static void SumCudaMultiGpu_ConsoleUI()
     {
-        T scalarProduct{0};
-        std::mutex mutex;
-
-        size_t blockSize = length / threadsNum;
-        /*
-        Пусть n - количество элементов массива, m - на сколько частей надо поделить.
-        Тогда всего в m-n%m массивах будет по n/m  элементов,
-        а в n%m массивах - по n/m+1 элементов.
-        пример: n=105, m=10:
-        в 105/10-105%10=5 по 105/10=10 элементов,
-        в 105%10=5 по 105/10+1=11 элементов.
-        */
-        throw std::runtime_error("NOT REALIZED!");
-        for (size_t i = 0; i < length; i++)
+        std::cout << "SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)\n";
+        // Вызов функции суммирования с помощью Cuda на нескольких GPU
+        try
         {
-            scalarProduct += arrayRam1[i] * arrayRam2[i];
+            int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+            //cudaDeviceNumber = 1;
+            std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
+            double expectedResult = 0;
+            std::vector<ArrayGpuProcessingParams<double>> params;
+            for(int i = 0; i < cudaDeviceNumber; i++)
+            {
+                std::cout << "--- Init " << i << " array starting...\n";
+                //size_t size    = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
+                //double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+                //int blocksNum  = ConsoleHelper::GetIntFromUser("Enter num blocks: ");
+                //int threadsNum = ConsoleHelper::GetIntFromUser("Enter num threads: ");
+                size_t size    = 500000000ull;
+                double value   = 0.001;
+                int blocksNum  = 34;
+                int threadsNum = 16;
+                
+                expectedResult += size*value;
+
+                ArrayGpuProcessingParams<double> param;
+                param.deviceId   = i;
+                param.indStart   = 0;
+                param.indEnd     = size-1;
+                param.blocksNum  = blocksNum;
+                param.threadsNum = threadsNum;
+                try
+                {
+                    param.dev_arr = CreateArrayGpu<double>(size, i);
+                    std::cout << "array " << i << " created\n";
+                    std::cout << "First 10 elements of " << i << " array: ";                
+                    PrintArrayGpu(param.dev_arr, 0, 10, i);
+
+                    InitArrayGpu(param.dev_arr, size, value, i);
+                    std::cout << "array " << i << " initialized\n";
+                    std::cout << "First 10 elements of " << i << " array: ";                
+                    PrintArrayGpu(param.dev_arr, 0, 10, i);
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                    std::exit(-1);
+                }
+                                
+                params.push_back(param);
+                params[i].Print();
+                std::cout << "--- Initializing " << i << " array completed!\n";
+            }
+            
+            auto start = high_resolution_clock::now();
+            double sum = ArrayHelper::SumCudaMultiGpu(params);
+            auto stop = high_resolution_clock::now();
+
+            auto duration = duration_cast<microseconds>(stop - start);        
+            auto t = duration.count();
+
+            std::cout << "ArrayRamHelper::SumCudaMultiGpu(...): " << sum << std::endl;
+            std::cout << "Expected sum: " << expectedResult << std::endl;
+            std::cout << "Time, mks: " << t << std::endl;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;            
+        }
+    }
+
+    /// @brief Скалярное произведение векторов, расположенных в GPU, параллельно, Cuda
+    static void ScalarProductGpuParCuda_ConsoleUI()
+    {
+        std::cout << "ScalarProductGpuParCuda_ConsoleUI()\n";
+
+        if(!CudaHelper::IsCudaSupported())
+        {
+            std::cout << "CUDA not supported!\n";
+            return;
         }
 
-        return scalarProduct;
+        try
+        {
+            size_t length = ConsoleHelper::GetUnsignedLongLongFromUser("Enter arrays length: ");
+            unsigned kernelBlocks  = ConsoleHelper::GetUnsignedIntFromUser("Enter number of CUDA blocks: ");
+            unsigned kernelThreads = ConsoleHelper::GetUnsignedIntFromUser("Enter number of CUDA threads in block: ");
+            
+            auto resFloat  = ScalarProductGpuParCuda<float>(length, kernelBlocks, kernelThreads);
+            std::cout << "float: ";
+            resFloat.Print();
+
+            auto resDouble = ScalarProductGpuParCuda<double>(length, kernelBlocks, kernelThreads);
+            std::cout << "double: ";
+            resDouble.Print();
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
     }
 
     /// @brief Скалярное произведение векторов, расположенных в RAM
-    static void ScalarProductRamRamSeq_ConsoleUI()
+    static void ScalarProductRamSeq_ConsoleUI()
     {
         std::cout << "ScalarProductRamRamSeq_ConsoleUI\n";
-        
+                
         size_t size    = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
         double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
 
@@ -948,7 +1119,7 @@ struct ArrayHelper
         }
 
         auto start = high_resolution_clock::now();
-        double scalarProduct = ScalarProductRamRamSeq(arrayRam1, arrayRam2, size);
+        double scalarProduct = ScalarProductRamSeq(arrayRam1, arrayRam2, size);
         auto stop = high_resolution_clock::now();                
                     
         auto duration = duration_cast<microseconds>(stop - start);        
@@ -961,10 +1132,11 @@ struct ArrayHelper
         delete[] arrayRam2;
     }
 
-    
     /// @brief Скалярное произведение векторов, расположенных в RAM, параллельно, std::thread
-    static void ScalarProductRamRamParThread_ConsoleUI()
+    static void ScalarProductRamParThread_ConsoleUI()
     {
+        try
+        {
         std::cout << "ScalarProductRamRamParThread_ConsoleUI\n";
         
         size_t length    = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length: ");
@@ -983,7 +1155,7 @@ struct ArrayHelper
         }
 
         auto start = high_resolution_clock::now();
-        double scalarProduct = ScalarProductRamRamParThread(arrayRam1, arrayRam2, length, threadsNum);
+        double scalarProduct = ScalarProductRamParThread(arrayRam1, arrayRam2, length, threadsNum);
         auto stop = high_resolution_clock::now();                
                     
         auto duration = duration_cast<microseconds>(stop - start);        
@@ -994,7 +1166,12 @@ struct ArrayHelper
                          
         delete[] arrayRam1;
         delete[] arrayRam2;
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << e.what() << '\n';
+        }
     }
-
+*/
 };
 

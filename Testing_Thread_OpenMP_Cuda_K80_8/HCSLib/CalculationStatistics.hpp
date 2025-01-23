@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "FuncResult.hpp"
+#include "CommonHelpers/FuncResult.hpp"
 
 /// @brief Статистические параметры результатов численного эксперимента
 struct CalculationStatistics

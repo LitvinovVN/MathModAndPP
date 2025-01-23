@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "FuncResult.hpp"
+#include "CommonHelpers/FuncResult.hpp"
 #include "Vectors/VectorRam.hpp"
 #include "Vectors/VectorGpu.hpp"
 #include "TestParams.hpp"
