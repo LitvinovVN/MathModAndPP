@@ -380,5 +380,59 @@ struct ArrayHelper_ConsoleUI
         
     }
 
+    /// @brief Скалярное произведение векторов, расположенных в нескольких GPU, параллельно, Cuda
+    static void ScalarProductMultiGpuParCuda_ConsoleUI()
+    {
+        std::cout << "ScalarProductMultiGpuParCuda_ConsoleUI()\n";
+
+        if(!CudaHelper::IsCudaSupported())
+        {
+            std::cout << "CUDA not supported!\n";
+            return;
+        }
+
+        try
+        {
+            size_t length = ConsoleHelper::GetUnsignedLongLongFromUser("Enter arrays length: ");
+            unsigned kernelBlocks  = ConsoleHelper::GetUnsignedIntFromUser("Enter number of CUDA blocks: ");
+            unsigned kernelThreads = ConsoleHelper::GetUnsignedIntFromUser("Enter number of CUDA threads in block: ");
+            int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+            
+            std::vector<double> kGpuData;// Коэффициент распределения данных между GPU
+            double kGpuDistrubution = 1.0;
+            for (size_t i = 0; i < cudaDeviceNumber; i++)
+            {
+                std::string msg = "Enter k GPU " + std::to_string(i);
+                msg += " [";
+                msg += CudaHelper::GetCudaDeviceName(i);
+                msg += "]";
+                msg += "(0.." + std::to_string(kGpuDistrubution) + "): ";
+                double kGpu = ConsoleHelper::GetDoubleFromUser(msg);
+                if(kGpu<0)
+                    kGpu = 0;
+                else if(kGpu>kGpuDistrubution)
+                    kGpu=kGpuDistrubution;
+                kGpuDistrubution -= kGpu;
+                kGpuData.push_back(kGpu);
+                std::cout << "Accepted: " << kGpu << "; ";
+                std::cout << "Remain: " << kGpuDistrubution << "\n";
+            }            
+
+            auto resFloat  = ArrayHelper::ScalarProductMultiGpuParCuda<float>(length, kernelBlocks, kernelThreads, kGpuData);
+            std::cout << "float: ";
+            resFloat.Print();
+
+            auto resDouble = ArrayHelper::ScalarProductMultiGpuParCuda<double>(length, kernelBlocks, kernelThreads, kGpuData);
+            std::cout << "double: ";
+            resDouble.Print();
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
+    }
+
+
 };
 

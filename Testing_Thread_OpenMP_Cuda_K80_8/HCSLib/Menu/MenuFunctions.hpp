@@ -107,7 +107,8 @@ struct MenuFunctions
                     << "5 ArrayHelper::CopyGpuToRam\n"
                     << "6 ArrayHelper::ScalarProductRamSeq\n"
                     << "7 ArrayHelper::ScalarProductRamParThread\n"
-                    << "8 ArrayHelper::ScalarProductGpuParThread\n";
+                    << "8 ArrayHelper::ScalarProductGpuParCuda\n"
+                    << "9 ArrayHelper::ScalarProductMultiGpuParCuda\n";
 
         int command = 0;
         while(command != 1)
@@ -157,7 +158,11 @@ struct MenuFunctions
             case 8:
                 std::cout   << "Command: 8 ArrayHelper::ScalarProductGpuParCuda\n";
                 ArrayHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
-                break;            
+                break;
+            case 9:
+                std::cout   << "Command: 8 ArrayHelper::ScalarProductMultiGpuParCuda\n";
+                ArrayHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
+                break;
             default:
                 std::cout << "Command not recognized!" << std::endl;
                 break;

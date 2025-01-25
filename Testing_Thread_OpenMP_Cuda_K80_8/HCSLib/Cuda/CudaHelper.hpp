@@ -3,6 +3,7 @@
 #include <iostream>
 #include "CudaDeviceProperties.hpp"
 /////////////// CUDA ////////////////
+#ifdef __NVCC__
 
 #define cudaCheckErrors(msg) \
   do { \
@@ -16,6 +17,7 @@
     } \
   } while (0)
 
+#endif
 
 /// @brief Класс для хранения вспомогательных функций Cuda
 struct CudaHelper
@@ -80,6 +82,16 @@ struct CudaHelper
         prop.MemoryBusWidth = devProp.memoryBusWidth;        
         #endif
         return prop;
+    }
+
+    static std::string GetCudaDeviceName(int deviceId = 0)
+    {
+        #ifdef __NVCC__
+        auto cudaDeviceProperties = GetCudaDeviceProperties(deviceId);
+        return cudaDeviceProperties.Name;
+        #else
+        std::cout << "GetCudaDeviceName(): CUDA is not supported!" << std::endl;
+        #endif
     }
 
     // Print device properties
