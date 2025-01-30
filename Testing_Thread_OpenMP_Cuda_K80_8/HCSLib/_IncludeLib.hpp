@@ -20,9 +20,11 @@ using namespace std::chrono;
 ///////////// CUDA (начало) /////////////
 #ifdef __NVCC__
 #include "Cuda/kernels.cu"
+#include <cublas_v2.h>
 #endif
 #include "Cuda/CudaDeviceProperties.hpp"
 #include "Cuda/CudaHelper.hpp"
+#include "Cuda/CublasHelper.hpp"
 ///////////// CUDA (конец) /////////////
 
 ///// Вспомогательные типы (начало) /////

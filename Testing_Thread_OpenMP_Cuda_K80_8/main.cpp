@@ -2,11 +2,9 @@
 // g++  main.cpp -o app -fopenmp -O3 -Wall
 // g++  main.cpp -o app -lpthread -O3 -Wall
 // --- nvcc, cl, windows ---
-// nvcc main.cpp -o app -x cu -Xcompiler="/openmp -Wall"  -allow-unsupported-compiler -std=c++17
-// nvcc main.cpp -o app -x cu -Xcompiler="/openmp" -allow-unsupported-compiler
+// nvcc main.cpp -o app -x cu -Xcompiler="/openmp" -allow-unsupported-compiler -lcublas
 // --- nvcc, g++, ubuntu ---
-// nvcc main.cpp -o app -x cu -Xcompiler="-fopenmp -Wall" -O3
-// nvcc main.cpp -o app -x cu -Xcompiler="-fopenmp" -O3
+// nvcc main.cpp -o app -x cu -Xcompiler="-fopenmp" -O3 -lcublas
 
 #include "HCSLib/_IncludeLib.hpp"
 

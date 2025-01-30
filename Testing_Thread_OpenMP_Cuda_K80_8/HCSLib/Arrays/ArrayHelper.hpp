@@ -698,6 +698,49 @@ struct ArrayHelper
         #endif
     }
 
+    // Суммирование на GPU cuBLAS
+    template<typename T>
+    static T SumCublas(cublasHandle_t cublasH, T* dev_arr, size_t indStart, size_t indEnd, unsigned blocksNum, unsigned threadsNum)
+    {
+        #ifdef __NVCC__
+        
+        T result = 0;
+
+        //cublasHandle_t cublasH = nullptr;        
+        //cublasStatus_t cublasStat = cublasCreate(&cublasH);
+        //CublasHelper::CheckCublasStatus(cublasStat, "CUBLAS initialization failed\n");
+        const int incx = 1;
+        cublasStatus_t cublasStat;
+        if(typeid(T)==typeid(double))
+        {
+            cublasStat = cublasDasum(cublasH, indEnd-indStart+1, (double*)dev_arr, incx, &result);
+        }
+        else if(typeid(T)==typeid(float))
+        {
+            float* dev_arr_float = (float*)dev_arr;
+            float result_float = 0;
+            cublasStat = cublasSasum(cublasH, indEnd-indStart+1, dev_arr_float, incx, &result_float);
+            result = (T) result_float;
+        }
+        else
+            throw std::runtime_error("typeid(T) not supported by cublas!");           
+        CublasHelper::CheckCublasStatus(cublasStat, "cublas sum failed\n");
+
+        return result;
+
+        //#ifdef __NVCC__
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+    
+    template<typename T>
+    static T SumCublas(cublasHandle_t cublasH, ArrayGpuProcessingParams<T> params)
+    {
+        T sum = SumCublas(cublasH, params.dev_arr, params.indStart, params.indEnd, params.blocksNum, params.threadsNum);
+        return sum;
+    }
+
     ////////////////////////// Суммирование элементов массива (конец) /////////////////////////////
 
     

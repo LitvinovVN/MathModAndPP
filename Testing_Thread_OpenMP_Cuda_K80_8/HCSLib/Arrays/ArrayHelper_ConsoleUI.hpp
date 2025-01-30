@@ -275,6 +275,75 @@ struct ArrayHelper_ConsoleUI
         }
     }
 
+    /// @brief Работа с функцией SumCublas
+    static void SumCublas_ConsoleUI()
+    {
+        std::cout << "SumCublas(...)\n";
+        // Вызов функции суммирования с помощью Cuda на нескольких GPU
+        try
+        {
+            bool isCudaSupported = CudaHelper::IsCudaSupported();
+            if(!isCudaSupported)
+            {
+                std::cout << "Cuda is not supported!" << std::endl;
+                return;
+            }
+
+            int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+            //cudaDeviceNumber = 1;
+            int deviceId = 0;
+            std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
+            //size_t size  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
+            size_t size   = 200000000ull;
+            std::cout << "size: " << size << std::endl;
+            //double value = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+            double value   = 0.001;
+            //int blocksNum  = ConsoleHelper::GetIntFromUser("Enter num blocks: ");
+            //int threadsNum = ConsoleHelper::GetIntFromUser("Enter num threads: ");            
+            int blocksNum  = 34;
+            int threadsNum = 16;
+
+            ArrayGpuProcessingParams<double> params;
+            params.deviceId   = deviceId;
+            params.indStart   = 0;
+            params.indEnd     = size-1;
+            params.blocksNum  = blocksNum;
+            params.threadsNum = threadsNum;
+            params.dev_arr = ArrayHelper::CreateArrayGpu<double>(size, params.deviceId);
+            std::cout << "Array on device " << params.deviceId << " created!\n";
+            std::cout << "First 10 elements: ";                
+            ArrayHelper::PrintArrayGpu(params.dev_arr, 0, 10, params.deviceId);
+
+            ArrayHelper::InitArrayGpu(params.dev_arr, size, value, params.deviceId);
+            std::cout << "array " << params.deviceId << " initialized\n";
+            std::cout << "First 10 elements of " << params.deviceId << " array: ";                
+            ArrayHelper::PrintArrayGpu(params.dev_arr, 0, 10, params.deviceId);
+                                
+            std::cout << "Initializing array completed!\n";
+
+            cublasHandle_t cublasH = CublasHelper::CublasCreate();
+
+            double sum = 0;
+            auto start = high_resolution_clock::now();
+            sum = ArrayHelper::SumCublas(cublasH, params);
+            auto stop = high_resolution_clock::now();
+
+            auto duration = duration_cast<microseconds>(stop - start);
+            auto t = duration.count();
+
+            std::cout << "ArrayHelper::SumCuBLAS(...): " << sum << std::endl;
+            std::cout << "Expected sum: " << size*value << std::endl;
+            std::cout << "Time, mks: " << t << std::endl;
+            CudaHelper::CudaFree(params.dev_arr);
+            CublasHelper::CublasDestroy(cublasH);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+
+
     /// @brief Скалярное произведение векторов, расположенных в RAM
     static void ScalarProductRamSeq_ConsoleUI()
     {
@@ -400,7 +469,7 @@ struct ArrayHelper_ConsoleUI
             
             std::vector<double> kGpuData;// Коэффициент распределения данных между GPU
             double kGpuDistrubution = 1.0;
-            for (size_t i = 0; i < cudaDeviceNumber; i++)
+            for (int i = 0; i < cudaDeviceNumber; i++)
             {
                 std::string msg = "Enter k GPU " + std::to_string(i);
                 msg += " [";

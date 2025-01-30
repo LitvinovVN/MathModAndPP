@@ -22,6 +22,8 @@
 /// @brief Класс для хранения вспомогательных функций Cuda
 struct CudaHelper
 {
+    /// @brief Определяет поддержку CUDA
+    /// @return true - поддерживается, false - не поддерживается
     static bool IsCudaSupported()
     {
         bool isCudaSupported = false;
@@ -84,14 +86,17 @@ struct CudaHelper
         return prop;
     }
 
+    /// @brief Возвращает имя GPU по переданному идентификатору
+    /// @param deviceId Идентификатор GPU
+    /// @return Имя GPU
     static std::string GetCudaDeviceName(int deviceId = 0)
     {
         #ifdef __NVCC__
         auto cudaDeviceProperties = GetCudaDeviceProperties(deviceId);
         return cudaDeviceProperties.Name;
-        #else
-        std::cout << "GetCudaDeviceName(): CUDA is not supported!" << std::endl;
         #endif
+        std::cout << "GetCudaDeviceName(): CUDA is not supported!" << std::endl;
+        return "";
     }
 
     // Print device properties
@@ -164,6 +169,7 @@ struct CudaHelper
             out << "  Peak Memory Bandwidth (GB/s): "
                 << 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6 << std::endl;
         }
+        //#ifdef __NVCC__
         #else
         out << "printDevProp(): CUDA is not supported!" << std::endl;
         #endif
@@ -190,5 +196,12 @@ struct CudaHelper
         }
     }
 
+    template<typename T>
+    static void CudaFree(T* dev_arr)
+    {
+        #ifdef __NVCC__
+        cudaFree(dev_arr);
+        #endif
+    }
 };
 /////////////////// CUDA (END) /////////////////////////
