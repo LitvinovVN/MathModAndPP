@@ -103,13 +103,17 @@ struct MenuFunctions
                     << "1 Back to main menu\n"
                     << "2 ArrayHelper::SumOpenMP\n"
                     << "3 ArrayHelper::SumCudaMultiGpu\n"
-                    << "4 ArrayHelper::SumCuBLAS\n"
-                    << "5 ArrayHelper::CopyRamToGpu\n"
-                    << "6 ArrayHelper::CopyGpuToRam\n"
-                    << "7 ArrayHelper::ScalarProductRamSeq\n"
-                    << "8 ArrayHelper::ScalarProductRamParThread\n"
-                    << "9 ArrayHelper::ScalarProductGpuParCuda\n"
-                    << "10 ArrayHelper::ScalarProductMultiGpuParCuda\n";
+                    << "4 ArrayHelper::SumCublas\n"
+                    << "5 ArrayHelper::SumCublasMultiGpu\n"
+                    << "6 ArrayHelper::CopyRamToGpu\n"
+                    << "7 ArrayHelper::CopyGpuToRam\n"
+                    << "8 ArrayHelper::ScalarProductRamSeq\n"
+                    << "9 ArrayHelper::ScalarProductRamParThread\n"
+                    << "10 ArrayHelper::ScalarProductRamParOpenMP\n"
+                    << "11 ArrayHelper::ScalarProductGpuParCuda\n"
+                    << "12 ArrayHelper::ScalarProductMultiGpuParCuda\n"
+                    << "13 ArrayHelper::ScalarProductGpuCublas\n"
+                    << "14 ArrayHelper::ScalarProductMultiGpuCublas\n";
 
         int command = 0;
         while(command != 1)
@@ -145,28 +149,44 @@ struct MenuFunctions
                 ArrayHelper_ConsoleUI::SumCublas_ConsoleUI();
                 break;
             case 5:
-                std::cout << "Command: 5 ArrayHelper::CopyRamToGpu()\n";
-                ArrayHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
+                std::cout   << "Command: 5 ArrayHelper::SumCublasMultiGpu()\n";
+                ArrayHelper_ConsoleUI::SumCublasMultiGpu_ConsoleUI();
                 break;
             case 6:
-                std::cout   << "Command: 6 ArrayHelper::CopyGpuToRam()\n";
-                ArrayHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
+                std::cout << "Command: 6 ArrayHelper::CopyRamToGpu()\n";
+                ArrayHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
                 break;
             case 7:
-                std::cout   << "Command: 7 ArrayHelper::ScalarProductRamSeq\n";
-                ArrayHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
+                std::cout   << "Command: 7 ArrayHelper::CopyGpuToRam()\n";
+                ArrayHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
                 break;
             case 8:
-                std::cout   << "Command: 8 ArrayHelper::ScalarProductRamParThread\n";
-                ArrayHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
+                std::cout   << "Command: 8 ArrayHelper::ScalarProductRamSeq\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
                 break;
             case 9:
-                std::cout   << "Command: 9 ArrayHelper::ScalarProductGpuParCuda\n";
-                ArrayHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
+                std::cout   << "Command: 9 ArrayHelper::ScalarProductRamParThread\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
                 break;
             case 10:
-                std::cout   << "Command: 10 ArrayHelper::ScalarProductMultiGpuParCuda\n";
+                std::cout   << "Command: 10 ArrayHelper::ScalarProductRamParOpenMP_ConsoleUI\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamParOpenMP_ConsoleUI();
+                break;
+            case 11:
+                std::cout   << "Command: 11 ArrayHelper::ScalarProductGpuParCuda\n";
+                ArrayHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
+                break;
+            case 12:
+                std::cout   << "Command: 12 ArrayHelper::ScalarProductMultiGpuParCuda\n";
                 ArrayHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
+                break;
+            case 13:
+                std::cout   << "Command: 13 ArrayHelper::ScalarProductGpuCublas\n";
+                ArrayHelper_ConsoleUI::ScalarProductGpuCublas_ConsoleUI();
+                break;
+            case 14:
+                std::cout   << "Command: 14 ArrayHelper::ScalarProductMultiGpuCublas\n";
+                ArrayHelper_ConsoleUI::ScalarProductMultiGpuCublas_ConsoleUI();
                 break;
             default:
                 std::cout << "Command not recognized!" << std::endl;
@@ -174,6 +194,107 @@ struct MenuFunctions
             }
         }
     }
+
+    /// @brief Тестирование функций класса ArrayPerfTestHelper
+    static void ArrayPerfTestHelper()
+    {
+        std::cout   << "----- ArrayPerfTestHelper -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 ArrayPerfTestHelper::SumOpenMP\n"
+                    //<< "3 ArrayPerfTestHelper::SumCudaMultiGpu\n"
+                    //<< "4 ArrayPerfTestHelper::SumCublas\n"
+                    //<< "5 ArrayPerfTestHelper::SumCublasMultiGpu\n"
+                    //<< "6 ArrayPerfTestHelper::CopyRamToGpu\n"
+                    //<< "7 ArrayPerfTestHelper::CopyGpuToRam\n"
+                    //<< "8 ArrayPerfTestHelper::ScalarProductRamSeq\n"
+                    //<< "9 ArrayPerfTestHelper::ScalarProductRamParThread\n"
+                    //<< "10 ArrayPerfTestHelper::ScalarProductRamParOpenMP\n"
+                    //<< "11 ArrayPerfTestHelper::ScalarProductGpuParCuda\n"
+                    //<< "12 ArrayPerfTestHelper::ScalarProductMultiGpuParCuda\n"
+                    //<< "13 ArrayPerfTestHelper::ScalarProductGpuCublas\n"
+                    //<< "14 ArrayPerfTestHelper::ScalarProductMultiGpuCublas\n";
+                    ;
+
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << ">> ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout   << "Command: 2 ArrayPerfTestHelper::SumOpenMP()\n";                
+                ArrayPerfTestHelper_ConsoleUI::SumOpenMP_ConsoleUI();
+                break;
+            case 3:
+                std::cout   << "Command: 3 ArrayPerfTestHelper::SumCudaMultiGpu()\n";
+                //ArrayPerfTestHelper_ConsoleUI::SumCudaMultiGpu_ConsoleUI();
+                break;
+            case 4:
+                std::cout   << "Command: 4 ArrayPerfTestHelper::SumCublas()\n";
+                //ArrayPerfTestHelper_ConsoleUI::SumCublas_ConsoleUI();
+                break;
+            case 5:
+                std::cout   << "Command: 5 ArrayPerfTestHelper::SumCublasMultiGpu()\n";
+                //ArrayPerfTestHelper_ConsoleUI::SumCublasMultiGpu_ConsoleUI();
+                break;
+            case 6:
+                std::cout << "Command: 6 ArrayPerfTestHelper::CopyRamToGpu()\n";
+                //ArrayPerfTestHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
+                break;
+            case 7:
+                std::cout   << "Command: 7 ArrayPerfTestHelper::CopyGpuToRam()\n";
+                //ArrayPerfTestHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
+                break;
+            case 8:
+                std::cout   << "Command: 8 ArrayPerfTestHelper::ScalarProductRamSeq\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
+                break;
+            case 9:
+                std::cout   << "Command: 9 ArrayPerfTestHelper::ScalarProductRamParThread\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
+                break;
+            case 10:
+                std::cout   << "Command: 10 ArrayPerfTestHelper::ScalarProductRamParOpenMP_ConsoleUI\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductRamParOpenMP_ConsoleUI();
+                break;
+            case 11:
+                std::cout   << "Command: 11 ArrayPerfTestHelper::ScalarProductGpuParCuda\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
+                break;
+            case 12:
+                std::cout   << "Command: 12 ArrayPerfTestHelper::ScalarProductMultiGpuParCuda\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
+                break;
+            case 13:
+                std::cout   << "Command: 13 ArrayPerfTestHelper::ScalarProductGpuCublas\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductGpuCublas_ConsoleUI();
+                break;
+            case 14:
+                std::cout   << "Command: 14 ArrayPerfTestHelper::ScalarProductMultiGpuCublas\n";
+                //ArrayPerfTestHelper_ConsoleUI::ScalarProductMultiGpuCublas_ConsoleUI();
+                break;
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    }
+
 
     /// @brief Запускает тест работоспособности VectorGpu
     static void Testing_TestVectorGpu()

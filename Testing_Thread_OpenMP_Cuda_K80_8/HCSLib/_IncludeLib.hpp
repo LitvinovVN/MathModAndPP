@@ -48,6 +48,8 @@ using namespace std::chrono;
 #include "Arrays/ArrayGpuProcessingParams.hpp"
 #include "Arrays/ArrayHelper.hpp"
 #include "Arrays/ArrayHelper_ConsoleUI.hpp"
+#include "Arrays/ArrayPerfTestHelper.hpp"
+#include "Arrays/ArrayPerfTestHelper_ConsoleUI.hpp"
 ////////// Массивы (конец) ////////////
 
 ////////// Векторы (начало) ////////////

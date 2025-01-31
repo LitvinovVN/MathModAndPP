@@ -117,7 +117,17 @@ public:
                 MenuCommand::ArrayHelper,
                 {std::to_string((int)MenuCommand::ArrayHelper),"ArrayHelper"},
                 MenuFunctions::ArrayHelper,
-                "Testing TestArrayHelper class"
+                "Class ArrayHelper"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::ArrayPerfTestHelper,
+                {std::to_string((int)MenuCommand::ArrayPerfTestHelper),"ArrayPerfTestHelper"},
+                MenuFunctions::ArrayPerfTestHelper,
+                "Class ArrayPerfTestHelper"
             }
         );
 

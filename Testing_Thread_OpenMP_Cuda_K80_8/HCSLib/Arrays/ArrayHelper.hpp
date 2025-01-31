@@ -700,9 +700,16 @@ struct ArrayHelper
 
     // Суммирование на GPU cuBLAS
     template<typename T>
-    static T SumCublas(cublasHandle_t cublasH, T* dev_arr, size_t indStart, size_t indEnd, unsigned blocksNum, unsigned threadsNum)
+    static T SumCublas(cublasHandle_t cublasH,
+        T* dev_arr, size_t indStart, size_t indEnd)
     {
         #ifdef __NVCC__
+
+        std::cout << "!!!SumCublas(): cublasH: " << cublasH
+                << "; dev_arr: " << dev_arr
+                << "; indStart: " << indStart
+                << "; indEnd: " << indEnd
+                << std::endl;
         
         T result = 0;
 
@@ -737,8 +744,73 @@ struct ArrayHelper
     template<typename T>
     static T SumCublas(cublasHandle_t cublasH, ArrayGpuProcessingParams<T> params)
     {
-        T sum = SumCublas(cublasH, params.dev_arr, params.indStart, params.indEnd, params.blocksNum, params.threadsNum);
+        T sum = SumCublas(cublasH, params.dev_arr, params.indStart, params.indEnd);
         return sum;
+    }
+
+    // Суммирование на нескольких GPU с помощью CuBLAS
+    template<typename T>
+    static T SumCublasMultiGpu(std::vector<cublasHandle_t> cublasHandles,
+        std::vector<T*> dev_arrays,
+        std::vector<size_t> indStarts,
+        std::vector<size_t> indEnds)
+    {
+        //std::cout << "SumCublasMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)\n\n";
+        #ifdef __NVCC__
+        
+        T sum{0};
+        
+        auto gpuNum = cublasHandles.size();
+
+        std::vector<std::thread> threads;
+        std::mutex mutex;
+        for(int i = 0; i < gpuNum; i++)
+        {
+            cublasHandle_t cublasHandle = cublasHandles[i];
+            T* dev_arr = dev_arrays[i];
+            size_t indStart = indStarts[i];
+            size_t indEnd = indEnds[i];
+
+            std::cout << "!!!SumCublasMultiGpu(): cublasHandle: " << cublasHandle
+                << "; dev_arr: " << dev_arr
+                << "; indStart: " << indStart
+                << "; indEnd: " << indEnd
+                << std::endl;
+
+            /*std::cout << "!!!SumCublasMultiGpu(): cublasHandles[i]: " << cublasHandles[i]
+                << "; dev_arrays[i]: " << dev_arrays[i]
+                << "; indStarts[i]: " << indStarts[i]
+                << "; indEnds[i]: " << indEnds[i]
+                << std::endl;*/
+
+            threads.push_back(std::thread{[&mutex,
+                &sum, i, cublasHandle,
+                dev_arr, indStart, indEnd]() {
+                cudaSetDevice(i);                
+                T gpu_sum = SumCublas(cublasHandle,
+                                    dev_arr,
+                                    indStart,
+                                    indEnd);
+                mutex.lock();
+                //std::cout << "thread " << i <<": ";
+                //params[i].Print();
+                //std::cout << "gpu_sum = " << gpu_sum <<"\n";
+                sum += gpu_sum;
+                mutex.unlock();
+            }});
+        }       
+
+        for(auto& thread : threads)
+        {
+            thread.join();
+        }
+
+        return sum;
+                       
+        //#ifdef __NVCC__
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
     }
 
     ////////////////////////// Суммирование элементов массива (конец) /////////////////////////////
@@ -793,6 +865,25 @@ struct ArrayHelper
 
         return scalarProduct;
     }
+
+    template<typename T>
+    static T ScalarProductRamParOpenMP(T* array1Ram, T* array2Ram, size_t length, unsigned threadsNum)
+    {        
+        #ifdef _OPENMP
+        omp_set_num_threads(threadsNum);
+        T scalarProduct = 0;
+        #pragma omp parallel for reduction(+:scalarProduct)
+        for (long long i = 0; i < (long long)length; i++)
+        {
+            scalarProduct += array1Ram[i]*array2Ram[i];
+        }
+        return scalarProduct;
+        #else
+            throw std::runtime_error("OpenMP not supported!");
+        #endif
+    }
+
+
 
     template<typename T>
     static T ScalarProductGpuParCuda(T* arrayGpu1, T* arrayGpu2, size_t length,
@@ -992,6 +1083,147 @@ struct ArrayHelper
             throw std::runtime_error("CUDA not supported!");
         #endif
     }
+
+
+
+
+    template<typename T>
+    static T ScalarProductGpuCublas(cublasHandle_t cublasHandle,
+        T* array1Gpu, T* array2Gpu, size_t length)
+    {
+        #ifdef __NVCC__
+        
+        T result = 0;        
+        int incx = 1;
+        int incy = 1;
+
+        cublasStatus_t cublasStatus;
+        if(typeid(T)==typeid(double))
+        {
+            double* array1Gpu_double = (double*)array1Gpu;
+            double* array2Gpu_double = (double*)array2Gpu;
+            double result_double = 0;
+            cublasStatus = cublasDdot(cublasHandle, length,
+                           array1Gpu_double, incx,
+                           array2Gpu_double, incy,
+                           &result_double);
+            result = (T) result_double;
+        }
+        else if(typeid(T)==typeid(float))
+        {
+            float* array1Gpu_float = (float*)array1Gpu;
+            float* array2Gpu_float = (float*)array2Gpu;
+            float result_float = 0;
+            cublasStatus = cublasSdot(cublasHandle, length,
+                           array1Gpu_float, incx,
+                           array2Gpu_float, incy,
+                           &result_float);
+            result = (T) result_float;
+        }
+        else
+            throw std::runtime_error("typeid(T) not supported by cublas!");           
+        CublasHelper::CheckCublasStatus(cublasStatus, "cublas dot failed\n");
+
+        return result;
+
+        //#ifdef __NVCC__
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    template<typename T>
+    static FuncResult<T> ScalarProductGpuCublas(size_t length)
+    {
+        #ifdef __NVCC__
+        cublasHandle_t cublasHandle = CublasHelper::CublasCreate();
+
+        T* array1Gpu = CreateArrayGpu<T>(length);
+        T* array2Gpu = CreateArrayGpu<T>(length);
+        ArrayHelper::InitArrayGpu(array1Gpu, length, (T)10.0);
+        ArrayHelper::InitArrayGpu(array2Gpu, length, (T)0.1);
+
+        auto start = high_resolution_clock::now();
+        T scalarProduct = ScalarProductGpuCublas(cublasHandle, array1Gpu, array2Gpu, length);
+        auto stop = high_resolution_clock::now();
+
+        auto duration = duration_cast<microseconds>(stop - start);
+        auto t = duration.count();
+        
+        DeleteArrayGpu(array1Gpu);
+        DeleteArrayGpu(array2Gpu);
+
+        CublasHelper::CublasDestroy(cublasHandle);
+
+        return FuncResult<T>{true, scalarProduct, t};
+
+        //#ifdef __NVCC__
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    // Скалярное произведение на нескольких GPU с помощью CuBLAS
+    template<typename T>
+    static T ScalarProductMultiGpuCublas(std::vector<cublasHandle_t> cublasHandles,
+        std::vector<T*> dev_arrays_1,
+        std::vector<T*> dev_arrays_2,
+        std::vector<size_t> dev_arrays_lengths)
+    {
+        //std::cout << "ScalarProductMultiGpuCublas(...)\n\n";
+        #ifdef __NVCC__
+        
+        T scalarProduct{0};
+        
+        auto gpuNum = cublasHandles.size();
+
+        std::vector<std::thread> threads;
+        std::mutex mutex;
+        for(int i = 0; i < gpuNum; i++)
+        {
+            cublasHandle_t cublasHandle = cublasHandles[i];
+            T* dev_arr_1 = dev_arrays_1[i];
+            T* dev_arr_2 = dev_arrays_2[i];
+            size_t length = dev_arrays_lengths[i];
+
+            std::cout << "!!!ScalarProductMultiGpuCublas():"
+                << " cublasHandle: " << cublasHandle
+                << "; dev_arr_1: "   << dev_arr_1
+                << "; dev_arr_2: "   << dev_arr_2
+                << "; length: "      << length
+                << std::endl;
+            
+            threads.push_back(std::thread{[&mutex,
+                &scalarProduct, i, cublasHandle,
+                dev_arr_1, dev_arr_2, length]() {
+                cudaSetDevice(i);                
+                T gpu_scalarProduct = ScalarProductGpuCublas(cublasHandle,
+                                    dev_arr_1,
+                                    dev_arr_2,
+                                    length);
+                mutex.lock();
+                //std::cout << "thread " << i <<": ";
+                //params[i].Print();
+                //std::cout << "gpu_scalarProduct = " << gpu_scalarProduct <<"\n";
+                scalarProduct += gpu_scalarProduct;
+                mutex.unlock();
+            }});
+        }       
+
+        for(auto& thread : threads)
+        {
+            thread.join();
+        }
+
+        return scalarProduct;
+                       
+        //#ifdef __NVCC__
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+
 
     ////////////////////////// Скалярное произведение элементов массива (конец) /////////////////////////////
 

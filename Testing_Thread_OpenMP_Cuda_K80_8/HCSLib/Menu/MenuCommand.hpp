@@ -9,9 +9,10 @@ enum class MenuCommand
     Exit,                     // Выход из меню
     PrintLibSupport,          // Вывод в консоль списка поддерживаемых библиотек
     CudaHelper,               // Работа с классом CudaHelper
-    //PrintGpuParameters,       // Вывод в консоль параметров GPU
-    //WriteGpuSpecsToTxtFile,   // Записывает параметры видеокарт в текстовый файл gpu-specs.txt
+    //PrintGpuParameters,     // Вывод в консоль параметров GPU
+    //WriteGpuSpecsToTxtFile, // Записывает параметры видеокарт в текстовый файл gpu-specs.txt
     ArrayHelper,              // Работа с классом ArrayHelper
+    ArrayPerfTestHelper,      // Работа с классом ArrayPerfTestHelper
     Testing_TestVectorGpu,    // Тестирование класса VectorGpu
     Testing_Matrices,         // Тестирование классов матриц
     Testing_TestSum,          // Тестирование функций суммирования

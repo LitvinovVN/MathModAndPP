@@ -293,8 +293,8 @@ struct ArrayHelper_ConsoleUI
             //cudaDeviceNumber = 1;
             int deviceId = 0;
             std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
-            //size_t size  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
-            size_t size   = 200000000ull;
+            size_t size  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
+            //size_t size   = 200000000ull;
             std::cout << "size: " << size << std::endl;
             //double value = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
             double value   = 0.001;
@@ -340,6 +340,79 @@ struct ArrayHelper_ConsoleUI
         catch(const std::exception& e)
         {
             std::cerr << e.what() << std::endl;
+        }
+    }
+
+    /// @brief Работа с функцией SumCublasMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)
+    static void SumCublasMultiGpu_ConsoleUI()
+    {
+        std::cout << "SumCublasMultiGpu(std::vector<ArrayGpuProcessingParams<T>> params)\n";
+        // Вызов функции суммирования с помощью Cublas на нескольких GPU
+        try
+        {
+            int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+            //cudaDeviceNumber = 1;
+            std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
+            double expectedResult = 0;
+            
+            std::vector<cublasHandle_t> cublasHandles;
+            std::vector<double*> dev_arrays;
+            std::vector<size_t> indStarts;
+            std::vector<size_t> indEnds;
+
+            for(int i = 0; i < cudaDeviceNumber; i++)
+            {
+                cublasHandle_t cublasHandle = CublasHelper::CublasCreate(i);
+                cublasHandles.push_back(cublasHandle);
+
+                std::cout << "--- Init " << i << " array starting...\n";
+                //size_t size    = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array size: ");
+                //double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+                size_t size    = 500000000ull;
+                double value   = 0.001;                
+                
+                expectedResult += size*value;
+                
+                try
+                {
+                    double* dev_arr = ArrayHelper::CreateArrayGpu<double>(size, i);
+                    std::cout << "array " << i << " created\n";
+                    std::cout << "First 10 from " << size <<" elements of " << i << " array: ";                
+                    ArrayHelper::PrintArrayGpu(dev_arr, 0, 10, i);
+
+                    ArrayHelper::InitArrayGpu(dev_arr, size, value, i);
+                    std::cout << "array " << i << " initialized\n";
+                    std::cout << "First 10 from " << size <<" elements of " << i << " array: ";                
+                    ArrayHelper::PrintArrayGpu(dev_arr, 0, 10, i);
+
+                    std::cout << "--- Initializing " << i << " array completed!\n";
+
+                    dev_arrays.push_back(dev_arr);
+                    indStarts.push_back(0);
+                    indEnds.push_back(size-1);
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                    std::exit(-1);
+                }
+            }
+            
+            auto start = high_resolution_clock::now();
+            double sum = ArrayHelper::SumCublasMultiGpu(cublasHandles,
+                dev_arrays, indStarts, indEnds);
+            auto stop = high_resolution_clock::now();
+
+            auto duration = duration_cast<microseconds>(stop - start);        
+            auto t = duration.count();
+
+            std::cout << "ArrayRamHelper::SumCudaMultiGpu(...): " << sum << std::endl;
+            std::cout << "Expected sum: " << expectedResult << std::endl;
+            std::cout << "Time, mks: " << t << std::endl;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;            
         }
     }
 
@@ -417,6 +490,49 @@ struct ArrayHelper_ConsoleUI
     }
 
     
+    /// @brief Скалярное произведение векторов, расположенных в RAM, параллельно, OpenMP
+    static void ScalarProductRamParOpenMP_ConsoleUI()
+    {
+        try
+        {
+            std::cout << "ScalarProductRamParOpenMP_ConsoleUI\n";
+            
+            size_t length    = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length: ");
+            //double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+            double value   = 0.1;
+            size_t threadsNum = ConsoleHelper::GetUnsignedIntFromUser("Enter number of OpenMP threads: ");
+            
+
+            // Инициализируем массив в RAM
+            double* arrayRam1 = new double[length];
+            double* arrayRam2 = new double[length];
+            for (size_t i = 0; i < length; i++)
+            {
+                arrayRam1[i] = value;
+                arrayRam2[i] = 1/value;
+            }
+
+            auto start = high_resolution_clock::now();
+            double scalarProduct = ArrayHelper::ScalarProductRamParOpenMP(arrayRam1, arrayRam2, length, threadsNum);
+            auto stop = high_resolution_clock::now();                
+                        
+            auto duration = duration_cast<microseconds>(stop - start);        
+            auto t = duration.count();                
+            std::cout << "Time, mks: " << t << std::endl;
+            
+            std::cout << "scalarProduct: " << scalarProduct << std::endl;
+                            
+            delete[] arrayRam1;
+            delete[] arrayRam2;
+        }
+        catch(const std::exception& e)
+        {
+            std::cout << e.what() << '\n';
+        }
+    }
+
+
+
     /// @brief Скалярное произведение векторов, расположенных в GPU, параллельно, Cuda
     static void ScalarProductGpuParCuda_ConsoleUI()
     {
@@ -500,6 +616,142 @@ struct ArrayHelper_ConsoleUI
             std::cerr << e.what() << '\n';
         }
         
+    }
+
+    /// @brief Скалярное произведение векторов, расположенных в GPU, параллельно, Cublas
+    static void ScalarProductGpuCublas_ConsoleUI()
+    {
+        std::cout << "ScalarProductGpuCublas_ConsoleUI()\n";
+
+        if(!CudaHelper::IsCudaSupported())
+        {
+            std::cout << "CUDA not supported!\n";
+            return;
+        }
+
+        try
+        {
+            size_t length = ConsoleHelper::GetUnsignedLongLongFromUser("Enter arrays length: ");
+            
+            auto resFloat  = ArrayHelper::ScalarProductGpuCublas<float>(length);
+            std::cout << "float: ";
+            resFloat.Print();
+
+            auto resDouble = ArrayHelper::ScalarProductGpuCublas<double>(length);
+            std::cout << "double: ";
+            resDouble.Print();
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
+    }
+
+    /// @brief Работа с функцией ScalarProductMultiGpuCublas
+    static void ScalarProductMultiGpuCublas_ConsoleUI()
+    {
+        std::cout << "ScalarProductMultiGpuCublas_ConsoleUI()\n";
+        
+        try
+        {
+            int cudaDeviceNumber = CudaHelper::GetCudaDeviceNumber();
+            //cudaDeviceNumber = 1;
+            std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
+
+            if(cudaDeviceNumber < 2)
+            {
+                std::cout << "GPU number must be greater 2!\n";
+                return;
+            }
+                        
+            std::vector<cublasHandle_t> cublasHandles;
+            std::vector<double*> dev_arrays_1;
+            std::vector<double*> dev_arrays_2;
+            std::vector<size_t> dev_arrays_lengths;
+
+            size_t length = ConsoleHelper::GetUnsignedLongLongFromUser("Enter arrays length: ");
+            double expectedResult = length;
+            double value_1 = 0.001;
+            double value_2 = 1/value_1;
+
+            for(int i = 0; i < cudaDeviceNumber; i++)
+            {
+                cublasHandle_t cublasHandle = CublasHelper::CublasCreate(i);
+                cublasHandles.push_back(cublasHandle);
+
+                std::cout << "--- Init data on GPU " << i << " ---\n";
+                double kGpu    = ConsoleHelper::GetDoubleFromUser("Enter kGpu (0...1): ","Error! Enter double value");
+                size_t size    = length * kGpu;
+                if(i==cudaDeviceNumber-1)
+                    size = length - length * kGpu * i;                                              
+                
+                try
+                {
+                    double* dev_arr_1 = ArrayHelper::CreateArrayGpu<double>(size, i);
+                    std::cout << "array 1 on GPU " << i << " created\n";
+                    std::cout << "First 10 from " << size <<" elements of array 1 on GPU " << i << ": ";                
+                    ArrayHelper::PrintArrayGpu(dev_arr_1, 0, 10, i);
+
+                    ArrayHelper::InitArrayGpu(dev_arr_1, size, value_1, i);
+                    std::cout << "array 1 on GPU " << i << " initialized\n";
+                    std::cout << "First 10 from " << size <<" elements of array 2 on GPU " << i << ": ";                
+                    ArrayHelper::PrintArrayGpu(dev_arr_1, 0, 10, i);
+
+                    std::cout << "--- Initializing array 1 on GPU " << i << " completed!\n";
+
+                    dev_arrays_1.push_back(dev_arr_1);
+
+
+                    double* dev_arr_2 = ArrayHelper::CreateArrayGpu<double>(size, i);
+                    std::cout << "array 2 on GPU " << i << " created\n";
+                    std::cout << "First 10 from " << size <<" elements of array 2 on GPU " << i << ": ";                
+                    ArrayHelper::PrintArrayGpu(dev_arr_2, 0, 10, i);
+
+                    ArrayHelper::InitArrayGpu(dev_arr_2, size, value_2, i);
+                    std::cout << "array 1 on GPU " << i << " initialized\n";
+                    std::cout << "First 10 from " << size <<" elements of array 2 on GPU " << i << ": ";                
+                    ArrayHelper::PrintArrayGpu(dev_arr_2, 0, 10, i);
+
+                    std::cout << "--- Initializing array 2 on GPU " << i << " completed!\n";
+
+                    dev_arrays_2.push_back(dev_arr_2);
+
+                    
+                    dev_arrays_lengths.push_back(size);
+                }
+                catch(const std::exception& e)
+                {
+                    std::cerr << e.what() << '\n';
+                    std::exit(-1);
+                }
+            }
+            
+            auto start = high_resolution_clock::now();
+            double scalarProduct = ArrayHelper::ScalarProductMultiGpuCublas(cublasHandles,
+                dev_arrays_1, dev_arrays_2, dev_arrays_lengths);
+            auto stop = high_resolution_clock::now();
+
+            auto duration = duration_cast<microseconds>(stop - start);        
+            auto t = duration.count();
+
+            std::cout << "ArrayRamHelper::ScalarProductMultiGpuCublas(...): " << scalarProduct << std::endl;
+            std::cout << "Expected scalarProduct: " << expectedResult << std::endl;
+            std::cout << "Time, mks: " << t << std::endl;
+
+            // Освобождение ресурсов
+            for (size_t i = 0; i < dev_arrays_1.size(); i++)
+            {
+                ArrayHelper::DeleteArrayGpu(dev_arrays_1[i], i);
+                ArrayHelper::DeleteArrayGpu(dev_arrays_2[i], i);
+            }
+            
+            CublasHelper::CublasDestroy(cublasHandles);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;            
+        }
     }
 
 
