@@ -33,8 +33,20 @@ using namespace std::chrono;
 #include "CommonHelpers/PrintParams.hpp"
 #include "CommonHelpers/ConsoleHelper.hpp"
 #include "CommonHelpers/FileSystemHelper.hpp"
+#include "CommonHelpers/DataTypeEnum.hpp"
+#include "CommonHelpers/DataType.hpp"
+#include "CommonHelpers/DataTypes.hpp"
 ///// Вспомогательные типы (конец) /////
 
+///// Параметры проведения тестов производительности (начало) /////
+#include "PerformanceTests/PerfTestParamsData.hpp"
+#include "PerformanceTests/PerfTestParamsCpu.hpp"
+#include "PerformanceTests/PerfTestParamsGpu.hpp"
+#include "PerformanceTests/PerfTestParams.hpp"
+#include "PerformanceTests/CalculationStatistics.hpp"
+#include "PerformanceTests/ParallelCalcIndicators.hpp"
+#include "PerformanceTests/PerfTestResults.hpp"
+///// Параметры проведения тестов производительности (конец) /////
 
 ////////// Функции (начало) ////////////
 #include "Functions/FunctionDataType.hpp"
@@ -48,6 +60,7 @@ using namespace std::chrono;
 #include "Arrays/ArrayGpuProcessingParams.hpp"
 #include "Arrays/ArrayHelper.hpp"
 #include "Arrays/ArrayHelper_ConsoleUI.hpp"
+#include "Arrays/ArrayHelperFuncResult.hpp"
 #include "Arrays/ArrayPerfTestHelper.hpp"
 #include "Arrays/ArrayPerfTestHelper_ConsoleUI.hpp"
 ////////// Массивы (конец) ////////////
@@ -69,8 +82,7 @@ using namespace std::chrono;
 
 #include "TestParams.hpp"
 #include "TestHelper.hpp"
-#include "CalculationStatistics.hpp"
-#include "ParallelCalcIndicators.hpp"
+
 
 //////// Вычислительная система (начало) ///////
 #include "ComputingSystem/RamParams.hpp"

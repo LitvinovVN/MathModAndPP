@@ -1,28 +1,37 @@
 #pragma once
 
+#include "PrintParams.hpp"
+
 template<typename T>
 struct FuncResult
 {
-    bool        _status{};
-    T           _result{};
-    long long   _time{};
+    bool        status{};
+    T           result{};
+    long long   time{};
 
     FuncResult()
     { }
 
     FuncResult(bool status, T result, long long time) : 
-        _status(status), _result(result), _time(time)
+        status(status), result(result), time(time)
     { }
 
-    void Print()
+    void Print(PrintParams pp = PrintParams{})
     {
-        std::cout << "[status: " << std::boolalpha << _status
-                  << "; val: " << _result
-                  << "; time: " << _time << " mks]" << std::endl;
+        std::cout << pp.startMes;
+        std::cout << "status" << pp.splitterKeyValue << std::boolalpha << status;
+        std::cout << pp.splitter;
+        std::cout << "result" << pp.splitterKeyValue << result;
+        std::cout << pp.splitter;
+        std::cout << "time" << pp.splitterKeyValue << time << " mks";
+        std::cout << pp.endMes;
+
+        if(pp.isEndl)
+            std::cout << std::endl;
     }
     
     static bool compare(const FuncResult<T>& left, const FuncResult<T>& right) 
     { 
-        return left._time < right._time; 
+        return left.time < right.time; 
     }
 };

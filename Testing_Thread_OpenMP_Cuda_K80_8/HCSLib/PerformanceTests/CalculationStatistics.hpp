@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "CommonHelpers/FuncResult.hpp"
+#include "../CommonHelpers/FuncResult.hpp"
 
 /// @brief Статистические параметры результатов численного эксперимента
 struct CalculationStatistics
@@ -35,11 +35,11 @@ struct CalculationStatistics
         // Проверяем корректность результатов        
         for(unsigned i = 1; i < resultsSize; i++)
         {
-            if(results[i]._status == false)
+            if(results[i].status == false)
                 throw std::logic_error("results[i].Status = 0");
             
-            if( fabs((results[i]._result - results[0]._result) / (double)results[0]._result) > 0.0001 )
-                throw std::logic_error("fabs((results[i]._result - results[0]._result) / results[0].Result) > 0.0001");
+            if( fabs((results[i].result - results[0].result) / (double)results[0].result) > 0.0001 )
+                throw std::logic_error("fabs((results[i].result - results[0].result) / results[0].Result) > 0.0001");
         }
 
         //print(std::string("---Before sort---"), results);
@@ -48,36 +48,36 @@ struct CalculationStatistics
         //print(std::string("---After sort---"), results);        
         //std::cout << "----------" << std::endl;
 
-        minValue = results[0]._time;
-        maxValue = results[resultsSize - 1]._time;
+        minValue = results[0].time;
+        maxValue = results[resultsSize - 1].time;
 
         if(resultsSize % 2 == 0)
         {
-            median = (results[resultsSize / 2 - 1]._time + results[resultsSize / 2]._time)/2;
+            median = (results[resultsSize / 2 - 1].time + results[resultsSize / 2].time)/2;
         }
         else
         {
-            median = results[resultsSize / 2]._time;
+            median = results[resultsSize / 2].time;
         }
 
         // Вычисляем среднее арифметическое
         double sum = 0;
         for(auto& item : results)
-            sum += item._time;
+            sum += item.time;
         
         avg = sum / resultsSize;
 
         // Вычисляем стандартное отклонение
         double sumSq = 0;
         for(auto& item : results)
-            sumSq += pow(item._time - avg, 2);
+            sumSq += pow(item.time - avg, 2);
         
         stdDev = sqrt(sumSq / resultsSize);
 
         // Вычисляем 95 перцентиль
         double rang95 = 0.95*(resultsSize-1) + 1;
         unsigned rang95okrVniz = (unsigned)floor(rang95);
-        percentile_95 = results[rang95okrVniz-1]._time + (rang95-rang95okrVniz)*(results[rang95okrVniz]._time - results[rang95okrVniz-1]._time);// Доделать
+        percentile_95 = results[rang95okrVniz-1].time + (rang95-rang95okrVniz)*(results[rang95okrVniz].time - results[rang95okrVniz-1].time);// Доделать
 
         //Print();
     }

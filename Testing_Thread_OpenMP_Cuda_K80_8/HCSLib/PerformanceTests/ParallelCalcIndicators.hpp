@@ -18,6 +18,9 @@ struct ParallelCalcIndicators
     double Emedian;
     double Eperc95;
 
+    ParallelCalcIndicators()
+    {}
+
     ParallelCalcIndicators(CalculationStatistics& stat_seq,
                            CalculationStatistics& stat_par,
                            unsigned Nthreads) : Nthreads(Nthreads)

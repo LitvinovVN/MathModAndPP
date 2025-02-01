@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sstream>
-#include "../CalculationStatistics.hpp"
+#include "../PerformanceTests/CalculationStatistics.hpp"
 
 /// @brief Результаты тестового запуска алгоритма
 struct AlgTestingResult

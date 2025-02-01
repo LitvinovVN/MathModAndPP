@@ -20,6 +20,12 @@ struct ArrayHelper
         std::cout << "]\n";
     }
 
+    template<typename T>
+    static void PrintArrayRam(T* data, size_t length)
+    {
+        PrintArrayRam(data, 0, length);
+    }
+
 
     ///////// Вывод значений элементов массивов GPU в консоль    
     template<typename T>
@@ -204,6 +210,23 @@ struct ArrayHelper
 
 
     ////////////////////////// Инициализация массивов (начало) /////////////////////////////
+    
+    /// @brief Инициализирует массив array значениями value
+    /// @tparam T 
+    /// @param array 
+    /// @param size 
+    /// @param value 
+    template<typename T>
+    static void InitArrayRam(T* array,
+        unsigned long long size,
+        T value)
+    {
+        for (unsigned long long i = 0ull; i < size; i++)
+        {
+            array[i] = value;
+        }
+        
+    }
 
     /// @brief Заполняет массив dev_array на текущем GPU значением value
     /// @tparam T Тип элементов массива
@@ -560,7 +583,7 @@ struct ArrayHelper
     }
     ///////////////////////////////////////////////
 
-    ///// Суммирование с помошью OpenMP на CPU /////
+    ///// Суммирование с помощью OpenMP на CPU /////
     template<typename T>
     static T SumOpenMP(T* data, size_t indStart, size_t indEnd, unsigned threadsNum)
     {

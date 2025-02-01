@@ -9,6 +9,8 @@ static void SumOpenMP_ConsoleUI()
 {
     std::cout << "ArrayPerfTestHelper_ConsoleUI::SumOpenMP_ConsoleUI()\n";
     
+    unsigned iterNum = ConsoleHelper::GetUnsignedIntFromUser("Enter iterations number: ");
+
     unsigned long long arrayLengthMin = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length min: ");
     unsigned long long arrayLengthMax = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length max: ");
     unsigned long long arrayLengthStep = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length step: ");
@@ -17,11 +19,8 @@ static void SumOpenMP_ConsoleUI()
     unsigned cpuThreadNumMax = ConsoleHelper::GetUnsignedIntFromUser("Enter num cpu threads max: ");
     unsigned cpuThreadNumStep = ConsoleHelper::GetUnsignedIntFromUser("Enter num cpu threads step: ");
 
-    unsigned iterNum = ConsoleHelper::GetUnsignedIntFromUser("Enter iterations number: ");
-
-    std::string dataTypeString{"double"};
-
-    std::cout 
+    
+    /*std::cout 
         << arrayLengthMin << " "
         << arrayLengthMax << " "
         << arrayLengthStep << " "
@@ -29,14 +28,18 @@ static void SumOpenMP_ConsoleUI()
         << cpuThreadNumMax << " "
         << cpuThreadNumStep << " "
         << iterNum << " "
-        << std::endl;
+        << std::endl;*/
     
-    //PerfTestParamsData perfTestParamsData(arrayLengthMin, arrayLengthMax, arrayLengthStep);
-    //PerfTestParamsCpu perfTestParamsCpu(cpuThreadNumMin, cpuThreadNumMax, cpuThreadNumStep);
-    //PerfTestParams perfTestParams(perfTestParamsCpu, perfTestParamsData);
+    DataTypes dataTypes;
+    dataTypes.Add(DataTypeEnum::dt_float);
+    dataTypes.Add(DataTypeEnum::dt_double);
+    PerfTestParamsData perfTestParamsData(dataTypes, arrayLengthMin, arrayLengthMax, arrayLengthStep);
+    PerfTestParamsCpu perfTestParamsCpu(cpuThreadNumMin, cpuThreadNumMax, cpuThreadNumStep);
+    PerfTestParams perfTestParams(iterNum, perfTestParamsData, perfTestParamsCpu);
+    perfTestParams.Print();
 
-    //PerfTestResults<double> results = ArrayPerfTestHelper::SumOpenMP<double>(perfTestParams);
-    //results.Print();
+    PerfTestResults results = ArrayPerfTestHelper::PerfTest_SumOpenMP(perfTestParams);
+    results.Print();
 }
 
 };
