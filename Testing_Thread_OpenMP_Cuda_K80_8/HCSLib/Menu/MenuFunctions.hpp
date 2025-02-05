@@ -202,7 +202,7 @@ struct MenuFunctions
                     << "1 Back to main menu\n"
                     << "2 ArrayPerfTestHelper::SumOpenMP\n"
                     //<< "3 ArrayPerfTestHelper::SumCudaMultiGpu\n"
-                    //<< "4 ArrayPerfTestHelper::SumCublas\n"
+                    << "4 ArrayPerfTestHelper::SumCublas\n"
                     //<< "5 ArrayPerfTestHelper::SumCublasMultiGpu\n"
                     //<< "6 ArrayPerfTestHelper::CopyRamToGpu\n"
                     //<< "7 ArrayPerfTestHelper::CopyGpuToRam\n"
@@ -246,7 +246,7 @@ struct MenuFunctions
                 break;
             case 4:
                 std::cout   << "Command: 4 ArrayPerfTestHelper::SumCublas()\n";
-                //ArrayPerfTestHelper_ConsoleUI::SumCublas_ConsoleUI();
+                ArrayPerfTestHelper_ConsoleUI::SumCublas_ConsoleUI();
                 break;
             case 5:
                 std::cout   << "Command: 5 ArrayPerfTestHelper::SumCublasMultiGpu()\n";

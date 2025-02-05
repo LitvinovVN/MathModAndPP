@@ -69,6 +69,7 @@ struct ArrayHelper_ConsoleUI
                     std::cout << "Error! Arrays are not equals!\n";
                 
                 std::cout << "--------------------------------\n";
+                ArrayHelper::DeleteArrayGpu(arrayGpu, i);
             }
 
             delete[] arrayRam;

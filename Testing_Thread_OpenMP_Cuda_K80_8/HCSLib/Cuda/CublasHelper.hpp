@@ -86,6 +86,5 @@ struct CublasHelper
         {
             CublasDestroy(cublasHandles[i]);
         }
-        
     }
 };

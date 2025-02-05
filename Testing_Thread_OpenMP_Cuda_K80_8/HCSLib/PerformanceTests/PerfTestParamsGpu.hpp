@@ -6,14 +6,14 @@ struct PerfTestParamsGpu
     // Минимальное количество блоков GPU    
     unsigned gpuBlockNumMin = 1;
     // Максимальное количество блоков GPU
-    unsigned gpuBlockNumMax = 32;
+    unsigned gpuBlockNumMax = 1;
     // Шаг изменения количества блоков GPU
     unsigned gpuBlockNumStep = 1;
 
     // Минимальное количество потоков GPU    
     unsigned gpuThreadNumMin = 1;
     // Максимальное количество потоков GPU
-    unsigned gpuThreadNumMax = 32;
+    unsigned gpuThreadNumMax = 1;
     // Шаг изменения количества потоков GPU
     unsigned gpuThreadNumStep = 1;
 

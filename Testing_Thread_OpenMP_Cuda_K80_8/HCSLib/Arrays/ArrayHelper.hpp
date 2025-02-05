@@ -728,11 +728,11 @@ struct ArrayHelper
     {
         #ifdef __NVCC__
 
-        std::cout << "!!!SumCublas(): cublasH: " << cublasH
+        /*std::cout << "!!!SumCublas(): cublasH: " << cublasH
                 << "; dev_arr: " << dev_arr
                 << "; indStart: " << indStart
                 << "; indEnd: " << indEnd
-                << std::endl;
+                << std::endl;*/
         
         T result = 0;
 
@@ -764,6 +764,13 @@ struct ArrayHelper
         #endif
     }
     
+    template<typename T>
+    static T SumCublas(cublasHandle_t cublasH,
+        T* dev_arr, size_t length)
+    {
+        return SumCublas(cublasH, dev_arr, 0, length-1);
+    }
+
     template<typename T>
     static T SumCublas(cublasHandle_t cublasH, ArrayGpuProcessingParams<T> params)
     {

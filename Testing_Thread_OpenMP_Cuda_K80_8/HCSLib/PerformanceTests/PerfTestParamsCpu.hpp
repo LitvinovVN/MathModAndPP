@@ -6,7 +6,7 @@ struct PerfTestParamsCpu
     // Минимальное количество потоков CPU    
     unsigned cpuThreadsNumMin = 1;
     // Максимальное количество потоков CPU
-    unsigned cpuThreadsNumMax = 20;
+    unsigned cpuThreadsNumMax = 1;
     // Шаг изменения количества потоков CPU
     unsigned cpuThreadsNumStep = 1;
 

@@ -29,4 +29,26 @@ FuncResult<T> SumOpenMP(T* data, size_t size, unsigned threadsNum)
     }
 }
 
+template<typename T>
+static
+FuncResult<T> SumCublas(cublasHandle_t cublasH, T* data, size_t size)
+{    
+    try
+    {
+        auto start = high_resolution_clock::now();
+        T result = ArrayHelper::SumCublas(cublasH, data, size);
+        auto stop = high_resolution_clock::now();
+
+        auto duration = duration_cast<microseconds>(stop - start);        
+        auto time_mks = duration.count();
+
+        return FuncResult<T>(true, result, time_mks);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return FuncResult<T>();
+    }
+}
+
 };

@@ -33,6 +33,12 @@ struct PerfTestParams
             perfTestParamsCpu(perfTestParamsCpu)
     {}
 
+    PerfTestParams(unsigned iterNumber,
+        PerfTestParamsData perfTestParamsData) :
+            iterNumber(iterNumber),
+            perfTestParamsData(perfTestParamsData)
+    {}
+
     void Print(PrintParams pp = PrintParams{})
     {
         std::cout << pp.startMes;
@@ -44,6 +50,7 @@ struct PerfTestParams
         std::cout << "perfTestParamsCpu" << pp.splitterKeyValue;
         perfTestParamsCpu.Print();
         std::cout << pp.splitter;
+        std::cout << "perfTestParamsGpu" << pp.splitterKeyValue;
         perfTestParamsGpu.Print();
         std::cout << pp.endMes;
 
