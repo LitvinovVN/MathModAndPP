@@ -1,0 +1,50 @@
+@startuml
+
+title
+Диаграмма классов модуля "Matrices"
+end title
+
+'Тип матрицы
+enum MatrixType
+{
+    'Нулевая матрица
+    Zero
+    'Единичная матрица
+    E
+}
+
+' Интерфейс "Матрица"
+class IMatrix
+{
+    + virtual MatrixType GetMatrixType() const = 0;
+    'Возвращает количество строк M
+    virtual unsigned long long GetM() const = 0;
+    'Возвращает количество столбцов N
+    virtual unsigned long long GetN() const = 0;
+    'Возвращает значение элемента матрицы по указанному индексу
+    virtual double GetValue(unsigned long long i, unsigned long long j) const = 0;
+    virtual double operator()(unsigned long long i, unsigned long long j) const = 0;
+    'Выводит в консоль матрицу
+    virtual void Print(PrintParams pp = PrintParams{}) const = 0;
+    virtual void PrintMatrix() const = 0;
+    virtual void PrintMatrix(unsigned long long ind_row_start, unsigned long long num_rows, unsigned long long ind_col_start, unsigned long long num_cols) const = 0;
+
+}
+
+
+'Вспомогательный класс для работы с матрицами
+class MatricesHelper
+{    
+    
+    
+}
+
+'Консольный интерфейс для работы со вспомогательным классом для работы с матрицами
+class MatricesHelper_ConsoleUI
+{    
+    
+    
+}
+
+
+@enduml

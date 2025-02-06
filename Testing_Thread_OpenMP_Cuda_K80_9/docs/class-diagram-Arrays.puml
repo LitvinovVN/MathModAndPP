@@ -1,0 +1,71 @@
+@startuml
+
+title
+Диаграмма классов модуля "Arrays"
+end title
+
+' Параметры запуска функции обработки массива на GPU
+struct ArrayGpuProcessingParams<T>
+{
+    + unsigned deviceId
+    + T* dev_arr
+    + size_t indStart
+    + size_t indEnd
+    + unsigned blocksNum
+    + unsigned threadsNum
+
+    + void Print()
+}
+
+struct SumThreadArgs<T>
+{
+    + T* data
+    + size_t indStart
+    + size_t indEnd
+    + T& sum
+    + std::mutex& m
+    + SumThreadArgs(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
+}
+
+class ArrayHelper
+{    
+    +{static} void PrintArrayRam<T>(T* data, size_t indStart, size_t length)
+    +{static} void PrintArrayGpu<T>(T* data, size_t indStart, size_t length, int deviceId = 0)
+    +{static} T* CreateArrayRam<T>(unsigned long long size)
+    +{static} void DeleteArrayRam<T>(T* arrayRam)
+    +{static} T* CreateArrayGpu<T>(unsigned long long size)
+    +{static} T* CreateArrayGpu<T>(unsigned long long size, int deviceId)
+    +{static} void DeleteArrayGpu<T>(T* arrayGpu)
+    +{static} DeleteArrayGpu<T>(T* arrayGpu, int deviceId)
+    +{static} void InitArrayGpu<T>(T* dev_array, unsigned long long size, T value)
+    +{static} void InitArrayGpu<T>(T* dev_array, unsigned long long size, T value, int deviceId)
+    +{static} void CopyRamToGpu<T>(T* arrayRam, T* arrayGpu, size_t length)
+    +{static} void CopyRamToGpu<T>(T* arrayRam, T* arrayGpu, size_t ind_start, size_t length, int deviceId = 0)
+    +{static} void CopyGpuToRam<T>(T* arrayGpu, T* arrayRam, size_t length)
+    +{static} void CopyGpuToRam<T>(T* arrayGpu, T* arrayRam, size_t ind_start, size_t length, int deviceId = 0)
+    +{static} void CopyGpuToRam<T>(T* arrayGpu, T* arrayRam, size_t ind_start, size_t length, int deviceId = 0)
+    +{static} bool IsEqualsRamRam<T>(T* arrayRam1, T*arrayRam2, size_t length, double eps = 0.00000001)
+    +{static} bool IsEqualsRamGpu<T>(T* arrayRam, T* arrayGpu, size_t length, double eps = 0.00000001)
+    +{static} T Sum<T>(T* data, size_t indStart, size_t indEnd)
+    +{static} T Sum<T>(T* data, size_t size)
+    +{static} void SumThread<T>(SumThreadArgs<T> args)
+    +{static} T Sum<T>(T* data, size_t indStart, size_t indEnd, unsigned threadsNum)
+    +{static} T SumOpenMP<T>(T* data, size_t indStart, size_t indEnd, unsigned threadsNum)
+    +{static} T SumOpenMP<T>(T* data, size_t size, unsigned threadsNum)
+    +{static} T SumCuda<T>(T* dev_arr, size_t indStart, size_t indEnd, unsigned blocksNum, unsigned threadsNum)
+    +{static} T SumCuda<T>(T* data, size_t size, unsigned blocksNum, unsigned threadsNum)
+    +{static} T SumCudaMultiGpu<T>(std::vector<ArrayGpuProcessingParams<T>> params)
+    +{static} T SumCublas(cublasHandle_t cublasH, T* dev_arr, size_t indStart, size_t indEnd)
+    +{static} T SumCublas(cublasHandle_t cublasH, T* dev_arr, size_t length)
+    +{static} T SumCublas(cublasHandle_t cublasH, ArrayGpuProcessingParams<T> params)
+    +{static} T SumCublasMultiGpu(std::vector<cublasHandle_t> cublasHandles, std::vector<T*> dev_arrays, std::vector<size_t> indStarts, std::vector<size_t> indEnds)
+    +{static} T ScalarProductRamSeq<T>(T* arrayRam1, T* arrayRam2, size_t length)
+    +{static} T ScalarProductRamParThread<T>(T* arrayRam1, T* arrayRam2, size_t length, unsigned threadsNum)
+    +{static} T ScalarProductGpuParCuda<T>(T* arrayGpu1, T* arrayGpu2, size_t length, unsigned kernelBlocks, unsigned kernelThreads)
+    +{static} FuncResult<T> ScalarProductGpuParCuda<T>(size_t length, unsigned kernelBlocks, unsigned kernelThreads)
+    +{static} T ScalarProductMultiGpuParCuda<T>(std::vector<T*> array1Gpus, std::vector<T*> array2Gpus, std::vector<size_t> lengthGpus, unsigned kernelBlocks, unsigned kernelThreads)
+    +{static} FuncResult<T> ScalarProductMultiGpuParCuda<T>(size_t length, unsigned kernelBlocks, unsigned kernelThreads, std::vector<double> kGpuData)
+}
+
+
+@enduml

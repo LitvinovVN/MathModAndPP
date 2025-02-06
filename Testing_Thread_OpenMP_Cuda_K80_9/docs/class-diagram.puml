@@ -1,0 +1,93 @@
+@startuml
+
+title
+ Диаграмма классов
+end title
+
+class ArrayRamHelper<T>
+{
+    +{static} void SumThread(T* data, size_t indStart, size_t indEnd, T& sum, std::mutex& m)
+}
+
+struct FuncResult<T>
+{
+    +bool _status
+    +T _result
+    +long long _time
+
+    +FuncResult(bool status, T result, double time)
+    +void Print()
+}
+
+class           VectorRam<T>
+{
+    +T* data
+    +size_t size
+    +VectorRam(size_t size)
+    +~VectorRam()
+    +void InitByVal(T val)
+    +void PrintToConsole()
+    +T Sum(size_t indStart, size_t indEnd)
+    +T Sum()
+    +T Sum(size_t indStart, size_t indEnd, unsigned threadsNum)
+    +T Sum(unsigned threadsNum)
+}
+
+class           VectorRamHelper
+{
+    +{static}FuncResult<T> Sum(VectorRam<T>& v, size_t indStart, size_t indEnd)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v, size_t indStart, size_t indEnd, unsigned threadsNum)
+    +{static}FuncResult<T> Sum(VectorRam<T>& v, unsigned threadsNum)
+}
+
+class TestHelper
+{
+    +{static} auto LaunchSum(VectorRam<T>& v)
+}
+
+struct CalculationStatistics
+{
+    ' Количество запусков численного эксперимента
+    unsigned numIter;
+    ' Минимальное значение
+    double minValue;
+    ' Максимальное значение
+    double maxValue;
+    ' Среднее арифметическое
+    double avg;
+    ' Медиана
+    double median;
+    ' 95 процентиль
+    double percentile_95;
+    ' Среднеквадратическое отклонение
+    double stdDev;
+
+    CalculationStatistics(std::vector<FuncResult<double>> results)
+    void Print()
+}
+
+struct ParallelCalcIndicators
+{
+    unsigned Nthreads
+    double Smin
+    double Smax
+    double Savg
+    double Smedian
+    double Sperc95
+    double Emin
+    double Emax
+    double Eavg
+    double Emedian
+    double Eperc95
+
+    ParallelCalcIndicators(CalculationStatistics& stat_seq, CalculationStatistics& stat_par, unsigned Nthreads)
+    void Print()
+}
+
+TestHelper..>VectorRamHelper : <<Use>>
+VectorRamHelper..>FuncResult : <<Create>>
+VectorRamHelper..>VectorRam : <<Use>>
+VectorRam..>ArrayRamHelper : <<Call>>
+
+@enduml
