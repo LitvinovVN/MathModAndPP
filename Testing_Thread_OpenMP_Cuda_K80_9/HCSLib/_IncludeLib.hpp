@@ -50,6 +50,9 @@ using namespace std::chrono;
 
 ///// Модуль Math (начало) /////
 #include "Math/MathObject.hpp"
+#include "Math/Expression.hpp"
+#include "Math/Constant.hpp"
+#include "Math/Negate.hpp"
 #include "Math/MathHelper.hpp"
 #include "Math/MathHelper_ConsoleUI.hpp"
 ///// Модуль Math (конец) /////

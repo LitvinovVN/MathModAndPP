@@ -11,17 +11,16 @@ public:
     static void MathObject_ConsoleUI()
     {
         std::cout << "--- void MathObject_ConsoleUI() ---" << std::endl;
+        
+        struct Scalar : MathObject<Scalar>
+        {
+            int value = 10;
+        };
 
-        class TestA{};
-        class TestB : TestA{};
-        std::cout << "sizeof(TestA{}): " << sizeof(TestA{}) << std::endl;
-        std::cout << "sizeof(TestB{}): " << sizeof(TestB{}) << std::endl;
-
-        MathObject<TestA, TestB> mo;
-        std::cout << "sizeof(MathObject<TestA, TestB>): " << sizeof(mo) << std::endl;
-
-        //mo.Self();
-        //mo.GetProxy();
+        Scalar a;
+        std::cout << "Scalar a; a.value: " << a.value << std::endl;
+        std::cout << "a.Self().value: " << a.Self().value << std::endl;
+        std::cout << "a.GetProxy().value: " << a.GetProxy().value << std::endl;
     }
 
 };

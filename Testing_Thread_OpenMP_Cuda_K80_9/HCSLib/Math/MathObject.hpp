@@ -1,5 +1,8 @@
 #pragma once
 
+/// @brief Математический объект. Базовый класс.
+/// @tparam T 
+/// @tparam TProxy 
 template<class T, class TProxy = T>
 struct MathObject
 {

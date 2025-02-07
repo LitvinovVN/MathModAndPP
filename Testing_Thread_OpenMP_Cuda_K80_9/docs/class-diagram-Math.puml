@@ -1,0 +1,44 @@
+@startuml
+
+title
+Диаграмма классов модуля "Math"
+end title
+
+'Математический объект. Базовый класс.
+struct MathObject<T, TProxy = T>
+{
+    + typedef T       FinalType;
+    + typedef TProxy  ProxyType;
+
+    + FinalType& Self()
+
+    + const FinalType& Self() const
+
+    + ProxyType GetProxy() const
+}
+
+'Маркерный класс "Выражение"
+struct Expression<E>
+
+Expression --|> MathObject
+
+'Константа (в выражении)
+struct Constant
+{
+    - double value;
+    + Constant(double value)
+
+    +double operator()(double x) const
+}
+
+Constant --|> Expression
+
+'Переменная (в выражении)
+struct Variable
+{
+    + double operator()(double x) const
+}
+
+Variable --|> Expression
+
+@enduml
