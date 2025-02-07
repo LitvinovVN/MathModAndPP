@@ -2,11 +2,13 @@
 
 #include "Expression.hpp"
 
+/// @brief Отрицание (в выражении)
+/// @tparam E 
 template<class E>
 struct Negate : Expression<Negate<E> >
 {
     Negate(const Expression<E> &expr)
-        : expr(expr.self()){}
+        : expr(expr.Self()){}
     
     double operator()(double x) const
     {

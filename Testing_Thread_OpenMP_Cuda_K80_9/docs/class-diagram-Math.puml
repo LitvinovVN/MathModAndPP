@@ -41,4 +41,22 @@ struct Variable
 
 Variable --|> Expression
 
+'Отрицание (в выражении)
+struct Negate<class E>
+{
+    + Negate(const Expression<E> &expr)
+    + double operator()(double x) const
+    + Negate<E> operator-(const Expression<E> &expr)
+    - const E expr
+}
+Negate --|> Expression
+
+'Выражение с двумя операндами
+struct BinaryExpression<E1, OP, E2>
+BinaryExpression --|> Expression
+
+'Функция (в выражении)
+struct FuncExpression<E>
+FuncExpression --|> Expression
+
 @enduml
