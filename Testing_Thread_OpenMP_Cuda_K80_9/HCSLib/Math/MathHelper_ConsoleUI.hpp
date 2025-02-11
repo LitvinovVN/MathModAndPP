@@ -3,6 +3,8 @@
 #include <iostream>
 #include "MathHelper.hpp"
 
+const double PI = 3.141592653589793238463;    //value of pi
+
 template<class E>
 void f(const Expression<E> &expr0)
 {
@@ -42,7 +44,7 @@ struct MathHelper_ConsoleUI
         double res = expr1(10);
         std::cout << "double res = expr1(10): " << res << std::endl;
 
-        f(sin(x * x + M_PI));
+        f(sin(x * x + PI));
 
         auto expr2 = 5 * cos(-x * (x + 1));
         f(expr2);

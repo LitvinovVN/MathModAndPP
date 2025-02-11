@@ -325,7 +325,7 @@ struct MenuFunctions
                     //<< "7 MatricesHelper_ConsoleUI::CopyGpuToRam\n"
                     //<< "8 MatricesHelper_ConsoleUI::ScalarProductRamSeq\n"
                     //<< "9 MatricesHelper_ConsoleUI::ScalarProductRamParThread\n"
-                    //<< "10 MatricesHelper_ConsoleUI::ScalarProductRamParOpenMP\n"
+                    << "10 MatricesHelper_ConsoleUI::MatrixBlockRamGpus_ConsoleUI\n"
                     //<< "11 MatricesHelper_ConsoleUI::ScalarProductGpuParCuda\n"
                     //<< "12 MatricesHelper_ConsoleUI::ScalarProductMultiGpuParCuda\n"
                     //<< "13 MatricesHelper_ConsoleUI::ScalarProductGpuCublas\n"
@@ -386,8 +386,8 @@ struct MenuFunctions
                 //MatricesHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
                 break;
             case 10:
-                std::cout   << "Command: 10 MatricesHelper_ConsoleUI::ScalarProductRamParOpenMP_ConsoleUI\n";
-                //MatricesHelper_ConsoleUI::ScalarProductRamParOpenMP_ConsoleUI();
+                std::cout   << "Command: 10 MatricesHelper_ConsoleUI::MatrixBlockRamGpus_ConsoleUI\n";
+                MatricesHelper_ConsoleUI::MatrixBlockRamGpus_ConsoleUI();
                 break;
             case 11:
                 std::cout   << "Command: 11 MatricesHelper_ConsoleUI::ScalarProductGpuParCuda\n";

@@ -8,7 +8,12 @@ class MatrixRamE : public MatrixRam
 public:
     MatrixRamE(unsigned long long M, unsigned long long N)
         : MatrixRam(M, N)
-    {     
+    {
+    }
+
+    virtual MatrixType GetMatrixType() const override
+    {
+        return MatrixType::E;
     }
 
     unsigned long long GetM() const override
@@ -51,10 +56,5 @@ public:
             return 1;
 
         return 0;
-    }
-
-    virtual MatrixType GetMatrixType() const override
-    {
-        return MatrixType::E;
     }
 };

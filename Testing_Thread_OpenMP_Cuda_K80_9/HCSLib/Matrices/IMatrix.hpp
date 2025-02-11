@@ -7,6 +7,8 @@
 class IMatrix
 {
 public:
+    /// @brief Возвращает тип матрицы
+    /// @return MatrixType
     virtual MatrixType GetMatrixType() const = 0;
 
     /// @brief Возвращает объём занятой оперативной памяти в байтах
@@ -34,11 +36,17 @@ public:
     virtual double operator()(unsigned long long i, unsigned long long j) const = 0;
 
 
-    /// @brief Выводит в консоль матрицу
+    /// @brief Выводит в консоль сведения о матрице
     virtual void Print(PrintParams pp = PrintParams{}) const = 0;
 
+    /// @brief Выводит в консоль значения элементов матрицы
     virtual void PrintMatrix() const = 0;
 
+    /// @brief Выводит в консоль значения элементов матрицы в указанном диапа
+    /// @param ind_row_start Индекс стартовой строки
+    /// @param num_rows Количество строк
+    /// @param ind_col_start Индекс стартового столбца
+    /// @param num_cols Количество столбцов
     virtual void PrintMatrix(unsigned long long ind_row_start,
         unsigned long long num_rows,
         unsigned long long ind_col_start,

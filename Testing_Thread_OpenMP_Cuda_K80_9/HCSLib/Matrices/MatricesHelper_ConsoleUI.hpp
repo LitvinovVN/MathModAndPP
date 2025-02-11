@@ -44,5 +44,31 @@ public:
         iz_ptr->Print();
 
     }
+
+    /// @brief Класс MatrixBlockRamGpus -  блочная матрица в RAM+GPUs
+    static void MatrixBlockRamGpus_ConsoleUI()
+    {
+        std::cout << "MatricesHelper_ConsoleUI::MatrixBlockRamGpus_ConsoleUI()" << std::endl;
+
+        try
+        {
+            unsigned mb = 4; //ConsoleHelper::GetUnsignedIntFromUser("Enter number of blocks by row, mb: ");
+            unsigned nb = 4; //ConsoleHelper::GetUnsignedIntFromUser("Enter number of blocks by column, mb: ");
+            unsigned block_size = 5;
+
+            // Создаём нулевую блочную матрицу нужной размерности
+            MatrixBlockRamGpus matrix(mb, nb, block_size);
+            matrix.Print();
+            matrix.PrintMatrix();
+
+            matrix.AddE(1,2);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        
+
+    }
 };
 

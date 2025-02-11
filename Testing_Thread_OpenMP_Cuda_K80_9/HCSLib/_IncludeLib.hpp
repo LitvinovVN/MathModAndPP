@@ -90,10 +90,14 @@ using namespace std::chrono;
 ////////// Векторы (конец) ////////////
 
 ////////// Матрицы (начало) ////////////
+#include "Matrices/MatrixDataLocation.hpp"
 #include "Matrices/IMatrix.hpp"
 #include "Matrices/MatrixRam.hpp"
 #include "Matrices/MatrixRamZero.hpp"
 #include "Matrices/MatrixRamE.hpp"
+#include "Matrices/MatrixBlockRamGpus.hpp"
+#include "Matrices/MatrixMapElement.hpp"
+#include "Matrices/MatrixMap.hpp"
 #include "Matrices/MatricesHelper.hpp"
 #include "Matrices/MatricesHelper_ConsoleUI.hpp"
 ////////// Матрицы (конец) ////////////
