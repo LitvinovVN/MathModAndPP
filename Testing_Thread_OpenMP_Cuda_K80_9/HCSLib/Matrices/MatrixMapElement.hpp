@@ -16,4 +16,13 @@ struct MatrixMapElement
     MatrixDataLocation matrixDataLocation = MatrixDataLocation::None;    
     // Указатель на объект матрицы
     IMatrix*   matrixPtr   = nullptr;
+
+    MatrixMapElement()
+    {}
+
+    MatrixMapElement(unsigned columnIndex,
+        MatrixType matrixType)
+      : columnIndex(columnIndex),
+        matrixType(matrixType)
+    {}
 };

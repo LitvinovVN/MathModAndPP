@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "IMatrix.hpp"
+#include "MatrixMap.hpp"
 
 /// @brief Блочная матрица на выч. узле (RAM+GPUs)
 class MatrixBlockRamGpus : IMatrix
@@ -10,11 +11,16 @@ class MatrixBlockRamGpus : IMatrix
     unsigned mb;
     unsigned nb;
     unsigned n;
+    // Карта блочной матрицы
+    MatrixMap matrixMap;
 
 public:
     MatrixBlockRamGpus(unsigned mb, unsigned nb, unsigned n)
      : mb(mb), nb(nb), n(n)
-    {}
+    {
+        // Добавляем mb строк в карту матрицы
+        matrixMap.SetRowsNumber(mb);
+    }
 
     virtual MatrixType GetMatrixType() const override
     {
@@ -25,7 +31,7 @@ public:
     /// @return Объём занятой оперативной памяти в байтах
     virtual unsigned long long GetSize() const override
     {
-        throw std::runtime_error("Net realized!");
+        throw std::runtime_error("Not realized!");
     }
 
     unsigned long long GetM() const override
@@ -38,13 +44,49 @@ public:
         return nb*n;
     }
 
+    /// @brief Возвращает индекс блока
+    /// @param i Индекс строки элемента
+    /// @param j Индекс столбца элемента
+    /// @return 
+    std::pair<unsigned, unsigned> GetBlockIndexes(unsigned long long i,
+        unsigned long long j) const
+    {
+        return std::pair<unsigned,unsigned>{i/mb, j/nb};
+    }
+
+    std::pair<unsigned, unsigned> GetElementInBlockIndexes(unsigned long long i,
+        unsigned long long j) const
+    {
+        return std::pair<unsigned,unsigned>{i%mb, j%nb};
+    }
+
     /// @brief Возвращает значение элемента матрицы по указанному индексу
     /// @param i Индекс строки
     /// @param j Индекс столбца
     /// @return Элемент (i, j)
     virtual double GetValue(unsigned long long i, unsigned long long j) const override
     {
-        //
+        // Вычисляем индекс блока        
+        std::pair<unsigned, unsigned> indBlock = GetBlockIndexes(i, j);
+        // Вычисляем индексы элемента внутри блока
+        std::pair<unsigned, unsigned> indElementInBlock = GetElementInBlockIndexes(i, j);
+        MatrixType matrixType = matrixMap.GetMatrixType(indBlock.first, indBlock.second);
+        switch (matrixType)
+        {
+        case MatrixType::Zero:
+            return 0;
+            //break;
+        case MatrixType::E:
+            if(indElementInBlock.first==indElementInBlock.second)
+                return 1;
+            return 0;
+            //break;
+        
+        default:
+            break;
+        }
+        
+        
         //
         //
         //
@@ -73,6 +115,13 @@ public:
         std::cout << "nb" << pp.splitterKeyValue << nb;
         std::cout << pp.splitter;
         std::cout << "n" << pp.splitterKeyValue << n;
+        std::cout << pp.splitter;
+        std::cout << "matrixMap" << pp.splitterKeyValue;
+        std::cout << "\n";
+        matrixMap.Print(mb, nb);
+        std::cout << pp.splitter;
+        std::cout << "\n";
+        matrixMap.Print();
         std::cout << pp.endMes;
 
         if(pp.isEndl)
@@ -111,7 +160,7 @@ public:
     /// @param bj Индекс столбца
     void AddE(unsigned bi, unsigned bj)
     {
-
+        matrixMap.AddE(bi, bj);
     }
     /////////
 

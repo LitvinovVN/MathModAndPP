@@ -59,9 +59,17 @@ public:
             // Создаём нулевую блочную матрицу нужной размерности
             MatrixBlockRamGpus matrix(mb, nb, block_size);
             matrix.Print();
-            matrix.PrintMatrix();
-
+            std::cout << "matrix.AddE(1,2);" << std::endl;
             matrix.AddE(1,2);
+            matrix.Print();
+            std::cout << "matrix.AddE(1,1);" << std::endl;
+            matrix.AddE(1,1);
+            matrix.Print();
+            std::cout << "matrix.AddE(1,3);" << std::endl;
+            matrix.AddE(1,3);
+            matrix.Print();
+
+            matrix.PrintMatrix();
         }
         catch(const std::exception& e)
         {
