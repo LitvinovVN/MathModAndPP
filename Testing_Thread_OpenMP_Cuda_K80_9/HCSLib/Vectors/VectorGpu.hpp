@@ -3,7 +3,7 @@
 /// @brief Вектор (в GPU) 
 /// @tparam T Тип элементов вектора
 template<typename T>
-class VectorGpu : public Vector<T>
+class VectorGpu : public IVector<T>
 {
 public:
     // Количество элементов вектора

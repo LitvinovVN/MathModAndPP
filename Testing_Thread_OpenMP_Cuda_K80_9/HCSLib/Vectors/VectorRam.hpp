@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename T>
-class VectorRam : public Vector<T>
+class VectorRam : public IVector<T>
 {
 public:
     T* data;

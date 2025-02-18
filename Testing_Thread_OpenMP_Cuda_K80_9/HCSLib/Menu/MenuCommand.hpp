@@ -14,6 +14,7 @@ enum class MenuCommand
     ArrayHelper,              // Работа с классом ArrayHelper
     ArrayPerfTestHelper,      // Работа с классом ArrayPerfTestHelper
     Testing_TestVectorGpu,    // Тестирование класса VectorGpu
+    VectorsHelper_ConsoleUI,  // Работа с модулем Vectors
     Testing_Matrices,         // Тестирование классов матриц
     Math,                     // Работа с модулем Math
     Testing_TestSum,          // Тестирование функций суммирования

@@ -4,6 +4,7 @@
 #include "../Algorithms/AlgorithmImplementationExecutor.hpp"
 #include "../Algorithms/AlgorithmImplementationExecutorHelper.hpp"
 #include "../Matrices/MatricesHelper.hpp"
+#include "../Vectors/VectorsHepler_ConsoleUI.hpp"
 
 /// @brief Функции меню
 struct MenuFunctions
@@ -304,6 +305,106 @@ struct MenuFunctions
             std::cout << "VectorGpu correct!" << std::endl;
         else
             std::cout << "VectorGpu not correct!" << std::endl;
+    }
+
+    /// @brief Работа с модулем Vectors
+    static void VectorsHelper_ConsoleUI()
+    {                
+        std::cout   << "----- VectorsHelper_ConsoleUI -----\n"
+                    << "1 Back to main menu\n"
+                    //<< "2 VectorsHelper_ConsoleUI::MatrixRamZeroTesting\n"
+                    //<< "3 VectorsHelper_ConsoleUI::MatrixRamETesting\n"
+                    //<< "4 VectorsHelper_ConsoleUI::SumCublas\n"
+                    //<< "5 VectorsHelper_ConsoleUI::SumCublasMultiGpu\n"
+                    //<< "6 VectorsHelper_ConsoleUI::CopyRamToGpu\n"
+                    //<< "7 VectorsHelper_ConsoleUI::CopyGpuToRam\n"
+                    //<< "8 VectorsHelper_ConsoleUI::ScalarProductRamSeq\n"
+                    //<< "9 VectorsHelper_ConsoleUI::ScalarProductRamParThread\n"
+                    << "10 VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI\n"
+                    //<< "11 VectorsHelper_ConsoleUI::ScalarProductGpuParCuda\n"
+                    //<< "12 VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda\n"
+                    //<< "13 VectorsHelper_ConsoleUI::ScalarProductGpuCublas\n"
+                    //<< "14 VectorsHelper_ConsoleUI::ScalarProductMultiGpuCublas\n";
+                    ;
+
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << ">> ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout   << "Command: 2 VectorsHelper_ConsoleUI::MatrixRamZeroTesting()\n";                
+                //VectorsHelper_ConsoleUI::MatrixRamZeroTesting();
+                break;
+            case 3:
+                std::cout   << "Command: 3 VectorsHelper_ConsoleUI::MatrixRamETesting()\n";
+                //VectorsHelper_ConsoleUI::MatrixRamETesting();
+                break;
+            case 4:
+                std::cout   << "Command: 4 VectorsHelper_ConsoleUI::SumCublas()\n";
+                //VectorsHelper_ConsoleUI::SumCublas_ConsoleUI();
+                break;
+            case 5:
+                std::cout   << "Command: 5 VectorsHelper_ConsoleUI::SumCublasMultiGpu()\n";
+                //VectorsHelper_ConsoleUI::SumCublasMultiGpu_ConsoleUI();
+                break;
+            case 6:
+                std::cout << "Command: 6 VectorsHelper_ConsoleUI::CopyRamToGpu()\n";
+                //VectorsHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
+                break;
+            case 7:
+                std::cout   << "Command: 7 VectorsHelper_ConsoleUI::CopyGpuToRam()\n";
+                //VectorsHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
+                break;
+            case 8:
+                std::cout   << "Command: 8 VectorsHelper_ConsoleUI::ScalarProductRamSeq\n";
+                //VectorsHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
+                break;
+            case 9:
+                std::cout   << "Command: 9 VectorsHelper_ConsoleUI::ScalarProductRamParThread\n";
+                //VectorsHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
+                break;
+            case 10:
+                std::cout   << "Command: 10 VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI\n";
+                VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI();
+                break;
+            case 11:
+                std::cout   << "Command: 11 VectorsHelper_ConsoleUI::ScalarProductGpuParCuda\n";
+                //VectorsHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
+                break;
+            case 12:
+                std::cout   << "Command: 12 VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda\n";
+                //VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
+                break;
+            case 13:
+                std::cout   << "Command: 13 VectorsHelper_ConsoleUI::ScalarProductGpuCublas\n";
+                //VectorsHelper_ConsoleUI::ScalarProductGpuCublas_ConsoleUI();
+                break;
+            case 14:
+                std::cout   << "Command: 14 VectorsHelper_ConsoleUI::ScalarProductMultiGpuCublas\n";
+                //VectorsHelper_ConsoleUI::ScalarProductMultiGpuCublas_ConsoleUI();
+                break;
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
     }
 
     /// @brief Запускает тесты работоспособности классов матриц

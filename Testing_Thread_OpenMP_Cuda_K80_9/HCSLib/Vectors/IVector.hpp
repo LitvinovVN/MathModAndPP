@@ -3,7 +3,7 @@
 /// @brief Абстрактный класс, моделирующий вектор в N-мерном пространстве
 /// @tparam T 
 template<typename T>
-class Vector
+class IVector
 {
 public:
     virtual void InitByVal(T val) = 0;

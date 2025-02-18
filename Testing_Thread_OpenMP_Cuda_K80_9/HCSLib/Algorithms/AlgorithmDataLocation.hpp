@@ -3,7 +3,7 @@
 #include <iostream>
 
 /// @brief Место расположения данных
-enum class DataLocation
+enum class AlgorithmDataLocation
 {
     None,   // 0 - Неинициализировано
     Ram,    // 1 - ОЗУ
@@ -11,20 +11,20 @@ enum class DataLocation
     RamGpu  // 3 - ОЗУ + видеопамять GPU
 };
 
-std::ostream& operator<<(std::ostream& os, DataLocation dataLocation)
+std::ostream& operator<<(std::ostream& os, AlgorithmDataLocation dataLocation)
 {
     switch (dataLocation)
     {
-    case DataLocation::None:
+    case AlgorithmDataLocation::None:
         os << "None";
         break;
-    case DataLocation::Ram:
+    case AlgorithmDataLocation::Ram:
         os << "Ram";
         break;
-    case DataLocation::Gpu:
+    case AlgorithmDataLocation::Gpu:
         os << "Gpu";
         break;
-    case DataLocation::RamGpu:
+    case AlgorithmDataLocation::RamGpu:
         os << "RamGpu";
         break;
     default:

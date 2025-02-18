@@ -36,6 +36,7 @@ using namespace std::chrono;
 #include "CommonHelpers/DataTypeEnum.hpp"
 #include "CommonHelpers/DataType.hpp"
 #include "CommonHelpers/DataTypes.hpp"
+#include "CommonHelpers/DataLocation.hpp"
 ///// Вспомогательные типы (конец) /////
 
 ///// Параметры проведения тестов производительности (начало) /////
@@ -82,11 +83,14 @@ using namespace std::chrono;
 ////////// Массивы (конец) ////////////
 
 ////////// Векторы (начало) ////////////
-#include "Vectors/Vector.hpp"
+#include "Vectors/IVector.hpp"
 #include "Vectors/VectorRam.hpp"
 #include "Vectors/VectorGpu.hpp"
 #include "Vectors/VectorRamHelper.hpp"
 #include "Vectors/VectorGpuHelper.hpp"
+#include "Vectors/VectorRamGpus.hpp"
+#include "Vectors/VectorRamGpusHelper.hpp"
+#include "Vectors/VectorsHepler_ConsoleUI.hpp"
 ////////// Векторы (конец) ////////////
 
 ////////// Матрицы (начало) ////////////
@@ -122,7 +126,7 @@ using namespace std::chrono;
 //////// Задачи (конец) ///////
 
 /////////////// Алгоритмы (начало) ///////////////////
-#include "Algorithms/DataLocation.hpp"
+#include "Algorithms/AlgorithmDataLocation.hpp"
 #include "Algorithms/AlgorithmType.hpp"
 #include "Algorithms/Algorithm.hpp"
 #include "Algorithms/AlgorithmRepository.hpp"

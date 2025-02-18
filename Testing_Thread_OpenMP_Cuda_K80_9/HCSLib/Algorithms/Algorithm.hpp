@@ -6,7 +6,7 @@
 #include "../Tasks/Task.hpp"
 #include "../Tasks/TaskDimensions.hpp"
 #include "AlgorithmType.hpp"
-#include "DataLocation.hpp"
+#include "AlgorithmDataLocation.hpp"
 #include "../CommonHelpers/PrintParams.hpp"
 
 /// @brief Сведения об алгоритме
@@ -25,9 +25,9 @@ struct Algorithm
     // Тип алгоритма (послед., параллельный и пр.)
     AlgorithmType algorithmType;
     // Место расположения исходных данных
-    DataLocation dataLocationInput;
+    AlgorithmDataLocation dataLocationInput;
     // Место расположения результатов
-    DataLocation dataLocationOutput;
+    AlgorithmDataLocation dataLocationOutput;
 
     void Print(PrintParams pp)
     {

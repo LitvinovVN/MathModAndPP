@@ -144,6 +144,16 @@ public:
         menuCommands.push_back(
             MenuCommandItem
             {
+                MenuCommand::VectorsHelper_ConsoleUI,
+                {std::to_string((int)MenuCommand::VectorsHelper_ConsoleUI),"vectors"},
+                MenuFunctions::VectorsHelper_ConsoleUI,
+                "Vectors module (VectorsHelper_ConsoleUI)"
+            }
+        );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
                 MenuCommand::Testing_Matrices,
                 {std::to_string((int)MenuCommand::Testing_Matrices),"matrices"},
                 MenuFunctions::MatricesHelper_ConsoleUI,
