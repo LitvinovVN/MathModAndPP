@@ -37,6 +37,7 @@ using namespace std::chrono;
 #include "CommonHelpers/DataType.hpp"
 #include "CommonHelpers/DataTypes.hpp"
 #include "CommonHelpers/DataLocation.hpp"
+#include "CommonHelpers/DevMemArrPointer.hpp"
 ///// Вспомогательные типы (конец) /////
 
 ///// Параметры проведения тестов производительности (начало) /////

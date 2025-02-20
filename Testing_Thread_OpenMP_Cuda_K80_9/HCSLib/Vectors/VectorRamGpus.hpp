@@ -2,22 +2,19 @@
 
 #include <iostream>
 #include "IVector.hpp"
+#include "../CommonHelpers/DataLocation.hpp"
+#include "../CommonHelpers/DevMemArrPointer.hpp"
 
 template<typename T>
 class VectorRamGpus : IVector<T>
 {
-    // Размеры частей вектора, расположенных в различных видах памяти
-    // 0 - RAM
-    // 1 - GPU0
-    // 2 - GPU1
-    // и т.д.
-    std::vector<unsigned long> sizes;
+    // Массив указателей на части вектора, расположенные в различных областях памяти
+    std::vector<DevMemArrPointer<T>> dataPointers;
 
 public:
 
     VectorRamGpus()
     {
-
     }
 
     void InitByVal(T val) override
@@ -31,12 +28,16 @@ public:
 
     void Print() const override
     {
-        throw std::runtime_error("Not realized!");
-        /*for (size_t i = 0; i < size; i++)
+        std::cout << "VectorRamGpus::Print()" << std::endl;
+        std::cout << this << std::endl;
+        std::cout << "dataPointers: ";
+        if(dataPointers.size() == 0)
+            std::cout << "none";
+        for (size_t i = 0; i < dataPointers.size(); i++)
         {
-            std::cout << data[i] << " ";
+            dataPointers[i].Print();
         }
-        std::cout << std::endl;    */ 
+        std::cout << std::endl;
     }
 
     size_t Size() const override
@@ -45,15 +46,57 @@ public:
         //return size;
     }
 
-    void Print()
+    ///// Выделение блоков памяти /////
+    
+    /// @brief Выделяет непрерывный блок памяти
+    /// @param id Идентификатор блока (>0)
+    /// @param dataLocation Место расположения блока памяти 
+    /// @param length Количество элементов в блоке
+    /// @return DevMemArrPointer
+    DevMemArrPointer<T> AllocMem(unsigned id,
+        DataLocation dataLocation,
+        unsigned long long length)
     {
-        std::cout << "VectorRamGpus::Print()" << std::endl;
-        std::cout << this << std::endl;
-        std::cout << "sizes: ";
-        for (size_t i = 0; i < sizes.size(); i++)
+        if (id==0)
+            return DevMemArrPointer<T>{};
+
+        T* ptr = nullptr;
+
+        try
         {
-            std::cout << sizes[i] << " ";
+            switch (dataLocation)
+            {
+            case DataLocation::RAM:
+                ptr = ArrayHelper::CreateArrayRam<T>(length);
+                break;
+            case DataLocation::GPU0:
+                ptr = ArrayHelper::CreateArrayGpu<T>(length, 0);
+                break;
+            case DataLocation::GPU1:
+                ptr = ArrayHelper::CreateArrayGpu<T>(length, 1);
+                break;
+            case DataLocation::GPU2:
+                ptr = ArrayHelper::CreateArrayGpu<T>(length, 2);
+                break;
+            case DataLocation::GPU3:
+                ptr = ArrayHelper::CreateArrayGpu<T>(length, 3);
+                break;
+            
+            default:
+                break;
+            }
         }
-        std::cout << std::endl;
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            return DevMemArrPointer<T>{};
+        }
+        
+        DevMemArrPointer<T> dmptr(id, dataLocation, ptr, length);
+        dataPointers.push_back(dmptr);
+
+        return dmptr;
     }
+    ///////////////////////////////////
+    
 };
