@@ -32,7 +32,16 @@ struct VectorsHelper_ConsoleUI
         
         std::cout << "v1.Print();" << std::endl;
         v1.Print();
+
+        bool isClear = ConsoleHelper::GetBoolFromUser("Do you want clear vector data? (y/n)");
+        if(isClear)
+        {
+            std::cout << "v1.Clear();" << std::endl;
+            v1.Clear();
+        }
         
+        std::cout << "v1.Print();" << std::endl;
+        v1.Print();
     }
 
 };

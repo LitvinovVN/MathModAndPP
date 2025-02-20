@@ -69,7 +69,7 @@ struct ArrayHelper
     }
 
     template<typename T>
-    static void DeleteArrayRam(T* arrayRam)
+    static void DeleteArrayRam(T*& arrayRam)
     {
         if(arrayRam == nullptr)
             return;
@@ -163,7 +163,7 @@ struct ArrayHelper
     /// @brief Освобождает массив на текущем GPU
     /// @tparam T Указатель на массив в GPU
     template<typename T>
-    static void DeleteArrayGpu(T* arrayGpu)
+    static void DeleteArrayGpu(T*& arrayGpu)
     {
         #ifdef __NVCC__
         //std::cout << "Clearing gpu array " << arrayGpu << ": ";
@@ -183,7 +183,7 @@ struct ArrayHelper
     /// @tparam T Указатель на массив в GPU
     /// @tparam deviceId Идентификатор GPU
     template<typename T>
-    static void DeleteArrayGpu(T* arrayGpu, int deviceId)
+    static void DeleteArrayGpu(T*& arrayGpu, int deviceId)
     {
         #ifdef __NVCC__
         if (deviceId == 0)

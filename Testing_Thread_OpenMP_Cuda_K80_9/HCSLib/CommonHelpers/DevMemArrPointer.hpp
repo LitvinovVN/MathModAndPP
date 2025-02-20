@@ -48,11 +48,35 @@ struct DevMemArrPointer
         return true;
     }
 
-    /// @brief Возвращает объём памяти, занимаемый структурой
+    /// @brief Возвращает флаг сброшенности указателя
     /// @return 
+    bool IsReset() const
+    {
+        if(    id           == 0
+            && dataLocation == DataLocation::None
+            && ptr          == nullptr
+            && length       == 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /// @brief Сбрасывает указатель в исходное неинициализированное состояние
+    void Reset()
+    {
+        id           = 0;
+        dataLocation = DataLocation::None;
+        ptr          = nullptr;
+        length       = 0;
+    }
+
+    /// @brief Возвращает объём памяти, занимаемый структурой
+    /// @return unsigned long long (объём в байтах)
     unsigned long long GetSizeStruct() const
     {
-        return sizeof(id) + sizeof(dataLocation) + sizeof(ptr) + sizeof(length);
+        return sizeof(*this);
     }
 
     /// @brief Возвращает объём памяти, занимаемый массивом

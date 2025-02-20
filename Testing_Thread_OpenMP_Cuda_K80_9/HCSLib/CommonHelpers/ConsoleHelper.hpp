@@ -23,6 +23,29 @@ struct ConsoleHelper
         return userInput;
     }
 
+    static bool GetBoolFromUser(std::string message, std::string errorMessage = "Error! Enter bool value (y, n, 0, 1)")
+    {
+        while (1)
+        {
+            try
+            {
+                std::cout << message;
+                std::string userInput;
+                std::cin >> userInput;
+                
+                if(userInput == "y" || userInput == "1")
+                    return true;
+                if(userInput == "n" || userInput == "0")
+                    return false;
+                std::cout << errorMessage << std::endl;
+            }
+            catch(const std::exception& e)
+            {
+                std::cout << errorMessage << std::endl;
+            }
+        }
+    }
+
     /// @brief Запрашивает у пользователя целое число
     /// @param message Сообщение для пользователя
     /// @param errorMessage Сообщение об ошибке

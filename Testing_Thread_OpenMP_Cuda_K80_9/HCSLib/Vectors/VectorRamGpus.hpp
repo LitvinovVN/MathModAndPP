@@ -11,6 +11,26 @@ class VectorRamGpus : IVector<T>
     // Массив указателей на части вектора, расположенные в различных областях памяти
     std::vector<DevMemArrPointer<T>> dataPointers;
 
+    /// @brief Очищает dataPointers от сброшенных в исходное состояние объектов DevMemArrPointer<T>
+    void RemoveFreeDataPointers()
+    {
+        bool isClean = false;
+        while(!isClean)
+        {
+            isClean = true;
+            for (size_t i = 0; i < dataPointers.size(); i++)
+            {
+                if(!dataPointers[i].IsReset())
+                {
+                    isClean = false;
+                    dataPointers.erase(dataPointers.begin() + i);
+                    break;
+                }
+            }
+            
+        }
+    }
+
 public:
 
     VectorRamGpus()
@@ -98,5 +118,61 @@ public:
         return dmptr;
     }
     ///////////////////////////////////
-    
+
+    ///// Освобождение памяти /////
+
+    /// @brief Освобождает зарезервированную память
+    void Clear(DevMemArrPointer<T>& devMemArrPointer)
+    {
+        std::cout << "Clear ";
+        devMemArrPointer.Print();
+        std::cout << std::endl;
+        try
+        {
+            switch (devMemArrPointer.dataLocation)
+            {
+            case DataLocation::RAM:
+                ArrayHelper::DeleteArrayRam<T>(devMemArrPointer.ptr);
+                break;
+            case DataLocation::GPU0:
+                ArrayHelper::DeleteArrayGpu<T>(devMemArrPointer.ptr, 0);
+                break;
+            case DataLocation::GPU1:
+                ArrayHelper::DeleteArrayGpu<T>(devMemArrPointer.ptr, 1);
+                break;
+            case DataLocation::GPU2:
+                ArrayHelper::DeleteArrayGpu<T>(devMemArrPointer.ptr, 2);
+                break;
+            case DataLocation::GPU3:
+                ArrayHelper::DeleteArrayGpu<T>(devMemArrPointer.ptr, 3);
+                break;
+            
+            default:
+                break;
+            }
+
+            if(!devMemArrPointer.ptr)
+            {
+                devMemArrPointer.Reset();
+            }
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+    }
+
+    /// @brief Освобождает всю зарезервированную память
+    void Clear()
+    {
+        // Очищаем зарезервированную память
+        for(auto& dataPointer : dataPointers)
+        {
+            Clear(dataPointer);
+        }
+        // Очищаем контейнер dataPointers
+        RemoveFreeDataPointers();
+    }
+
+    ///////////////////////////////////
 };
