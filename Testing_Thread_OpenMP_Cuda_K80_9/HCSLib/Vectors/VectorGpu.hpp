@@ -239,4 +239,23 @@ public:
             throw std::runtime_error("CUDA not supported!");
         #endif
     }
+
+    /// @brief Выводит в консоль элементы вектора в заданном диапазоне
+    void PrintData(unsigned long long indStart,
+        unsigned long long length) const override
+    {
+        throw std::runtime_error("Not realized!");
+    }
+
+    /// @brief Возвращает значение элемента вектора, расположенного по указанному индексу
+    T GetValue(unsigned long long index) const override
+    {
+        throw std::runtime_error("Not realized!");
+    }
+
+    /// @brief Устанавливает значение элемента вектора, расположенного по указанному индексу
+    T SetValue(unsigned long long index) const override
+    {        
+        throw std::runtime_error("Not realized!");
+    }
 };

@@ -37,7 +37,6 @@ using namespace std::chrono;
 #include "CommonHelpers/DataType.hpp"
 #include "CommonHelpers/DataTypes.hpp"
 #include "CommonHelpers/DataLocation.hpp"
-#include "CommonHelpers/DevMemArrPointer.hpp"
 ///// Вспомогательные типы (конец) /////
 
 ///// Параметры проведения тестов производительности (начало) /////
@@ -81,9 +80,13 @@ using namespace std::chrono;
 #include "Arrays/ArrayHelperFuncResult.hpp"
 #include "Arrays/ArrayPerfTestHelper.hpp"
 #include "Arrays/ArrayPerfTestHelper_ConsoleUI.hpp"
+#include "Arrays/ArraysIndexMap.hpp"
+#include "Arrays/DevMemArrPointer.hpp"
+#include "Arrays/DevMemArrPointers.hpp"
 ////////// Массивы (конец) ////////////
 
 ////////// Векторы (начало) ////////////
+#include "Vectors/VectorType.hpp"
 #include "Vectors/IVector.hpp"
 #include "Vectors/VectorRam.hpp"
 #include "Vectors/VectorGpu.hpp"

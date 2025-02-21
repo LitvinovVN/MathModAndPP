@@ -1,8 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include "DataLocation.hpp"
-#include "PrintParams.hpp"
+#include "../CommonHelpers/DataLocation.hpp"
+#include "../CommonHelpers/PrintParams.hpp"
 
 /// @brief Указатель на массив, расположенный в памяти устройства вычислительного узла (RAM или GPU)
 template<typename T>
