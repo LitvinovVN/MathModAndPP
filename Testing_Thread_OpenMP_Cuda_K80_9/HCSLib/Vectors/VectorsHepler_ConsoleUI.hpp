@@ -18,20 +18,18 @@ struct VectorsHelper_ConsoleUI
         //v1.Print();
 
         std::cout << "auto res = v1.AllocMem(1, DataLocation::RAM, 100000000);" << std::endl;
-        auto res = v1.AllocMem(1, DataLocation::RAM, 100000000);
-        //std::cout << "res.Print();" << std::endl;
-        //res.Print();
-        //std::cout << std::endl;
+        auto res = v1.Add(DataLocation::RAM, 100000000);
+        std::cout << "res: " << res << std::endl;
+        std::cout << "v1.Print();" << std::endl;
+        v1.Print();
+        std::cout << std::endl;
         
-        //std::cout << "v1.Print();" << std::endl;
-        //v1.Print();
-        //std::cout << std::endl;
-
         std::cout << "res = v1.AllocMem(2, DataLocation::GPU0, 100000000);" << std::endl;
-        res = v1.AllocMem(2, DataLocation::GPU0, 100000000);
-        //std::cout << "res.Print();" << std::endl;
-        res.Print();
-        //std::cout << std::endl;
+        res = v1.Add(DataLocation::GPU0, 100000000);
+        std::cout << "res: " << res << std::endl;
+        std::cout << "v1.Print();" << std::endl;
+        v1.Print();
+        std::cout << std::endl;
 
         /*std::cout << "v1.Transpose();" << std::endl;
         v1.Transpose();
@@ -50,7 +48,8 @@ struct VectorsHelper_ConsoleUI
         std::cout << std::endl;*/
 
         std::cout << "v1.GetValue(5);" << std::endl;
-        v1.GetValue(5);
+        auto val5 = v1.GetValue(5);
+        std::cout << "val5: " << val5 << std::endl;
 
         bool isClear = ConsoleHelper::GetBoolFromUser("Do you want clear vector data? (y/n)");
         if(isClear)

@@ -15,4 +15,31 @@ struct PrintParams
         isEndl = isEndLine;
         return *this;
     }
+
+    void PrintStartMessage()
+    {
+        std::cout << startMes;
+    }
+
+    void PrintEndMessage()
+    {
+        std::cout << endMes;
+    }
+
+    void PrintSplitter()
+    {
+        std::cout << splitter;
+    }
+
+    void PrintKeyValue(std::string key, unsigned value)
+    {
+        std::cout << key << splitterKeyValue << value;
+    }
+
+    void PrintIsEndl()
+    {
+        if (isEndl)
+            std::cout << std::endl;
+    }
+        
 };

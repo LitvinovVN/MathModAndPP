@@ -94,9 +94,10 @@ struct CudaHelper
         #ifdef __NVCC__
         auto cudaDeviceProperties = GetCudaDeviceProperties(deviceId);
         return cudaDeviceProperties.Name;
-        #endif
+        #else
         std::cout << "GetCudaDeviceName(): CUDA is not supported!" << std::endl;
         return "";
+        #endif
     }
 
     // Print device properties

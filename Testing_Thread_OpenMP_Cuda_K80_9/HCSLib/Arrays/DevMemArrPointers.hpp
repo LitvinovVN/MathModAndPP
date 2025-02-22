@@ -4,6 +4,7 @@
 #include "../CommonHelpers/DataLocation.hpp"
 #include "ArrayHelper.hpp"
 #include "DevMemArrPointer.hpp"
+#include "ArrayBlockIndexes.hpp"
 
 template<typename T>
 class DevMemArrPointers
@@ -66,20 +67,24 @@ public:
         //return size;
     }
     
+    /// @brief Возвращает количество выделенных блоков памяти
+    /// @return size_t
+    auto GetDataPointersNum()
+    {
+        return dataPointers.size();
+    }
+
     ///// Выделение блоков памяти /////
     
     /// @brief Выделяет непрерывный блок памяти
     /// @param id Идентификатор блока (>0)
-    /// @param dataLocation Место расположения блока памяти 
+    /// @param dataLocation Место расположения блока данных 
     /// @param length Количество элементов в блоке
     /// @return DevMemArrPointer
     DevMemArrPointer<T> AllocMem(unsigned id,
         DataLocation dataLocation,
         unsigned long long length)
     {
-        if (id==0)
-            return DevMemArrPointer<T>{};
-
         T* ptr = nullptr;
 
         try
@@ -117,6 +122,22 @@ public:
 
         return dmptr;
     }
+    
+    /// @brief Добавляет непрерывный блок данных
+    /// @param dataLocation Место расположения блока данных
+    /// @param length Количество элементов в блоке
+    /// @return bool - Результат выполнения операции (true - успех)
+    bool AddBlock(DataLocation dataLocation,
+        unsigned long long length)
+    {
+        auto newBlockId = GetDataPointersNum();
+        auto newBlock = AllocMem(newBlockId, dataLocation, length);
+        if(newBlock.IsInitialized())
+            return true;
+        
+        return false;
+    }
+
     ///////////////////////////////////
 
     ///// Освобождение памяти /////
@@ -198,5 +219,44 @@ public:
 
         return indexMap;
     }
+
+    
+
+    T GetValue(unsigned long long globalIndex) const
+    {
+        ArraysIndexMap map = GetArraysIndexMap();
+        map.Print();
+        // Определяем индекс блока и локальный индекс элемента в блоке
+        ArrayBlockIndexes indexes = map.GetArrayBlockIndexes(globalIndex);
+        std::cout << "globalIndex: [" << globalIndex << "]: ";
+        indexes.Print();
+
+        if(!indexes.IsInitialized())
+            throw std::runtime_error("Error in finding ArrayBlockIndexes by globalIndex!");
+             
+        T value = GetValue(indexes.blockIndex, indexes.localIndex);
+
+        return value;
+    }
+
+    T GetValue(unsigned blockIndex, unsigned long long localIndex) const
+    {
+        auto& devMemArrPointer = dataPointers[blockIndex];
+        T value;
+        switch (devMemArrPointer.dataLocation)
+        {
+        case DataLocation::RAM:
+            value = ArrayHelper::GetValueRAM(devMemArrPointer.ptr, localIndex);
+            break;
+        case DataLocation::GPU0:
+            //value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 0);
+            break;    
         
+        default:
+            throw std::runtime_error("Wrong DataLocation!");
+            break;
+        }
+
+        return value;
+    }
 };

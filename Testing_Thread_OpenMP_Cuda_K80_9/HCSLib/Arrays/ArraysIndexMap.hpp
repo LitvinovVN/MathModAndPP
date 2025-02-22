@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include "ArrayBlockIndexes.hpp"
 
 class ArraysIndexMap
 {
@@ -17,6 +18,29 @@ public:
         row.push_back(indEnd);
 
         indexMap.push_back(row);
+    }
+
+    /// @brief Возвращает объект, содержащий индексы блока, размер блока и локальный индекс
+    /// @param globalIndex Глобальный индекс элемента
+    /// @return ArrayBlockIndexes
+    ArrayBlockIndexes GetArrayBlockIndexes(unsigned long long globalIndex) const
+    {
+        ArrayBlockIndexes arrayBlockIndexes;
+
+        for (size_t bi = 0; bi < indexMap.size(); bi++)
+        {
+            auto indStart = indexMap[bi][0];
+            auto indEnd   = indexMap[bi][1];
+            if (globalIndex < indStart || globalIndex > indEnd)
+                continue;
+            
+            arrayBlockIndexes.blockIndex = bi;
+            arrayBlockIndexes.blockLength = indEnd - indStart + 1;
+            arrayBlockIndexes.localIndex = globalIndex - indStart;
+            break;
+        }
+        
+        return arrayBlockIndexes;
     }
 
     void Print()

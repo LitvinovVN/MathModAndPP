@@ -7,7 +7,7 @@
 #include "../Arrays/ArraysIndexMap.hpp"
 
 template<typename T>
-class VectorRamGpus : IVector<T>
+class VectorRamGpus : public IVector<T>
 {
     // Контейнер указателей на части вектора, расположенные в различных областях памяти
     DevMemArrPointers<T> devMemArrPointers;
@@ -27,7 +27,7 @@ public:
     {
         std::cout << "VectorRamGpus::Print()" << std::endl;
         std::cout << this << std::endl;
-        std::cout << "vectorType: " << vectorType << std::endl;
+        std::cout << "vectorType: " << this->vectorType << std::endl;
         std::cout << "devMemArrPointers: ";
         devMemArrPointers.Print();
         std::cout << std::endl;
@@ -38,7 +38,7 @@ public:
         unsigned long long length) const override
     {
         std::string elementSplitter = " ";
-        if(vectorType == VectorType::VectorColumn)
+        if(this->vectorType == VectorType::VectorColumn)
             elementSplitter = "\n";
 
         // Глобальный индекс текущего элемента вектора
@@ -57,12 +57,9 @@ public:
     /// @brief Возвращает значение элемента вектора, расположенного по указанному индексу
     T GetValue(unsigned long long index) const override
     {
-        ArraysIndexMap map = devMemArrPointers.GetArraysIndexMap();
-        map.Print();
+        T value = devMemArrPointers.GetValue(index);
         
-
-        std::cout << "Under construction!!!" << std::endl;
-        return -1;
+        return value;
     }
 
     /// @brief Устанавливает значение элемента вектора, расположенного по указанному индексу
@@ -74,7 +71,7 @@ public:
     /// @brief Транспонирует вектор
     void Transpose()
     {        
-        vectorType = (VectorType)!(bool)vectorType;
+        this->vectorType = (VectorType)!(bool)this->vectorType;
     }
 
     ///// Выделение блоков памяти /////
@@ -84,7 +81,7 @@ public:
     /// @param dataLocation Место расположения блока памяти 
     /// @param length Количество элементов в блоке
     /// @return DevMemArrPointer
-    DevMemArrPointer<T> AllocMem(unsigned id,
+    /*DevMemArrPointer<T> AllocMem(unsigned id,
         DataLocation dataLocation,
         unsigned long long length)
     {
@@ -94,6 +91,18 @@ public:
         auto dmptr = devMemArrPointers.AllocMem(id, dataLocation, length);
 
         return dmptr;
+    }*/
+
+    /// @brief Добавляет элементы в вектор
+    /// @param dataLocation Место расположения элементов вектора
+    /// @param length Количество добавляемых элементов
+    /// @return bool - Результат выполнения операции (true - успех)
+    bool Add(DataLocation dataLocation,
+        unsigned long long length)
+    {
+        auto result = devMemArrPointers.AddBlock(dataLocation, length);
+        
+        return result;
     }
     ///////////////////////////////////
 

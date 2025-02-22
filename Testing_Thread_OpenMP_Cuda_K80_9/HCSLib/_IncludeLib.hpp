@@ -80,6 +80,7 @@ using namespace std::chrono;
 #include "Arrays/ArrayHelperFuncResult.hpp"
 #include "Arrays/ArrayPerfTestHelper.hpp"
 #include "Arrays/ArrayPerfTestHelper_ConsoleUI.hpp"
+#include "Arrays/ArrayBlockIndexes.hpp"
 #include "Arrays/ArraysIndexMap.hpp"
 #include "Arrays/DevMemArrPointer.hpp"
 #include "Arrays/DevMemArrPointers.hpp"

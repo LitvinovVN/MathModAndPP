@@ -28,8 +28,6 @@ struct DevMemArrPointer
         : id(id), dataLocation(dataLocation),
           ptr(ptr), length(length)
     {
-        if(id == 0)
-            throw std::runtime_error("id must be > 0!");
     }
 
 
@@ -37,8 +35,7 @@ struct DevMemArrPointer
     /// @return 
     bool IsInitialized() const
     {
-        if(    id           == 0
-            || dataLocation == DataLocation::None
+        if(    dataLocation == DataLocation::None
             || ptr          == nullptr
             || length       == 0)
         {
@@ -52,8 +49,7 @@ struct DevMemArrPointer
     /// @return 
     bool IsReset() const
     {
-        if(    id           == 0
-            && dataLocation == DataLocation::None
+        if(    dataLocation == DataLocation::None
             && ptr          == nullptr
             && length       == 0)
         {
@@ -66,7 +62,6 @@ struct DevMemArrPointer
     /// @brief Сбрасывает указатель в исходное неинициализированное состояние
     void Reset()
     {
-        id           = 0;
         dataLocation = DataLocation::None;
         ptr          = nullptr;
         length       = 0;
