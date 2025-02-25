@@ -77,7 +77,7 @@ public:
     ///// Выделение блоков памяти /////
     
     /// @brief Выделяет непрерывный блок памяти
-    /// @param id Идентификатор блока (>0)
+    /// @param id Идентификатор блока
     /// @param dataLocation Место расположения блока данных 
     /// @param length Количество элементов в блоке
     /// @return DevMemArrPointer
@@ -221,24 +221,30 @@ public:
     }
 
     
-
+    /// @brief Возвращает значение по глобальному индексу
+    /// @param globalIndex Глобальный индекс
+    /// @return 
     T GetValue(unsigned long long globalIndex) const
     {
         ArraysIndexMap map = GetArraysIndexMap();
-        map.Print();
+        //map.Print();
         // Определяем индекс блока и локальный индекс элемента в блоке
         ArrayBlockIndexes indexes = map.GetArrayBlockIndexes(globalIndex);
-        std::cout << "globalIndex: [" << globalIndex << "]: ";
-        indexes.Print();
+        //std::cout << "globalIndex: [" << globalIndex << "]: ";
+        //indexes.Print();
 
         if(!indexes.IsInitialized())
             throw std::runtime_error("Error in finding ArrayBlockIndexes by globalIndex!");
-             
+
         T value = GetValue(indexes.blockIndex, indexes.localIndex);
 
         return value;
     }
 
+    /// @brief Возвращает значение по индексу блока и локальному индексу
+    /// @param blockIndex 
+    /// @param localIndex 
+    /// @return 
     T GetValue(unsigned blockIndex, unsigned long long localIndex) const
     {
         auto& devMemArrPointer = dataPointers[blockIndex];
@@ -249,7 +255,7 @@ public:
             value = ArrayHelper::GetValueRAM(devMemArrPointer.ptr, localIndex);
             break;
         case DataLocation::GPU0:
-            //value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 0);
+            value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 0);
             break;    
         
         default:
@@ -258,5 +264,55 @@ public:
         }
 
         return value;
+    }
+
+    /// @brief Устанавливает значение по глобальному индексу
+    /// @param globalIndex 
+    /// @param value 
+    /// @return 
+    bool SetValue(unsigned long long globalIndex, T value)
+    {
+        ArraysIndexMap map = GetArraysIndexMap();
+        //map.Print();
+        // Определяем индекс блока и локальный индекс элемента в блоке
+        ArrayBlockIndexes indexes = map.GetArrayBlockIndexes(globalIndex);
+        //std::cout << "globalIndex: [" << globalIndex << "]: ";
+        //indexes.Print();
+
+        if(!indexes.IsInitialized())
+            return false;
+
+        bool isValueSetted = SetValue(indexes.blockIndex, indexes.localIndex, value);
+        return isValueSetted;
+    }
+
+    bool SetValue(unsigned blockIndex, unsigned long long localIndex, T value)
+    {
+        try
+        {
+            auto& devMemArrPointer = dataPointers[blockIndex];
+        
+            switch (devMemArrPointer.dataLocation)
+            {
+            case DataLocation::RAM:
+                ArrayHelper::SetValueRAM(devMemArrPointer.ptr, localIndex, value);
+                break;
+            case DataLocation::GPU0:
+                ArrayHelper::SetValueGPU(devMemArrPointer.ptr, localIndex, 0, value);
+                break;
+            
+            default:
+                throw std::runtime_error("Wrong DataLocation!");
+                break;
+            }
+
+            return true;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            return false;
+        }
+    
     }
 };

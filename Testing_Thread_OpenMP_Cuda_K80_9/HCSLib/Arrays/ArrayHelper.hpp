@@ -336,10 +336,71 @@ struct ArrayHelper
 
     ////////////////////////// Считывание элементов массивов (начало) /////////////////////
     template<typename T>
-    static T GetValueRAM(T* arr, unsigned long long index)
+    static T GetValueRAM(T* arrayRam, unsigned long long index)
     {
-        return arr[index];
+        return arrayRam[index];
     }
+
+    template<typename T>
+    static T GetValueGPU(T* arrayGpu, unsigned long long index, unsigned deviceId = 0)
+    {
+        #ifdef __NVCC__
+        T value;
+        if(deviceId == 0)
+        {
+            CopyGpuToRam(arrayGpu + index, &value, 1);
+        }
+        else
+        {
+            std::thread th{
+                [&]() {
+                    cudaSetDevice(deviceId);
+                    CopyGpuToRam(arrayGpu + index, &value, 1);
+                }
+            };
+            th.join();
+        }
+        return value;
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    ////////////////////////// Считывание элементов массивов (конец) /////////////////////
+
+    ////////////////////////// Установка значений элементов массивов (начало) /////////////////////
+    template<typename T>
+    static void SetValueRAM(T* arrayRam, unsigned long long index, T value)
+    {
+        arrayRam[index] = value;
+    }
+
+    template<typename T>
+    static void SetValueGPU(T* arrayGpu, unsigned long long index, unsigned deviceId, T value)
+    {
+        #ifdef __NVCC__
+
+        if(deviceId == 0)
+        {
+            CopyRamToGpu(&value, arrayGpu + index, 1);
+        }
+        else
+        {
+            std::thread th{
+                [&]() {
+                    cudaSetDevice(deviceId);
+                    CopyRamToGpu(&value, arrayGpu + index, 1);
+                }
+            };
+            th.join();
+        }
+
+        #else
+        throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+
+    ////////////////////////// Установка значений элементов массивов (конец) /////////////////////
 
     ////////////////////////// Копирование массивов (начало) /////////////////////////////
     

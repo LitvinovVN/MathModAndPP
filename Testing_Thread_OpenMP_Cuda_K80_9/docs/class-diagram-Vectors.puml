@@ -30,6 +30,30 @@ enum DataLocation
     GPU3 = 3  
 }
 
+' Карта индексов
+class ArraysIndexMap
+{
+    - std::vector<std::vector<unsigned long long>> indexMap;
+    ' Добавляет строку индексов
+    + void AddIndexes(unsigned long long indStart, unsigned long long indEnd)
+    ' Возвращает объект, содержащий индексы блока, размер блока и локальный индекс
+    + ArrayBlockIndexes GetArrayBlockIndexes(unsigned long long globalIndex) const
+    + void Print()
+}
+
+struct ArrayBlockIndexes
+{
+    ' Индекс блока
+    + unsigned blockIndex
+    ' Размер блока
+    + unsigned long long blockLength
+    ' Локальный индекс элемента в блоке
+    + unsigned long long localIndex
+    + void Print(PrintParams pp = PrintParams{})
+    ' Возвращает флаг инициализации объекта
+    + bool IsInitialized()
+}
+
 ' Указатель на массив, расположенный в памяти устройства вычислительного узла (RAM или GPU)
 struct DevMemArrPointer<T>
 {
@@ -69,15 +93,28 @@ class DevMemArrPointers<T>
     + void InitByVal(T val)
     + void Print() const
     + size_t Size() const
+    ' Возвращает количество выделенных блоков памяти
+    + auto GetDataPointersNum()
     ' Выделяет непрерывный блок памяти
     ' id Идентификатор блока (>0)
     ' dataLocation Место расположения блока памяти 
     ' length Количество элементов в блоке
     + DevMemArrPointer<T> AllocMem(unsigned id, DataLocation dataLocation, unsigned long long length)
+    ' Добавляет непрерывный блок данных
+    + bool AddBlock(DataLocation dataLocation, unsigned long long length)
     ' Освобождает зарезервированную память
     + void Clear(DevMemArrPointer<T>& devMemArrPointer)
     ' Освобождает всю зарезервированную память
     + void Clear()
+    ' Строит карту индексов
+    + ArraysIndexMap GetArraysIndexMap() const
+    ' Возвращает значение по глобальному индексу
+    + T GetValue(unsigned long long globalIndex) const
+    ' Возвращает значение по индексу блока и локальному индексу
+    + T GetValue(unsigned blockIndex, unsigned long long localIndex) const
+    ' Устанавливает значение по глобальному индексу
+    + bool SetValue(unsigned long long globalIndex, T value)
+    + bool SetValue(unsigned blockIndex, unsigned long long localIndex, T value)
 }
 
 
@@ -109,13 +146,12 @@ class VectorRamGpus<T>
     + size_t Size() const override
     ' Возвращает значение элемента вектора, расположенного по указанному индексу
     + T GetValue(unsigned long long index) const override
+    ' Устанавливает значение элемента вектора, расположенного по указанному индексу
+    + bool SetValue(unsigned long long index, T value) override
     ' Транспонирует вектор
     + void Transpose()
-    ' Выделяет непрерывный блок памяти
-    ' id Идентификатор блока (>0)
-    ' dataLocation Место расположения блока памяти 
-    ' length Количество элементов в блоке
-    + DevMemArrPointer<T> AllocMem(unsigned id, DataLocation dataLocation, unsigned long long length)
+    ' Добавляет элементы в вектор
+    + bool Add(DataLocation dataLocation, unsigned long long length)
     ' Освобождает всю зарезервированную память
     + void Clear()
 
@@ -137,7 +173,10 @@ class VectorsHelper_ConsoleUI
 
 IVector *-- VectorType
 VectorRamGpus --|> IVector
+ArraysIndexMap --> ArrayBlockIndexes
 DevMemArrPointers *-- DevMemArrPointer
+DevMemArrPointers --> ArraysIndexMap
+DevMemArrPointers --> ArrayBlockIndexes
 DevMemArrPointer *-- DataLocation
 VectorRamGpus *-- DevMemArrPointers
 VectorRamGpusHelper ..> VectorRamGpus

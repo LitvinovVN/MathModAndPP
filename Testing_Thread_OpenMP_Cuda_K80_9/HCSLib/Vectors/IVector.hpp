@@ -17,5 +17,5 @@ public:
     // Возвращает значение элемента вектора, расположенного по указанному индексу
     virtual T GetValue(unsigned long long index) const = 0;
     // Устанавливает значение элемента вектора, расположенного по указанному индексу
-    virtual T SetValue(unsigned long long index) const = 0;
+    virtual bool SetValue(unsigned long long index, T value) = 0;
 };

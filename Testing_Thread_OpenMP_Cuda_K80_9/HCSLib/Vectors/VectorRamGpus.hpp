@@ -41,12 +41,14 @@ public:
         if(this->vectorType == VectorType::VectorColumn)
             elementSplitter = "\n";
 
-        // Глобальный индекс текущего элемента вектора
-        unsigned long long i = indStart;
-        // Глобальный индекс последнего выводимого в консоль элемента
-        unsigned long long i_end = indStart + length - 1;
+        for (unsigned long long i = indStart; i < indStart + length; i++)
+        {
+            std::cout << GetValue(i);
+            std::cout << elementSplitter;
+        }
         
-        std::cout << "Not realized!" << std::endl;
+        if (elementSplitter != "\n")
+            std::cout << std::endl;
     }
 
     size_t Size() const override
@@ -63,9 +65,10 @@ public:
     }
 
     /// @brief Устанавливает значение элемента вектора, расположенного по указанному индексу
-    T SetValue(unsigned long long index) const override
-    {        
-        throw std::runtime_error("Not realized!");
+    bool SetValue(unsigned long long index, T value) override
+    {
+        bool isSetted = devMemArrPointers.SetValue(index, value);
+        return isSetted;
     }
 
     /// @brief Транспонирует вектор
@@ -73,26 +76,7 @@ public:
     {        
         this->vectorType = (VectorType)!(bool)this->vectorType;
     }
-
-    ///// Выделение блоков памяти /////
     
-    /// @brief Выделяет непрерывный блок памяти
-    /// @param id Идентификатор блока (>0)
-    /// @param dataLocation Место расположения блока памяти 
-    /// @param length Количество элементов в блоке
-    /// @return DevMemArrPointer
-    /*DevMemArrPointer<T> AllocMem(unsigned id,
-        DataLocation dataLocation,
-        unsigned long long length)
-    {
-        if (id==0)
-            return DevMemArrPointer<T>{};
-
-        auto dmptr = devMemArrPointers.AllocMem(id, dataLocation, length);
-
-        return dmptr;
-    }*/
-
     /// @brief Добавляет элементы в вектор
     /// @param dataLocation Место расположения элементов вектора
     /// @param length Количество добавляемых элементов
@@ -104,8 +88,6 @@ public:
         
         return result;
     }
-    ///////////////////////////////////
-
     
     /// @brief Освобождает всю зарезервированную память
     void Clear()
@@ -113,5 +95,4 @@ public:
         devMemArrPointers.Clear();
     }
 
-    ///////////////////////////////////
 };

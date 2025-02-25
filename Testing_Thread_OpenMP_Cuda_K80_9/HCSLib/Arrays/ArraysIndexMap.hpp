@@ -4,6 +4,7 @@
 #include <vector>
 #include "ArrayBlockIndexes.hpp"
 
+/// @brief Карта индексов
 class ArraysIndexMap
 {
     std::vector<std::vector<unsigned long long>> indexMap;

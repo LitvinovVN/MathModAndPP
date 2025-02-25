@@ -3,6 +3,21 @@
 /// @brief Вспомогательный класс для работы с консолью
 struct ConsoleHelper
 {
+    static void PrintLine(std::string string)
+    {
+        std::cout << string << std::endl;
+    }
+
+    template<typename T>
+    static void PrintKeyValue(std::string key, T value,
+        std::string splitter = ": ",
+        bool isEndl = true)
+    {
+        std::cout << key << splitter << value;
+        if(isEndl)
+            std::cout << std::endl;
+    }
+
     /// @brief Запрашивает у пользователя целое число
     /// @param message Сообщение для пользователя
     /// @param errorMessage Сообщение об ошибке

@@ -254,7 +254,7 @@ public:
     }
 
     /// @brief Устанавливает значение элемента вектора, расположенного по указанному индексу
-    T SetValue(unsigned long long index) const override
+    bool SetValue(unsigned long long index, T value) override
     {        
         throw std::runtime_error("Not realized!");
     }
