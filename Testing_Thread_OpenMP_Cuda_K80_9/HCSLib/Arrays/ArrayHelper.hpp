@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include "DevMemArrPointer.hpp"
 
 /// @brief Структура для хранения методов обработки массивов T*
 struct ArrayHelper
@@ -332,6 +333,35 @@ struct ArrayHelper
         #endif
     }
 
+
+    template<typename T>
+    static void InitArray(DevMemArrPointer<T>& devMemArrPointer, T value)
+    {
+        if(!devMemArrPointer.IsInitialized())
+            throw std::runtime_error("devMemArrPointer is not initialized!");
+
+        switch (devMemArrPointer.dataLocation)
+        {
+        case DataLocation::RAM:
+            InitArrayRam(devMemArrPointer.ptr, devMemArrPointer.length, value);
+            break;
+        case DataLocation::GPU0:
+            InitArrayGpu(devMemArrPointer.ptr, devMemArrPointer.length, value, 0);
+            break;
+        case DataLocation::GPU1:
+            InitArrayGpu(devMemArrPointer.ptr, devMemArrPointer.length, value, 1);
+            break;
+        case DataLocation::GPU2:
+            InitArrayGpu(devMemArrPointer.ptr, devMemArrPointer.length, value, 2);
+            break;
+        case DataLocation::GPU3:
+            InitArrayGpu(devMemArrPointer.ptr, devMemArrPointer.length, value, 3);
+            break;
+        
+        default:
+            break;
+        }
+    }
     ////////////////////////// Инициализация массивов (конец) /////////////////////////////
 
     ////////////////////////// Считывание элементов массивов (начало) /////////////////////
@@ -1323,6 +1353,78 @@ struct ArrayHelper
 
 
     ////////////////////////// Скалярное произведение элементов массива (конец) /////////////////////////////
+
+
+    //////////////////////////  Умножение каждого элемента массива на число (начало) ////////////////////////
+    
+    template<typename T, typename S>
+    static void MultiplyRam(T* arrayRam, unsigned long long length, S scalar)
+    {
+        for (size_t i = 0; i < length; i++)
+        {
+            arrayRam[i] *= scalar;
+        }
+        
+    }
+
+    template<typename T, typename S>
+    static void MultiplyGpu(T* arrayGpu, unsigned long long length,
+        unsigned deviceId, S scalar)
+    {
+        if(CudaHelper::IsCudaSupported())
+        {
+            if(deviceId == 0)
+            {
+                CudaHelper::Multiply(arrayGpu, length, scalar);
+            }
+            else
+            {
+                std::thread th{
+                    [&]() {
+                        cudaSetDevice(deviceId);
+                        CudaHelper::Multiply(arrayGpu, length, scalar);
+                    }
+                };
+                th.join();
+            }
+        }
+        else
+            throw std::runtime_error("CUDA not supported!");
+        
+    }
+
+    template<typename T, typename S>
+    static void Multiply(DevMemArrPointer<T>& devMemArrPointer, S scalar)
+    {
+        switch (devMemArrPointer.dataLocation)
+        {
+        case DataLocation::RAM:
+            MultiplyRam(devMemArrPointer.ptr, devMemArrPointer.length, scalar);
+            break;
+        case DataLocation::GPU0:
+            MultiplyGpu(devMemArrPointer.ptr, devMemArrPointer.length, 0, scalar);
+            break;
+        case DataLocation::GPU1:
+            MultiplyGpu(devMemArrPointer.ptr, devMemArrPointer.length, 1, scalar);
+            break;
+        case DataLocation::GPU2:
+            MultiplyGpu(devMemArrPointer.ptr, devMemArrPointer.length, 2, scalar);
+            break;
+        case DataLocation::GPU3:
+            MultiplyGpu(devMemArrPointer.ptr, devMemArrPointer.length, 3, scalar);
+            break;
+        
+        default:
+            break;
+        }
+    }
+
+    //////////////////////////  Умножение каждого элемента массива на число (конец) ////////////////////////
+
+
+
+
+
 
 
     /*  ---   Другие алгоритмы   ---  */

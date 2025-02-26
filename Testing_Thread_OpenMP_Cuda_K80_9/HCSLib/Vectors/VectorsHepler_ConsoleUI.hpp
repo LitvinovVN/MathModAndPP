@@ -12,76 +12,114 @@ struct VectorsHelper_ConsoleUI
     {
         std::cout << "VectorRamGpus_ConsoleUI" << std::endl;
 
-        std::cout << "VectorRamGpus<double> v1;" << std::endl;
+        ConsoleHelper::PrintLine("VectorRamGpus<double> v1;");
         VectorRamGpus<double> v1;
-        //std::cout << "v1.Print();" << std::endl;
-        //v1.Print();
-
-        std::cout << "auto res = v1.AllocMem(1, DataLocation::RAM, 100000000);" << std::endl;
-        auto res = v1.Add(DataLocation::RAM, 100000000);
-        std::cout << "res: " << res << std::endl;
-        std::cout << "v1.Print();" << std::endl;
+        ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
-        std::cout << std::endl;
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("auto res = v1.Add(DataLocation::RAM, 10);");
+        auto res = v1.Add(DataLocation::RAM, 10);
+        ConsoleHelper::PrintKeyValue("res", res);
+        ConsoleHelper::PrintLine("v1.Print();");
+        v1.Print();
+        ConsoleHelper::PrintLine("----------\n");
         
-        std::cout << "res = v1.AllocMem(2, DataLocation::GPU0, 100000000);" << std::endl;
-        res = v1.Add(DataLocation::GPU0, 100000000);
-        std::cout << "res: " << res << std::endl;
-        std::cout << "v1.Print();" << std::endl;
+        ConsoleHelper::PrintLine("res = v1.Add(DataLocation::GPU0, 5);");
+        res = v1.Add(DataLocation::GPU0, 5);
+        ConsoleHelper::PrintKeyValue("res", res);
+        ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
-        std::cout << std::endl;
+        ConsoleHelper::PrintLine("----------\n");
 
-        /*std::cout << "v1.Transpose();" << std::endl;
+        ConsoleHelper::PrintLine("res = v1.Add(DataLocation::GPU1, 7);");
+        res = v1.Add(DataLocation::GPU1, 7);
+        ConsoleHelper::PrintKeyValue("res", res);
+        ConsoleHelper::PrintLine("v1.Print();");
+        v1.Print();
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("auto size = v1.Size();");
+        auto size = v1.Size();
+        ConsoleHelper::PrintKeyValue("size", size);
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
+        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("v1.InitByVal(0.01);");
+        v1.InitByVal(0.01);
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
+        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("v1.Transpose();");
         v1.Transpose();
-        std::cout << "v1.Print();" << std::endl;
+        ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
-        std::cout << "v1.PrintData(0, 15);" << std::endl;
-        v1.PrintData(0, 15);
-        std::cout << std::endl;
+        std::cout << "v1.PrintData(0, 5);" << std::endl;
+        v1.PrintData(0, 5);
+        ConsoleHelper::PrintLine("----------\n");
 
-        std::cout << "v1.Transpose();" << std::endl;
+        ConsoleHelper::PrintLine("v1.Transpose();");
         v1.Transpose();
-        std::cout << "v1.Print();" << std::endl;
+        ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
-        std::cout << "v1.PrintData(0, 15);" << std::endl;
-        v1.PrintData(0, 15);
-        std::cout << std::endl;*/
+        ConsoleHelper::PrintLine("v1.PrintData(0, 5);");
+        v1.PrintData(0, 5);
+        ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("bool isValueSetted = v1.SetValue(99999999, 123.45);");
-        bool isValueSetted = v1.SetValue(99999999, 123.45);
+        ConsoleHelper::PrintLine("bool isValueSetted = v1.SetValue(1, 123.45);");
+        bool isValueSetted = v1.SetValue(1, 123.45);
         ConsoleHelper::PrintKeyValue("isValueSetted", isValueSetted);
+        ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("auto val99999999 = v1.GetValue(99999999);");
-        auto val99999999 = v1.GetValue(99999999);
-        ConsoleHelper::PrintKeyValue("val99999999", val99999999);
+        ConsoleHelper::PrintLine("auto 1 = v1.GetValue(1);");
+        auto val = v1.GetValue(1);
+        ConsoleHelper::PrintKeyValue("val", val);
+        ConsoleHelper::PrintLine("----------\n");
 
-        std::cout << "bool isValueSetted100M = v1.SetValue(100000000, 23.455);" << std::endl;
-        bool isValueSetted100M = v1.SetValue(100000000, 23.455);
-        std::cout << "isValueSetted100M: " << isValueSetted100M << std::endl;
+        std::cout << "bool isValueSetted = v1.SetValue(11, 23.455);" << std::endl;
+        isValueSetted = v1.SetValue(11, 23.455);
+        ConsoleHelper::PrintKeyValue("isValueSetted", isValueSetted);
+        ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("v1.GetValue(100000000);");
-        auto val100M = v1.GetValue(100000000);
-        ConsoleHelper::PrintKeyValue("val100M", val100M);
+        ConsoleHelper::PrintLine("v1.GetValue(11);");
+        val = v1.GetValue(11);
+        ConsoleHelper::PrintKeyValue("val", val);
+        ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("bool isValueSetted100M1 = v1.SetValue(100000001, 23.456);");
-        bool isValueSetted100M1 = v1.SetValue(100000001, 23.456);
-        ConsoleHelper::PrintKeyValue("isValueSetted100M1", isValueSetted100M1);
+        ConsoleHelper::PrintLine("bool isValueSetted = v1.SetValue(21, 23.456);");
+        isValueSetted = v1.SetValue(21, 23.456);
+        ConsoleHelper::PrintKeyValue("isValueSetted", isValueSetted);
+        ConsoleHelper::PrintLine("----------\n");
 
-        std::cout << "v1.GetValue(100000001);" << std::endl;
-        auto val100M1 = v1.GetValue(100000001);
-        std::cout << "val100M1: " << val100M1 << std::endl;
+        ConsoleHelper::PrintLine("val = v1.GetValue(21);");
+        val = v1.GetValue(21);
+        ConsoleHelper::PrintKeyValue("val", val);
+        ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("v1.PrintData(99999999, 3);");
-        v1.PrintData(99999999, 3);
+        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
+        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("v1.Multiply(2);");
+        v1.Multiply(2);
+        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
+        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("----------\n");
 
         bool isClear = ConsoleHelper::GetBoolFromUser("Do you want clear vector data? (y/n)");
         if(isClear)
         {
-            std::cout << "v1.Clear();" << std::endl;
+            ConsoleHelper::PrintLine("v1.Clear();");
             v1.Clear();
         }
         
-        std::cout << "v1.Print();" << std::endl;
+        ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
     }
 

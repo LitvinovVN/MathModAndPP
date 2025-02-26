@@ -204,5 +204,20 @@ struct CudaHelper
         cudaFree(dev_arr);
         #endif
     }
+
+    template<typename T, typename S>
+    static void Multiply(T* arrayGpu, unsigned long long length, S scalar)
+    {
+        #ifdef __NVCC__
+        unsigned threadsNum = 1024;
+        unsigned blocksNum  = length / threadsNum;
+        if(length % threadsNum)
+            blocksNum++;
+        kernel_multiply<<<blocksNum, threadsNum>>>(arrayGpu, length, scalar);
+
+        #else
+        std::cout << "CUDA is not supported!" << std::endl;
+        #endif
+    }
 };
 /////////////////// CUDA (END) /////////////////////////

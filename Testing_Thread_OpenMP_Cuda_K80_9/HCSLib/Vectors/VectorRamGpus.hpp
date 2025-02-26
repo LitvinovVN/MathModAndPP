@@ -18,9 +18,9 @@ public:
     {
     }
 
-    void InitByVal(T val) override
+    void InitByVal(T value) override
     {
-        throw std::runtime_error("Not realized!");
+        devMemArrPointers.InitByVal(value);
     }
 
     void Print() const override
@@ -51,9 +51,17 @@ public:
             std::cout << std::endl;
     }
 
+    /// @brief Выводит в консоль все элементы вектора
+    void PrintData() const
+    {
+        PrintData(0, Size());
+    }
+
+    /// @brief Возвращает количество элементов в векторе
+    /// @return size_t
     size_t Size() const override
     {
-        throw std::runtime_error("Not realized!");
+        return devMemArrPointers.GetSize();
     }
 
     /// @brief Возвращает значение элемента вектора, расположенного по указанному индексу
@@ -93,6 +101,13 @@ public:
     void Clear()
     {
         devMemArrPointers.Clear();
+    }
+
+    template<typename S>
+    VectorRamGpus& Multiply(S scalar)
+    {
+        devMemArrPointers.Multiply(scalar);
+        return *this;
     }
 
 };

@@ -220,3 +220,13 @@ __global__ void kernel_scalar_product(T* arrayGpu1, T* arrayGpu2, size_t length,
     }
     
 }
+
+
+
+template<typename T, typename S>
+__global__ void kernel_multiply(T* arrayGpu, unsigned long long length, S scalar)
+{
+    auto tid = threadIdx.x + blockIdx.x * blockDim.x;
+    if(tid < length)
+        arrayGpu[tid] *= scalar;//printf("!");   
+}

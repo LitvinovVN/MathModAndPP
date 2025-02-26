@@ -38,13 +38,15 @@ public:
     {
     }
 
-    void InitByVal(T val)
-    {
-        throw std::runtime_error("Not realized!");
-        /*for (size_t i = 0; i < size; i++)
+    void InitByVal(T value)
+    {        
+        for (auto& devMemArrPointer : dataPointers)
         {
-            data[i] = val;
-        }  */     
+            if(!devMemArrPointer.IsInitialized())
+                continue;
+
+            ArrayHelper::InitArray(devMemArrPointer, value);
+        }
     }
 
     void Print() const
@@ -61,10 +63,15 @@ public:
         std::cout << std::endl;
     }
     
-    size_t Size() const
+    size_t GetSize() const
     {
-        throw std::runtime_error("Not realized!");
-        //return size;
+        unsigned long long size = 0;
+        for (auto& devMemArrPointer : dataPointers)
+        {
+            size += devMemArrPointer.length;
+        }
+
+        return size;
     }
     
     /// @brief Возвращает количество выделенных блоков памяти
@@ -256,11 +263,19 @@ public:
             break;
         case DataLocation::GPU0:
             value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 0);
-            break;    
+            break;
+        case DataLocation::GPU1:
+            value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 1);
+            break;
+        case DataLocation::GPU2:
+            value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 2);
+            break;
+        case DataLocation::GPU3:
+            value = ArrayHelper::GetValueGPU(devMemArrPointer.ptr, localIndex, 3);
+            break;
         
         default:
-            throw std::runtime_error("Wrong DataLocation!");
-            break;
+            throw std::runtime_error("Wrong DataLocation!");            
         }
 
         return value;
@@ -300,10 +315,18 @@ public:
             case DataLocation::GPU0:
                 ArrayHelper::SetValueGPU(devMemArrPointer.ptr, localIndex, 0, value);
                 break;
+            case DataLocation::GPU1:
+                ArrayHelper::SetValueGPU(devMemArrPointer.ptr, localIndex, 1, value);
+                break;
+            case DataLocation::GPU2:
+                ArrayHelper::SetValueGPU(devMemArrPointer.ptr, localIndex, 2, value);
+                break;
+            case DataLocation::GPU3:
+                ArrayHelper::SetValueGPU(devMemArrPointer.ptr, localIndex, 3, value);
+                break;
             
             default:
-                throw std::runtime_error("Wrong DataLocation!");
-                break;
+                throw std::runtime_error("Wrong DataLocation!");                
             }
 
             return true;
@@ -315,4 +338,15 @@ public:
         }
     
     }
+
+    template<typename S>
+    void Multiply(S scalar)
+    {
+        for (auto devMemArrPointer : dataPointers)
+        {
+            ArrayHelper::Multiply(devMemArrPointer, scalar);
+        }        
+    }
+
+
 };
