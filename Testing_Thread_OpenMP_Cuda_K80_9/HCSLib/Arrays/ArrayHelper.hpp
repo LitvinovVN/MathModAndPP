@@ -144,10 +144,10 @@ struct ArrayHelper
             std::thread th{
                 [&](){
                     // Set CUDA device.
-                    cudaSetDevice(deviceId);                    
-                    cudaCheckErrors("Cannot set CUDA device\n");
-                    
-                    dev_array = CreateArrayGpu<T>(size);
+                    //cudaSetDevice(deviceId);                    
+                    //cudaCheckErrors("!!!Cannot set CUDA device\n");
+                    if(CudaHelper::SetDevice(deviceId))
+                        dev_array = CreateArrayGpu<T>(size);
                 }
             };
             th.join();
@@ -1381,7 +1381,8 @@ struct ArrayHelper
             {
                 std::thread th{
                     [&]() {
-                        cudaSetDevice(deviceId);
+                        //cudaSetDevice(deviceId);
+                        CudaHelper::SetDevice(deviceId);
                         CudaHelper::Multiply(arrayGpu, length, scalar);
                     }
                 };
@@ -1394,7 +1395,7 @@ struct ArrayHelper
     }
 
     template<typename T, typename S>
-    static void Multiply(DevMemArrPointer<T>& devMemArrPointer, S scalar)
+    static void Multiply(DevMemArrPointer<T> devMemArrPointer, S scalar)
     {
         switch (devMemArrPointer.dataLocation)
         {

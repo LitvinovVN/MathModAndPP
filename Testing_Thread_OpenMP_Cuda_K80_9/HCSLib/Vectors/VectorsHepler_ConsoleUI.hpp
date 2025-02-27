@@ -19,14 +19,16 @@ struct VectorsHelper_ConsoleUI
         ConsoleHelper::PrintLine("----------\n");
 
         ConsoleHelper::PrintLine("auto res = v1.Add(DataLocation::RAM, 10);");
-        auto res = v1.Add(DataLocation::RAM, 10);
+        unsigned N_RAM = 2000;//00000;
+        auto res = v1.Add(DataLocation::RAM, N_RAM);
         ConsoleHelper::PrintKeyValue("res", res);
         ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
         ConsoleHelper::PrintLine("----------\n");
         
         ConsoleHelper::PrintLine("res = v1.Add(DataLocation::GPU0, 5);");
-        res = v1.Add(DataLocation::GPU0, 5);
+        unsigned GPU0 = 200000000;
+        res = v1.Add(DataLocation::GPU0, GPU0);
         ConsoleHelper::PrintKeyValue("res", res);
         ConsoleHelper::PrintLine("v1.Print();");
         v1.Print();
@@ -44,16 +46,16 @@ struct VectorsHelper_ConsoleUI
         ConsoleHelper::PrintKeyValue("size", size);
         ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
-        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("v1.PrintData(0, size);");
+        //v1.PrintData(0, size);
         ConsoleHelper::PrintLine("----------\n");
 
         ConsoleHelper::PrintLine("v1.InitByVal(0.01);");
         v1.InitByVal(0.01);
         ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
-        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("v1.PrintData(0, size-1);");
+        //v1.PrintData(0, size-1);
         ConsoleHelper::PrintLine("----------\n");
 
         ConsoleHelper::PrintLine("v1.Transpose();");
@@ -92,24 +94,40 @@ struct VectorsHelper_ConsoleUI
         ConsoleHelper::PrintKeyValue("val", val);
         ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("bool isValueSetted = v1.SetValue(21, 23.456);");
-        isValueSetted = v1.SetValue(21, 23.456);
+        ConsoleHelper::PrintLine("bool isValueSetted = v1.SetValue(size-1, 23.456);");
+        isValueSetted = v1.SetValue(size-1, 23.456);
         ConsoleHelper::PrintKeyValue("isValueSetted", isValueSetted);
         ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("val = v1.GetValue(21);");
-        val = v1.GetValue(21);
+        ConsoleHelper::PrintLine("val = v1.GetValue(size-1);");
+        val = v1.GetValue(size-1);
         ConsoleHelper::PrintKeyValue("val", val);
         ConsoleHelper::PrintLine("----------\n");
 
-        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
-        v1.PrintData(0, 22);
+        ConsoleHelper::PrintLine("v1.PrintData(0, size);");
+        //v1.PrintData(0, size);
         ConsoleHelper::PrintLine("----------\n");
 
         ConsoleHelper::PrintLine("v1.Multiply(2);");
+        auto start = std::chrono::high_resolution_clock::now();
         v1.Multiply(2);
-        ConsoleHelper::PrintLine("v1.PrintData(0, 22);");
-        v1.PrintData(0, 22);
+        auto stop = std::chrono::high_resolution_clock::now();
+        auto duration = duration_cast<std::chrono::microseconds>(stop - start);        
+        long long time_mks = duration.count();
+        ConsoleHelper::PrintKeyValue("time_mks", time_mks);
+        ConsoleHelper::PrintLine("v1.PrintData(N_RAM - 10, 20);");
+        v1.PrintData(N_RAM - 10, 20);
+        ConsoleHelper::PrintLine("----------\n");
+
+        ConsoleHelper::PrintLine("v1.Multiply(2, true);");
+        start = std::chrono::high_resolution_clock::now();
+        v1.Multiply(2, true);
+        stop = std::chrono::high_resolution_clock::now();
+        duration = duration_cast<std::chrono::microseconds>(stop - start);        
+        time_mks = duration.count();
+        ConsoleHelper::PrintKeyValue("time_mks", time_mks);
+        ConsoleHelper::PrintLine("v1.PrintData(N_RAM - 10, 20);");
+        v1.PrintData(N_RAM - 10, 20);
         ConsoleHelper::PrintLine("----------\n");
 
         bool isClear = ConsoleHelper::GetBoolFromUser("Do you want clear vector data? (y/n)");

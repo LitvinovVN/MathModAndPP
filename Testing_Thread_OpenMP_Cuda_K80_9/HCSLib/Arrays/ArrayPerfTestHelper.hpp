@@ -33,7 +33,7 @@ static PerfTestResults PerfTest_SumOpenMP(PerfTestParams perfTestParams)
             std::vector<FuncResult<double>> results;
             
             unsigned iterNumber = perfTestParams.iterNumber;
-            for (auto iterCnt = 0; iterCnt < iterNumber; iterCnt += 1)
+            for (unsigned iterCnt = 0; iterCnt < iterNumber; iterCnt += 1)
             {// Цикл по количеству итераций (начало)
                 auto result = ArrayHelperFuncResult::SumOpenMP(array, dataLength, cpuThreadsNum);
                 results.push_back(result);
@@ -81,7 +81,7 @@ static PerfTestResults PerfTest_SumCublas(PerfTestParams perfTestParams)
         std::vector<FuncResult<double>> results;
         
         unsigned iterNumber = perfTestParams.iterNumber;
-        for (auto iterCnt = 0; iterCnt < iterNumber; iterCnt += 1)
+        for (unsigned iterCnt = 0; iterCnt < iterNumber; iterCnt += 1)
         {// Цикл по количеству итераций (начало)
             auto result = ArrayHelperFuncResult::SumCublas(cublasH, array, dataLength);
             results.push_back(result);

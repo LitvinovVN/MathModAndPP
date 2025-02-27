@@ -124,9 +124,12 @@ public:
             return DevMemArrPointer<T>{};
         }
         
+        if(!ptr)
+            return DevMemArrPointer<T>{};
+
         DevMemArrPointer<T> dmptr(id, dataLocation, ptr, length);
         dataPointers.push_back(dmptr);
-
+        
         return dmptr;
     }
     
@@ -340,12 +343,35 @@ public:
     }
 
     template<typename S>
-    void Multiply(S scalar)
+    void Multiply(S scalar, bool isParallel = false)
     {
-        for (auto devMemArrPointer : dataPointers)
+        if(!isParallel)
         {
-            ArrayHelper::Multiply(devMemArrPointer, scalar);
-        }        
+            for (auto devMemArrPointer : dataPointers)
+            {
+                ArrayHelper::Multiply(devMemArrPointer, scalar);
+            }
+        }
+        else
+        {
+            std::vector<std::thread> threads;
+            for (auto devMemArrPointer : dataPointers)
+            {
+                threads.push_back(
+                    std::thread{
+                        [=](){
+                            ArrayHelper::Multiply(devMemArrPointer, scalar);
+                        }
+                    }
+                );
+            }
+
+            for(auto& th : threads)
+            {
+                if(th.joinable())
+                    th.join();
+            }
+        }
     }
 
 

@@ -46,6 +46,22 @@ struct CudaHelper
 
         return devCount;
     }
+
+    /// @brief Устанавливает текущее устройство (GPU)
+    /// @param deviceId Индекс устройства
+    /// @return true - успех
+    static bool SetDevice(unsigned deviceId)
+    {
+        #ifdef __NVCC__
+        cudaSetDevice(deviceId);
+        cudaError_t err = cudaGetLastError();
+        if (err != cudaSuccess)
+            return false;
+        return true;
+        #else
+        return false;       
+        #endif
+    }
     
     /// @brief Возвращает структуру с параметрами видеокарты
     /// @param deviceId Идентификатор Cuda-устройства

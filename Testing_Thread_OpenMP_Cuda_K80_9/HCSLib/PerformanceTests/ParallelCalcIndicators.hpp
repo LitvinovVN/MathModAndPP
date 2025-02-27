@@ -4,19 +4,19 @@
 /// @brief Показатели параллельного вычислительного процесса (ускорение, эффективность)
 struct ParallelCalcIndicators
 {
-    unsigned Nthreads;
+    unsigned Nthreads{};
 
-    double Smin;
-    double Smax;
-    double Savg;
-    double Smedian;
-    double Sperc95;
+    double Smin{};
+    double Smax{};
+    double Savg{};
+    double Smedian{};
+    double Sperc95{};
 
-    double Emin;
-    double Emax;
-    double Eavg;
-    double Emedian;
-    double Eperc95;
+    double Emin{};
+    double Emax{};
+    double Eavg{};
+    double Emedian{};
+    double Eperc95{};
 
     ParallelCalcIndicators()
     {}

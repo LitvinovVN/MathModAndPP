@@ -104,9 +104,9 @@ public:
     }
 
     template<typename S>
-    VectorRamGpus& Multiply(S scalar)
+    VectorRamGpus& Multiply(S scalar, bool isParallel = false)
     {
-        devMemArrPointers.Multiply(scalar);
+        devMemArrPointers.Multiply(scalar, isParallel);
         return *this;
     }
 

@@ -48,16 +48,16 @@ public:
     /// @param i Индекс строки элемента
     /// @param j Индекс столбца элемента
     /// @return 
-    std::pair<unsigned, unsigned> GetBlockIndexes(unsigned long long i,
+    std::pair<unsigned long long, unsigned long long> GetBlockIndexes(unsigned long long i,
         unsigned long long j) const
     {
-        return std::pair<unsigned,unsigned>{i/mb, j/nb};
+        return std::pair<unsigned long long, unsigned long long>{i/mb, j/nb};
     }
 
-    std::pair<unsigned, unsigned> GetElementInBlockIndexes(unsigned long long i,
+    std::pair<unsigned long long, unsigned long long> GetElementInBlockIndexes(unsigned long long i,
         unsigned long long j) const
     {
-        return std::pair<unsigned,unsigned>{i%mb, j%nb};
+        return std::pair<unsigned long long, unsigned long long>{i%mb, j%nb};
     }
 
     /// @brief Возвращает значение элемента матрицы по указанному индексу
@@ -67,9 +67,9 @@ public:
     virtual double GetValue(unsigned long long i, unsigned long long j) const override
     {
         // Вычисляем индекс блока        
-        std::pair<unsigned, unsigned> indBlock = GetBlockIndexes(i, j);
+        std::pair<unsigned long long, unsigned long long> indBlock = GetBlockIndexes(i, j);
         // Вычисляем индексы элемента внутри блока
-        std::pair<unsigned, unsigned> indElementInBlock = GetElementInBlockIndexes(i, j);
+        std::pair<unsigned long long, unsigned long long> indElementInBlock = GetElementInBlockIndexes(i, j);
         MatrixType matrixType = matrixMap.GetMatrixType(indBlock.first, indBlock.second);
         switch (matrixType)
         {
@@ -158,7 +158,7 @@ public:
     /// @brief Добавляет единичную матрицу по указанным координатам
     /// @param bi Индекс строки 
     /// @param bj Индекс столбца
-    void AddE(unsigned bi, unsigned bj)
+    void AddE(unsigned long long bi, unsigned long long bj)
     {
         matrixMap.AddE(bi, bj);
     }
