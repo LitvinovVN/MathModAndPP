@@ -1,0 +1,185 @@
+@startuml Vectors
+
+title
+Диаграмма классов модуля "Vectors"
+end title
+
+'Тип вектора
+enum VectorType
+{
+    'Вектор-строка
+    VectorRow
+    'Вектор-столбец
+    VectorColumn
+}
+
+' Место хранения данных (векторов, матриц и пр.) - Модуль "CommonHelpers"
+enum DataLocation
+{
+    ' Данные нигде не хранятся (нулевая, единичная матрицы и пр.)
+    None = -2 
+    ' Оперативная память
+    RAM  = -1
+    ' Видеопамять GPU0     
+    GPU0 = 0
+    ' Видеопамять GPU1
+    GPU1 = 1
+    ' Видеопамять GPU2
+    GPU2 = 2
+    ' Видеопамять GPU3
+    GPU3 = 3  
+}
+
+' Карта индексов
+class ArraysIndexMap
+{
+    - std::vector<std::vector<unsigned long long>> indexMap;
+    ' Добавляет строку индексов
+    + void AddIndexes(unsigned long long indStart, unsigned long long indEnd)
+    ' Возвращает объект, содержащий индексы блока, размер блока и локальный индекс
+    + ArrayBlockIndexes GetArrayBlockIndexes(unsigned long long globalIndex) const
+    + void Print()
+}
+
+struct ArrayBlockIndexes
+{
+    ' Индекс блока
+    + unsigned blockIndex
+    ' Размер блока
+    + unsigned long long blockLength
+    ' Локальный индекс элемента в блоке
+    + unsigned long long localIndex
+    + void Print(PrintParams pp = PrintParams{})
+    ' Возвращает флаг инициализации объекта
+    + bool IsInitialized()
+}
+
+' Указатель на массив, расположенный в памяти устройства вычислительного узла (RAM или GPU)
+struct DevMemArrPointer<T>
+{
+    ' Идентификатор указателя
+    + unsigned id = 0;
+    ' Место расположения данных
+    + DataLocation dataLocation = DataLocation::None;
+    ' Указатель на массив
+    + T* ptr = nullptr;
+    ' Количество элементов
+    + unsigned long long length = 0;  
+
+    + DevMemArrPointer()
+    + DevMemArrPointer(unsigned id, DataLocation dataLocation, T* ptr, unsigned long long length)
+    ' Возвращает флаг инициализации указателя
+    + bool IsInitialized() const
+    ' Возвращает флаг сброшенности указателя
+    + bool IsReset() const
+    ' Сбрасывает указатель в исходное неинициализированное состояние
+    + void Reset()
+    ' Возвращает объём памяти, занимаемый структурой
+    + unsigned long long GetSizeStruct() const
+    ' Возвращает объём памяти, занимаемый массивом
+    + unsigned long long GetSizeData() const
+    'Выводит в консоль сведения об указателе
+    + void Print(PrintParams pp = PrintParams{}) const
+}
+
+' Контейнер указателей на части вектора, расположенные в различных областях памяти
+class DevMemArrPointers<T>
+{
+    ' Массив указателей на части вектора, расположенные в различных областях памяти
+    - std::vector<DevMemArrPointer<T>> dataPointers
+    ' Очищает dataPointers от сброшенных в исходное состояние объектов DevMemArrPointer<T>
+    - void RemoveFreeDataPointers()
+    + DevMemArrPointers()
+    + void InitByVal(T val)
+    + void Print() const
+    + size_t Size() const
+    ' Возвращает количество выделенных блоков памяти
+    + auto GetDataPointersNum()
+    ' Выделяет непрерывный блок памяти
+    ' id Идентификатор блока (>0)
+    ' dataLocation Место расположения блока памяти 
+    ' length Количество элементов в блоке
+    + DevMemArrPointer<T> AllocMem(unsigned id, DataLocation dataLocation, unsigned long long length)
+    ' Добавляет непрерывный блок данных
+    + bool AddBlock(DataLocation dataLocation, unsigned long long length)
+    ' Освобождает зарезервированную память
+    + void Clear(DevMemArrPointer<T>& devMemArrPointer)
+    ' Освобождает всю зарезервированную память
+    + void Clear()
+    ' Строит карту индексов
+    + ArraysIndexMap GetArraysIndexMap() const
+    ' Возвращает значение по глобальному индексу
+    + T GetValue(unsigned long long globalIndex) const
+    ' Возвращает значение по индексу блока и локальному индексу
+    + T GetValue(unsigned blockIndex, unsigned long long localIndex) const
+    ' Устанавливает значение по глобальному индексу
+    + bool SetValue(unsigned long long globalIndex, T value)
+    + bool SetValue(unsigned blockIndex, unsigned long long localIndex, T value)
+}
+
+
+' Интерфейс "Вектор"
+class IVector<T>
+{
+    + VectorType vectorType = VectorType::VectorRow;
+    + virtual void InitByVal(T val) = 0;
+    + virtual void Print() const = 0;
+    ' Выводит в консоль элементы вектора в заданном диапазоне
+    + virtual void PrintData(unsigned long long indStart, unsigned long long length) const = 0
+    + virtual size_t Size() const = 0;
+    ' Возвращает значение элемента вектора, расположенного по указанному индексу
+    + virtual T GetValue(unsigned long long index) const = 0;
+}
+
+
+'Вектор с размещением данных в RAM+GPUs
+class VectorRamGpus<T>
+{    
+    ' Контейнер указателей на части вектора, расположенные в различных областях памяти
+    - DevMemArrPointers<T> devMemArrPointers
+    ' Конструктор
+    + VectorRamGpus()
+    + void InitByVal(T val) override
+    + void Print() const override
+    ' Выводит в консоль элементы вектора в заданном диапазоне
+    + void PrintData(unsigned long long indStart, unsigned long long length) const override
+    + size_t Size() const override
+    ' Возвращает значение элемента вектора, расположенного по указанному индексу
+    + T GetValue(unsigned long long index) const override
+    ' Устанавливает значение элемента вектора, расположенного по указанному индексу
+    + bool SetValue(unsigned long long index, T value) override
+    ' Транспонирует вектор
+    + void Transpose()
+    ' Добавляет элементы в вектор
+    + bool Add(DataLocation dataLocation, unsigned long long length)
+    ' Освобождает всю зарезервированную память
+    + void Clear()
+
+}
+
+
+' Вспомогательный класс для работы с классом VectorRamGpus
+struct VectorRamGpusHelper
+{
+
+}
+
+'Консольный интерфейс для работы с модулем Vectors
+class VectorsHelper_ConsoleUI
+{    
+    + void VectorRamGpus_ConsoleUI()
+    
+}
+
+IVector *-- VectorType
+VectorRamGpus --|> IVector
+ArraysIndexMap --> ArrayBlockIndexes
+DevMemArrPointers *-- DevMemArrPointer
+DevMemArrPointers --> ArraysIndexMap
+DevMemArrPointers --> ArrayBlockIndexes
+DevMemArrPointer *-- DataLocation
+VectorRamGpus *-- DevMemArrPointers
+VectorRamGpusHelper ..> VectorRamGpus
+VectorsHelper_ConsoleUI ..> VectorRamGpusHelper
+
+@enduml

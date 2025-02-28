@@ -1,0 +1,62 @@
+@startuml
+
+title
+Диаграмма классов модуля "Math"
+end title
+
+'Математический объект. Базовый класс.
+struct MathObject<T, TProxy = T>
+{
+    + typedef T       FinalType;
+    + typedef TProxy  ProxyType;
+
+    + FinalType& Self()
+
+    + const FinalType& Self() const
+
+    + ProxyType GetProxy() const
+}
+
+'Маркерный класс "Выражение"
+struct Expression<E>
+
+Expression --|> MathObject
+
+'Константа (в выражении)
+struct Constant
+{
+    - double value;
+    + Constant(double value)
+
+    +double operator()(double x) const
+}
+
+Constant --|> Expression
+
+'Переменная (в выражении)
+struct Variable
+{
+    + double operator()(double x) const
+}
+
+Variable --|> Expression
+
+'Отрицание (в выражении)
+struct Negate<class E>
+{
+    + Negate(const Expression<E> &expr)
+    + double operator()(double x) const
+    + Negate<E> operator-(const Expression<E> &expr)
+    - const E expr
+}
+Negate --|> Expression
+
+'Выражение с двумя операндами
+struct BinaryExpression<E1, OP, E2>
+BinaryExpression --|> Expression
+
+'Функция (в выражении)
+struct FuncExpression<E>
+FuncExpression --|> Expression
+
+@enduml
