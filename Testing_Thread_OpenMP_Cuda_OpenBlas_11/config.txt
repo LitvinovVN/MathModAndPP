@@ -1,0 +1,5 @@
+AppConfig
+compSystemId 1
+dir_data data
+dir_algTestingResultRepository AlgTestingResultRepository
+dir_computingSystemRepository ComputingSystemRepository
