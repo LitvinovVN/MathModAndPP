@@ -22,6 +22,22 @@
 /// @brief Класс для хранения вспомогательных функций Cuda
 struct CudaHelper
 {
+    /// @brief Проверка наличия ошибок
+    /// @return true - ошибки; false - успех, ошибок нет
+    static bool IsErrors()
+    {
+        #ifdef __NVCC__
+        
+        cudaError_t err = cudaGetLastError();
+        if (err != cudaSuccess)
+            return true;
+        
+        return false;
+        #else
+            return true;
+        #endif
+    }
+
     /// @brief Определяет поддержку CUDA
     /// @return true - поддерживается, false - не поддерживается
     static bool IsCudaSupported()
@@ -258,5 +274,7 @@ struct CudaHelper
         std::cout << "CUDA is not supported!" << std::endl;
         #endif
     }
+
+    
 };
 /////////////////// CUDA (END) /////////////////////////

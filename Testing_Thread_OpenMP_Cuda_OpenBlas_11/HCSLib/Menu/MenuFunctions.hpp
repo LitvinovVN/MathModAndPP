@@ -102,20 +102,21 @@ struct MenuFunctions
     {
         std::cout   << "----- ArrayHelper -----\n"
                     << "1 Back to main menu\n"
-                    << "2 ArrayHelper::SumOpenMP\n"
-                    << "3 ArrayHelper::SumCudaMultiGpu\n"
-                    << "4 ArrayHelper::SumCublas\n"
-                    << "5 ArrayHelper::SumCublasMultiGpu\n"
-                    << "6 ArrayHelper::CopyRamToGpu\n"
-                    << "7 ArrayHelper::CopyGpuToRam\n"
-                    << "8 ArrayHelper::ScalarProductRamSeq\n"
-                    << "9 ArrayHelper::ScalarProductRamParThread\n"
-                    << "10 ArrayHelper::ScalarProductRamParOpenMP\n"
-                    << "11 ArrayHelper::ScalarProductGpuParCuda\n"
-                    << "12 ArrayHelper::ScalarProductMultiGpuParCuda\n"
-                    << "13 ArrayHelper::ScalarProductGpuCublas\n"
-                    << "14 ArrayHelper::ScalarProductMultiGpuCublas\n"
-                    << "15 ArrayHelper::ScalarProductRamOpenBlas_ConsoleUI\n";
+                    << "2 ArrayHelper::CreateArrayRamPinned_ConsoleUI\n"
+                    << "3 ArrayHelper::SumOpenMP\n"
+                    << "4 ArrayHelper::SumCudaMultiGpu\n"
+                    << "5 ArrayHelper::SumCublas\n"
+                    << "6 ArrayHelper::SumCublasMultiGpu\n"
+                    << "7 ArrayHelper::CopyRamToGpu\n"
+                    << "8 ArrayHelper::CopyGpuToRam\n"
+                    << "9 ArrayHelper::ScalarProductRamSeq\n"
+                    << "10 ArrayHelper::ScalarProductRamParThread\n"
+                    << "11 ArrayHelper::ScalarProductRamParOpenMP\n"
+                    << "12 ArrayHelper::ScalarProductGpuParCuda\n"
+                    << "13 ArrayHelper::ScalarProductMultiGpuParCuda\n"
+                    << "14 ArrayHelper::ScalarProductGpuCublas\n"
+                    << "15 ArrayHelper::ScalarProductMultiGpuCublas\n"
+                    << "16 ArrayHelper::ScalarProductRamOpenBlas_ConsoleUI\n";
 
         int command = 0;
         while(command != 1)
@@ -139,59 +140,63 @@ struct MenuFunctions
                 std::cout << "Back to main menu" << std::endl;
                 break;
             case 2:
-                std::cout   << "Command: 2 ArrayHelper::SumOpenMP()\n";                
-                ArrayHelper_ConsoleUI::SumOpenMP_ConsoleUI();
+                std::cout   << "Command: 2 ArrayHelper::CreateArrayRamPinned_ConsoleUI()\n";                
+                ArrayHelper_ConsoleUI::CreateArrayRamPinned_ConsoleUI();
                 break;
             case 3:
-                std::cout   << "Command: 3 ArrayHelper::SumCudaMultiGpu()\n";
-                ArrayHelper_ConsoleUI::SumCudaMultiGpu_ConsoleUI();
+                std::cout   << "Command: 3 ArrayHelper::SumOpenMP()\n";                
+                ArrayHelper_ConsoleUI::SumOpenMP_ConsoleUI();
                 break;
             case 4:
-                std::cout   << "Command: 4 ArrayHelper::SumCublas()\n";
-                ArrayHelper_ConsoleUI::SumCublas_ConsoleUI();
+                std::cout   << "Command: 4 ArrayHelper::SumCudaMultiGpu()\n";
+                ArrayHelper_ConsoleUI::SumCudaMultiGpu_ConsoleUI();
                 break;
             case 5:
-                std::cout   << "Command: 5 ArrayHelper::SumCublasMultiGpu()\n";
-                ArrayHelper_ConsoleUI::SumCublasMultiGpu_ConsoleUI();
+                std::cout   << "Command: 5 ArrayHelper::SumCublas()\n";
+                ArrayHelper_ConsoleUI::SumCublas_ConsoleUI();
                 break;
             case 6:
-                std::cout << "Command: 6 ArrayHelper::CopyRamToGpu()\n";
-                ArrayHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
+                std::cout   << "Command: 6 ArrayHelper::SumCublasMultiGpu()\n";
+                ArrayHelper_ConsoleUI::SumCublasMultiGpu_ConsoleUI();
                 break;
             case 7:
-                std::cout   << "Command: 7 ArrayHelper::CopyGpuToRam()\n";
-                ArrayHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
+                std::cout << "Command: 7 ArrayHelper::CopyRamToGpu()\n";
+                ArrayHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
                 break;
             case 8:
-                std::cout   << "Command: 8 ArrayHelper::ScalarProductRamSeq\n";
-                ArrayHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
+                std::cout   << "Command: 8 ArrayHelper::CopyGpuToRam()\n";
+                ArrayHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
                 break;
             case 9:
-                std::cout   << "Command: 9 ArrayHelper::ScalarProductRamParThread\n";
-                ArrayHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
+                std::cout   << "Command: 9 ArrayHelper::ScalarProductRamSeq\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
                 break;
             case 10:
-                std::cout   << "Command: 10 ArrayHelper::ScalarProductRamParOpenMP_ConsoleUI\n";
-                ArrayHelper_ConsoleUI::ScalarProductRamParOpenMP_ConsoleUI();
+                std::cout   << "Command: 10 ArrayHelper::ScalarProductRamParThread\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
                 break;
             case 11:
-                std::cout   << "Command: 11 ArrayHelper::ScalarProductGpuParCuda\n";
-                ArrayHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
+                std::cout   << "Command: 11 ArrayHelper::ScalarProductRamParOpenMP_ConsoleUI\n";
+                ArrayHelper_ConsoleUI::ScalarProductRamParOpenMP_ConsoleUI();
                 break;
             case 12:
-                std::cout   << "Command: 12 ArrayHelper::ScalarProductMultiGpuParCuda\n";
-                ArrayHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
+                std::cout   << "Command: 12 ArrayHelper::ScalarProductGpuParCuda\n";
+                ArrayHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
                 break;
             case 13:
-                std::cout   << "Command: 13 ArrayHelper::ScalarProductGpuCublas\n";
-                ArrayHelper_ConsoleUI::ScalarProductGpuCublas_ConsoleUI();
+                std::cout   << "Command: 13 ArrayHelper::ScalarProductMultiGpuParCuda\n";
+                ArrayHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
                 break;
             case 14:
-                std::cout   << "Command: 14 ArrayHelper::ScalarProductMultiGpuCublas\n";
-                ArrayHelper_ConsoleUI::ScalarProductMultiGpuCublas_ConsoleUI();
+                std::cout   << "Command: 14 ArrayHelper::ScalarProductGpuCublas\n";
+                ArrayHelper_ConsoleUI::ScalarProductGpuCublas_ConsoleUI();
                 break;
             case 15:
-                std::cout   << "Command: 15 ArrayHelper::ScalarProductRamOpenBlas_ConsoleUI\n";
+                std::cout   << "Command: 15 ArrayHelper::ScalarProductMultiGpuCublas\n";
+                ArrayHelper_ConsoleUI::ScalarProductMultiGpuCublas_ConsoleUI();
+                break;
+            case 16:
+                std::cout   << "Command: 16 ArrayHelper::ScalarProductRamOpenBlas_ConsoleUI\n";
                 ArrayHelper_ConsoleUI::ScalarProductRamOpenBlas_ConsoleUI();
                 break;    
             default:

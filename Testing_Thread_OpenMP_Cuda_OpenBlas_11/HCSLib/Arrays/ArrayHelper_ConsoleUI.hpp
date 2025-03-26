@@ -10,6 +10,31 @@
 /// @brief Структура для хранения консольного пользовательского интерфейса для методов класса ArrayHelper, обрабатывающих массивы T*.
 struct ArrayHelper_ConsoleUI
 {
+    /// @brief Выделение закрепленной памяти
+    static void CreateArrayRamPinned_ConsoleUI()
+    {
+        std::cout << "CreateArrayRamPinned_ConsoleUI\n";
+        if(!CudaHelper::IsCudaSupported())
+        {
+            std::cout << "Cuda not supported!" << std::endl;
+            return;
+        }
+
+        size_t length  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length: ");
+        double* arrPinned = ArrayHelper::CreateArrayRamPinned<double>(length);
+        if(!arrPinned)
+        {
+            std::cout << "Pinned RAM memory not allocated!" << std::endl;
+            return;
+        }
+
+        arrPinned[0] = 0.1;
+        std::cout << "arrPinned[0] = 0.1;\n";
+        std::cout << "arrPinned[0] = " << arrPinned[0] <<";\n";
+
+        ArrayHelper::DeleteArrayRamPinned(arrPinned);
+        std::cout << "Pinned RAM memory cleared!\n";
+    }
 
     /// @brief Копирование данных из RAM в GPU
     static void CopyRamToGpu_ConsoleUI()
@@ -21,10 +46,23 @@ struct ArrayHelper_ConsoleUI
             std::cout << "cudaDeviceNumber: " << cudaDeviceNumber << std::endl;
             
             size_t length  = ConsoleHelper::GetUnsignedLongLongFromUser("Enter array length: ");
-            double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+            //double value   = ConsoleHelper::GetDoubleFromUser("Enter value: ","Error! Enter double value");
+            double value   = 0;
+
+            int memoryType = ConsoleHelper::GetIntFromUser("Enter type of ram alloc (1-paged; 2-pinned): ");
 
             // Инициализируем массив в RAM
-            double* arrayRam = new double[length];
+            double* arrayRam = nullptr;
+            if(memoryType == 1)
+                arrayRam = new double[length];
+            else if (memoryType == 2)
+                arrayRam = ArrayHelper::CreateArrayRamPinned<double>(length);
+            else
+            {
+                std::cout << "type of ram alloc not recognized: " << memoryType << std::endl;
+                return;
+            }
+
             for (size_t i = 0; i < length; i++)
             {
                 arrayRam[i] = value+0.1*i;
@@ -72,7 +110,11 @@ struct ArrayHelper_ConsoleUI
                 ArrayHelper::DeleteArrayGpu(arrayGpu, i);
             }
 
-            delete[] arrayRam;
+            
+            if(memoryType == 1)
+                delete[] arrayRam;
+            else if (memoryType == 2)
+                ArrayHelper::DeleteArrayRamPinned(arrayRam);
         }
         catch(const std::exception& e)
         {
@@ -557,23 +599,26 @@ struct ArrayHelper_ConsoleUI
 
             std::cout << "\ncblas_ddot\n";
             double scalarProduct = 0;
-            auto start = high_resolution_clock::now();
+            
             try
             {
-                scalarProduct = cblas_ddot(length, arrayRam1, 1, arrayRam2, 1);
+                auto start = high_resolution_clock::now();
+                
+                scalarProduct = ArrayHelper::ScalarProductRamCublas(arrayRam1, arrayRam2, length);
+            
+                auto stop = high_resolution_clock::now();                
+                        
+                auto duration = duration_cast<microseconds>(stop - start);        
+                auto t = duration.count();                
+                std::cout << "Time, mks: " << t << std::endl;
+                
+                std::cout << "scalarProduct: " << scalarProduct << std::endl;
             }
             catch (const std::exception& exc)
             {
-                std::cout << exc.what();
+                std::cout << exc.what() << std::endl;
             }
-            auto stop = high_resolution_clock::now();                
-                        
-            auto duration = duration_cast<microseconds>(stop - start);        
-            auto t = duration.count();                
-            std::cout << "Time, mks: " << t << std::endl;
-            
-            std::cout << "scalarProduct: " << scalarProduct << std::endl;
-                            
+        
             delete[] arrayRam1;
             delete[] arrayRam2;
         }

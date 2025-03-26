@@ -82,6 +82,41 @@ struct ArrayHelper
         arrayRam = nullptr;
     }
 
+    // Работа с закреплённой памятью (начало)
+    /// @brief Выделяет закреплённую память для массива в RAM
+    /// @tparam T Тип элементов массива
+    /// @param size Количество элементов
+    /// @return Указатель на созданный массив
+    template<typename T>
+    static T* CreateArrayRamPinned(unsigned long long size)
+    {
+        #ifdef __NVCC__
+        if(size == 0)
+            return nullptr;
+
+        T* h_aPinned = nullptr;
+        size_t bytes = size * sizeof(T);
+        cudaMallocHost((void**)&h_aPinned, bytes);
+        if(CudaHelper::IsErrors())
+            return nullptr;
+        return h_aPinned;
+
+        #else
+            return nullptr;
+        #endif
+    }
+
+    template<typename T>
+    static void DeleteArrayRamPinned(T*& arrayRamPinned)
+    {
+        #ifdef __NVCC__                
+        cudaFreeHost(arrayRamPinned);
+        #else
+            throw std::runtime_error("CUDA not supported!");
+        #endif
+    }
+    // Работа с закреплённой памятью (конец)
+
 
     /// @brief Выделяет память для массива на текущем GPU
     /// @tparam T Тип элементов массива
@@ -957,6 +992,17 @@ struct ArrayHelper
         #endif
     }
 
+    static double ScalarProductRamCublas(double* arrayRam1, double* arrayRam2, size_t length)
+    {
+        #ifdef OPENBLAS
+        double scalarProduct = cblas_ddot(length, arrayRam1, 1, arrayRam2, 1);
+        return scalarProduct;
+        #else
+            throw std::runtime_error("OpenBlas not supported!");
+        #endif
+    }
+    
+    
 
 
     template<typename T>

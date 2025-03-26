@@ -1,3 +1,4 @@
+// sudo apt-get install libopenblas-dev
 // set PATH=%PATH%;C:\mingw64\bin
 // g++  main.cpp -o app -fopenmp -O3 -Wall
 // g++  main.cpp -o app -lpthread -O3 -Wall
