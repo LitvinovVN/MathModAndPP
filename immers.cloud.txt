@@ -1,0 +1,6 @@
+sudo apt-get update
+sudo apt install mc -y
+sudo apt install nvidia-cuda-toolkit nvidia-cuda-toolkit-gcc -y
+sudo apt install git -y
+sudo apt install cmake -y
+git clone https://github.com/LitvinovVN/MathModAndPP.git
