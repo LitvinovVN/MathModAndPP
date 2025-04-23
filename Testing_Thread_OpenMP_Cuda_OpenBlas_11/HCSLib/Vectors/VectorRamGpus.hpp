@@ -41,7 +41,7 @@ public:
         if(this->vectorType == VectorType::VectorColumn)
             elementSplitter = "\n";
 
-        auto lastIndexGlobal = Size() - 1;
+        auto lastIndexGlobal = Length() - 1;
 
         for (unsigned long long i = indStart; i < indStart + length; i++)
         {
@@ -59,12 +59,12 @@ public:
     /// @brief Выводит в консоль все элементы вектора
     void PrintData() const
     {
-        PrintData(0, Size());
+        PrintData(0, Length());
     }
 
     /// @brief Возвращает количество элементов в векторе
     /// @return size_t
-    size_t Size() const override
+    size_t Length() const override
     {
         return devMemArrPointers.GetSize();
     }
@@ -113,6 +113,15 @@ public:
     {
         devMemArrPointers.Multiply(scalar, isParallel);
         return *this;
+    }
+
+    /// @brief Очищает массивы данных и устанавливает размер вектора в 0
+    void ClearData() override
+    {
+        throw std::runtime_error("Not realized!");
+        //delete[] data;
+        //data = nullptr;
+        //this->length = 0;
     }
 
 };

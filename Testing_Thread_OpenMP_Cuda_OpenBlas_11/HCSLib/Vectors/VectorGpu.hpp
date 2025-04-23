@@ -149,7 +149,7 @@ public:
     /*#ifdef __NVCC__
     __host__ __device__
     #endif*/
-    size_t Size() const override
+    size_t Length() const override
     {
         return _size;
     }
@@ -247,6 +247,12 @@ public:
         throw std::runtime_error("Not realized!");
     }
 
+    /// @brief Выводит в консоль все элементы вектора
+    void PrintData() const override
+    {
+        PrintData(0, Length());
+    }
+
     /// @brief Возвращает значение элемента вектора, расположенного по указанному индексу
     T GetValue(unsigned long long index) const override
     {
@@ -257,5 +263,14 @@ public:
     bool SetValue(unsigned long long index, T value) override
     {        
         throw std::runtime_error("Not realized!");
+    }
+
+    /// @brief Очищает массивы данных и устанавливает размер вектора в 0
+    void ClearData() override
+    {
+        throw std::runtime_error("Not realized!");
+        //delete[] data;
+        //data = nullptr;
+        //this->length = 0;
     }
 };

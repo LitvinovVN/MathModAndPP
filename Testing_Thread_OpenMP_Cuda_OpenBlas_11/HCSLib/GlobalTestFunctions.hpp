@@ -16,7 +16,7 @@ bool TestVectorGpu()
         {
             for(int j = 1; j <= 5; j++)
             {
-                auto res = ArrayHelper::SumCuda(v1.Get_dev_data_pointer(), v1.Size(),i,j);
+                auto res = ArrayHelper::SumCuda(v1.Get_dev_data_pointer(), v1.Length(),i,j);
                 std::cout << i << ", " << j << ": ";
                 //res.Print();
                 std::cout << res << std::endl;

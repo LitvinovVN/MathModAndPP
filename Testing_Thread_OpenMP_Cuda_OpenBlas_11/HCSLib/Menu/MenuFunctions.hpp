@@ -4,7 +4,7 @@
 #include "../Algorithms/AlgorithmImplementationExecutor.hpp"
 #include "../Algorithms/AlgorithmImplementationExecutorHelper.hpp"
 #include "../Matrices/MatricesHelper.hpp"
-#include "../Vectors/VectorsHepler_ConsoleUI.hpp"
+#include "../Vectors/VectorsHelper_ConsoleUI.hpp"
 
 /// @brief Функции меню
 struct MenuFunctions
@@ -322,7 +322,7 @@ struct MenuFunctions
     {                
         std::cout   << "----- VectorsHelper_ConsoleUI -----\n"
                     << "1 Back to main menu\n"
-                    //<< "2 VectorsHelper_ConsoleUI::MatrixRamZeroTesting\n"
+                    << "2 VectorRam\n"
                     //<< "3 VectorsHelper_ConsoleUI::MatrixRamETesting\n"
                     //<< "4 VectorsHelper_ConsoleUI::SumCublas\n"
                     //<< "5 VectorsHelper_ConsoleUI::SumCublasMultiGpu\n"
@@ -330,7 +330,7 @@ struct MenuFunctions
                     //<< "7 VectorsHelper_ConsoleUI::CopyGpuToRam\n"
                     //<< "8 VectorsHelper_ConsoleUI::ScalarProductRamSeq\n"
                     //<< "9 VectorsHelper_ConsoleUI::ScalarProductRamParThread\n"
-                    << "10 VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI\n"
+                    << "10 VectorRamGpus\n"
                     //<< "11 VectorsHelper_ConsoleUI::ScalarProductGpuParCuda\n"
                     //<< "12 VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda\n"
                     //<< "13 VectorsHelper_ConsoleUI::ScalarProductGpuCublas\n"
@@ -359,8 +359,8 @@ struct MenuFunctions
                 std::cout << "Back to main menu" << std::endl;
                 break;
             case 2:
-                std::cout   << "Command: 2 VectorsHelper_ConsoleUI::MatrixRamZeroTesting()\n";                
-                //VectorsHelper_ConsoleUI::MatrixRamZeroTesting();
+                std::cout   << "Command: 2 VectorRam\n";                
+                VectorsHelper_ConsoleUI::VectorRam_Console_UI();
                 break;
             case 3:
                 std::cout   << "Command: 3 VectorsHelper_ConsoleUI::MatrixRamETesting()\n";
@@ -391,7 +391,7 @@ struct MenuFunctions
                 //VectorsHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
                 break;
             case 10:
-                std::cout   << "Command: 10 VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI\n";
+                std::cout   << "Command: 10 VectorRamGpus\n";
                 VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI();
                 break;
             case 11:

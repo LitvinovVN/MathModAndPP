@@ -26,7 +26,7 @@ public:
     static
     FuncResult<T> Sum(VectorRam<T>& v)
     {
-        return Sum(v, 0, v.size - 1);
+        return Sum(v, 0, v.Length() - 1);
     }
 
     template<typename T>
@@ -48,7 +48,7 @@ public:
     static
     FuncResult<T> Sum(VectorRam<T>& v, unsigned threadsNum)
     {
-        return Sum(v, 0, v.size - 1, threadsNum);
+        return Sum(v, 0, v.Length() - 1, threadsNum);
     }
 
     /////////////////// OpenMP ////////////////////
@@ -71,6 +71,6 @@ public:
     static
     FuncResult<T> SumOpenMP(VectorRam<T>& v, unsigned threadsNum)
     {
-        return SumOpenMP(v, 0, v.size - 1, threadsNum);
+        return SumOpenMP(v, 0, v.Length() - 1, threadsNum);
     }
 };

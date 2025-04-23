@@ -90,17 +90,11 @@ using namespace std::chrono;
 #include "Arrays/DevMemArrPointers.hpp"
 ////////// Массивы (конец) ////////////
 
-////////// Векторы (начало) ////////////
-#include "Vectors/VectorType.hpp"
-#include "Vectors/IVector.hpp"
-#include "Vectors/VectorRam.hpp"
-#include "Vectors/VectorGpu.hpp"
-#include "Vectors/VectorRamHelper.hpp"
-#include "Vectors/VectorGpuHelper.hpp"
-#include "Vectors/VectorRamGpus.hpp"
-#include "Vectors/VectorRamGpusHelper.hpp"
-#include "Vectors/VectorsHepler_ConsoleUI.hpp"
-////////// Векторы (конец) ////////////
+////////// Модуль Scalars (Скалярные значения) ////////////
+#include "Scalars/_IncludeScalars.hpp"
+
+////////// Модуль Vectors (Векторы) ////////////
+#include "Vectors/_IncludeVectors.hpp"
 
 ////////// Матрицы (начало) ////////////
 #include "Matrices/MatrixDataLocation.hpp"

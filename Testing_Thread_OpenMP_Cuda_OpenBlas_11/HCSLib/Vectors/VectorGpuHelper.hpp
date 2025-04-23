@@ -27,7 +27,7 @@ public:
     static
     FuncResult<T> SumCuda(VectorGpu<T>& v, unsigned NumBlocks, unsigned Nthreads)
     {
-        return SumCuda(v, 0, v.Size() - 1, NumBlocks, Nthreads);
+        return SumCuda(v, 0, v.Length() - 1, NumBlocks, Nthreads);
     }
 
     /////////////

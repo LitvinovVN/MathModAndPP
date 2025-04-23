@@ -2,11 +2,39 @@
 
 #include <iostream>
 
-#include "VectorRamGpusHelper.hpp"
+#include "_IncludeVectors.hpp"
 #include "../CommonHelpers/DataLocation.hpp"
 
 struct VectorsHelper_ConsoleUI
 {
+    static void VectorRam_Console_UI()
+    {
+        std::cout << "VectorRam_Console_UI" << std::endl;
+
+        ConsoleHelper::PrintLine("Creating VectorRam object with 10 elements");
+        VectorRam<double> v1(10);
+        v1.Print();
+        v1.InitByVal(5);
+        std::cout << "v1.SetValue(1, -10.123)" << std::endl;
+        v1.SetValue(1, -10.123);
+        std::cout << "v1.GetValue(1): " << v1.GetValue(1) << std::endl;
+        v1.PrintData(0, v1.Length());
+
+        IVector<double>* IVector1Ptr = &v1;
+        IVector1Ptr->Transpose();
+        std::cout << "typeid(IVector1Ptr).name(): " << typeid(IVector1Ptr).name() << std::endl;
+        IVector1Ptr->Print();
+        IVector1Ptr->PrintData(0, IVector1Ptr->Length());
+
+        IVector<double>* IVectorSplitResultPtr = IVectorHelper::Split(IVector1Ptr, IVector1Ptr, DataLocation::RAM);
+        IVectorSplitResultPtr->Print();
+        IVectorSplitResultPtr->PrintData();
+
+        ConsoleHelper::PrintLine("ClearData()");
+        IVectorSplitResultPtr->ClearData();
+        IVectorSplitResultPtr->Print();
+        IVectorSplitResultPtr->PrintData();
+    }
 
     static void VectorRamGpus_ConsoleUI()
     {
@@ -54,7 +82,7 @@ struct VectorsHelper_ConsoleUI
         //ConsoleHelper::WaitAnyKey();
 
         ConsoleHelper::PrintLine("auto size = v1.Size();");
-        auto size = v1.Size();
+        auto size = v1.Length();
         ConsoleHelper::PrintKeyValue("size", size);
         ConsoleHelper::PrintLine("----------\n");
         ConsoleHelper::WaitAnyKey();
