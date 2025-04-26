@@ -1,0 +1,76 @@
+\doxysection{Структура Cuda\+Device\+Properties}
+\hypertarget{struct_cuda_device_properties}{}\label{struct_cuda_device_properties}\index{CudaDeviceProperties@{CudaDeviceProperties}}
+
+
+Структура для хранения параметров видеокарты  
+
+
+
+
+{\ttfamily \#include $<$Cuda\+Device\+Properties.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_cuda_device_properties_a101ece547cd5b6920373bb2a1e7cd360}\label{struct_cuda_device_properties_a101ece547cd5b6920373bb2a1e7cd360} 
+double {\bfseries Get\+Peak\+Memory\+Bandwidth\+GBs} ()
+\item 
+\Hypertarget{struct_cuda_device_properties_a0fbc8b1aaafa198df6dbfb15c32005ca}\label{struct_cuda_device_properties_a0fbc8b1aaafa198df6dbfb15c32005ca} 
+void {\bfseries Print} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_cuda_device_properties_a6fd0de2d4a6ec6fc91bb0e10661d436f}\label{struct_cuda_device_properties_a6fd0de2d4a6ec6fc91bb0e10661d436f} 
+bool {\bfseries Is\+Initialized} = false
+\item 
+\Hypertarget{struct_cuda_device_properties_a6f6f9e49df4055b451c8239cb2d8bd4c}\label{struct_cuda_device_properties_a6f6f9e49df4055b451c8239cb2d8bd4c} 
+int {\bfseries Major}
+\item 
+\Hypertarget{struct_cuda_device_properties_a3aa60fa9aad9c35c694cfe4f28ceacf4}\label{struct_cuda_device_properties_a3aa60fa9aad9c35c694cfe4f28ceacf4} 
+int {\bfseries Minor}
+\item 
+\Hypertarget{struct_cuda_device_properties_af228cd9d2db02b5f9d7e2c7585a0adba}\label{struct_cuda_device_properties_af228cd9d2db02b5f9d7e2c7585a0adba} 
+std\+::string {\bfseries Name}
+\item 
+\Hypertarget{struct_cuda_device_properties_a20ba538ea195722301c07357027fe8fb}\label{struct_cuda_device_properties_a20ba538ea195722301c07357027fe8fb} 
+size\+\_\+t {\bfseries Total\+Global\+Mem}
+\item 
+\Hypertarget{struct_cuda_device_properties_a6a6c37fd805301de73f82b1ef610c66c}\label{struct_cuda_device_properties_a6a6c37fd805301de73f82b1ef610c66c} 
+size\+\_\+t {\bfseries Shared\+Memory\+Per\+Block}
+\item 
+\Hypertarget{struct_cuda_device_properties_a0b26b515727a9c3a88bbe83d7e9fcd63}\label{struct_cuda_device_properties_a0b26b515727a9c3a88bbe83d7e9fcd63} 
+size\+\_\+t {\bfseries Regs\+Per\+Block}
+\item 
+\Hypertarget{struct_cuda_device_properties_a233ee1f1994d3374c796fa11656a9f8a}\label{struct_cuda_device_properties_a233ee1f1994d3374c796fa11656a9f8a} 
+int {\bfseries Warp\+Size}
+\item 
+\Hypertarget{struct_cuda_device_properties_a25ca55044f59fd0edccc9d0b03658553}\label{struct_cuda_device_properties_a25ca55044f59fd0edccc9d0b03658553} 
+size\+\_\+t {\bfseries Mem\+Pitch}
+\item 
+\Hypertarget{struct_cuda_device_properties_aac5614df56dd6e979267776886f78873}\label{struct_cuda_device_properties_aac5614df56dd6e979267776886f78873} 
+size\+\_\+t {\bfseries Max\+Threads\+Per\+Block}
+\item 
+\Hypertarget{struct_cuda_device_properties_a07ed0a413eb14742c0b94fe80e181af6}\label{struct_cuda_device_properties_a07ed0a413eb14742c0b94fe80e181af6} 
+int {\bfseries Multi\+Processor\+Count}
+\item 
+\Hypertarget{struct_cuda_device_properties_a45bb28ed34e531e2dd0a7f4e1f0bd246}\label{struct_cuda_device_properties_a45bb28ed34e531e2dd0a7f4e1f0bd246} 
+bool {\bfseries Device\+Overlap}
+\item 
+\Hypertarget{struct_cuda_device_properties_a9c8fc9d31ab542c3b51d32502cb6922d}\label{struct_cuda_device_properties_a9c8fc9d31ab542c3b51d32502cb6922d} 
+int {\bfseries Async\+Engine\+Count}
+\item 
+\Hypertarget{struct_cuda_device_properties_a5b63a0d42720cebba062f870d3b35702}\label{struct_cuda_device_properties_a5b63a0d42720cebba062f870d3b35702} 
+size\+\_\+t {\bfseries Memory\+Clock\+Rate}
+\item 
+\Hypertarget{struct_cuda_device_properties_adb2fececd50ea485ac2ebc42e36ffe47}\label{struct_cuda_device_properties_adb2fececd50ea485ac2ebc42e36ffe47} 
+int {\bfseries Memory\+Bus\+Width}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Структура для хранения параметров видеокарты 
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Cuda/Cuda\+Device\+Properties.\+hpp\end{DoxyCompactItemize}

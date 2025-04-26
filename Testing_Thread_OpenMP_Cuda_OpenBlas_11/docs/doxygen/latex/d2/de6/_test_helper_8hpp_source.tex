@@ -1,0 +1,114 @@
+\doxysection{Test\+Helper.\+hpp}
+\hypertarget{_test_helper_8hpp_source}{}\label{_test_helper_8hpp_source}\index{HCSLib/TestHelper.hpp@{HCSLib/TestHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}CommonHelpers/FuncResult.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Vectors/VectorRam.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Vectors/VectorGpu.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}TestParams.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_test_helper}{TestHelper}}}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<FuncResult<T>>\ LaunchSum(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \mbox{\hyperlink{struct_test_params}{TestParams}}\ p)}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSum(VectorRam<T>\&\ v)\ Start\ -\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iterNum\ =\ p.IterNum;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ std::vector<FuncResult<T>>\ results;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i\{0\};\ i\ <\ iterNum;\ i++)}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ res\ =\ VectorRamHelper::Sum(v);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(res);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSum(VectorRam<T>\&\ v)\ End\ -\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<FuncResult<T>>\ LaunchSum(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{unsigned}\ Nthreads,\ \mbox{\hyperlink{struct_test_params}{TestParams}}\ p)}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSum(VectorRam<T>\&\ v,\ unsigned\ Nthreads)\ Start\ -\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iterNum\ =\ p.IterNum;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::vector<FuncResult<T>>\ results;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i\{0\};\ i\ <\ iterNum;\ i++)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ res\ =\ VectorRamHelper::Sum(v,\ Nthreads);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(res);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSum(VectorRam<T>\&\ v,\ unsigned\ Nthreads)\ End\ -\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<FuncResult<T>>\ LaunchSumOpenMP(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{unsigned}\ Nthreads,\ \mbox{\hyperlink{struct_test_params}{TestParams}}\ p)}
+\DoxyCodeLine{00048\ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSumOpenMP(VectorRam<T>\&\ v,\ unsigned\ Nthreads)\ Start\ -\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::vector<FuncResult<T>>\ results;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i\{0\};\ i\ <\ p.IterNum;\ i++)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ res\ =\ VectorRamHelper::SumOpenMP(v,\ Nthreads);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(res);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSumOpenMP(VectorRam<T>\&\ v,\ unsigned\ Nthreads)\ End\ -\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<FuncResult<T>>\ LaunchSumCuda(\mbox{\hyperlink{class_vector_gpu}{VectorGpu<T>}}\&\ v,\ \textcolor{keywordtype}{unsigned}\ NumBlocks,\ \textcolor{keywordtype}{unsigned}\ Nthreads,\ \mbox{\hyperlink{struct_test_params}{TestParams}}\ p)}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSumCuda(VectorGpu<T>\&\ v,\ unsigned\ NumBlocks,\ unsigned\ Nthreads,\ TestParams\ p)\ Start\ -\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::vector<FuncResult<T>>\ results;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iterNum\ =\ p.IterNum;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i\{0\};\ i\ <\ iterNum;\ i++)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ res\ =\ VectorGpuHelper::SumCuda(v,\ NumBlocks,\ Nthreads);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(res);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSumCuda(VectorGpu<T>\&\ v,\ unsigned\ NumBlocks,\ unsigned\ Nthreads,\ TestParams\ p)\ End\ -\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<FuncResult<T>>\ LaunchSumCudaMultiGpu(std::vector<\mbox{\hyperlink{struct_array_gpu_processing_params}{ArrayGpuProcessingParams<T>}}>\ params,\ \mbox{\hyperlink{struct_test_params}{TestParams}}\ p)}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSumCudaSumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>>\ params)\ Start\ -\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ std::vector<FuncResult<T>>\ results;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ iterNum\ =\ p.IterNum;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i\{0\};\ i\ <\ iterNum;\ i++)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ res\ =\ VectorGpuHelper::SumCudaMultiGpu(params);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(res);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/LaunchSumCudaSumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>>\ params)\ End\ -\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+
+\end{DoxyCode}

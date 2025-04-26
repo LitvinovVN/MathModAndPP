@@ -1,0 +1,86 @@
+\doxysection{Класс Algorithm\+Repository}
+\hypertarget{class_algorithm_repository}{}\label{class_algorithm_repository}\index{AlgorithmRepository@{AlgorithmRepository}}
+
+
+Репозиторий алгоритмов  
+
+
+
+
+{\ttfamily \#include $<$Algorithm\+Repository.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_algorithm_repository_acc3baddfd29261db4696215f9d69d3da}\label{class_algorithm_repository_acc3baddfd29261db4696215f9d69d3da} 
+void {\bfseries Print} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp)
+\item 
+bool \mbox{\hyperlink{class_algorithm_repository_ac1d953349a409d6776d3921cadcf3358}{Is\+Exists}} (unsigned id)
+\begin{DoxyCompactList}\small\item\em Проверяет наличие алгоритма с указанным УИД \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_algorithm}{Algorithm}} \mbox{\hyperlink{class_algorithm_repository_ac4103cbaf4bcae72b635d58d571c53d7}{Get}} (unsigned id)
+\begin{DoxyCompactList}\small\item\em Возвращает алгоритм по УИД \end{DoxyCompactList}\item 
+\Hypertarget{class_algorithm_repository_a13ccfa39691eab5764e2649c439b0f62}\label{class_algorithm_repository_a13ccfa39691eab5764e2649c439b0f62} 
+void {\bfseries Get} ()
+\begin{DoxyCompactList}\small\item\em Запрашивает у пользователя id алгоритма и выводит в консоль сведения о нём \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_algorithm_repository_a57f23bea8bb8df311600575379f575f8}{Add}} (\mbox{\hyperlink{struct_algorithm}{Algorithm}} alg)
+\begin{DoxyCompactList}\small\item\em Добавляет алгоритм в репозиторий \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Репозиторий алгоритмов 
+
+\doxysubsection{Методы}
+\Hypertarget{class_algorithm_repository_a57f23bea8bb8df311600575379f575f8}\index{AlgorithmRepository@{AlgorithmRepository}!Add@{Add}}
+\index{Add@{Add}!AlgorithmRepository@{AlgorithmRepository}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily \label{class_algorithm_repository_a57f23bea8bb8df311600575379f575f8} 
+bool Algorithm\+Repository\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_algorithm}{Algorithm}}}]{alg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Добавляет алгоритм в репозиторий 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em alg} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Результат (true -\/ добавлен, false -\/ не добавлен) 
+\end{DoxyReturn}
+\Hypertarget{class_algorithm_repository_ac4103cbaf4bcae72b635d58d571c53d7}\index{AlgorithmRepository@{AlgorithmRepository}!Get@{Get}}
+\index{Get@{Get}!AlgorithmRepository@{AlgorithmRepository}}
+\doxysubsubsection{\texorpdfstring{Get()}{Get()}}
+{\footnotesize\ttfamily \label{class_algorithm_repository_ac4103cbaf4bcae72b635d58d571c53d7} 
+\mbox{\hyperlink{struct_algorithm}{Algorithm}} Algorithm\+Repository\+::\+Get (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает алгоритм по УИД 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_algorithm_repository_ac1d953349a409d6776d3921cadcf3358}\index{AlgorithmRepository@{AlgorithmRepository}!IsExists@{IsExists}}
+\index{IsExists@{IsExists}!AlgorithmRepository@{AlgorithmRepository}}
+\doxysubsubsection{\texorpdfstring{IsExists()}{IsExists()}}
+{\footnotesize\ttfamily \label{class_algorithm_repository_ac1d953349a409d6776d3921cadcf3358} 
+bool Algorithm\+Repository\+::\+Is\+Exists (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Проверяет наличие алгоритма с указанным УИД 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Algorithms/Algorithm\+Repository.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,64 @@
+\doxysection{Шаблон структуры Binary\+Expression\texorpdfstring{$<$}{<} E1, OP, E2 \texorpdfstring{$>$}{>}}
+\hypertarget{struct_binary_expression}{}\label{struct_binary_expression}\index{BinaryExpression$<$ E1, OP, E2 $>$@{BinaryExpression$<$ E1, OP, E2 $>$}}
+
+
+Выражение с двумя операндами  
+
+
+
+
+{\ttfamily \#include $<$Binary\+Expression.\+hpp$>$}
+
+Граф наследования\+:Binary\+Expression\texorpdfstring{$<$}{<} E1, OP, E2 \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{de/d37/struct_binary_expression}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_binary_expression_a2444a6b9305fe8295db5d57a2fe1874b}\label{struct_binary_expression_a2444a6b9305fe8295db5d57a2fe1874b} 
+{\bfseries Binary\+Expression} (const \mbox{\hyperlink{struct_expression}{Expression}}$<$ E1 $>$ \&expr1, const OP \&op, const \mbox{\hyperlink{struct_expression}{Expression}}$<$ E2 $>$ \&expr2)
+\item 
+\Hypertarget{struct_binary_expression_a000f8680271961ab91bab242dd0132cc}\label{struct_binary_expression_a000f8680271961ab91bab242dd0132cc} 
+double {\bfseries operator()} (double x) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ Binary\+Expression$<$ E1, OP, E2 $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_binary_expression}{Final\+Type}} \& {\bfseries Self} ()
+\item 
+const \mbox{\hyperlink{struct_binary_expression}{Final\+Type}} \& {\bfseries Self} () const
+\item 
+\mbox{\hyperlink{struct_binary_expression}{Proxy\+Type}} {\bfseries Get\+Proxy} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Открытые типы унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ Binary\+Expression$<$ E1, OP, E2 $>$ $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{struct_binary_expression}{Binary\+Expression}}$<$ E1, OP, E2 $>$ {\bfseries Final\+Type}
+\item 
+typedef \mbox{\hyperlink{struct_binary_expression}{Binary\+Expression}}$<$ E1, OP, E2 $>$ {\bfseries Proxy\+Type}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$class E1, class OP, class E2$>$\newline
+struct Binary\+Expression$<$ E1, OP, E2 $>$}
+Выражение с двумя операндами 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em E1} & \\
+\hline
+{\em OP} & +, -\/, \texorpdfstring{$\ast$}{*}, / \\
+\hline
+{\em E2} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Math/Binary\+Expression.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,197 @@
+\doxysection{Alg\+Testing\+Result\+Repository.\+hpp}
+\hypertarget{_alg_testing_result_repository_8hpp_source}{}\label{_alg_testing_result_repository_8hpp_source}\index{HCSLib/AlgTestingResults/AlgTestingResultRepository.hpp@{HCSLib/AlgTestingResults/AlgTestingResultRepository.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }AlgTestingResultRepository}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{bool}\ isInitialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00008\ \ \ \ \ std::string\ dir\_name\ =\ \textcolor{stringliteral}{"{}AlgTestingResultRepository"{}};\textcolor{comment}{//\ Каталог\ с\ данными}}
+\DoxyCodeLine{00009\ \ \ \ \ std::string\ file\_name\ =\ \textcolor{stringliteral}{"{}data.txt"{}};\ \ \textcolor{comment}{//\ Файл\ с\ данными}}
+\DoxyCodeLine{00010\ \ \ \ \ std::vector<AlgTestingResult>\ cache;\ \textcolor{comment}{//\ Кэш\ данных\ в\ памяти}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Ключ\ -\/\ compSystemId;}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ значение\ -\/\ вектор\ индексов\ УИД\ тестовых\ запусков}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ вычислительной\ системы\ compSystemId}}
+\DoxyCodeLine{00014\ \ \ \ \ std::map<unsigned,\ std::vector<size\_t>>\ compSystemIndex;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ CheckDirectories()}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isInitialized)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{FileSystemHelper::IsDirExists}}(dir\_name))}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{FileSystemHelper::CreateDir}}(dir\_name);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ std::string\ filePath\ =\ \mbox{\hyperlink{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}{GetFullPath}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}{FileSystemHelper::IsFileExists}}(filePath))}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ FileSystemHelper::CreateFile(dir\_name,\ file\_name,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ AlgTestingResultRepository(\textcolor{keywordtype}{bool}\ isInitialized\ =\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ :\ isInitialized(isInitialized)}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ CheckDirectories();}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ AlgTestingResultRepository(std::string\ dir\_name)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ :\ dir\_name(dir\_name)}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ isInitialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ CheckDirectories();}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{void}\ PrintConfig()}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::cout\ \ \ <<\ \textcolor{stringliteral}{"{}isInitialized:\ "{}}\ <<\ isInitialized\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}dir\_name:\ "{}}\ <<\ dir\_name\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}file\_name:\ "{}}\ <<\ file\_name\ <<\ std::endl;}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00052\ \ \ \ \ std::string\ \mbox{\hyperlink{class_alg_testing_result_repository_a33612a536f2ca221e9d5f5047039745d}{Get\_dir\_name}}()}
+\DoxyCodeLine{00053\ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dir\_name;}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00058\ \ \ \ \ std::string\ \mbox{\hyperlink{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}{GetFullPath}}()}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{FileSystemHelper::CombinePath}}(dir\_name,\ file\_name);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_alg_testing_result_repository_a483760489bfd568ac20ba4df1e334f7b}{GetLastId}}()}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ std::ifstream\ fin(\mbox{\hyperlink{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}{GetFullPath}}());}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!fin.is\_open())}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}File\ not\ opened!"{}});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ id\_max\ =\ 0;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!fin.eof())}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(fin,line);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ line\ <<\ std::endl;}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(line.size()\ <\ 2)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ algTestingResult(line);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(algTestingResult.id\ >\ id\_max)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ id\_max\ =\ algTestingResult.id;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ id\_max;}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_alg_testing_result_repository_a73e67b7ff40f1b1833f968a1b5ee0277}{Set\_dir\_name}}(std::string\ dir)}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ dir\_name\ =\ dir;}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_alg_testing_result_repository_a38a31951428fa8d713abb9a451721d84}{Add}}(\mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\&\ data)}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ filePath\ =\ \mbox{\hyperlink{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}{GetFullPath}}();}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ std::ofstream\ fout(filePath,\ std::ios::app);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ fout\ <<\ data;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ fout.close();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_alg_testing_result_repository_a9620ccac3cfc980f477f9ad6d3eecbd1}{Add}}()}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ res;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ res.id\ =\ \mbox{\hyperlink{class_alg_testing_result_repository_a483760489bfd568ac20ba4df1e334f7b}{GetLastId}}()\ +\ 1;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ res.compSystemId\ =\ 222;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ res.algorithmId\ =\ 333;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ result\ =\ \mbox{\hyperlink{class_alg_testing_result_repository_a9620ccac3cfc980f477f9ad6d3eecbd1}{Add}}(res);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(result)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Item\ with\ id="{}}\ +\ std::to\_string(res.id)\ +\ \textcolor{stringliteral}{"{}\ added."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Error\ in\ adding\ item\ with\ id="{}}\ +\ std::to\_string(res.id)\ <<\ std::endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ \mbox{\hyperlink{class_alg_testing_result_repository_a30e79703ff809e96810b08f09b46ef97}{Find}}(\textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00135\ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ std::ifstream\ fin(\mbox{\hyperlink{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}{GetFullPath}}());}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!fin.is\_open())}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}File\ not\ opened!"{}});}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!fin.eof())}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(fin,line);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ line\ <<\ std::endl;}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(line.size()\ <\ 2)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ algTestingResult(line);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(algTestingResult.id\ ==\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ algTestingResult;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}AlgTestingResult\ entry\ with\ id="{}}\ +\ std::to\_string(\textcolor{keywordtype}{id})\ +\ \textcolor{stringliteral}{"{}\ not\ found!"{}});}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_alg_testing_result_repository_a30e79703ff809e96810b08f09b46ef97}{Find}}()}
+\DoxyCodeLine{00158\ \ \ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id}\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ id:\ "{}});}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}ull:\ "{}\ <<\ id\ <<\ std::endl;}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ entry\ =\ \mbox{\hyperlink{class_alg_testing_result_repository_a30e79703ff809e96810b08f09b46ef97}{Find}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ entry.Print();}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_alg_testing_result_repository_a68e1bf811ff6556c505b7083f8728e3e}{IsExists}}(\textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00175\ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ std::ifstream\ fin(\mbox{\hyperlink{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}{GetFullPath}}());}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!fin.is\_open())}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}File\ not\ opened!"{}});\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(!fin.eof())}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(fin,line);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(line.size()\ <\ 2)}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ std::stringstream\ obj\_ss(line);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cur\_id;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ obj\_ss\ >>\ cur\_id;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cur\_id\ ==\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_alg_testing_result_repository_a0634671dc502d76640a42336a39d27a0}{IsExists}}()}
+\DoxyCodeLine{00197\ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id}\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ id:\ "{}});}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isExists\ =\ \mbox{\hyperlink{class_alg_testing_result_repository_a0634671dc502d76640a42336a39d27a0}{IsExists}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isExists)\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Item\ with\ id="{}}\ +\ std::to\_string(\textcolor{keywordtype}{id})\ +\ \textcolor{stringliteral}{"{}\ exists."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Item\ with\ id="{}}\ +\ std::to\_string(\textcolor{keywordtype}{id})\ +\ \textcolor{stringliteral}{"{}\ not\ exists."{}}\ \ <<\ std::endl;}
+\DoxyCodeLine{00205\ \ \ \ \ \}}
+\DoxyCodeLine{00206\ \};}
+\DoxyCodeLine{00207\ }
+
+\end{DoxyCode}

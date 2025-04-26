@@ -1,0 +1,229 @@
+\doxysection{File\+System\+Helper.\+hpp}
+\hypertarget{_file_system_helper_8hpp_source}{}\label{_file_system_helper_8hpp_source}\index{HCSLib/CommonHelpers/FileSystemHelper.hpp@{HCSLib/CommonHelpers/FileSystemHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\#include\ <filesystem>\ //\ C++17}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}sys/stat.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include<windows.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_file_system_helper}{FileSystemHelper}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{CombinePath}}(\textcolor{keyword}{const}\ std::string\&\ dir\_name,\ \textcolor{keyword}{const}\ std::string\&\ file\_name)}
+\DoxyCodeLine{00022\ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::string\{dir\_name\ +\ \textcolor{stringliteral}{"{}/"{}}\ +\ file\_name\};}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ CombinePath()}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ dir\ name:\ "{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::string\ dirName;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::cin\ >>\ dirName;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ file\ name:\ "{}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::string\ fileName;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::cin\ >>\ fileName;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::string\ path\ =\ CombinePath(dirName,\ fileName);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Path:\ "{}}\ <<\ path\ <<\ std::endl;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ path;}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}{IsFileExists}}(\textcolor{keyword}{const}\ std::string\&\ path\_file)}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::ifstream\ iff(path\_file);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}iff.good()"{}\ <<\ iff.good()\ <<\ std::endl;}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ iff.good();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ C++17\ }}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*if(std::filesystem::exists(path\_file))}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ return\ true;}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ \ \ \ \ \ else}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ return\ false;*/}}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_file_system_helper_a752f9c022bae6f2dd30ea85f6e45d3e1}{IsFileExists}}(\textcolor{keyword}{const}\ std::string\&\ dir\_name,\ \textcolor{keyword}{const}\ std::string\&\ file\_name)}
+\DoxyCodeLine{00061\ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ filePath\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{CombinePath}}(dir\_name,\ file\_name);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}{IsFileExists}}(filePath))}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsFileExists()}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ file\ name:\ "{}};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ std::string\ fileName;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ std::cin\ >>\ fileName;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isExists\ =\ IsFileExists(fileName);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isExists)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}File\ exists\ (true)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}File\ not\ exists\ (false)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isExists;}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{IsDirExists}}(\textcolor{keyword}{const}\ std::string\&\ path\_dir)}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ std::string\ filePath\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{CombinePath}}(path\_dir,\textcolor{stringliteral}{"{}tmp"{}});}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ std::ofstream\ fout(filePath,std::ios::app);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isExists\ =\ fout.good();}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ fout.close();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isExists)\textcolor{comment}{//\ Удаляем\ временный\ файл}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ remove(filePath.c\_str());}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isExists;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ C++17\ \ \ }}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{comment}{//if(std::filesystem::exists(path\_dir))}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ return\ true;}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//return\ false;}}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsDirExists()}
+\DoxyCodeLine{00103\ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ dir\ name:\ "{}};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ std::string\ dirName;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ std::cin\ >>\ dirName;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isExists\ =\ IsDirExists(dirName);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isExists)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Directory\ exists\ (true)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Directory\ not\ exists\ (false)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isExists;}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{CreateDir}}(\textcolor{keyword}{const}\ std::string\&\ path\_dir)}
+\DoxyCodeLine{00120\ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{IsDirExists}}(path\_dir))}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ errCode\ =\ 0;}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ defined(\_WIN32)}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ res\ =\ CreateDirectory(path\_dir.c\_str(),\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ errCode\ =\ mkdir(path\_dir.c\_str(),\ S\_IRWXU);}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ result\ =\ !(bool)errCode;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//return\ std::create\_directory(path\_dir);}}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ CreateDir()}
+\DoxyCodeLine{00138\ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ dir\ name:\ "{}};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ std::string\ dirName;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ std::cin\ >>\ dirName;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ res\ =\ CreateDir(dirName);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Directory\ created\ (true)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Directory\ not\ created\ (false)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ CreateFile(\textcolor{keyword}{const}\ std::string\&\ dir\_name,\ \textcolor{keyword}{const}\ std::string\&\ file\_name,\ \textcolor{keyword}{const}\ std::string\&\ string\_data)}
+\DoxyCodeLine{00153\ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{comment}{//auto\ filePath\ =\ CombinePath(dir\_name,\ file\_name);}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ std::string\ filePath\ =\ file\_name;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dir\_name.size()>0)}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ filePath\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{CombinePath}}(dir\_name,\ file\_name);}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}filePath:\ "{}}\ <<\ filePath\ <<\ std::endl;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ std::ofstream\ fout(filePath);}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(string\_data\ !=\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ fout\ <<\ string\_data;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ fout.close();}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ CreateFile()}
+\DoxyCodeLine{00168\ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ dir\ name\ (.\ -\/\ current\ dir):\ "{}};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ std::string\ dirName;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ std::cin\ >>\ dirName;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ file\ name:\ "{}};}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ std::string\ fileName;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ std::cin\ >>\ fileName;}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ res\ =\ CreateFile(dirName,\ fileName,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res)}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}File\ created\ (true)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}File\ not\ created\ (false)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00184\ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ RemoveFile(\textcolor{keyword}{const}\ std::string\&\ dir\_name,\ \textcolor{keyword}{const}\ std::string\&\ file\_name)}
+\DoxyCodeLine{00188\ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ filePath\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{CombinePath}}(dir\_name,\ file\_name);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ errCode\ =\ remove(filePath.c\_str());}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(bool)errCode;}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ RemoveFile()}
+\DoxyCodeLine{00196\ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ dir\ name:\ "{}};}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ std::string\ dirName;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ std::cin\ >>\ dirName;}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ file\ name:\ "{}};}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ std::string\ fileName;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ std::cin\ >>\ fileName;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ res\ =\ RemoveFile(dirName,\ fileName);}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res)}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}File\ removed\ (true)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}File\ not\ removed\ (false)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ RemoveDir(\textcolor{keyword}{const}\ std::string\&\ dir\_name)}
+\DoxyCodeLine{00216\ \ \ \ \ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ errCode\ =\ remove(dir\_name.c\_str());}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(bool)errCode;}
+\DoxyCodeLine{00220\ \ \ \ \ \}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ RemoveDir()}
+\DoxyCodeLine{00223\ \ \ \ \ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ dir\ name:\ "{}};}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ std::string\ dirName;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ std::cin\ >>\ dirName;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ res\ =\ RemoveDir(dirName);}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(res)}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Directory\ removed\ (true)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Directory\ not\ removed\ (false)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00235\ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \};}
+\DoxyCodeLine{00238\ }
+
+\end{DoxyCode}

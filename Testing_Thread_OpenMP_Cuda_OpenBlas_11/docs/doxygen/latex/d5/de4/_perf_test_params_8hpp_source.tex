@@ -1,0 +1,65 @@
+\doxysection{Perf\+Test\+Params.\+hpp}
+\hypertarget{_perf_test_params_8hpp_source}{}\label{_perf_test_params_8hpp_source}\index{HCSLib/PerformanceTests/PerfTestParams.hpp@{HCSLib/PerformanceTests/PerfTestParams.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }PerfTestParams}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{//\ Количество\ итераций}}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ iterNumber;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Параметры\ варьирования\ данных\ \ \ \ }}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_data}{PerfTestParamsData}}\ perfTestParamsData;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Параметры\ варьирования\ количества\ потоков\ CPU}}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_cpu}{PerfTestParamsCpu}}\ perfTestParamsCpu;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ Параметры\ варьирования\ параметров\ GPU}}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_gpu}{PerfTestParamsGpu}}\ perfTestParamsGpu;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ PerfTestParams()}
+\DoxyCodeLine{00016\ \ \ \ \ \{\}}
+\DoxyCodeLine{00017\ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ PerfTestParams(\textcolor{keywordtype}{unsigned}\ iterNumber,}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_data}{PerfTestParamsData}}\ perfTestParamsData,}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_cpu}{PerfTestParamsCpu}}\ perfTestParamsCpu,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_gpu}{PerfTestParamsGpu}}\ perfTestParamsGpu)\ :}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ iterNumber(iterNumber),}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ perfTestParamsData(perfTestParamsData),}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ perfTestParamsCpu(perfTestParamsCpu),}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ perfTestParamsGpu(perfTestParamsGpu)}
+\DoxyCodeLine{00026\ \ \ \ \ \{\}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ PerfTestParams(\textcolor{keywordtype}{unsigned}\ iterNumber,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_data}{PerfTestParamsData}}\ perfTestParamsData,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_cpu}{PerfTestParamsCpu}}\ perfTestParamsCpu)\ :}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ iterNumber(iterNumber),}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ perfTestParamsData(perfTestParamsData),}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ perfTestParamsCpu(perfTestParamsCpu)}
+\DoxyCodeLine{00034\ \ \ \ \ \{\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ PerfTestParams(\textcolor{keywordtype}{unsigned}\ iterNumber,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_data}{PerfTestParamsData}}\ perfTestParamsData)\ :}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ iterNumber(iterNumber),}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ perfTestParamsData(perfTestParamsData)}
+\DoxyCodeLine{00040\ \ \ \ \ \{\}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}iterNumber"{}}\ <<\ pp.splitterKeyValue\ <<\ iterNumber;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}perfTestParamsData"{}}\ <<\ pp.splitterKeyValue;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ perfTestParamsData.Print();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}perfTestParamsCpu"{}}\ <<\ pp.splitterKeyValue;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ perfTestParamsCpu.Print();}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}perfTestParamsGpu"{}}\ <<\ pp.splitterKeyValue;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ perfTestParamsGpu.Print();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,72 @@
+\doxysection{Algorithm\+Implementation.\+hpp}
+\hypertarget{_algorithm_implementation_8hpp_source}{}\label{_algorithm_implementation_8hpp_source}\index{HCSLib/Algorithms/AlgorithmImplementation.hpp@{HCSLib/Algorithms/AlgorithmImplementation.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Functions/Function.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}AlgorithmImplementationExecParams.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../AlgTestingResults/AlgTestingResult.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }AlgorithmImplementation}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id}\{\};\textcolor{comment}{//\ УИД\ сопоставления}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ algorithmId\{\};\textcolor{comment}{//\ УИД\ алгоритма}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Объект\ функции,\ реализующей\ алгоритм}}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_function}{Function}}\ function\{\};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Описание}}
+\DoxyCodeLine{00018\ \ \ \ \ std::string\ description\{\};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ AlgorithmImplementation()}
+\DoxyCodeLine{00022\ \ \ \ \ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ AlgorithmImplementation(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ algorithmId,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::string\ description,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_function}{Function}}\ function)\ :}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ id(\textcolor{keywordtype}{id}),}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ algorithmId(algorithmId),}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ function(function),}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ description(description)}
+\DoxyCodeLine{00032\ \ \ \ \ \{\}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}id"{}}\ <<\ pp.splitterKeyValue\ <<\ id;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}algorithmId"{}}\ <<\ pp.splitterKeyValue\ <<\ algorithmId;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}description"{}}\ <<\ pp.splitterKeyValue\ <<\ description;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}function"{}}\ <<\ pp.splitterKeyValue;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ function.Print(pp);\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{class_algorithm_implementation_a04c6cfd36206a5c0d26de1ce0654985e}{GetId}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ id;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{class_function}{Function}}\ \mbox{\hyperlink{class_algorithm_implementation_aaa5e4cbd161b15d8b05b61e3aa61ff3b}{GetFunction}}()}
+\DoxyCodeLine{00062\ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ function;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ Exec(\mbox{\hyperlink{struct_algorithm_implementation_exec_params}{AlgorithmImplementationExecParams}}\ params)}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ res\ =\ function.Exec(params);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)nAlgorithmImplementation::Exec\ str\ 69\(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \};}
+
+\end{DoxyCode}

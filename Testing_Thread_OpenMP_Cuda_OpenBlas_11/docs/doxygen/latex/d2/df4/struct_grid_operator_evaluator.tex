@@ -1,0 +1,83 @@
+\doxysection{Шаблон структуры Grid\+Operator\+Evaluator\texorpdfstring{$<$}{<} GO, EO \texorpdfstring{$>$}{>}}
+\hypertarget{struct_grid_operator_evaluator}{}\label{struct_grid_operator_evaluator}\index{GridOperatorEvaluator$<$ GO, EO $>$@{GridOperatorEvaluator$<$ GO, EO $>$}}
+
+
+Вычислитель  
+
+
+
+
+{\ttfamily \#include $<$Grid\+Operator\+Evaluator.\+hpp$>$}
+
+Граф наследования\+:Grid\+Operator\+Evaluator\texorpdfstring{$<$}{<} GO, EO \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d2/df4/struct_grid_operator_evaluator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые типы}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_grid_operator_evaluator_a2aa0fcbe2dcaeb1509821c3c642404e2}\label{struct_grid_operator_evaluator_a2aa0fcbe2dcaeb1509821c3c642404e2} 
+typedef \mbox{\hyperlink{struct_grid_operator_evaluator}{Grid\+Operator\+Evaluator}} {\bfseries type}
+\item 
+\Hypertarget{struct_grid_operator_evaluator_ad4be83a27f18740900cf921bbe7afc40}\label{struct_grid_operator_evaluator_ad4be83a27f18740900cf921bbe7afc40} 
+typedef \mbox{\hyperlink{struct_grid_evaluable_object}{Grid\+Evaluable\+Object}}$<$ \mbox{\hyperlink{struct_grid_operator_evaluator}{type}} $>$ {\bfseries base\+\_\+type}
+\item 
+\Hypertarget{struct_grid_operator_evaluator_a0e0b0dcf3a0baf0ed3935755ed2b8475}\label{struct_grid_operator_evaluator_a0e0b0dcf3a0baf0ed3935755ed2b8475} 
+typedef GO\+::template get\+\_\+value\+\_\+type$<$ typename\+EO\+::value\+\_\+type $>$\+::type {\bfseries value\+\_\+type}
+\item 
+\Hypertarget{struct_grid_operator_evaluator_a4cee57609f928d1550aed8ab71c1a422}\label{struct_grid_operator_evaluator_a4cee57609f928d1550aed8ab71c1a422} 
+typedef \mbox{\hyperlink{struct_grid_operator}{Grid\+Operator}}$<$ GO, typename GO\+::proxy\+\_\+type $>$ {\bfseries op\+\_\+type}
+\item 
+\Hypertarget{struct_grid_operator_evaluator_a6e8c9eba0528457dbc19d3f032302b73}\label{struct_grid_operator_evaluator_a6e8c9eba0528457dbc19d3f032302b73} 
+typedef \mbox{\hyperlink{struct_grid_evaluable_object}{Grid\+Evaluable\+Object}}$<$ EO, typename EO\+::proxy\+\_\+type $>$ {\bfseries eobj\+\_\+type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые типы унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ EO, EO $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+typedef EO {\bfseries Final\+Type}
+\item 
+typedef EO {\bfseries Proxy\+Type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_grid_operator_evaluator_a5527f6b8390a2351a3f27aa7c5d4e43e}\label{struct_grid_operator_evaluator_a5527f6b8390a2351a3f27aa7c5d4e43e} 
+{\bfseries Grid\+Operator\+Evaluator} (const \mbox{\hyperlink{struct_grid_operator}{op\+\_\+type}} \&op, const \mbox{\hyperlink{struct_grid_evaluable_object}{eobj\+\_\+type}} \&eobj)
+\item 
+\Hypertarget{struct_grid_operator_evaluator_a74a31a72253dda8d97504ffb548b7aef}\label{struct_grid_operator_evaluator_a74a31a72253dda8d97504ffb548b7aef} 
+{\footnotesize template$<$class GC$>$ }\\value\+\_\+type {\bfseries operator()} (size\+\_\+t i, size\+\_\+t j, size\+\_\+t k, const \mbox{\hyperlink{struct_grid_context}{Grid\+Context}}$<$ GC $>$ \&context) const
+\item 
+\Hypertarget{struct_grid_operator_evaluator_ae9ded505fac06c20060e6d02197a6969}\label{struct_grid_operator_evaluator_ae9ded505fac06c20060e6d02197a6969} 
+value\+\_\+type {\bfseries operator()} (size\+\_\+t i, size\+\_\+t j, size\+\_\+t k) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ EO, EO $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Final\+Type \& {\bfseries Self} ()
+\item 
+const Final\+Type \& {\bfseries Self} () const
+\item 
+Proxy\+Type {\bfseries Get\+Proxy} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$class GO, class EO$>$\newline
+struct Grid\+Operator\+Evaluator$<$ GO, EO $>$}
+Вычислитель 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em GO} & \\
+\hline
+{\em EO} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+Объявления и описания членов структур находятся в файлах\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Math/Grid\+Operator.\+hpp\item 
+HCSLib/\+Math/Grid\+Operator\+Evaluator.\+hpp\end{DoxyCompactItemize}

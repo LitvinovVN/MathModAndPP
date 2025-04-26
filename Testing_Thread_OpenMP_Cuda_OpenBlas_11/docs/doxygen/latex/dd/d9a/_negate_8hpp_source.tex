@@ -1,0 +1,30 @@
+\doxysection{Negate.\+hpp}
+\hypertarget{_negate_8hpp_source}{}\label{_negate_8hpp_source}\index{HCSLib/Math/Negate.hpp@{HCSLib/Math/Negate.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Expression.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ E>}
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }Negate\ :\ \mbox{\hyperlink{struct_expression}{Expression}}<Negate<E>\ >}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ Negate(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_expression}{Expression<E>}}\ \&expr)}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ :\ expr(expr.Self())\{\}}
+\DoxyCodeLine{00012\ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ operator()(\textcolor{keywordtype}{double}\ x)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/expr(x);}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ E\ expr;}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ E>}
+\DoxyCodeLine{00023\ \mbox{\hyperlink{struct_negate}{Negate<E>}}\ operator-\/(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_expression}{Expression<E>}}\ \&expr)}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_negate}{Negate<E>}}(expr);}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}

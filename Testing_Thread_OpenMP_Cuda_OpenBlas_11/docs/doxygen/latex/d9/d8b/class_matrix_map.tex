@@ -1,0 +1,75 @@
+\doxysection{Класс Matrix\+Map}
+\hypertarget{class_matrix_map}{}\label{class_matrix_map}\index{MatrixMap@{MatrixMap}}
+
+
+Карта матрицы  
+
+
+
+
+{\ttfamily \#include $<$Matrix\+Map.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix_map_a4601e332831594281c399d22df75f537}\label{class_matrix_map_a4601e332831594281c399d22df75f537} 
+void {\bfseries Print} () const
+\item 
+\Hypertarget{class_matrix_map_a60d20f13d5e945851ddc29e942205e99}\label{class_matrix_map_a60d20f13d5e945851ddc29e942205e99} 
+void {\bfseries Print} (unsigned mb, unsigned nb) const
+\begin{DoxyCompactList}\small\item\em Вывод в консоль карты блочной матрицы \end{DoxyCompactList}\item 
+Matrix\+Type \mbox{\hyperlink{class_matrix_map_a3972ddc75215ad35aa2e1eab513a3747}{Get\+Matrix\+Type}} (unsigned ib, unsigned jb) const
+\begin{DoxyCompactList}\small\item\em Возвращает тип матрицы, расположенной в блочной матрице по указанному индексу \end{DoxyCompactList}\item 
+\Hypertarget{class_matrix_map_af1e12cda546289a2526b1f311f8fe361}\label{class_matrix_map_af1e12cda546289a2526b1f311f8fe361} 
+void {\bfseries Set\+Rows\+Number} (unsigned mb)
+\item 
+void \mbox{\hyperlink{class_matrix_map_a6abcb9c3259617edead4b86c64830fb5}{AddE}} (unsigned ib, unsigned jb)
+\begin{DoxyCompactList}\small\item\em Добавляет единичную матрицу по указанным координатам \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Карта матрицы 
+
+\doxysubsection{Методы}
+\Hypertarget{class_matrix_map_a6abcb9c3259617edead4b86c64830fb5}\index{MatrixMap@{MatrixMap}!AddE@{AddE}}
+\index{AddE@{AddE}!MatrixMap@{MatrixMap}}
+\doxysubsubsection{\texorpdfstring{AddE()}{AddE()}}
+{\footnotesize\ttfamily \label{class_matrix_map_a6abcb9c3259617edead4b86c64830fb5} 
+void Matrix\+Map\+::\+AddE (\begin{DoxyParamCaption}\item[{unsigned}]{ib}{, }\item[{unsigned}]{jb}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Добавляет единичную матрицу по указанным координатам 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em bi} & Индекс строки \\
+\hline
+{\em bj} & Индекс столбца \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_matrix_map_a3972ddc75215ad35aa2e1eab513a3747}\index{MatrixMap@{MatrixMap}!GetMatrixType@{GetMatrixType}}
+\index{GetMatrixType@{GetMatrixType}!MatrixMap@{MatrixMap}}
+\doxysubsubsection{\texorpdfstring{GetMatrixType()}{GetMatrixType()}}
+{\footnotesize\ttfamily \label{class_matrix_map_a3972ddc75215ad35aa2e1eab513a3747} 
+Matrix\+Type Matrix\+Map\+::\+Get\+Matrix\+Type (\begin{DoxyParamCaption}\item[{unsigned}]{ib}{, }\item[{unsigned}]{jb}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает тип матрицы, расположенной в блочной матрице по указанному индексу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em ib} & \\
+\hline
+{\em jb} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Matrices/Matrix\+Map.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,48 @@
+\doxysection{Algorithm\+Type.\+hpp}
+\hypertarget{_algorithm_type_8hpp_source}{}\label{_algorithm_type_8hpp_source}\index{HCSLib/Algorithms/AlgorithmType.hpp@{HCSLib/Algorithms/AlgorithmType.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum\ class}\ AlgorithmType}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ None,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0\ -\/\ Неинициализировано}}
+\DoxyCodeLine{00009\ \ \ \ \ SeqCpu,\ \ \ \ \ \ \textcolor{comment}{//\ 1\ -\/\ последовательный\ CPU}}
+\DoxyCodeLine{00010\ \ \ \ \ SeqGpuCuda,\ \ \textcolor{comment}{//\ 2\ -\/\ последовательный\ GPU\ CUDA}}
+\DoxyCodeLine{00011\ \ \ \ \ ParCpuThread,\textcolor{comment}{//\ 3\ -\/\ параллельный\ CPU\ std::thread}}
+\DoxyCodeLine{00012\ \ \ \ \ ParCpuOpenMP,\textcolor{comment}{//\ 4\ -\/\ параллельный\ CPU\ OpenMP}}
+\DoxyCodeLine{00013\ \ \ \ \ ParGpuCuda\ \ \ \textcolor{comment}{//\ 5\ -\/\ параллельный\ GPU\ CUDA}}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ std::ostream\&\ operator<<(std::ostream\&\ os,\ AlgorithmType\ algType)}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{switch}\ (algType)}
+\DoxyCodeLine{00019\ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{case}\ AlgorithmType::None:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}None"{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{case}\ AlgorithmType::SeqCpu:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}SeqCpu"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{case}\ AlgorithmType::SeqGpuCuda:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}SeqGpuCuda"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{case}\ AlgorithmType::ParCpuThread:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}ParCpuThread"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{case}\ AlgorithmType::ParCpuOpenMP:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}ParCpuOpenMP"{}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{case}\ AlgorithmType::ParGpuCuda:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}ParGpuCuda"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00043\ \}}
+
+\end{DoxyCode}

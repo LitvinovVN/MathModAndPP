@@ -1,0 +1,63 @@
+\doxysection{Parallel\+Calc\+Indicators.\+hpp}
+\hypertarget{_parallel_calc_indicators_8hpp_source}{}\label{_parallel_calc_indicators_8hpp_source}\index{HCSLib/PerformanceTests/ParallelCalcIndicators.hpp@{HCSLib/PerformanceTests/ParallelCalcIndicators.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }ParallelCalcIndicators}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ Nthreads\{\};}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{double}\ Smin\{\};}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{double}\ Smax\{\};}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}\ Savg\{\};}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{double}\ Smedian\{\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ Sperc95\{\};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{double}\ Emin\{\};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ Emax\{\};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ Eavg\{\};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{double}\ Emedian\{\};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ Eperc95\{\};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ ParallelCalcIndicators()}
+\DoxyCodeLine{00022\ \ \ \ \ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ ParallelCalcIndicators(\mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\&\ stat\_seq,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\&\ stat\_par,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ Nthreads)\ :\ Nthreads(Nthreads)}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ Smin\ =\ stat\_seq.minValue\ /\ stat\_par.minValue;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ Smax\ =\ stat\_seq.maxValue\ /\ stat\_par.maxValue;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ Savg\ =\ stat\_seq.avg\ /\ stat\_par.avg;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ Smedian\ =\ stat\_seq.median\ /\ stat\_par.median;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Sperc95\ =\ stat\_seq.percentile\_95\ /\ stat\_par.percentile\_95;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ Emin\ =\ Smin\ /\ Nthreads;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ Emax\ =\ Smax\ /\ Nthreads;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ Eavg\ =\ Savg\ /\ Nthreads;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Emedian\ =\ Smedian\ /\ Nthreads;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ Eperc95\ =\ Sperc95\ /\ Nthreads;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}N\ threads:\ "{}}\ <<\ Nthreads\ <<\ std::endl;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Smin:\ "{}}\ <<\ Smin\ <<\ std::endl;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Smax:\ "{}}\ <<\ Smax\ <<\ std::endl;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Savg:\ "{}}\ <<\ Savg\ <<\ std::endl;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Smedian:\ "{}}\ <<\ Smedian\ <<\ std::endl;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Sperc95:\ "{}}\ <<\ Sperc95\ <<\ std::endl;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Emin:\ "{}}\ <<\ Emin\ <<\ std::endl;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Emax:\ "{}}\ <<\ Emax\ <<\ std::endl;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Eavg:\ "{}}\ <<\ Eavg\ <<\ std::endl;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Emedian:\ "{}}\ <<\ Emedian\ <<\ std::endl;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Eperc95:\ "{}}\ <<\ Eperc95\ <<\ std::endl;}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+
+\end{DoxyCode}

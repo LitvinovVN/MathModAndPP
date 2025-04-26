@@ -1,0 +1,267 @@
+\doxysection{Cuda\+Helper.\+hpp}
+\hypertarget{_cuda_helper_8hpp_source}{}\label{_cuda_helper_8hpp_source}\index{HCSLib/Cuda/CudaHelper.hpp@{HCSLib/Cuda/CudaHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}CudaDeviceProperties.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ cudaCheckErrors(msg)\ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ cudaError\_t\ \_\_err\ =\ cudaGetLastError();\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ if\ (\_\_err\ !=\ cudaSuccess)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ fprintf(stderr,\ "{}Fatal\ error:\ \%s\ (\%s\ at\ \%s:\%d)\(\backslash\)n"{},\ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ msg,\ cudaGetErrorString(\_\_err),\ \(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ fprintf(stderr,\ "{}***\ FAILED\ -\/\ THROWING\ EXCEPTION\ ***\(\backslash\)n"{});\ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ throw\ std::runtime\_error(msg);\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_cuda_helper}{CudaHelper}}}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_cuda_helper_a07f7d0803e496e33de75d9ba452ff97a}{IsErrors}}()}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ cudaError\_t\ err\ =\ cudaGetLastError();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ cudaSuccess)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_cuda_helper_acfb993fd6f2458328efdd246feedcccd}{IsCudaSupported}}()}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isCudaSupported\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ isCudaSupported\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif\ }}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isCudaSupported;}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_cuda_helper_a98c75205f07b42f7b7b31737bf2861ac}{GetCudaDeviceNumber}}()}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ devCount\ =\ 0;}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ cudaGetDeviceCount(\&devCount);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ devCount;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_cuda_helper_ae9b2f2f91313696aaf6b3904f38dd408}{SetDevice}}(\textcolor{keywordtype}{unsigned}\ deviceId)}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ cudaError\_t\ err\ =\ cudaGetLastError();}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ cudaSuccess)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_cuda_device_properties}{CudaDeviceProperties}}\ \mbox{\hyperlink{struct_cuda_helper_a1806e65a5c5eb3c77adeaf2780a617e9}{GetCudaDeviceProperties}}(\textcolor{keywordtype}{int}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_cuda_device_properties}{CudaDeviceProperties}}\ prop;}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ device\ properties}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)nCUDA\ Device\ \#\%d\(\backslash\)n"{}},\ deviceId);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ cudaDeviceProp\ devProp;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ cudaGetDeviceProperties(\&devProp,\ deviceId);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ prop.IsInitialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ prop.Major\ =\ devProp.major;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ prop.Minor\ =\ devProp.minor;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ prop.Name\ =\ std::string(devProp.name);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ prop.TotalGlobalMem\ =\ devProp.totalGlobalMem;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ prop.SharedMemoryPerBlock\ =\ devProp.sharedMemPerBlock;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ prop.RegsPerBlock\ =\ devProp.regsPerBlock;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ prop.WarpSize\ =\ devProp.warpSize;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ prop.MemPitch\ =\ devProp.memPitch;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ prop.MaxThreadsPerBlock\ =\ devProp.maxThreadsPerBlock;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{comment}{//for\ (int\ i\ =\ 0;\ i\ <\ 3;\ ++i)}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ printf("{}Maximum\ dimension\ \%d\ of\ block:\ \ \%d\(\backslash\)n"{},\ i,\ devProp.maxThreadsDim[i]);}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//for\ (int\ i\ =\ 0;\ i\ <\ 3;\ ++i)}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ printf("{}Maximum\ dimension\ \%d\ of\ grid:\ \ \ \%d\(\backslash\)n"{},\ i,\ devProp.maxGridSize[i]);}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//printf("{}Clock\ rate:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \%d\(\backslash\)n"{},\ \ devProp.clockRate);}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//printf("{}Total\ constant\ memory:\ \ \ \ \ \ \ \ \ \%u\(\backslash\)n"{},\ \ devProp.totalConstMem);}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//printf("{}Texture\ alignment:\ \ \ \ \ \ \ \ \ \ \ \ \ \%u\(\backslash\)n"{},\ \ devProp.textureAlignment);}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ prop.DeviceOverlap\ =\ devProp.deviceOverlap;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ prop.MultiProcessorCount\ =\ devProp.multiProcessorCount;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{comment}{//printf("{}Kernel\ execution\ timeout:\ \ \ \ \ \ \%s\(\backslash\)n"{},\ \ (devProp.kernelExecTimeoutEnabled\ ?\ "{}Yes"{}\ :\ "{}No"{}));//*/}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ prop.AsyncEngineCount\ =\ devProp.asyncEngineCount;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ prop.MemoryClockRate\ =\ devProp.memoryClockRate;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ prop.MemoryBusWidth\ =\ devProp.memoryBusWidth;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ prop;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{static}\ std::string\ \mbox{\hyperlink{struct_cuda_helper_a6bfc2ab0ec60564d736193e1f984a1af}{GetCudaDeviceName}}(\textcolor{keywordtype}{int}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cudaDeviceProperties\ =\ \mbox{\hyperlink{struct_cuda_helper_a1806e65a5c5eb3c77adeaf2780a617e9}{GetCudaDeviceProperties}}(deviceId);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cudaDeviceProperties.Name;}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}GetCudaDeviceName():\ CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ Print\ device\ properties}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ PrintCudaDeviceProperties(\textcolor{keywordtype}{int}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00137\ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ device\ properties}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nCUDA\ Device\ \#"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ deviceId\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ cudaDeviceProp\ devProp;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ cudaGetDeviceProperties(\&devProp,\ deviceId);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Major\ revision\ number:\ \ \ \ \ \ \ \ \ \ "{}}\ <<\ devProp.major\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Minor\ revision\ number:\ \ \ \ \ \ \ \ \ \ "{}}\ <<\ devProp.minor\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Name:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}}\ <<\ devProp.name\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ global\ memory:\ \ \ \ \ \ \ \ \ \ \ \ "{}}\ <<\ devProp.totalGlobalMem\ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ shared\ memory\ per\ block:\ \ "{}}\ <<\ devProp.sharedMemPerBlock\ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ registers\ per\ block:\ \ \ \ \ \ "{}}\ <<\ devProp.regsPerBlock\ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Warp\ size:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}}\ <<\ devProp.warpSize\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Maximum\ memory\ pitch:\ \ \ \ \ \ \ \ \ \ \ "{}}\ <<\ devProp.memPitch\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Maximum\ threads\ per\ block:\ \ \ \ \ \ "{}}\ <<\ devProp.maxThreadsPerBlock\ \ \ <<\ std::endl;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*for\ (int\ i\ =\ 0;\ i\ <\ 3;\ ++i)}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ printf("{}Maximum\ dimension\ \%d\ of\ block:\ \ \%d\(\backslash\)n"{},\ i,\ devProp.maxThreadsDim[i]);}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ 3;\ ++i)}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ printf("{}Maximum\ dimension\ \%d\ of\ grid:\ \ \ \%d\(\backslash\)n"{},\ i,\ devProp.maxGridSize[i]);}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ \ \ \ \ \ printf("{}Clock\ rate:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \%d\(\backslash\)n"{},\ \ devProp.clockRate);}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ \ \ \ \ \ printf("{}Total\ constant\ memory:\ \ \ \ \ \ \ \ \ \%u\(\backslash\)n"{},\ \ devProp.totalConstMem);}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ \ \ \ \ \ \ \ printf("{}Texture\ alignment:\ \ \ \ \ \ \ \ \ \ \ \ \ \%u\(\backslash\)n"{},\ \ devProp.textureAlignment);}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ \ \ \ \ \ \ \ printf("{}Concurrent\ copy\ and\ execution:\ \%s\(\backslash\)n"{},\ \ (devProp.deviceOverlap\ ?\ "{}Yes"{}\ :\ "{}No"{}));*/}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ multiprocessors:\ \ \ \ \ \ "{}}\ <<\ devProp.multiProcessorCount\ \ <<\ std::endl;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{//printf("{}Kernel\ execution\ timeout:\ \ \ \ \ \ \%s\(\backslash\)n"{},\ \ (devProp.kernelExecTimeoutEnabled\ ?\ "{}Yes"{}\ :\ "{}No"{}));}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ asynchronous\ engines:\ "{}}\ <<\ \ devProp.asyncEngineCount\ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Memory\ Clock\ Rate\ (KHz):\ \ \ \ \ \ \ \ "{}}\ <<\ devProp.memoryClockRate\ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Memory\ Bus\ Width\ (bits):\ \ \ \ \ \ \ \ "{}}\ <<\ devProp.memoryBusWidth\ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Peak\ Memory\ Bandwidth\ (GB/s):\ \ \ "{}}\ <<\ 2.0*devProp.memoryClockRate*(devProp.memoryBusWidth/8)/1.0e6\ <<\ std::endl;}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}printDevProp():\ CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ PrintCudaDeviceProperties\_ConsoleUI()}
+\DoxyCodeLine{00173\ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cudaDeviceNumber\ =\ \mbox{\hyperlink{struct_cuda_helper_a98c75205f07b42f7b7b31737bf2861ac}{CudaHelper::GetCudaDeviceNumber}}();}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CudaDeviceNumber:\ "{}}\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ cudaDeviceNumber\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ deviceId\ (0..."{}}\ <<\ cudaDeviceNumber-\/1\ <<\ \textcolor{stringliteral}{"{}):\ "{}};}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ deviceId;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ std::cin\ >>\ deviceId;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ PrintCudaDeviceProperties(deviceId);}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ WriteGpuSpecs(std::ofstream\&\ out)}
+\DoxyCodeLine{00185\ \ \ \ \ \{}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}WriteGpuSpecs()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nDevices;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ cudaGetDeviceCount(\&nDevices);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nDevices;\ i++)}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ cudaDeviceProp\ prop;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ cudaGetDeviceProperties(\&prop,\ i);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}Device\ Number:\ "{}}\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ i\ <<\ std::endl;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ Device\ name:\ "{}}\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ prop.name\ <<\ std::endl;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ Compute\ capability:\ "{}}\ \ \ \ \ \ <<\ prop.major\ <<\ \textcolor{stringliteral}{"{}."{}}\ <<\ prop.minor\ <<\ std::endl;}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ MultiProcessorCount:\ "{}}\ \ \ \ \ <<\ prop.multiProcessorCount\ <<\ std::endl;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ asyncEngineCount:\ "{}}\ \ \ \ \ \ \ \ <<\ \ prop.asyncEngineCount<<\ \textcolor{stringliteral}{"{}\ (Number\ of\ asynchronous\ engines)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ Memory\ Clock\ Rate\ (KHz):\ "{}}\ <<\ prop.memoryClockRate\ <<\ std::endl;}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ Memory\ Bus\ Width\ (bits):\ "{}}\ <<\ prop.memoryBusWidth\ <<\ std::endl;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}\ \ Peak\ Memory\ Bandwidth\ (GB/s):\ "{}}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ 2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6\ <<\ std::endl;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}printDevProp():\ CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_cuda_helper_a35e2277bb57dd01ef9fefc47a66874f9}{WriteGpuSpecsToTxtFile\_ConsoleUI}}()}
+\DoxyCodeLine{00213\ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cudaDeviceNumber\ =\ \mbox{\hyperlink{struct_cuda_helper_a98c75205f07b42f7b7b31737bf2861ac}{CudaHelper::GetCudaDeviceNumber}}();}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Cuda\ devices\ number:\ "{}}\ <<\ cudaDeviceNumber\ <<\ std::endl;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{comment}{//CudaHelper::PrintCudaDeviceProperties();}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cudaDeviceNumber\ >\ 0)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ cudaDeviceNumber;\ i++)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ devProps\ =\ \mbox{\hyperlink{struct_cuda_helper_a1806e65a5c5eb3c77adeaf2780a617e9}{CudaHelper::GetCudaDeviceProperties}}();}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ devProps.Print();}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ std::ofstream\ f(\textcolor{stringliteral}{"{}gpu-\/specs.txt"{}});}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ CudaHelper::WriteGpuSpecs(f);}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ f.close();}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \ \ \ \ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CudaFree(T*\ dev\_arr)}
+\DoxyCodeLine{00234\ \ \ \ \ \{}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ cudaFree(dev\_arr);}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00238\ \ \ \ \ \}}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ InitByValue(T*\ arrayGpu,}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length,}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ T\ value)}
+\DoxyCodeLine{00244\ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ threadsNum\ =\ 1024;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ blocksNum\ \ =\ length\ /\ threadsNum;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(length\ \%\ threadsNum)}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ blocksNum++;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ kernel\_init\_by\_value<<<blocksNum,\ threadsNum>>>(arrayGpu,\ length,\ value);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ cudaError\_t\ cudaResult\ =\ cudaGetLastError();}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ init\ GPU\ array\ by\ value:\ "{}});}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ +=\ cudaGetErrorString(cudaResult);}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00261\ \ \ \ \ \}}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Multiply(T*\ arrayGpu,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length,\ S\ scalar)}
+\DoxyCodeLine{00265\ \ \ \ \ \{}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ threadsNum\ =\ 1024;}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ blocksNum\ \ =\ length\ /\ threadsNum;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(length\ \%\ threadsNum)}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ blocksNum++;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ kernel\_multiply<<<blocksNum,\ threadsNum>>>(arrayGpu,\ length,\ scalar);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00276\ \ \ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ }
+\DoxyCodeLine{00279\ \};}
+
+\end{DoxyCode}

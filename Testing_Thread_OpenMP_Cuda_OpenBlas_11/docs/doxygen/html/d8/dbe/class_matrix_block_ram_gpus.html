@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Класс MatrixBlockRamGpus</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d8/dbe/class_matrix_block_ram_gpus.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="../../d6/d21/class_matrix_block_ram_gpus-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Класс MatrixBlockRamGpus</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Блочная матрица на выч. узле (RAM+GPUs)  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d1/d27/_matrix_block_ram_gpus_8hpp_source.html">MatrixBlockRamGpus.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Граф наследования:MatrixBlockRamGpus:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d8/dbe/class_matrix_block_ram_gpus.png" usemap="#MatrixBlockRamGpus_map" alt=""/>
+  <map id="MatrixBlockRamGpus_map" name="MatrixBlockRamGpus_map">
+<area href="../../d5/d5d/class_i_matrix.html" title="Интерфейс &quot;Матрица&quot;." alt="IMatrix" shape="rect" coords="0,0,131,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a2026f19376af7b8de65c7b1f15949c69" id="r_a2026f19376af7b8de65c7b1f15949c69"><td class="memItemLeft" align="right" valign="top"><a id="a2026f19376af7b8de65c7b1f15949c69" name="a2026f19376af7b8de65c7b1f15949c69"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>MatrixBlockRamGpus</b> (unsigned mb, unsigned nb, unsigned n)</td></tr>
+<tr class="separator:a2026f19376af7b8de65c7b1f15949c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af30030dc8837e18d3f7e9ee2168e3f49" id="r_af30030dc8837e18d3f7e9ee2168e3f49"><td class="memItemLeft" align="right" valign="top">virtual MatrixType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af30030dc8837e18d3f7e9ee2168e3f49">GetMatrixType</a> () const override</td></tr>
+<tr class="memdesc:af30030dc8837e18d3f7e9ee2168e3f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает тип матрицы  <br /></td></tr>
+<tr class="separator:af30030dc8837e18d3f7e9ee2168e3f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67276e3be1a0bc5b0818ae59b22808c1" id="r_a67276e3be1a0bc5b0818ae59b22808c1"><td class="memItemLeft" align="right" valign="top">virtual unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67276e3be1a0bc5b0818ae59b22808c1">GetSize</a> () const override</td></tr>
+<tr class="memdesc:a67276e3be1a0bc5b0818ae59b22808c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает объём занятой оперативной памяти в байтах  <br /></td></tr>
+<tr class="separator:a67276e3be1a0bc5b0818ae59b22808c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a492ef404bc2dec50a42b457e152bd148" id="r_a492ef404bc2dec50a42b457e152bd148"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a492ef404bc2dec50a42b457e152bd148">GetM</a> () const override</td></tr>
+<tr class="memdesc:a492ef404bc2dec50a42b457e152bd148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает количество строк M.  <br /></td></tr>
+<tr class="separator:a492ef404bc2dec50a42b457e152bd148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff1aa1b54ea582494aacc15277379bd" id="r_a0ff1aa1b54ea582494aacc15277379bd"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ff1aa1b54ea582494aacc15277379bd">GetN</a> () const override</td></tr>
+<tr class="memdesc:a0ff1aa1b54ea582494aacc15277379bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает количество столбцов N.  <br /></td></tr>
+<tr class="separator:a0ff1aa1b54ea582494aacc15277379bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb50fd7598068be52445dcf19897fc32" id="r_adb50fd7598068be52445dcf19897fc32"><td class="memItemLeft" align="right" valign="top">std::pair&lt; unsigned long long, unsigned long long &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb50fd7598068be52445dcf19897fc32">GetBlockIndexes</a> (unsigned long long i, unsigned long long j) const</td></tr>
+<tr class="memdesc:adb50fd7598068be52445dcf19897fc32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает индекс блока  <br /></td></tr>
+<tr class="separator:adb50fd7598068be52445dcf19897fc32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a634f9660081283eb1ffeb6be3473c68e" id="r_a634f9660081283eb1ffeb6be3473c68e"><td class="memItemLeft" align="right" valign="top"><a id="a634f9660081283eb1ffeb6be3473c68e" name="a634f9660081283eb1ffeb6be3473c68e"></a>
+std::pair&lt; unsigned long long, unsigned long long &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetElementInBlockIndexes</b> (unsigned long long i, unsigned long long j) const</td></tr>
+<tr class="separator:a634f9660081283eb1ffeb6be3473c68e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91effbb0811297ae40ed2c4e78f2b079" id="r_a91effbb0811297ae40ed2c4e78f2b079"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91effbb0811297ae40ed2c4e78f2b079">GetValue</a> (unsigned long long i, unsigned long long j) const override</td></tr>
+<tr class="memdesc:a91effbb0811297ae40ed2c4e78f2b079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает значение элемента матрицы по указанному индексу  <br /></td></tr>
+<tr class="separator:a91effbb0811297ae40ed2c4e78f2b079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae217220e748a5152d69683895681e77" id="r_aae217220e748a5152d69683895681e77"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae217220e748a5152d69683895681e77">operator()</a> (unsigned long long i, unsigned long long j) const override</td></tr>
+<tr class="memdesc:aae217220e748a5152d69683895681e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает значение элемента матрицы по указанному индексу  <br /></td></tr>
+<tr class="separator:aae217220e748a5152d69683895681e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e56295df993b4d58df9260b3178360" id="r_a01e56295df993b4d58df9260b3178360"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a01e56295df993b4d58df9260b3178360">Print</a> (<a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a> pp=<a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a>{}) const override</td></tr>
+<tr class="memdesc:a01e56295df993b4d58df9260b3178360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль сведения о матрице  <br /></td></tr>
+<tr class="separator:a01e56295df993b4d58df9260b3178360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157f5190580e7ad462ec6de0bf3e275c" id="r_a157f5190580e7ad462ec6de0bf3e275c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a157f5190580e7ad462ec6de0bf3e275c">PrintMatrix</a> () const override</td></tr>
+<tr class="memdesc:a157f5190580e7ad462ec6de0bf3e275c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль значения элементов матрицы  <br /></td></tr>
+<tr class="separator:a157f5190580e7ad462ec6de0bf3e275c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18ee421bcf75f5b156a6f458ac8e0c5d" id="r_a18ee421bcf75f5b156a6f458ac8e0c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18ee421bcf75f5b156a6f458ac8e0c5d">PrintMatrix</a> (unsigned long long ind_row_start, unsigned long long num_rows, unsigned long long ind_col_start, unsigned long long num_cols) const override</td></tr>
+<tr class="memdesc:a18ee421bcf75f5b156a6f458ac8e0c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль значения элементов матрицы в указанном диапазоне  <br /></td></tr>
+<tr class="separator:a18ee421bcf75f5b156a6f458ac8e0c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc152c503ebf2e03be09b1c61fa575f" id="r_a0bc152c503ebf2e03be09b1c61fa575f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0bc152c503ebf2e03be09b1c61fa575f">AddE</a> (unsigned long long bi, unsigned long long bj)</td></tr>
+<tr class="memdesc:a0bc152c503ebf2e03be09b1c61fa575f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Добавляет единичную матрицу по указанным координатам  <br /></td></tr>
+<tr class="separator:a0bc152c503ebf2e03be09b1c61fa575f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Блочная матрица на выч. узле (RAM+GPUs) </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="a0bc152c503ebf2e03be09b1c61fa575f" name="a0bc152c503ebf2e03be09b1c61fa575f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bc152c503ebf2e03be09b1c61fa575f">&#9670;&#160;</a></span>AddE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixBlockRamGpus::AddE </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>bi</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>bj</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Добавляет единичную матрицу по указанным координатам </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bi</td><td>Индекс строки </td></tr>
+    <tr><td class="paramname">bj</td><td>Индекс столбца </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adb50fd7598068be52445dcf19897fc32" name="adb50fd7598068be52445dcf19897fc32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb50fd7598068be52445dcf19897fc32">&#9670;&#160;</a></span>GetBlockIndexes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; unsigned long long, unsigned long long &gt; MatrixBlockRamGpus::GetBlockIndexes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>i</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>j</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает индекс блока </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Индекс строки элемента </td></tr>
+    <tr><td class="paramname">j</td><td>Индекс столбца элемента </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a492ef404bc2dec50a42b457e152bd148" name="a492ef404bc2dec50a42b457e152bd148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a492ef404bc2dec50a42b457e152bd148">&#9670;&#160;</a></span>GetM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long long MatrixBlockRamGpus::GetM </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает количество строк M. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>M - количество строк </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a1dc8a3b3fc3f8378751e900a830dea65">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="af30030dc8837e18d3f7e9ee2168e3f49" name="af30030dc8837e18d3f7e9ee2168e3f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af30030dc8837e18d3f7e9ee2168e3f49">&#9670;&#160;</a></span>GetMatrixType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual MatrixType MatrixBlockRamGpus::GetMatrixType </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает тип матрицы </p>
+<dl class="section return"><dt>Возвращает</dt><dd>MatrixType </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a68570cc50e87b8a22ee6d09277878308">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a0ff1aa1b54ea582494aacc15277379bd" name="a0ff1aa1b54ea582494aacc15277379bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ff1aa1b54ea582494aacc15277379bd">&#9670;&#160;</a></span>GetN()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long long MatrixBlockRamGpus::GetN </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает количество столбцов N. </p>
+<dl class="section return"><dt>Возвращает</dt><dd>N - количество строк </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#af34182a3d62ab93947976718f7476467">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a67276e3be1a0bc5b0818ae59b22808c1" name="a67276e3be1a0bc5b0818ae59b22808c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67276e3be1a0bc5b0818ae59b22808c1">&#9670;&#160;</a></span>GetSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual unsigned long long MatrixBlockRamGpus::GetSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает объём занятой оперативной памяти в байтах </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Объём занятой оперативной памяти в байтах </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a15c9a029643f1ec6c49789f902b6db64">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a91effbb0811297ae40ed2c4e78f2b079" name="a91effbb0811297ae40ed2c4e78f2b079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91effbb0811297ae40ed2c4e78f2b079">&#9670;&#160;</a></span>GetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double MatrixBlockRamGpus::GetValue </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>i</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>j</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает значение элемента матрицы по указанному индексу </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Индекс строки </td></tr>
+    <tr><td class="paramname">j</td><td>Индекс столбца </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Элемент (i, j) </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#aa20a5d7c7fd7c0be8e21f85c5a4c82b5">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="aae217220e748a5152d69683895681e77" name="aae217220e748a5152d69683895681e77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae217220e748a5152d69683895681e77">&#9670;&#160;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual double MatrixBlockRamGpus::operator() </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>i</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>j</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает значение элемента матрицы по указанному индексу </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Индекс строки </td></tr>
+    <tr><td class="paramname">j</td><td>Индекс столбца </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Элемент (i, j) </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a52e677a985e720a5f81a7354d742596b">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a01e56295df993b4d58df9260b3178360" name="a01e56295df993b4d58df9260b3178360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e56295df993b4d58df9260b3178360">&#9670;&#160;</a></span>Print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixBlockRamGpus::Print </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a></td>          <td class="paramname"><span class="paramname"><em>pp</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a>{}</span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль сведения о матрице </p>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#ae3696895ee9f789f28870bb7df4ec7e1">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a157f5190580e7ad462ec6de0bf3e275c" name="a157f5190580e7ad462ec6de0bf3e275c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a157f5190580e7ad462ec6de0bf3e275c">&#9670;&#160;</a></span>PrintMatrix() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixBlockRamGpus::PrintMatrix </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль значения элементов матрицы </p>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a50bd03040cf48a2d04052f8abc172273">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a18ee421bcf75f5b156a6f458ac8e0c5d" name="a18ee421bcf75f5b156a6f458ac8e0c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18ee421bcf75f5b156a6f458ac8e0c5d">&#9670;&#160;</a></span>PrintMatrix() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixBlockRamGpus::PrintMatrix </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>ind_row_start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>num_rows</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>ind_col_start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>num_cols</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль значения элементов матрицы в указанном диапазоне </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ind_row_start</td><td>Индекс стартовой строки </td></tr>
+    <tr><td class="paramname">num_rows</td><td>Количество строк </td></tr>
+    <tr><td class="paramname">ind_col_start</td><td>Индекс стартового столбца </td></tr>
+    <tr><td class="paramname">num_cols</td><td>Количество столбцов </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a5eea6be160a0eb89793b2130d40d1890">IMatrix</a>.</p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>HCSLib/Matrices/<a class="el" href="../../d1/d27/_matrix_block_ram_gpus_8hpp_source.html">MatrixBlockRamGpus.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d8/dbe/class_matrix_block_ram_gpus.html">MatrixBlockRamGpus</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

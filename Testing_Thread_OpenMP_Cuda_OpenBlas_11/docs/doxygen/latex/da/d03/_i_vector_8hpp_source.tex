@@ -1,0 +1,32 @@
+\doxysection{IVector.\+hpp}
+\hypertarget{_i_vector_8hpp_source}{}\label{_i_vector_8hpp_source}\index{HCSLib/Vectors/IVector.hpp@{HCSLib/Vectors/IVector.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_i_vector}{IVector}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ VectorType\ \mbox{\hyperlink{class_i_vector_a9aa3c065f2a78e5f416806c38fe0aaaf}{vectorType}}\ =\ VectorType::VectorRow;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00013\ \ \ \ \ DataLocation\ \mbox{\hyperlink{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}{dataLocation}}\ =\ DataLocation::RAM;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_vector_a8cd6244939d676bd609905e77b3147dd}{Transpose}}()}
+\DoxyCodeLine{00017\ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_vector_a9aa3c065f2a78e5f416806c38fe0aaaf}{vectorType}}\ =\ (VectorType)!(\textcolor{keywordtype}{bool})\mbox{\hyperlink{class_i_vector_a9aa3c065f2a78e5f416806c38fe0aaaf}{vectorType}};}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30}{InitByVal}}(T\ val)\ =\ 0;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ ///\ @brief\ Выводит\ в\ консоль\ сведения\ об\ объекте}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Print()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{PrintData}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ indStart,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_vector_a77101d3dc13514d6675335170a45ac65}{PrintData}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{virtual}\ T\ \mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{GetValue}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{SetValue}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index,\ T\ value)\ =\ 0;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}{ClearData}}()\ =\ 0;}
+\DoxyCodeLine{00038\ \};}
+
+\end{DoxyCode}

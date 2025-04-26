@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Класс MatrixRam</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('dd/d13/class_matrix_ram.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="../../dd/d36/class_matrix_ram-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Класс MatrixRam</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс "Матрица в RAM".  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d7/d81/_matrix_ram_8hpp_source.html">MatrixRam.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Граф наследования:MatrixRam:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../dd/d13/class_matrix_ram.png" usemap="#MatrixRam_map" alt=""/>
+  <map id="MatrixRam_map" name="MatrixRam_map">
+<area href="../../d5/d5d/class_i_matrix.html" title="Интерфейс &quot;Матрица&quot;." alt="IMatrix" shape="rect" coords="54,0,153,24"/>
+<area href="../../d1/d03/class_matrix_ram_e.html" title="Единичная матрица" alt="MatrixRamE" shape="rect" coords="0,112,99,136"/>
+<area href="../../d5/d94/class_matrix_ram_zero.html" title="Нулевая матрица" alt="MatrixRamZero" shape="rect" coords="109,112,208,136"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a01460b62f854b6823ee0148d77c9de4f" id="r_a01460b62f854b6823ee0148d77c9de4f"><td class="memItemLeft" align="right" valign="top"><a id="a01460b62f854b6823ee0148d77c9de4f" name="a01460b62f854b6823ee0148d77c9de4f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>MatrixRam</b> (unsigned long long M, unsigned long long N)</td></tr>
+<tr class="separator:a01460b62f854b6823ee0148d77c9de4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4b9e8c17ed29fee19a13af2d650a6db" id="r_af4b9e8c17ed29fee19a13af2d650a6db"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4b9e8c17ed29fee19a13af2d650a6db">GetSize</a> () const override</td></tr>
+<tr class="memdesc:af4b9e8c17ed29fee19a13af2d650a6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает объём занятой оперативной памяти в байтах  <br /></td></tr>
+<tr class="separator:af4b9e8c17ed29fee19a13af2d650a6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa03cab78b07163b29620af740fcc0289" id="r_aa03cab78b07163b29620af740fcc0289"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa03cab78b07163b29620af740fcc0289">Print</a> (<a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a> pp=<a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a>{}) const override</td></tr>
+<tr class="memdesc:aa03cab78b07163b29620af740fcc0289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль сведения о матрице  <br /></td></tr>
+<tr class="separator:aa03cab78b07163b29620af740fcc0289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c4129d7b86fe043288ebabb23cb75fa" id="r_a7c4129d7b86fe043288ebabb23cb75fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c4129d7b86fe043288ebabb23cb75fa">PrintMatrix</a> () const override</td></tr>
+<tr class="memdesc:a7c4129d7b86fe043288ebabb23cb75fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль значения элементов матрицы  <br /></td></tr>
+<tr class="separator:a7c4129d7b86fe043288ebabb23cb75fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcfc17da01607563f542397e658caf41" id="r_adcfc17da01607563f542397e658caf41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adcfc17da01607563f542397e658caf41">PrintMatrix</a> (unsigned long long ind_row_start, unsigned long long num_rows, unsigned long long ind_col_start, unsigned long long num_cols) const override</td></tr>
+<tr class="memdesc:adcfc17da01607563f542397e658caf41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль значения элементов матрицы в указанном диапазоне  <br /></td></tr>
+<tr class="separator:adcfc17da01607563f542397e658caf41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:a4e93c68ba36d53e3a1dbf896d61e9e5c" id="r_a4e93c68ba36d53e3a1dbf896d61e9e5c"><td class="memItemLeft" align="right" valign="top"><a id="a4e93c68ba36d53e3a1dbf896d61e9e5c" name="a4e93c68ba36d53e3a1dbf896d61e9e5c"></a>
+const unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><b>M</b> {}</td></tr>
+<tr class="separator:a4e93c68ba36d53e3a1dbf896d61e9e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a348911c2d7053a8d72d1a44eebf588" id="r_a3a348911c2d7053a8d72d1a44eebf588"><td class="memItemLeft" align="right" valign="top"><a id="a3a348911c2d7053a8d72d1a44eebf588" name="a3a348911c2d7053a8d72d1a44eebf588"></a>
+const unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><b>N</b> {}</td></tr>
+<tr class="separator:a3a348911c2d7053a8d72d1a44eebf588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс "Матрица в RAM". </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="af4b9e8c17ed29fee19a13af2d650a6db" name="af4b9e8c17ed29fee19a13af2d650a6db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4b9e8c17ed29fee19a13af2d650a6db">&#9670;&#160;</a></span>GetSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long long MatrixRam::GetSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает объём занятой оперативной памяти в байтах </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Объём занятой оперативной памяти в байтах </dd></dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a15c9a029643f1ec6c49789f902b6db64">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="aa03cab78b07163b29620af740fcc0289" name="aa03cab78b07163b29620af740fcc0289"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa03cab78b07163b29620af740fcc0289">&#9670;&#160;</a></span>Print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixRam::Print </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a></td>          <td class="paramname"><span class="paramname"><em>pp</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="../../d1/d89/struct_print_params.html">PrintParams</a>{}</span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль сведения о матрице </p>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#ae3696895ee9f789f28870bb7df4ec7e1">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="a7c4129d7b86fe043288ebabb23cb75fa" name="a7c4129d7b86fe043288ebabb23cb75fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c4129d7b86fe043288ebabb23cb75fa">&#9670;&#160;</a></span>PrintMatrix() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixRam::PrintMatrix </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль значения элементов матрицы </p>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a50bd03040cf48a2d04052f8abc172273">IMatrix</a>.</p>
+
+</div>
+</div>
+<a id="adcfc17da01607563f542397e658caf41" name="adcfc17da01607563f542397e658caf41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcfc17da01607563f542397e658caf41">&#9670;&#160;</a></span>PrintMatrix() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MatrixRam::PrintMatrix </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>ind_row_start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>num_rows</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>ind_col_start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>num_cols</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль значения элементов матрицы в указанном диапазоне </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ind_row_start</td><td>Индекс стартовой строки </td></tr>
+    <tr><td class="paramname">num_rows</td><td>Количество строк </td></tr>
+    <tr><td class="paramname">ind_col_start</td><td>Индекс стартового столбца </td></tr>
+    <tr><td class="paramname">num_cols</td><td>Количество столбцов </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Замещает <a class="el" href="../../d5/d5d/class_i_matrix.html#a5eea6be160a0eb89793b2130d40d1890">IMatrix</a>.</p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>HCSLib/Matrices/<a class="el" href="../../d7/d81/_matrix_ram_8hpp_source.html">MatrixRam.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dd/d13/class_matrix_ram.html">MatrixRam</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

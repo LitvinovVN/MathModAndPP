@@ -1,0 +1,398 @@
+\doxysection{Структура Array\+Helper}
+\hypertarget{struct_array_helper}{}\label{struct_array_helper}\index{ArrayHelper@{ArrayHelper}}
+
+
+Структура для хранения методов обработки массивов T\texorpdfstring{$\ast$}{*}.  
+
+
+
+
+{\ttfamily \#include $<$Array\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Классы}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_array_helper_1_1_sum_thread_args}{Sum\+Thread\+Args}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_array_helper_ad4d3aa9e8614db492ed5e3e50ad68242}\label{struct_array_helper_ad4d3aa9e8614db492ed5e3e50ad68242} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Print\+Array\+Ram} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t ind\+Start, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_a5395629bb180cc83b4e8a5bafd3038f7}\label{struct_array_helper_a5395629bb180cc83b4e8a5bafd3038f7} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Print\+Array\+Ram} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_aa79404471dcdaaeb36035d369bc757f6}\label{struct_array_helper_aa79404471dcdaaeb36035d369bc757f6} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Print\+Array\+Gpu} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t ind\+Start, size\+\_\+t length, int device\+Id=0)
+\item 
+{\footnotesize template$<$typename T$>$ }\\static T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_array_helper_ae93a7d6bb2cdc1defb9b7d43714eeb2c}{Create\+Array\+Ram}} (unsigned long long size)
+\begin{DoxyCompactList}\small\item\em Выделяет память для массива в RAM. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper_a220cc0820236039fefeeaecd99610627}\label{struct_array_helper_a220cc0820236039fefeeaecd99610627} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Delete\+Array\+Ram} (T \texorpdfstring{$\ast$}{*}\&array\+Ram)
+\item 
+{\footnotesize template$<$typename T$>$ }\\static T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_array_helper_a8a7128790f8c9645bda68410d620cbcc}{Create\+Array\+Ram\+Pinned}} (unsigned long long size)
+\begin{DoxyCompactList}\small\item\em Выделяет закреплённую память для массива в RAM. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper_adea061c377112eb104c47a25bee7e3c2}\label{struct_array_helper_adea061c377112eb104c47a25bee7e3c2} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Delete\+Array\+Ram\+Pinned} (T \texorpdfstring{$\ast$}{*}\&array\+Ram\+Pinned)
+\item 
+{\footnotesize template$<$typename T$>$ }\\static T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{Create\+Array\+Gpu}} (unsigned long long size)
+\begin{DoxyCompactList}\small\item\em Выделяет память для массива на текущем GPU. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\static T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_array_helper_aa5c5960d16d663c231600b948dad7945}{Create\+Array\+Gpu}} (unsigned long long size, int device\+Id)
+\begin{DoxyCompactList}\small\item\em Выделяет память для массива на GPU. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\static void \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{Delete\+Array\+Gpu}} (T \texorpdfstring{$\ast$}{*}\&array\+Gpu)
+\begin{DoxyCompactList}\small\item\em Освобождает массив на текущем GPU. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\static void \mbox{\hyperlink{struct_array_helper_a62e6278064152665a3565c09656b2ec5}{Delete\+Array\+Gpu}} (T \texorpdfstring{$\ast$}{*}\&array\+Gpu, int device\+Id)
+\begin{DoxyCompactList}\small\item\em Освобождает массив на GPU c. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\static void \mbox{\hyperlink{struct_array_helper_a7d95a972a04dd9f6b5f43b84cb6b5653}{Init\+Array\+Ram}} (T \texorpdfstring{$\ast$}{*}array, unsigned long long size, T value)
+\begin{DoxyCompactList}\small\item\em Инициализирует массив array значениями value. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T$>$ }\\static void \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{Init\+Array\+Gpu}} (T \texorpdfstring{$\ast$}{*}dev\+\_\+array, unsigned long long size, T value)
+\begin{DoxyCompactList}\small\item\em Заполняет массив dev\+\_\+array на текущем GPU значением value. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper_a59c01c24cb1af2c9e6fcd8f281d7877d}\label{struct_array_helper_a59c01c24cb1af2c9e6fcd8f281d7877d} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Init\+Array\+Gpu} (T \texorpdfstring{$\ast$}{*}dev\+\_\+array, unsigned long long size, T value, int device\+Id)
+\item 
+\Hypertarget{struct_array_helper_a1bc03dee6bc756dffa0dea55e08a1097}\label{struct_array_helper_a1bc03dee6bc756dffa0dea55e08a1097} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Init\+Array} (\mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$ \&dev\+Mem\+Arr\+Pointer, T value)
+\item 
+\Hypertarget{struct_array_helper_a88369c4d656ba7ccb6f6d7dfd29c4ffe}\label{struct_array_helper_a88369c4d656ba7ccb6f6d7dfd29c4ffe} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Get\+Value\+RAM} (T \texorpdfstring{$\ast$}{*}array\+Ram, unsigned long long index)
+\item 
+\Hypertarget{struct_array_helper_a0bfa8b9a6fe749562d3713cd5dcd7c48}\label{struct_array_helper_a0bfa8b9a6fe749562d3713cd5dcd7c48} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Get\+Value\+GPU} (T \texorpdfstring{$\ast$}{*}array\+Gpu, unsigned long long index, unsigned device\+Id=0)
+\item 
+\Hypertarget{struct_array_helper_a6409862d7a528921343b5f591212c9a9}\label{struct_array_helper_a6409862d7a528921343b5f591212c9a9} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Set\+Value\+RAM} (T \texorpdfstring{$\ast$}{*}array\+Ram, unsigned long long index, T value)
+\item 
+\Hypertarget{struct_array_helper_a840c9d29122353c230eac1e40fcd7b0c}\label{struct_array_helper_a840c9d29122353c230eac1e40fcd7b0c} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Set\+Value\+GPU} (T \texorpdfstring{$\ast$}{*}array\+Gpu, unsigned long long index, unsigned device\+Id, T value)
+\item 
+\Hypertarget{struct_array_helper_a89805b5d637bd3791f39a704ac472dfa}\label{struct_array_helper_a89805b5d637bd3791f39a704ac472dfa} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Copy\+Ram\+To\+Gpu} (T \texorpdfstring{$\ast$}{*}array\+Ram, T \texorpdfstring{$\ast$}{*}array\+Gpu, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_ab0db399385a30f01939dff10d3087e1c}\label{struct_array_helper_ab0db399385a30f01939dff10d3087e1c} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Copy\+Ram\+To\+Gpu} (T \texorpdfstring{$\ast$}{*}array\+Ram, T \texorpdfstring{$\ast$}{*}array\+Gpu, size\+\_\+t ind\+\_\+start, size\+\_\+t length, int device\+Id=0)
+\item 
+\Hypertarget{struct_array_helper_ae03a9b82feef3f75b877530ba6f30b9b}\label{struct_array_helper_ae03a9b82feef3f75b877530ba6f30b9b} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Copy\+Gpu\+To\+Ram} (T \texorpdfstring{$\ast$}{*}array\+Gpu, T \texorpdfstring{$\ast$}{*}array\+Ram, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_a606bfa606ea79943496919239ec6ea0d}\label{struct_array_helper_a606bfa606ea79943496919239ec6ea0d} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Copy\+Gpu\+To\+Ram} (T \texorpdfstring{$\ast$}{*}array\+Gpu, T \texorpdfstring{$\ast$}{*}array\+Ram, size\+\_\+t ind\+\_\+start, size\+\_\+t length, int device\+Id=0)
+\item 
+\Hypertarget{struct_array_helper_a09dcbb0dfc70b74429ba051e9268884d}\label{struct_array_helper_a09dcbb0dfc70b74429ba051e9268884d} 
+{\footnotesize template$<$typename T$>$ }\\static bool {\bfseries Is\+Equals\+Ram\+Ram} (T \texorpdfstring{$\ast$}{*}array\+Ram1, T \texorpdfstring{$\ast$}{*}array\+Ram2, size\+\_\+t length, double eps=0.\+00000001)
+\item 
+{\footnotesize template$<$typename T$>$ }\\static bool \mbox{\hyperlink{struct_array_helper_a8e532ff8fdc6b7ff64431de23772c66a}{Is\+Equals\+Ram\+Gpu}} (T \texorpdfstring{$\ast$}{*}array\+Ram, T \texorpdfstring{$\ast$}{*}array\+Gpu, size\+\_\+t length, double eps=0.\+00000001)
+\begin{DoxyCompactList}\small\item\em Сравнивает содержимое массивов, расположенных на RAM и GPU. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper_a1e5b681158fba7d88ee30df7b0ee11cc}\label{struct_array_helper_a1e5b681158fba7d88ee30df7b0ee11cc} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t ind\+Start, size\+\_\+t ind\+End)
+\item 
+\Hypertarget{struct_array_helper_ae89b39227b4d842c9115b6690dd28b00}\label{struct_array_helper_ae89b39227b4d842c9115b6690dd28b00} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t size)
+\item 
+\Hypertarget{struct_array_helper_ac02fb94d8f5d5cc9e63712dfe2a241f2}\label{struct_array_helper_ac02fb94d8f5d5cc9e63712dfe2a241f2} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Sum\+Thread} (\mbox{\hyperlink{struct_array_helper_1_1_sum_thread_args}{Sum\+Thread\+Args}}$<$ T $>$ args)
+\item 
+\Hypertarget{struct_array_helper_acdbc10a0c36cb1f5f6eeab865b66e6f2}\label{struct_array_helper_acdbc10a0c36cb1f5f6eeab865b66e6f2} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t ind\+Start, size\+\_\+t ind\+End, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_ad06223a77a3085422b00763d8f0f66e5}\label{struct_array_helper_ad06223a77a3085422b00763d8f0f66e5} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t size, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_a8ccb00fa558881e0d5e4c0c733a3ff48}\label{struct_array_helper_a8ccb00fa558881e0d5e4c0c733a3ff48} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Open\+MP} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t ind\+Start, size\+\_\+t ind\+End, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_a8f24c5ff4a23d6fe330e7a5fee86a84f}\label{struct_array_helper_a8f24c5ff4a23d6fe330e7a5fee86a84f} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Open\+MP} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t size, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_a85667d2b782cfdc6bac6798c36156f54}\label{struct_array_helper_a85667d2b782cfdc6bac6798c36156f54} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cuda} (T \texorpdfstring{$\ast$}{*}dev\+\_\+arr, size\+\_\+t ind\+Start, size\+\_\+t ind\+End, unsigned blocks\+Num, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_ab9cc9227879cf68fd0982d9031d5ed29}\label{struct_array_helper_ab9cc9227879cf68fd0982d9031d5ed29} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cuda} (T \texorpdfstring{$\ast$}{*}data, size\+\_\+t size, unsigned blocks\+Num, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_a5839ae768f6221a013f47c66981c9318}\label{struct_array_helper_a5839ae768f6221a013f47c66981c9318} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cuda\+Multi\+Gpu} (std\+::vector$<$ \mbox{\hyperlink{struct_array_gpu_processing_params}{Array\+Gpu\+Processing\+Params}}$<$ T $>$ $>$ params)
+\item 
+\Hypertarget{struct_array_helper_a2cd490df5a2810f1b2480c4c592ef2ee}\label{struct_array_helper_a2cd490df5a2810f1b2480c4c592ef2ee} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cublas} (\mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} cublasH, T \texorpdfstring{$\ast$}{*}dev\+\_\+arr, size\+\_\+t ind\+Start, size\+\_\+t ind\+End)
+\item 
+\Hypertarget{struct_array_helper_a2f85a4ebcd254e8c9b00e3647703ec89}\label{struct_array_helper_a2f85a4ebcd254e8c9b00e3647703ec89} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cublas} (\mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} cublasH, T \texorpdfstring{$\ast$}{*}dev\+\_\+arr, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_ad8de20d6cb696620a5760c3e51157c9f}\label{struct_array_helper_ad8de20d6cb696620a5760c3e51157c9f} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cublas} (\mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} cublasH, \mbox{\hyperlink{struct_array_gpu_processing_params}{Array\+Gpu\+Processing\+Params}}$<$ T $>$ params)
+\item 
+\Hypertarget{struct_array_helper_af993e36263bddd3ddaf467645113d037}\label{struct_array_helper_af993e36263bddd3ddaf467645113d037} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Sum\+Cublas\+Multi\+Gpu} (std\+::vector$<$ \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} $>$ cublas\+Handles, std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ dev\+\_\+arrays, std\+::vector$<$ size\+\_\+t $>$ ind\+Starts, std\+::vector$<$ size\+\_\+t $>$ ind\+Ends)
+\item 
+\Hypertarget{struct_array_helper_a50655493b7b94db47b9f56acc8ec555d}\label{struct_array_helper_a50655493b7b94db47b9f56acc8ec555d} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Ram\+Seq} (T \texorpdfstring{$\ast$}{*}array\+Ram1, T \texorpdfstring{$\ast$}{*}array\+Ram2, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_a7bc6a28d32a9b9ae0fb828b787492aa8}\label{struct_array_helper_a7bc6a28d32a9b9ae0fb828b787492aa8} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Ram\+Par\+Thread} (T \texorpdfstring{$\ast$}{*}array\+Ram1, T \texorpdfstring{$\ast$}{*}array\+Ram2, size\+\_\+t length, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_af20c07ec1aa4872be50e5b2c46b9d07f}\label{struct_array_helper_af20c07ec1aa4872be50e5b2c46b9d07f} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Ram\+Par\+Open\+MP} (T \texorpdfstring{$\ast$}{*}array1\+Ram, T \texorpdfstring{$\ast$}{*}array2\+Ram, size\+\_\+t length, unsigned threads\+Num)
+\item 
+\Hypertarget{struct_array_helper_af7d03bef808af52a487b8cd8bae9fe05}\label{struct_array_helper_af7d03bef808af52a487b8cd8bae9fe05} 
+static double {\bfseries Scalar\+Product\+Ram\+Cublas} (double \texorpdfstring{$\ast$}{*}array\+Ram1, double \texorpdfstring{$\ast$}{*}array\+Ram2, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_a08562efd9df2c94a625f386eca5f9104}\label{struct_array_helper_a08562efd9df2c94a625f386eca5f9104} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Gpu\+Par\+Cuda} (T \texorpdfstring{$\ast$}{*}array\+Gpu1, T \texorpdfstring{$\ast$}{*}array\+Gpu2, size\+\_\+t length, unsigned kernel\+Blocks, unsigned kernel\+Threads)
+\item 
+\Hypertarget{struct_array_helper_abbd88b45d652947bd9f8f6bf2f32e892}\label{struct_array_helper_abbd88b45d652947bd9f8f6bf2f32e892} 
+{\footnotesize template$<$typename T$>$ }\\static \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ {\bfseries Scalar\+Product\+Gpu\+Par\+Cuda} (size\+\_\+t length, unsigned kernel\+Blocks, unsigned kernel\+Threads)
+\item 
+\Hypertarget{struct_array_helper_aec74d6372263b86018e99f1f36c2c46c}\label{struct_array_helper_aec74d6372263b86018e99f1f36c2c46c} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Multi\+Gpu\+Par\+Cuda} (std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ array1\+Gpus, std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ array2\+Gpus, std\+::vector$<$ size\+\_\+t $>$ length\+Gpus, unsigned kernel\+Blocks, unsigned kernel\+Threads)
+\item 
+\Hypertarget{struct_array_helper_a6be52cf6d101d2c7e8c1b0c6dcdd67dd}\label{struct_array_helper_a6be52cf6d101d2c7e8c1b0c6dcdd67dd} 
+{\footnotesize template$<$typename T$>$ }\\static \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ {\bfseries Scalar\+Product\+Multi\+Gpu\+Par\+Cuda} (size\+\_\+t length, unsigned kernel\+Blocks, unsigned kernel\+Threads, std\+::vector$<$ double $>$ k\+Gpu\+Data)
+\item 
+\Hypertarget{struct_array_helper_a18e4560071d4e07d74650afeecbd6d7f}\label{struct_array_helper_a18e4560071d4e07d74650afeecbd6d7f} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Gpu\+Cublas} (\mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} cublas\+Handle, T \texorpdfstring{$\ast$}{*}array1\+Gpu, T \texorpdfstring{$\ast$}{*}array2\+Gpu, size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_a28c7603752c27598ebe8f421e223484b}\label{struct_array_helper_a28c7603752c27598ebe8f421e223484b} 
+{\footnotesize template$<$typename T$>$ }\\static \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ {\bfseries Scalar\+Product\+Gpu\+Cublas} (size\+\_\+t length)
+\item 
+\Hypertarget{struct_array_helper_a8e7b288f9702bc2a41671c3bae68ab9c}\label{struct_array_helper_a8e7b288f9702bc2a41671c3bae68ab9c} 
+{\footnotesize template$<$typename T$>$ }\\static T {\bfseries Scalar\+Product\+Multi\+Gpu\+Cublas} (std\+::vector$<$ \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} $>$ cublas\+Handles, std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ dev\+\_\+arrays\+\_\+1, std\+::vector$<$ T \texorpdfstring{$\ast$}{*} $>$ dev\+\_\+arrays\+\_\+2, std\+::vector$<$ size\+\_\+t $>$ dev\+\_\+arrays\+\_\+lengths)
+\item 
+\Hypertarget{struct_array_helper_a2ac06bbd1f55b125c633db1bcb6e6aef}\label{struct_array_helper_a2ac06bbd1f55b125c633db1bcb6e6aef} 
+{\footnotesize template$<$typename T, typename S$>$ }\\static void {\bfseries Multiply\+Ram} (T \texorpdfstring{$\ast$}{*}array\+Ram, unsigned long long length, S scalar)
+\item 
+\Hypertarget{struct_array_helper_a74c8c6d962750efea1d50bde3a329527}\label{struct_array_helper_a74c8c6d962750efea1d50bde3a329527} 
+{\footnotesize template$<$typename T, typename S$>$ }\\static void {\bfseries Multiply\+Ram\+Parallel} (T \texorpdfstring{$\ast$}{*}array\+Ram, unsigned long long length, S scalar, unsigned cpu\+Threads\+Number)
+\item 
+\Hypertarget{struct_array_helper_a8c3904b5c9b0d0089c6adb9050009cac}\label{struct_array_helper_a8c3904b5c9b0d0089c6adb9050009cac} 
+{\footnotesize template$<$typename T, typename S$>$ }\\static void {\bfseries Multiply\+Gpu} (T \texorpdfstring{$\ast$}{*}array\+Gpu, unsigned long long length, unsigned device\+Id, S scalar)
+\item 
+\Hypertarget{struct_array_helper_a76c996da525487a23e2332a2e259520d}\label{struct_array_helper_a76c996da525487a23e2332a2e259520d} 
+{\footnotesize template$<$typename T, typename S$>$ }\\static void {\bfseries Multiply} (\mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$ dev\+Mem\+Arr\+Pointer, S scalar)
+\item 
+\Hypertarget{struct_array_helper_a14b705e11e45094da1ebb09bd926f780}\label{struct_array_helper_a14b705e11e45094da1ebb09bd926f780} 
+{\footnotesize template$<$typename T, typename S$>$ }\\static void {\bfseries Multiply\+Parallel} (\mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$ dev\+Mem\+Arr\+Pointer, S scalar, unsigned cpu\+Threads\+Number)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Структура для хранения методов обработки массивов T\texorpdfstring{$\ast$}{*}. 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}\index{ArrayHelper@{ArrayHelper}!CreateArrayGpu@{CreateArrayGpu}}
+\index{CreateArrayGpu@{CreateArrayGpu}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{CreateArrayGpu()}{CreateArrayGpu()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58} 
+template$<$typename T$>$ \\
+static T \texorpdfstring{$\ast$}{*} Array\+Helper\+::\+Create\+Array\+Gpu (\begin{DoxyParamCaption}\item[{unsigned long long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Выделяет память для массива на текущем GPU. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Тип элементов массива \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em size} & Количество элементов \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Указатель на созданный массив 
+\end{DoxyReturn}
+\Hypertarget{struct_array_helper_aa5c5960d16d663c231600b948dad7945}\index{ArrayHelper@{ArrayHelper}!CreateArrayGpu@{CreateArrayGpu}}
+\index{CreateArrayGpu@{CreateArrayGpu}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{CreateArrayGpu()}{CreateArrayGpu()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_array_helper_aa5c5960d16d663c231600b948dad7945} 
+template$<$typename T$>$ \\
+static T \texorpdfstring{$\ast$}{*} Array\+Helper\+::\+Create\+Array\+Gpu (\begin{DoxyParamCaption}\item[{unsigned long long}]{size}{, }\item[{int}]{device\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Выделяет память для массива на GPU. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Тип элементов массива \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em size} & Количество элементов \\
+\hline
+{\em device\+Id} & Идентификатор устройства \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Указатель на созданный массив 
+\end{DoxyReturn}
+\Hypertarget{struct_array_helper_ae93a7d6bb2cdc1defb9b7d43714eeb2c}\index{ArrayHelper@{ArrayHelper}!CreateArrayRam@{CreateArrayRam}}
+\index{CreateArrayRam@{CreateArrayRam}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{CreateArrayRam()}{CreateArrayRam()}}
+{\footnotesize\ttfamily \label{struct_array_helper_ae93a7d6bb2cdc1defb9b7d43714eeb2c} 
+template$<$typename T$>$ \\
+static T \texorpdfstring{$\ast$}{*} Array\+Helper\+::\+Create\+Array\+Ram (\begin{DoxyParamCaption}\item[{unsigned long long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Выделяет память для массива в RAM. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Тип элементов массива \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em size} & Количество элементов \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Указатель на созданный массив 
+\end{DoxyReturn}
+\Hypertarget{struct_array_helper_a8a7128790f8c9645bda68410d620cbcc}\index{ArrayHelper@{ArrayHelper}!CreateArrayRamPinned@{CreateArrayRamPinned}}
+\index{CreateArrayRamPinned@{CreateArrayRamPinned}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{CreateArrayRamPinned()}{CreateArrayRamPinned()}}
+{\footnotesize\ttfamily \label{struct_array_helper_a8a7128790f8c9645bda68410d620cbcc} 
+template$<$typename T$>$ \\
+static T \texorpdfstring{$\ast$}{*} Array\+Helper\+::\+Create\+Array\+Ram\+Pinned (\begin{DoxyParamCaption}\item[{unsigned long long}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Выделяет закреплённую память для массива в RAM. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Тип элементов массива \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em size} & Количество элементов \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Указатель на созданный массив 
+\end{DoxyReturn}
+\Hypertarget{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}\index{ArrayHelper@{ArrayHelper}!DeleteArrayGpu@{DeleteArrayGpu}}
+\index{DeleteArrayGpu@{DeleteArrayGpu}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{DeleteArrayGpu()}{DeleteArrayGpu()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75} 
+template$<$typename T$>$ \\
+static void Array\+Helper\+::\+Delete\+Array\+Gpu (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}\&}]{array\+Gpu}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Освобождает массив на текущем GPU. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Указатель на массив в GPU \\
+\hline
+\end{DoxyTemplParams}
+\Hypertarget{struct_array_helper_a62e6278064152665a3565c09656b2ec5}\index{ArrayHelper@{ArrayHelper}!DeleteArrayGpu@{DeleteArrayGpu}}
+\index{DeleteArrayGpu@{DeleteArrayGpu}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{DeleteArrayGpu()}{DeleteArrayGpu()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_array_helper_a62e6278064152665a3565c09656b2ec5} 
+template$<$typename T$>$ \\
+static void Array\+Helper\+::\+Delete\+Array\+Gpu (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}\&}]{array\+Gpu}{, }\item[{int}]{device\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Освобождает массив на GPU c. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Указатель на массив в GPU \\
+\hline
+{\em device\+Id} & Идентификатор GPU \\
+\hline
+\end{DoxyTemplParams}
+\Hypertarget{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}\index{ArrayHelper@{ArrayHelper}!InitArrayGpu@{InitArrayGpu}}
+\index{InitArrayGpu@{InitArrayGpu}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{InitArrayGpu()}{InitArrayGpu()}}
+{\footnotesize\ttfamily \label{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb} 
+template$<$typename T$>$ \\
+static void Array\+Helper\+::\+Init\+Array\+Gpu (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{dev\+\_\+array}{, }\item[{unsigned long long}]{size}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Заполняет массив dev\+\_\+array на текущем GPU значением value. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Тип элементов массива \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em dev\+\_\+array} & Указатель на инициализируемый массив \\
+\hline
+{\em size} & Количество элементов массива \\
+\hline
+{\em value} & Значение, присваиваемое всем элементам массива dev\+\_\+array \\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_array_helper_a7d95a972a04dd9f6b5f43b84cb6b5653}\index{ArrayHelper@{ArrayHelper}!InitArrayRam@{InitArrayRam}}
+\index{InitArrayRam@{InitArrayRam}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{InitArrayRam()}{InitArrayRam()}}
+{\footnotesize\ttfamily \label{struct_array_helper_a7d95a972a04dd9f6b5f43b84cb6b5653} 
+template$<$typename T$>$ \\
+static void Array\+Helper\+::\+Init\+Array\+Ram (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{array}{, }\item[{unsigned long long}]{size}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Инициализирует массив array значениями value. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em array} & \\
+\hline
+{\em size} & \\
+\hline
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_array_helper_a8e532ff8fdc6b7ff64431de23772c66a}\index{ArrayHelper@{ArrayHelper}!IsEqualsRamGpu@{IsEqualsRamGpu}}
+\index{IsEqualsRamGpu@{IsEqualsRamGpu}!ArrayHelper@{ArrayHelper}}
+\doxysubsubsection{\texorpdfstring{IsEqualsRamGpu()}{IsEqualsRamGpu()}}
+{\footnotesize\ttfamily \label{struct_array_helper_a8e532ff8fdc6b7ff64431de23772c66a} 
+template$<$typename T$>$ \\
+static bool Array\+Helper\+::\+Is\+Equals\+Ram\+Gpu (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{array\+Ram}{, }\item[{T \texorpdfstring{$\ast$}{*}}]{array\+Gpu}{, }\item[{size\+\_\+t}]{length}{, }\item[{double}]{eps}{ = {\ttfamily 0.00000001}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Сравнивает содержимое массивов, расположенных на RAM и GPU. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em array\+Ram} & \\
+\hline
+{\em array\+Gpu} & \\
+\hline
+{\em length} & \\
+\hline
+{\em eps} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Arrays/Array\+Helper.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,164 @@
+\doxysection{Класс Matrix\+Ram\+Zero}
+\hypertarget{class_matrix_ram_zero}{}\label{class_matrix_ram_zero}\index{MatrixRamZero@{MatrixRamZero}}
+
+
+Нулевая матрица  
+
+
+
+
+{\ttfamily \#include $<$Matrix\+Ram\+Zero.\+hpp$>$}
+
+Граф наследования\+:Matrix\+Ram\+Zero\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d5/d94/class_matrix_ram_zero}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix_ram_zero_a7a568557647cde469130a04ba8bae838}\label{class_matrix_ram_zero_a7a568557647cde469130a04ba8bae838} 
+{\bfseries Matrix\+Ram\+Zero} (unsigned long long M, unsigned long long N)
+\item 
+unsigned long long \mbox{\hyperlink{class_matrix_ram_zero_a2800f660bee7bbcb62de8ae1ef2ae9fa}{GetM}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает количество строк M. \end{DoxyCompactList}\item 
+unsigned long long \mbox{\hyperlink{class_matrix_ram_zero_ac6f7b262153b8ff84e3f5b5b8da030b7}{GetN}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает количество столбцов N. \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{class_matrix_ram_zero_a8ce2f890666fa1ded862c8c726de9bd1}{Get\+Value}} (unsigned long long i, unsigned long long j) const override
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента матрицы по указанному индексу \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{class_matrix_ram_zero_a56aa1a8a894276674f1bd0486dc58e33}{operator()}} (unsigned long long i, unsigned long long j) const override
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента матрицы по указанному индексу \end{DoxyCompactList}\item 
+virtual Matrix\+Type \mbox{\hyperlink{class_matrix_ram_zero_aa2cbce513883b25face5025bd97f308c}{Get\+Matrix\+Type}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает тип матрицы \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{class_matrix_ram}{Matrix\+Ram}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Matrix\+Ram} (unsigned long long M, unsigned long long N)
+\item 
+unsigned long long \mbox{\hyperlink{class_matrix_ram_af4b9e8c17ed29fee19a13af2d650a6db}{Get\+Size}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает объём занятой оперативной памяти в байтах \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp=\mbox{\hyperlink{struct_print_params}{Print\+Params}}\{\}) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль сведения о матрице \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_matrix_ram_a7c4129d7b86fe043288ebabb23cb75fa}{Print\+Matrix}} () const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль значения элементов матрицы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_matrix_ram_adcfc17da01607563f542397e658caf41}{Print\+Matrix}} (unsigned long long ind\+\_\+row\+\_\+start, unsigned long long num\+\_\+rows, unsigned long long ind\+\_\+col\+\_\+start, unsigned long long num\+\_\+cols) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль значения элементов матрицы в указанном диапазоне \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Открытые атрибуты унаследованные от \mbox{\hyperlink{class_matrix_ram}{Matrix\+Ram}}}
+\begin{DoxyCompactItemize}
+\item 
+const unsigned long long {\bfseries M} \{\}
+\item 
+const unsigned long long {\bfseries N} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Нулевая матрица 
+
+\doxysubsection{Методы}
+\Hypertarget{class_matrix_ram_zero_a2800f660bee7bbcb62de8ae1ef2ae9fa}\index{MatrixRamZero@{MatrixRamZero}!GetM@{GetM}}
+\index{GetM@{GetM}!MatrixRamZero@{MatrixRamZero}}
+\doxysubsubsection{\texorpdfstring{GetM()}{GetM()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_zero_a2800f660bee7bbcb62de8ae1ef2ae9fa} 
+unsigned long long Matrix\+Ram\+Zero\+::\+GetM (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает количество строк M. 
+
+\begin{DoxyReturn}{Возвращает}
+M -\/ количество строк 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_a1dc8a3b3fc3f8378751e900a830dea65}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_zero_aa2cbce513883b25face5025bd97f308c}\index{MatrixRamZero@{MatrixRamZero}!GetMatrixType@{GetMatrixType}}
+\index{GetMatrixType@{GetMatrixType}!MatrixRamZero@{MatrixRamZero}}
+\doxysubsubsection{\texorpdfstring{GetMatrixType()}{GetMatrixType()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_zero_aa2cbce513883b25face5025bd97f308c} 
+virtual Matrix\+Type Matrix\+Ram\+Zero\+::\+Get\+Matrix\+Type (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает тип матрицы 
+
+\begin{DoxyReturn}{Возвращает}
+Matrix\+Type 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_a68570cc50e87b8a22ee6d09277878308}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_zero_ac6f7b262153b8ff84e3f5b5b8da030b7}\index{MatrixRamZero@{MatrixRamZero}!GetN@{GetN}}
+\index{GetN@{GetN}!MatrixRamZero@{MatrixRamZero}}
+\doxysubsubsection{\texorpdfstring{GetN()}{GetN()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_zero_ac6f7b262153b8ff84e3f5b5b8da030b7} 
+unsigned long long Matrix\+Ram\+Zero\+::\+GetN (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает количество столбцов N. 
+
+\begin{DoxyReturn}{Возвращает}
+N -\/ количество строк 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_af34182a3d62ab93947976718f7476467}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_zero_a8ce2f890666fa1ded862c8c726de9bd1}\index{MatrixRamZero@{MatrixRamZero}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!MatrixRamZero@{MatrixRamZero}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_zero_a8ce2f890666fa1ded862c8c726de9bd1} 
+virtual double Matrix\+Ram\+Zero\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{i}{, }\item[{unsigned long long}]{j}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает значение элемента матрицы по указанному индексу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em i} & Индекс строки \\
+\hline
+{\em j} & Индекс столбца \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Элемент (i, j) 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_aa20a5d7c7fd7c0be8e21f85c5a4c82b5}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_zero_a56aa1a8a894276674f1bd0486dc58e33}\index{MatrixRamZero@{MatrixRamZero}!operator()@{operator()}}
+\index{operator()@{operator()}!MatrixRamZero@{MatrixRamZero}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_zero_a56aa1a8a894276674f1bd0486dc58e33} 
+virtual double Matrix\+Ram\+Zero\+::operator() (\begin{DoxyParamCaption}\item[{unsigned long long}]{i}{, }\item[{unsigned long long}]{j}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает значение элемента матрицы по указанному индексу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em i} & Индекс строки \\
+\hline
+{\em j} & Индекс столбца \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Элемент (i, j) 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_a52e677a985e720a5f81a7354d742596b}{IMatrix}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Matrices/Matrix\+Ram\+Zero.\+hpp\end{DoxyCompactItemize}

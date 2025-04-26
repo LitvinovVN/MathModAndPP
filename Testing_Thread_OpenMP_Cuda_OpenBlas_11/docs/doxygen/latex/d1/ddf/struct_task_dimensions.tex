@@ -1,0 +1,109 @@
+\doxysection{Структура Task\+Dimensions}
+\hypertarget{struct_task_dimensions}{}\label{struct_task_dimensions}\index{TaskDimensions@{TaskDimensions}}
+
+
+Размерности задачи  
+
+
+
+
+{\ttfamily \#include $<$Task\+Dimensions.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+unsigned \mbox{\hyperlink{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40}{Get\+Dimensions\+Number}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает суммарное количество измерений задачи \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_task_dimensions_a01808548f972a0bd23cf0c0b16065a72}{Is\+Stationary\+Problem}} ()
+\begin{DoxyCompactList}\small\item\em Является ли задача стационарной \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_task_dimensions_a4f1b591861b74b8af49d89863ad25981}{Is\+Non\+Stationary\+Problem}} ()
+\begin{DoxyCompactList}\small\item\em Является ли задача нестационарной \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_task_dimensions_a08dd9f577d35c1192494c93373dc6c5d}{Is1\+DProblem}} ()
+\begin{DoxyCompactList}\small\item\em Является ли задача одномерной \end{DoxyCompactList}\item 
+\Hypertarget{struct_task_dimensions_a04f414f55edc4579758f1588f557e74f}\label{struct_task_dimensions_a04f414f55edc4579758f1588f557e74f} 
+void {\bfseries Print} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_task_dimensions_a72d15f402c630543b6ac895a67e46028}\label{struct_task_dimensions_a72d15f402c630543b6ac895a67e46028} 
+bool {\bfseries is\+\_\+used\+\_\+X} = false
+\item 
+\Hypertarget{struct_task_dimensions_afbd57a1346ee40d26e2f9c61c582cb9c}\label{struct_task_dimensions_afbd57a1346ee40d26e2f9c61c582cb9c} 
+bool {\bfseries is\+\_\+used\+\_\+Y} = false
+\item 
+\Hypertarget{struct_task_dimensions_a1556df9feb64c711943a3d3e28950c77}\label{struct_task_dimensions_a1556df9feb64c711943a3d3e28950c77} 
+bool {\bfseries is\+\_\+used\+\_\+Z} = false
+\item 
+\Hypertarget{struct_task_dimensions_aa37d15b0293d1cc78c7b6e8a51e8367f}\label{struct_task_dimensions_aa37d15b0293d1cc78c7b6e8a51e8367f} 
+bool {\bfseries is\+\_\+used\+\_\+t} = false
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Друзья}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_task_dimensions_a31eb6a86469db08402f1ca5a2894f3d3}\label{struct_task_dimensions_a31eb6a86469db08402f1ca5a2894f3d3} 
+std\+::ofstream \& {\bfseries operator$<$$<$} (std\+::ofstream \&fout, const \mbox{\hyperlink{struct_task_dimensions}{Task\+Dimensions}} \&data)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Размерности задачи 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40}\index{TaskDimensions@{TaskDimensions}!GetDimensionsNumber@{GetDimensionsNumber}}
+\index{GetDimensionsNumber@{GetDimensionsNumber}!TaskDimensions@{TaskDimensions}}
+\doxysubsubsection{\texorpdfstring{GetDimensionsNumber()}{GetDimensionsNumber()}}
+{\footnotesize\ttfamily \label{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40} 
+unsigned Task\+Dimensions\+::\+Get\+Dimensions\+Number (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает суммарное количество измерений задачи 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{struct_task_dimensions_a08dd9f577d35c1192494c93373dc6c5d}\index{TaskDimensions@{TaskDimensions}!Is1DProblem@{Is1DProblem}}
+\index{Is1DProblem@{Is1DProblem}!TaskDimensions@{TaskDimensions}}
+\doxysubsubsection{\texorpdfstring{Is1DProblem()}{Is1DProblem()}}
+{\footnotesize\ttfamily \label{struct_task_dimensions_a08dd9f577d35c1192494c93373dc6c5d} 
+bool Task\+Dimensions\+::\+Is1\+DProblem (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Является ли задача одномерной 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ одномерная, false -\/ неодномерная 
+\end{DoxyReturn}
+\Hypertarget{struct_task_dimensions_a4f1b591861b74b8af49d89863ad25981}\index{TaskDimensions@{TaskDimensions}!IsNonStationaryProblem@{IsNonStationaryProblem}}
+\index{IsNonStationaryProblem@{IsNonStationaryProblem}!TaskDimensions@{TaskDimensions}}
+\doxysubsubsection{\texorpdfstring{IsNonStationaryProblem()}{IsNonStationaryProblem()}}
+{\footnotesize\ttfamily \label{struct_task_dimensions_a4f1b591861b74b8af49d89863ad25981} 
+bool Task\+Dimensions\+::\+Is\+Non\+Stationary\+Problem (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Является ли задача нестационарной 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ нестационарная, false -\/ стационарная 
+\end{DoxyReturn}
+\Hypertarget{struct_task_dimensions_a01808548f972a0bd23cf0c0b16065a72}\index{TaskDimensions@{TaskDimensions}!IsStationaryProblem@{IsStationaryProblem}}
+\index{IsStationaryProblem@{IsStationaryProblem}!TaskDimensions@{TaskDimensions}}
+\doxysubsubsection{\texorpdfstring{IsStationaryProblem()}{IsStationaryProblem()}}
+{\footnotesize\ttfamily \label{struct_task_dimensions_a01808548f972a0bd23cf0c0b16065a72} 
+bool Task\+Dimensions\+::\+Is\+Stationary\+Problem (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Является ли задача стационарной 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ стационарная, false -\/ нестационарная 
+\end{DoxyReturn}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Tasks/Task\+Dimensions.\+hpp\end{DoxyCompactItemize}

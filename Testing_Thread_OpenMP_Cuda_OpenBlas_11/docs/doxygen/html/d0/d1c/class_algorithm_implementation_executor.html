@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Класс AlgorithmImplementationExecutor</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d0/d1c/class_algorithm_implementation_executor.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="../../df/d71/class_algorithm_implementation_executor-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Класс AlgorithmImplementationExecutor</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс для запуска алгоритма на заданной вычислительной системе  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../dc/d88/_algorithm_implementation_executor_8hpp_source.html">AlgorithmImplementationExecutor.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a0badbbf3bc6d064c847232f4a3267b50" id="r_a0badbbf3bc6d064c847232f4a3267b50"><td class="memItemLeft" align="right" valign="top"><a id="a0badbbf3bc6d064c847232f4a3267b50" name="a0badbbf3bc6d064c847232f4a3267b50"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AlgorithmImplementationExecutor</b> (<a class="el" href="../../d8/d46/class_computing_system_repository.html">ComputingSystemRepository</a> &amp;computingSystemRepository, <a class="el" href="../../d8/d80/class_algorithm_implementation_repository.html">AlgorithmImplementationRepository</a> &amp;algorithmImplementationRepository, <a class="el" href="../../d8/d18/class_alg_testing_result_repository.html">AlgTestingResultRepository</a> &amp;algTestingResultRepository)</td></tr>
+<tr class="separator:a0badbbf3bc6d064c847232f4a3267b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad59978e63cde9eed46ab2ff2056e9c0e" id="r_ad59978e63cde9eed46ab2ff2056e9c0e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad59978e63cde9eed46ab2ff2056e9c0e">IsConfigured</a> ()</td></tr>
+<tr class="memdesc:ad59978e63cde9eed46ab2ff2056e9c0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет готовность  <br /></td></tr>
+<tr class="separator:ad59978e63cde9eed46ab2ff2056e9c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89fd4dd34e89a25bafcf8000bed50b61" id="r_a89fd4dd34e89a25bafcf8000bed50b61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89fd4dd34e89a25bafcf8000bed50b61">SetComputingSystemId</a> (unsigned id)</td></tr>
+<tr class="memdesc:a89fd4dd34e89a25bafcf8000bed50b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает УИД текущей вычислительной системы  <br /></td></tr>
+<tr class="separator:a89fd4dd34e89a25bafcf8000bed50b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad574d9344b4d090cd8a78f68d464add6" id="r_ad574d9344b4d090cd8a78f68d464add6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad574d9344b4d090cd8a78f68d464add6">TrySetComputingSystemId</a> (unsigned id)</td></tr>
+<tr class="memdesc:ad574d9344b4d090cd8a78f68d464add6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает УИД текущей вычислительной системы  <br /></td></tr>
+<tr class="separator:ad574d9344b4d090cd8a78f68d464add6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a566cc94c879154799772db0275e83a36" id="r_a566cc94c879154799772db0275e83a36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/d8d/struct_alg_testing_result.html">AlgTestingResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a566cc94c879154799772db0275e83a36">Exec</a> (unsigned AlgorithmImplementationId, <a class="el" href="../../da/d8b/struct_algorithm_implementation_exec_params.html">AlgorithmImplementationExecParams</a> params)</td></tr>
+<tr class="memdesc:a566cc94c879154799772db0275e83a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запускает реализацию алгоритма с заданными параметрами на текущей вычислительной системе  <br /></td></tr>
+<tr class="separator:a566cc94c879154799772db0275e83a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс для запуска алгоритма на заданной вычислительной системе </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="a566cc94c879154799772db0275e83a36" name="a566cc94c879154799772db0275e83a36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566cc94c879154799772db0275e83a36">&#9670;&#160;</a></span>Exec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/d8d/struct_alg_testing_result.html">AlgTestingResult</a> AlgorithmImplementationExecutor::Exec </td>
+          <td>(</td>
+          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>AlgorithmImplementationId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../da/d8b/struct_algorithm_implementation_exec_params.html">AlgorithmImplementationExecParams</a></td>          <td class="paramname"><span class="paramname"><em>params</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Запускает реализацию алгоритма с заданными параметрами на текущей вычислительной системе </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AlgorithmImplementationId</td><td>УИД реализации алгоритма </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ad59978e63cde9eed46ab2ff2056e9c0e" name="ad59978e63cde9eed46ab2ff2056e9c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad59978e63cde9eed46ab2ff2056e9c0e">&#9670;&#160;</a></span>IsConfigured()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AlgorithmImplementationExecutor::IsConfigured </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверяет готовность </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a89fd4dd34e89a25bafcf8000bed50b61" name="a89fd4dd34e89a25bafcf8000bed50b61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89fd4dd34e89a25bafcf8000bed50b61">&#9670;&#160;</a></span>SetComputingSystemId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AlgorithmImplementationExecutor::SetComputingSystemId </td>
+          <td>(</td>
+          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает УИД текущей вычислительной системы </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>УИД вычислительной системы </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad574d9344b4d090cd8a78f68d464add6" name="ad574d9344b4d090cd8a78f68d464add6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad574d9344b4d090cd8a78f68d464add6">&#9670;&#160;</a></span>TrySetComputingSystemId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AlgorithmImplementationExecutor::TrySetComputingSystemId </td>
+          <td>(</td>
+          <td class="paramtype">unsigned</td>          <td class="paramname"><span class="paramname"><em>id</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает УИД текущей вычислительной системы </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>УИД вычислительной системы </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>true - успех, false - неудача </dd></dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>HCSLib/Algorithms/<a class="el" href="../../dc/d88/_algorithm_implementation_executor_8hpp_source.html">AlgorithmImplementationExecutor.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d0/d1c/class_algorithm_implementation_executor.html">AlgorithmImplementationExecutor</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

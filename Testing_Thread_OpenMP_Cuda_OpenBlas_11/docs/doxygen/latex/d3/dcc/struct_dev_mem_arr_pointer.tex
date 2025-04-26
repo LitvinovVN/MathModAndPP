@@ -1,0 +1,130 @@
+\doxysection{Шаблон структуры Dev\+Mem\+Arr\+Pointer\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{struct_dev_mem_arr_pointer}{}\label{struct_dev_mem_arr_pointer}\index{DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}}
+
+
+Указатель на массив, расположенный в памяти устройства вычислительного узла (RAM или GPU)  
+
+
+
+
+{\ttfamily \#include $<$Dev\+Mem\+Arr\+Pointer.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_dev_mem_arr_pointer_a9f926a9a552f86c158de4d0337ddb0ba}\label{struct_dev_mem_arr_pointer_a9f926a9a552f86c158de4d0337ddb0ba} 
+{\bfseries Dev\+Mem\+Arr\+Pointer} (unsigned \mbox{\hyperlink{struct_dev_mem_arr_pointer_a322863760bbe27fccbd9bf2790e5b981}{id}}, Data\+Location data\+Location, T \texorpdfstring{$\ast$}{*}ptr, unsigned long long length)
+\item 
+bool \mbox{\hyperlink{struct_dev_mem_arr_pointer_ac3b1a238878fde242cf0beed1e1948a4}{Is\+Initialized}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает флаг инициализации указателя \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_dev_mem_arr_pointer_a4677d8334d9e69a9103e2a02983ec2e8}{Is\+Reset}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает флаг сброшенности указателя \end{DoxyCompactList}\item 
+\Hypertarget{struct_dev_mem_arr_pointer_af45d37675e056b1846bb3726b75ce987}\label{struct_dev_mem_arr_pointer_af45d37675e056b1846bb3726b75ce987} 
+void {\bfseries Reset} ()
+\begin{DoxyCompactList}\small\item\em Сбрасывает указатель в исходное неинициализированное состояние \end{DoxyCompactList}\item 
+unsigned long long \mbox{\hyperlink{struct_dev_mem_arr_pointer_aa021d5389077f98dacb21dd636ee3495}{Get\+Size\+Struct}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает объём памяти, занимаемый структурой \end{DoxyCompactList}\item 
+unsigned long long \mbox{\hyperlink{struct_dev_mem_arr_pointer_ab4971b5c863b21b225affab8928774a3}{Get\+Size\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает объём памяти, занимаемый массивом \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_dev_mem_arr_pointer_a8a078f374d666dc93a3e1904e0f5f233}{Print}} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp=\mbox{\hyperlink{struct_print_params}{Print\+Params}}\{\}) const
+\begin{DoxyCompactList}\small\item\em Выводит в консоль сведения об указателе \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_dev_mem_arr_pointer_a322863760bbe27fccbd9bf2790e5b981}\label{struct_dev_mem_arr_pointer_a322863760bbe27fccbd9bf2790e5b981} 
+unsigned {\bfseries id} = 0
+\begin{DoxyCompactList}\small\item\em Идентификатор указателя \end{DoxyCompactList}\item 
+\Hypertarget{struct_dev_mem_arr_pointer_aa777987eb0ae3523d5d891af5fb4a612}\label{struct_dev_mem_arr_pointer_aa777987eb0ae3523d5d891af5fb4a612} 
+Data\+Location {\bfseries data\+Location} = Data\+Location\+::\+None
+\item 
+\Hypertarget{struct_dev_mem_arr_pointer_a232780e7baba58971d3046ca8a53e1b7}\label{struct_dev_mem_arr_pointer_a232780e7baba58971d3046ca8a53e1b7} 
+T \texorpdfstring{$\ast$}{*} {\bfseries ptr} = nullptr
+\item 
+\Hypertarget{struct_dev_mem_arr_pointer_aee80af7d7c8ca5b61cffe6a0a2e535ee}\label{struct_dev_mem_arr_pointer_aee80af7d7c8ca5b61cffe6a0a2e535ee} 
+unsigned long long {\bfseries length} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename T$>$\newline
+struct Dev\+Mem\+Arr\+Pointer$<$ T $>$}
+Указатель на массив, расположенный в памяти устройства вычислительного узла (RAM или GPU) 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_dev_mem_arr_pointer_ab4971b5c863b21b225affab8928774a3}\index{DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}!GetSizeData@{GetSizeData}}
+\index{GetSizeData@{GetSizeData}!DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetSizeData()}{GetSizeData()}}
+{\footnotesize\ttfamily \label{struct_dev_mem_arr_pointer_ab4971b5c863b21b225affab8928774a3} 
+template$<$typename T$>$ \\
+unsigned long long \mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$\+::\+Get\+Size\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает объём памяти, занимаемый массивом 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{struct_dev_mem_arr_pointer_aa021d5389077f98dacb21dd636ee3495}\index{DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}!GetSizeStruct@{GetSizeStruct}}
+\index{GetSizeStruct@{GetSizeStruct}!DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetSizeStruct()}{GetSizeStruct()}}
+{\footnotesize\ttfamily \label{struct_dev_mem_arr_pointer_aa021d5389077f98dacb21dd636ee3495} 
+template$<$typename T$>$ \\
+unsigned long long \mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$\+::\+Get\+Size\+Struct (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает объём памяти, занимаемый структурой 
+
+\begin{DoxyReturn}{Возвращает}
+unsigned long long (объём в байтах) 
+\end{DoxyReturn}
+\Hypertarget{struct_dev_mem_arr_pointer_ac3b1a238878fde242cf0beed1e1948a4}\index{DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}!IsInitialized@{IsInitialized}}
+\index{IsInitialized@{IsInitialized}!DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{IsInitialized()}{IsInitialized()}}
+{\footnotesize\ttfamily \label{struct_dev_mem_arr_pointer_ac3b1a238878fde242cf0beed1e1948a4} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$\+::\+Is\+Initialized (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает флаг инициализации указателя 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{struct_dev_mem_arr_pointer_a4677d8334d9e69a9103e2a02983ec2e8}\index{DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}!IsReset@{IsReset}}
+\index{IsReset@{IsReset}!DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{IsReset()}{IsReset()}}
+{\footnotesize\ttfamily \label{struct_dev_mem_arr_pointer_a4677d8334d9e69a9103e2a02983ec2e8} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$\+::\+Is\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает флаг сброшенности указателя 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{struct_dev_mem_arr_pointer_a8a078f374d666dc93a3e1904e0f5f233}\index{DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}!Print@{Print}}
+\index{Print@{Print}!DevMemArrPointer$<$ T $>$@{DevMemArrPointer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{struct_dev_mem_arr_pointer_a8a078f374d666dc93a3e1904e0f5f233} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$\+::\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_print_params}{Print\+Params}}}]{pp}{ = {\ttfamily \mbox{\hyperlink{struct_print_params}{Print\+Params}}\{\}}}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Выводит в консоль сведения об указателе 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em pp} & \\
+\hline
+\end{DoxyParams}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Arrays/Dev\+Mem\+Arr\+Pointer.\+hpp\end{DoxyCompactItemize}

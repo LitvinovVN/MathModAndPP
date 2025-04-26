@@ -1,0 +1,15 @@
+@startuml name Geometry
+
+title
+Диаграмма классов модуля "Geometry"
+end title
+
+'Абстрактный класс, моделирующий геометрию расчетной области
+class IGeometry
+{    
+        
+    ' Выводит в консоль сведения об объекте и его значение
+    virtual void Print() const = 0;    
+}
+
+@enduml

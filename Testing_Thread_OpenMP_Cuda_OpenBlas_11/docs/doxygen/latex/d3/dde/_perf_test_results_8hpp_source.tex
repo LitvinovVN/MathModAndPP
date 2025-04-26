@@ -1,0 +1,23 @@
+\doxysection{Perf\+Test\+Results.\+hpp}
+\hypertarget{_perf_test_results_8hpp_source}{}\label{_perf_test_results_8hpp_source}\index{HCSLib/PerformanceTests/PerfTestResults.hpp@{HCSLib/PerformanceTests/PerfTestResults.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ calculationStatistics;}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{struct_parallel_calc_indicators}{ParallelCalcIndicators}}\ parallelCalcIndicators;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ \};}
+
+\end{DoxyCode}

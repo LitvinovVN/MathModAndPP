@@ -25,7 +25,7 @@ Expression --|> MathObject
 'Константа (в выражении)
 struct Constant
 {
-    - double value;
+    - double value
     + Constant(double value)
 
     +double operator()(double x) const

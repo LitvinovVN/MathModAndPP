@@ -250,6 +250,16 @@ public:
                 "AlgorithmImplementationExecutor"
             }
         );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::GeometryHelper_ConsoleUI,
+                {std::to_string((int)MenuCommand::GeometryHelper_ConsoleUI),"geometry"},
+                MenuFunctions::GeometryHelper_ConsoleUI,
+                "Geometry module (GeometryHelper_ConsoleUI)"
+            }
+        );
     }
 
     /// @brief Запуск главного меню

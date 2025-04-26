@@ -1,0 +1,64 @@
+\doxysection{Класс Algorithm\+Implementation}
+\hypertarget{class_algorithm_implementation}{}\label{class_algorithm_implementation}\index{AlgorithmImplementation@{AlgorithmImplementation}}
+
+
+Класс реализации алгоритма (сопоставляет УИД алгоритма с функцией реализации)  
+
+
+
+
+{\ttfamily \#include $<$Algorithm\+Implementation.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_algorithm_implementation_acd64225b2619be1561c995e4f4bc9bee}\label{class_algorithm_implementation_acd64225b2619be1561c995e4f4bc9bee} 
+{\bfseries Algorithm\+Implementation} (unsigned id, unsigned algorithm\+Id, std\+::string description, \mbox{\hyperlink{class_function}{Function}} function)
+\item 
+\Hypertarget{class_algorithm_implementation_a0f390acfcba08378c41716c8f38ac6de}\label{class_algorithm_implementation_a0f390acfcba08378c41716c8f38ac6de} 
+void {\bfseries Print} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp)
+\item 
+unsigned \mbox{\hyperlink{class_algorithm_implementation_a04c6cfd36206a5c0d26de1ce0654985e}{Get\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает УИД сопоставления алгоритма и его реализации \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_function}{Function}} \mbox{\hyperlink{class_algorithm_implementation_aaa5e4cbd161b15d8b05b61e3aa61ff3b}{Get\+Function}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает объект функции \end{DoxyCompactList}\item 
+\Hypertarget{class_algorithm_implementation_ab2377ebc98ef65b3aa0a550ae6cc313e}\label{class_algorithm_implementation_ab2377ebc98ef65b3aa0a550ae6cc313e} 
+\mbox{\hyperlink{struct_alg_testing_result}{Alg\+Testing\+Result}} {\bfseries Exec} (\mbox{\hyperlink{struct_algorithm_implementation_exec_params}{Algorithm\+Implementation\+Exec\+Params}} params)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс реализации алгоритма (сопоставляет УИД алгоритма с функцией реализации) 
+
+\doxysubsection{Методы}
+\Hypertarget{class_algorithm_implementation_aaa5e4cbd161b15d8b05b61e3aa61ff3b}\index{AlgorithmImplementation@{AlgorithmImplementation}!GetFunction@{GetFunction}}
+\index{GetFunction@{GetFunction}!AlgorithmImplementation@{AlgorithmImplementation}}
+\doxysubsubsection{\texorpdfstring{GetFunction()}{GetFunction()}}
+{\footnotesize\ttfamily \label{class_algorithm_implementation_aaa5e4cbd161b15d8b05b61e3aa61ff3b} 
+\mbox{\hyperlink{class_function}{Function}} Algorithm\+Implementation\+::\+Get\+Function (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает объект функции 
+
+\begin{DoxyReturn}{Возвращает}
+Объект типа \doxylink{class_function}{Function} 
+\end{DoxyReturn}
+\Hypertarget{class_algorithm_implementation_a04c6cfd36206a5c0d26de1ce0654985e}\index{AlgorithmImplementation@{AlgorithmImplementation}!GetId@{GetId}}
+\index{GetId@{GetId}!AlgorithmImplementation@{AlgorithmImplementation}}
+\doxysubsubsection{\texorpdfstring{GetId()}{GetId()}}
+{\footnotesize\ttfamily \label{class_algorithm_implementation_a04c6cfd36206a5c0d26de1ce0654985e} 
+unsigned Algorithm\+Implementation\+::\+Get\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает УИД сопоставления алгоритма и его реализации 
+
+\begin{DoxyReturn}{Возвращает}
+УИД сопоставления (id) 
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Algorithms/Algorithm\+Implementation.\+hpp\end{DoxyCompactItemize}

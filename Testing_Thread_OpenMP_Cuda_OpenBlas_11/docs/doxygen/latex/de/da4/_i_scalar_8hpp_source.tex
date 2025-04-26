@@ -1,0 +1,20 @@
+\doxysection{IScalar.\+hpp}
+\hypertarget{_i_scalar_8hpp_source}{}\label{_i_scalar_8hpp_source}\index{HCSLib/Scalars/IScalar.hpp@{HCSLib/Scalars/IScalar.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_i_scalar}{IScalar}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:\ \ \ \ }
+\DoxyCodeLine{00010\ \ \ \ \ DataLocation\ \mbox{\hyperlink{class_i_scalar_a5d407ce411b1f8ccf1fdd65a6e566e61}{dataLocation}}\ =\ DataLocation::RAM;}
+\DoxyCodeLine{00011\ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ ///\ @brief\ Выводит\ в\ консоль\ сведения\ об\ объекте\ и\ его\ значение}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Print()\ \textcolor{keyword}{const}\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{virtual}\ T\ \mbox{\hyperlink{class_i_scalar_aece5640a2390886da93284b4d1f52be7}{GetValue}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_scalar_a1cc1bf09cd8d85553315f13d70e4a54c}{SetValue}}(T\ value)\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_scalar_a74fa1e9059fd9bacb3ff1441f14b9731}{ClearData}}()\ =\ 0;}
+\DoxyCodeLine{00020\ \};}
+
+\end{DoxyCode}

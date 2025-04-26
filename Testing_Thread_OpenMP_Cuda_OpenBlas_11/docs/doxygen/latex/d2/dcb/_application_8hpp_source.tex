@@ -1,0 +1,72 @@
+\doxysection{Application.\+hpp}
+\hypertarget{_application_8hpp_source}{}\label{_application_8hpp_source}\index{HCSLib/Application.hpp@{HCSLib/Application.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_application}{Application}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{comment}{//\ Главное\ меню}}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_main_menu}{MainMenu}}\ menu;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ Конфигурация\ приложения}}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_app_config}{AppConfig}}\ appConfig;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Репозиторий\ сведений\ о\ вычислительных\ системах}}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_computing_system_repository}{ComputingSystemRepository}}\ computingSystemRepository\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Репозиторий\ алгоритмов}}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_algorithm_repository}{AlgorithmRepository}}\ algorithmRepository;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Репозиторий\ реализаций\ алгоритмов\ \ \ \ \ }}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_algorithm_implementation_repository}{AlgorithmImplementationRepository}}\ algorithmImplementationRepository;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Репозиторий\ сведений\ о\ тестовых\ запусках\ различных\ алгоритмов}}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_alg_testing_result_repository}{AlgTestingResultRepository}}\ algTestingResultRepository\{\textcolor{keyword}{false}\};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_app_config}{AppConfig}}\&\ GetAppConfig()}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ appConfig;}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ Start()}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1.\ Считываем\ конфигурацию\ из\ файла}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::string\ appConfigFileName\ \{\textcolor{stringliteral}{"{}config.txt"{}}\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ appConfig\ =\ \mbox{\hyperlink{class_app_config}{AppConfig}}(appConfigFileName);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!appConfig.IsInitialized())}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ appConfig.GetMessage()\ <<\ std::endl;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Application\ initialization:\ OK"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.\ Считываем\ сведения\ о\ вычислительной\ системе}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ computingSystemRepository\ =\ \mbox{\hyperlink{class_computing_system_repository}{ComputingSystemRepository}}\ \{appConfig.GetDirComputingSystemRepository()\};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Computing\ system\ repository\ initialization:\ OK"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3.\ Инициализируем\ репозиторий\ алгоритмов}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ algorithmRepository\ =\ \mbox{\hyperlink{class_algorithm_repository}{AlgorithmRepository}}\{\};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4.\ Инициализируем\ репозиторий\ реализаций\ алгоритмов}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ algorithmImplementationRepository\ =\ \mbox{\hyperlink{class_algorithm_implementation_repository}{AlgorithmImplementationRepository}}\{\};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 5.\ Считываем\ сведения\ о\ результатах\ тестовых\ запусков\ алгоритмов}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ algTestingResultRepository\ =\ \mbox{\hyperlink{class_alg_testing_result_repository}{AlgTestingResultRepository}}\ \{appConfig.GetDirAlgTestingResultRepository()\};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Computing\ system\ repository\ initialization:\ OK"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 6.\ Запуск\ различных\ реализаций\ алгоритмов}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithm_implementation_executor}{AlgorithmImplementationExecutor}}\ algorithmImplementationExecutor\{computingSystemRepository,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ algorithmImplementationRepository,\ algTestingResultRepository\};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 7.\ Запускаем\ главное\ меню}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ menu.Start(appConfig,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ computingSystemRepository,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ algorithmRepository,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ algorithmImplementationRepository,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ algTestingResultRepository,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ algorithmImplementationExecutor}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ );\textcolor{comment}{//*/}}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+
+\end{DoxyCode}

@@ -1,0 +1,158 @@
+\doxysection{App\+Config.\+hpp}
+\hypertarget{_app_config_8hpp_source}{}\label{_app_config_8hpp_source}\index{HCSLib/AppConfig.hpp@{HCSLib/AppConfig.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }AppConfig}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{bool}\ isInitialized\{\textcolor{keyword}{true}\};\textcolor{comment}{//\ Статус\ инициализации\ объекта\ конфигурации\ приложения}}
+\DoxyCodeLine{00008\ \ \ \ \ std::string\ message\{\textcolor{stringliteral}{"{}AppConfig\ status:\ OK"{}}\};\textcolor{comment}{//\ Строка\ с\ описанием\ статуса\ инициализации\ объекта\ конфигурации\ приложения}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ fileConfig\{\textcolor{stringliteral}{"{}config.txt"{}}\};\textcolor{comment}{//\ Имя\ файла\ конфигурации}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ compSystemId\ \{1\};\textcolor{comment}{//\ Идентификатор\ вычислительной\ системы}}
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ dir\_data\{\textcolor{stringliteral}{"{}data"{}}\};\textcolor{comment}{//\ Каталог\ с\ данными}}
+\DoxyCodeLine{00014\ \ \ \ \ std::string\ dir\_computingSystemRepository\{\textcolor{stringliteral}{"{}ComputingSystemRepository"{}}\};\ \textcolor{comment}{//\ Каталог\ с\ данными\ о\ вычислительных\ системах}}
+\DoxyCodeLine{00015\ \ \ \ \ std::string\ dir\_algTestingResultRepository\{\textcolor{stringliteral}{"{}AlgTestingResultRepository"{}}\};\ \textcolor{comment}{//\ Каталог\ с\ данными\ о\ результатах\ вычислительных\ экспериментов}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ CheckDirectories()}
+\DoxyCodeLine{00019\ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{FileSystemHelper::IsDirExists}}(dir\_data))}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{FileSystemHelper::CreateDir}}(dir\_data);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{FileSystemHelper::IsDirExists}}(GetDirComputingSystemRepository()))}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{FileSystemHelper::CreateDir}}(GetDirComputingSystemRepository());}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{FileSystemHelper::IsDirExists}}(GetDirAlgTestingResultRepository()))}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{FileSystemHelper::CreateDir}}(GetDirAlgTestingResultRepository());}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ ReadConfigFile()}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::ifstream\ f(fileConfig);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!f.is\_open())}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ message\ =\ \textcolor{stringliteral}{"{}Config\ file\ \(\backslash\)"{}"{}}\ +\ fileConfig\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ is\ not\ opened!"{}};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ формата\ файла}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ f\ >>\ str;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str\ !=\ \textcolor{stringliteral}{"{}AppConfig"{}})}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ message\ =\ \textcolor{stringliteral}{"{}Config\ file\ \(\backslash\)"{}"{}}\ +\ fileConfig\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ format\ is\ not\ AppConfig!"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Считываем\ пары\ "{}Параметр\ Значение"{}}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ std::string\ param,\ value;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(f\ >>\ param\ >>\ value)}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ param\ <<\ "{}:\ "{}\ <<\ value\ <<\ std::endl;}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(param\ ==\ \textcolor{stringliteral}{"{}compSystemId"{}})}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ compSystemId\ =\ std::stoi(value);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}!!!\ "{}\ <<\ compSystemId\ <<\ std::endl;}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message\ =\ \textcolor{stringliteral}{"{}Config\ file\ \(\backslash\)"{}"{}}\ +\ fileConfig\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}:\ compSystemId\ parameter\ is\ not\ recognized!"{}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (param\ ==\ \textcolor{stringliteral}{"{}dir\_data"{}})}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dir\_data\ =\ value;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (param\ ==\ \textcolor{stringliteral}{"{}dir\_algTestingResultRepository"{}})}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dir\_algTestingResultRepository\ =\ value;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (param\ ==\ \textcolor{stringliteral}{"{}dir\_computingSystemRepository"{}})}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dir\_computingSystemRepository\ =\ value;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ message\ =\ \textcolor{stringliteral}{"{}Config\ file\ \(\backslash\)"{}"{}}\ +\ fileConfig\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}:\ parameter\ \(\backslash\)"{}"{}}\ +\ param\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ value\ \(\backslash\)"{}"{}}\ +\ value\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ is\ not\ recognized!"{}};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00086\ \ \ \ \ AppConfig()}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ существования\ каталогов}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ CheckDirectories();}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ AppConfig(std::string\ fileName)}
+\DoxyCodeLine{00093\ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}{FileSystemHelper::IsFileExists}}(fileName))}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ isInitialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ message\ =\ \textcolor{stringliteral}{"{}Error!\ Config\ file\ \(\backslash\)"{}"{}}\ +\ fileName\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ not\ found!"{}};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ fileConfig\ =\ fileName;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ result\ =\ ReadConfigFile();}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!result)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ isInitialized\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ существования\ каталогов}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ CheckDirectories();}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsInitialized()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isInitialized;}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ std::string\ GetMessage()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00119\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ message;}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ Возвращает\ путь\ к\ каталогу\ с\ репозиторием\ вычислительных\ систем}}
+\DoxyCodeLine{00124\ \ \ \ \ std::string\ GetDirComputingSystemRepository()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00125\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ std::string\ path\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{FileSystemHelper::CombinePath}}(dir\_data,\ dir\_computingSystemRepository);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ path;}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{comment}{//\ Возвращает\ путь\ к\ каталогу\ с\ репозиторием\ результатов\ тестовых\ запусков\ алгоритмов}}
+\DoxyCodeLine{00131\ \ \ \ \ std::string\ GetDirAlgTestingResultRepository()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00132\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::string\ path\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{FileSystemHelper::CombinePath}}(dir\_data,\ dir\_algTestingResultRepository);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ path;}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()}
+\DoxyCodeLine{00138\ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!isInitialized)}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ \ \ <<\ \textcolor{stringliteral}{"{}AppConfig:\ ["{}}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}NOT\ INITIALIZED;\ "{}}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ message}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}]"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ std::cout\ \ \ <<\ \textcolor{stringliteral}{"{}AppConfig:\ ["{}}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}compSystemId:\ "{}}\ <<\ compSystemId\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}dir\_data:\ "{}}\ <<\ dir\_data\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}dir\_algTestingResultRepository:\ "{}}\ <<\ dir\_algTestingResultRepository\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}dir\_computingSystemRepository:\ "{}}\ <<\ dir\_computingSystemRepository}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}]"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,32 @@
+\doxysection{Array\+Gpu\+Processing\+Params.\+hpp}
+\hypertarget{_array_gpu_processing_params_8hpp_source}{}\label{_array_gpu_processing_params_8hpp_source}\index{HCSLib/Arrays/ArrayGpuProcessingParams.hpp@{HCSLib/Arrays/ArrayGpuProcessingParams.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Параметры\ запуска\ функции\ обработки\ массива\ на\ GPU}}
+\DoxyCodeLine{00004\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_array_gpu_processing_params}{ArrayGpuProcessingParams}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ deviceId;}
+\DoxyCodeLine{00008\ \ \ \ \ T*\ dev\_arr;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indStart;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indEnd;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ blocksNum;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ threadsNum;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::cout\ <<\ deviceId\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::cout\ <<\ dev\_arr\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ std::cout\ <<\ indStart\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ std::cout\ <<\ indEnd\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ std::cout\ <<\ blocksNum\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ std::cout\ <<\ threadsNum\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,53 @@
+\doxysection{Data\+Type\+Enum.\+hpp}
+\hypertarget{_data_type_enum_8hpp_source}{}\label{_data_type_enum_8hpp_source}\index{HCSLib/CommonHelpers/DataTypeEnum.hpp@{HCSLib/CommonHelpers/DataTypeEnum.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{enum\ class}\ DataTypeEnum}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ dt\_void,}
+\DoxyCodeLine{00008\ \ \ \ \ dt\_int,}
+\DoxyCodeLine{00009\ \ \ \ \ dt\_ull,}
+\DoxyCodeLine{00010\ \ \ \ \ dt\_float,}
+\DoxyCodeLine{00011\ \ \ \ \ dt\_ptr\_float,}
+\DoxyCodeLine{00012\ \ \ \ \ dt\_double,}
+\DoxyCodeLine{00013\ \ \ \ \ dt\_ptr\_double}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ std::ostream\&\ operator<<(std::ostream\&\ os,\ DataTypeEnum\ dt)}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{switch}\ (dt)}
+\DoxyCodeLine{00019\ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_void:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}void"{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_int:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}int"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_ull:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}ull"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_float:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}float"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_ptr\_float:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}float*"{}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_double:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}double"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{case}\ DataTypeEnum::dt\_ptr\_double:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}double*"{}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00047\ \}}
+
+\end{DoxyCode}

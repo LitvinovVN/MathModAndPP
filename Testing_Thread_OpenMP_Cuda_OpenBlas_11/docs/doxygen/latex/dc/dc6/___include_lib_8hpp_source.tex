@@ -1,0 +1,137 @@
+\doxysection{\+\_\+\+Include\+Lib.\+hpp}
+\hypertarget{___include_lib_8hpp_source}{}\label{___include_lib_8hpp_source}\index{HCSLib/\_IncludeLib.hpp@{HCSLib/\_IncludeLib.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ namespace\ }std::chrono;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <omp.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ OPENBLAS}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <cblas.h>}\ \ \textcolor{comment}{//\ OpenBLAS}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}Cuda/kernels.cu"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <cublas\_v2.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}Cuda/CudaDeviceProperties.hpp"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}Cuda/CudaHelper.hpp"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}Cuda/CublasHelper.hpp"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}CommonHelpers/\_IncludeCommonHelpers.hpp"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}Geometry/\_IncludeGeometry.hpp"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/PerfTestParamsData.hpp"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/PerfTestParamsCpu.hpp"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/PerfTestParamsGpu.hpp"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/PerfTestParams.hpp"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/CalculationStatistics.hpp"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/ParallelCalcIndicators.hpp"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}PerformanceTests/PerfTestResults.hpp"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}Math/MathObject.hpp"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}Math/Expression.hpp"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}Math/Constant.hpp"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ "{}Math/Variable.hpp"{}}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}Math/Negate.hpp"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}Math/BinaryExpression.hpp"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}Math/FuncExpression.hpp"{}}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#include\ "{}Math/GridContext.hpp"{}}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}Math/GridEvaluableObject.hpp"{}}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#include\ "{}Math/GridOperator.hpp"{}}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ "{}Math/GridOperatorEvaluator.hpp"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#include\ "{}Math/MathHelper.hpp"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#include\ "{}Math/MathHelper\_ConsoleUI.hpp"{}}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}Functions/FunctionDataType.hpp"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ "{}Functions/FunctionDataTypes.hpp"{}}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#include\ "{}Functions/FunctionArgument.hpp"{}}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#include\ "{}Functions/FunctionArguments.hpp"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ "{}Functions/Function.hpp"{}}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayGpuProcessingParams.hpp"{}}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayHelper.hpp"{}}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayHelper\_ConsoleUI.hpp"{}}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayHelperFuncResult.hpp"{}}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayPerfTestHelper.hpp"{}}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayPerfTestHelper\_ConsoleUI.hpp"{}}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArrayBlockIndexes.hpp"{}}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#include\ "{}Arrays/ArraysIndexMap.hpp"{}}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#include\ "{}Arrays/DevMemArrPointer.hpp"{}}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#include\ "{}Arrays/DevMemArrPointers.hpp"{}}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#include\ "{}Scalars/\_IncludeScalars.hpp"{}}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#include\ "{}Vectors/\_IncludeVectors.hpp"{}}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixDataLocation.hpp"{}}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ "{}Matrices/IMatrix.hpp"{}}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixRam.hpp"{}}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixRamZero.hpp"{}}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixRamE.hpp"{}}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixBlockRamGpus.hpp"{}}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixMapElement.hpp"{}}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatrixMap.hpp"{}}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatricesHelper.hpp"{}}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#include\ "{}Matrices/MatricesHelper\_ConsoleUI.hpp"{}}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#include\ "{}TestParams.hpp"{}}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#include\ "{}TestHelper.hpp"{}}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#include\ "{}ComputingSystem/RamParams.hpp"{}}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#include\ "{}ComputingSystem/CpuParams.hpp"{}}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#include\ "{}ComputingSystem/GpuParams.hpp"{}}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#include\ "{}ComputingSystem/ComputingSystemNode.hpp"{}}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#include\ "{}ComputingSystem/ComputingSystem.hpp"{}}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#include\ "{}ComputingSystem/ComputingSystemRepository.hpp"{}}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#include\ "{}Tasks/TaskGroup.hpp"{}}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#include\ "{}Tasks/Task.hpp"{}}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#include\ "{}Tasks/TaskDimensions.hpp"{}}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmDataLocation.hpp"{}}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmType.hpp"{}}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#include\ "{}Algorithms/Algorithm.hpp"{}}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmRepository.hpp"{}}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmMetrics.hpp"{}}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmImplementation.hpp"{}}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmImplementationRepository.hpp"{}}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmImplementationExecParams.hpp"{}}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmImplementationExecutor.hpp"{}}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#include\ "{}Algorithms/AlgorithmImplementationExecutorHelper.hpp"{}}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#include\ "{}AlgTestingResults/AlgTestingResult.hpp"{}}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#include\ "{}AlgTestingResults/AlgTestingResultRepository.hpp"{}}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#include\ "{}GlobalTestFunctions.hpp"{}}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ Конфигурация\ приложения}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#include\ "{}AppConfig.hpp"{}}}
+\DoxyCodeLine{00151\ \textcolor{comment}{//\ Меню\ (начало)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#include\ "{}Menu/MenuCommand.hpp"{}}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#include\ "{}Menu/MenuCommandItem.hpp"{}}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#include\ "{}Menu/MenuFunctions.hpp"{}}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#include\ "{}Menu/MainMenu.hpp"{}}}
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ Меню\ (конец)}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ Класс\ "{}Приложение"{}}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#include\ "{}Application.hpp"{}}}
+
+\end{DoxyCode}

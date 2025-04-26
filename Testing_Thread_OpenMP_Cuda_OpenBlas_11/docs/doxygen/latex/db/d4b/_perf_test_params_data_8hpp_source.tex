@@ -1,0 +1,52 @@
+\doxysection{Perf\+Test\+Params\+Data.\+hpp}
+\hypertarget{_perf_test_params_data_8hpp_source}{}\label{_perf_test_params_data_8hpp_source}\index{HCSLib/PerformanceTests/PerfTestParamsData.hpp@{HCSLib/PerformanceTests/PerfTestParamsData.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/DataTypes.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }PerfTestParamsData}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Типы\ данных}}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_data_types}{DataTypes}}\ dataTypes;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Минимальное\ количество\ элементов\ в\ контейнере}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMin\ =\ 100000000ull;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Максимальное\ количество\ элементов\ в\ контейнере}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMax\ =\ 1000000000ull;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Шаг\ изменения\ количества\ элементов\ в\ контейнере}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthStep\ =\ 100000000ull;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ PerfTestParamsData()}
+\DoxyCodeLine{00019\ \ \ \ \ \{\}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ PerfTestParamsData(\mbox{\hyperlink{class_data_types}{DataTypes}}\ dataTypes,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMin,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMax,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthStep)\ :}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ dataTypes(dataTypes),}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ arrayLengthMin(arrayLengthMin),}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ arrayLengthMax(arrayLengthMax),}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ arrayLengthStep(arrayLengthStep)}
+\DoxyCodeLine{00029\ \ \ \ \ \{\}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}dataTypes"{}}\ <<\ pp.splitterKeyValue;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ dataTypes.Print();}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}arrayLengthMin"{}}\ <<\ pp.splitterKeyValue\ <<\ arrayLengthMin;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}arrayLengthMax"{}}\ <<\ pp.splitterKeyValue\ <<\ arrayLengthMax;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}arrayLengthStep"{}}\ <<\ pp.splitterKeyValue\ <<\ arrayLengthStep;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \};}
+
+\end{DoxyCode}

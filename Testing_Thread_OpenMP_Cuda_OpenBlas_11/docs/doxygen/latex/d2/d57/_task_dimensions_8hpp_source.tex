@@ -1,0 +1,138 @@
+\doxysection{Task\+Dimensions.\+hpp}
+\hypertarget{_task_dimensions_8hpp_source}{}\label{_task_dimensions_8hpp_source}\index{HCSLib/Tasks/TaskDimensions.hpp@{HCSLib/Tasks/TaskDimensions.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_task_dimensions}{TaskDimensions}}}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Используется\ ли\ пространственная\ ось\ Ox}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_used\_X\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Используется\ ли\ пространственная\ ось\ Oy}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_used\_Y\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Используется\ ли\ пространственная\ ось\ Oz}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_used\_Z\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Используется\ ли\ ось\ времени\ Ot}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_used\_t\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40}{GetDimensionsNumber}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{unsigned})is\_used\_X\ +\ (unsigned)is\_used\_Y\ +\ (\textcolor{keywordtype}{unsigned})is\_used\_Z\ +\ (unsigned)is\_used\_t;}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_task_dimensions_a01808548f972a0bd23cf0c0b16065a72}{IsStationaryProblem}}()}
+\DoxyCodeLine{00030\ \ \ \ \ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !is\_used\_t;}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_task_dimensions_a4f1b591861b74b8af49d89863ad25981}{IsNonStationaryProblem}}()}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ is\_used\_t;}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_task_dimensions_a08dd9f577d35c1192494c93373dc6c5d}{Is1DProblem}}()}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40}{GetDimensionsNumber}}()\ ==\ 1)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}DimensionsNumber"{}}\ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40}{GetDimensionsNumber}}()\ <<\ pp.splitter;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}is\_used\_X"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ is\_used\_X\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}is\_used\_Y"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ is\_used\_Y\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}is\_used\_Z"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ is\_used\_Z\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}is\_used\_t"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ is\_used\_t\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{friend}\ std::ofstream\&\ operator<<(std::ofstream\&\ fout,\ \textcolor{keyword}{const}\ TaskDimensions\&\ data)}
+\DoxyCodeLine{00067\ \ \ \ \ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ fout\ <<\ data.\mbox{\hyperlink{struct_task_dimensions_adb8d34d53ab06d27d834d1b71a113f40}{GetDimensionsNumber}}()\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.is\_used\_X\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.is\_used\_Y\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.is\_used\_Z\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.is\_used\_t;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fout;}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00081\ struct\ TaskDimensions}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ unsigned\ dim\ =\ 1;//\ 1\ -\/\ 1D,\ 2\ -\/\ 2D,\ 3\ -\/\ 3D,\ 4\ -\/\ 3D+t}
+\DoxyCodeLine{00084\ \ \ \ \ size\_t\ x\ =\ 1;//\ Количество\ элементов\ по\ x}
+\DoxyCodeLine{00085\ \ \ \ \ size\_t\ y\ =\ 1;//\ Количество\ элементов\ по\ y}
+\DoxyCodeLine{00086\ \ \ \ \ size\_t\ z\ =\ 1;//\ Количество\ элементов\ по\ z}
+\DoxyCodeLine{00087\ \ \ \ \ size\_t\ t\ =\ 1;//\ Количество\ элементов\ по\ t}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00091\ \ \ \ \ size\_t\ GetFullSize()}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ return\ x\ *\ y\ *\ z\ *\ t;}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00098\ \ \ \ \ bool\ IsStationaryProblem()}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ if\ (t\ >\ 1)}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ return\ false;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ return\ true;}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00108\ \ \ \ \ bool\ IsNonStationaryProblem()}
+\DoxyCodeLine{00109\ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ return\ !IsStationaryProblem();}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00115\ \ \ \ \ bool\ Is1DProblem()}
+\DoxyCodeLine{00116\ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ if\ (y\ ==\ 1\ \&\&\ z\ ==\ 1)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ return\ true;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ return\ false;}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ void\ Print(PrintParams\ pp)}
+\DoxyCodeLine{00124\ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}dim"{}\ <<\ pp.splitterKeyValue\ <<\ dim\ <<\ pp.splitter;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}x"{}\ \ \ <<\ pp.splitterKeyValue\ <<\ x\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}y"{}\ \ \ <<\ pp.splitterKeyValue\ <<\ y\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}z"{}\ \ \ <<\ pp.splitterKeyValue\ <<\ z\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ std::cout\ <<\ "{}t"{}\ \ \ <<\ pp.splitterKeyValue\ <<\ t\ \ \ <<\ pp.splitter;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ if(pp.isEndl)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ friend\ std::ofstream\&\ operator<<(std::ofstream\&\ fout,\ const\ TaskDimensions\&\ data)}
+\DoxyCodeLine{00139\ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ fout\ <<\ data.dim\ <<\ "{}\ "{}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.x\ <<\ "{}\ "{}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.y\ <<\ "{}\ "{}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.z\ <<\ "{}\ "{}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.t;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ return\ fout;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \};}
+\DoxyCodeLine{00150\ */}
+
+\end{DoxyCode}

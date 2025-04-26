@@ -1,0 +1,56 @@
+\doxysection{Структура IVector\+Helper}
+\hypertarget{struct_i_vector_helper}{}\label{struct_i_vector_helper}\index{IVectorHelper@{IVectorHelper}}
+
+
+Вспомогательный класс для работы с векторами через интерфейс \doxylink{class_i_vector}{IVector}.  
+
+
+
+
+{\ttfamily \#include $<$IVector\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T$>$ }\\static \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_i_vector_helper_a05a37970389a347e52c06182c2244a1c}{Split}} (\mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*}v1, \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*}v2, Data\+Location new\+Vector\+Data\+Location=Data\+Location\+::\+RAM)
+\begin{DoxyCompactList}\small\item\em Создаёт новый вектор, склеивая векторы-\/аргументы \end{DoxyCompactList}\item 
+\Hypertarget{struct_i_vector_helper_a58e79e310761378726a6d5eaccffee02}\label{struct_i_vector_helper_a58e79e310761378726a6d5eaccffee02} 
+{\footnotesize template$<$typename T$>$ }\\static \mbox{\hyperlink{class_i_scalar}{IScalar}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries Dot} (\mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*}v1, \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*}v2, Data\+Location result\+Data\+Location=Data\+Location\+::\+RAM)
+\begin{DoxyCompactList}\small\item\em Вычисляет скалярное произведение векторов \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Вспомогательный класс для работы с векторами через интерфейс \doxylink{class_i_vector}{IVector}. 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_i_vector_helper_a05a37970389a347e52c06182c2244a1c}\index{IVectorHelper@{IVectorHelper}!Split@{Split}}
+\index{Split@{Split}!IVectorHelper@{IVectorHelper}}
+\doxysubsubsection{\texorpdfstring{Split()}{Split()}}
+{\footnotesize\ttfamily \label{struct_i_vector_helper_a05a37970389a347e52c06182c2244a1c} 
+template$<$typename T$>$ \\
+static \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*} IVector\+Helper\+::\+Split (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{v1}{, }\item[{\mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{v2}{, }\item[{Data\+Location}]{new\+Vector\+Data\+Location}{ = {\ttfamily DataLocation\+:\+:RAM}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Создаёт новый вектор, склеивая векторы-\/аргументы 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Аргументы}
+{\em v1} & \\
+\hline
+{\em v2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Vectors/IVector\+Helper.\+hpp\end{DoxyCompactItemize}

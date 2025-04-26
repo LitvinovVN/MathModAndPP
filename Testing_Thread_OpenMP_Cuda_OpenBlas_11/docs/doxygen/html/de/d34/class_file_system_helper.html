@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Класс FileSystemHelper</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('de/d34/class_file_system_helper.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Открытые статические члены</a> &#124;
+<a href="../../d0/d1b/class_file_system_helper-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Класс FileSystemHelper</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Класс для работы с файловой системой  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d3/dd6/_file_system_helper_8hpp_source.html">FileSystemHelper.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Открытые статические члены</h2></td></tr>
+<tr class="memitem:ac165b5363f3eb892ea58695b1d982785" id="r_ac165b5363f3eb892ea58695b1d982785"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac165b5363f3eb892ea58695b1d982785">CombinePath</a> (const std::string &amp;dir_name, const std::string &amp;file_name)</td></tr>
+<tr class="memdesc:ac165b5363f3eb892ea58695b1d982785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Комбинирует имя папки и имя файла в путь к файлу  <br /></td></tr>
+<tr class="separator:ac165b5363f3eb892ea58695b1d982785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a822d8572cf33ccc17d355687ed5c84fa" id="r_a822d8572cf33ccc17d355687ed5c84fa"><td class="memItemLeft" align="right" valign="top"><a id="a822d8572cf33ccc17d355687ed5c84fa" name="a822d8572cf33ccc17d355687ed5c84fa"></a>
+static std::string&#160;</td><td class="memItemRight" valign="bottom"><b>CombinePath</b> ()</td></tr>
+<tr class="separator:a822d8572cf33ccc17d355687ed5c84fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a804bf0a281134f4a9e5474fdc523bf18" id="r_a804bf0a281134f4a9e5474fdc523bf18"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a804bf0a281134f4a9e5474fdc523bf18">IsFileExists</a> (const std::string &amp;path_file)</td></tr>
+<tr class="memdesc:a804bf0a281134f4a9e5474fdc523bf18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет существование файла  <br /></td></tr>
+<tr class="separator:a804bf0a281134f4a9e5474fdc523bf18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a752f9c022bae6f2dd30ea85f6e45d3e1" id="r_a752f9c022bae6f2dd30ea85f6e45d3e1"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a752f9c022bae6f2dd30ea85f6e45d3e1">IsFileExists</a> (const std::string &amp;dir_name, const std::string &amp;file_name)</td></tr>
+<tr class="memdesc:a752f9c022bae6f2dd30ea85f6e45d3e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет существование файла  <br /></td></tr>
+<tr class="separator:a752f9c022bae6f2dd30ea85f6e45d3e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cec3a7a67d41abaae70b8ffebe9e3fa" id="r_a6cec3a7a67d41abaae70b8ffebe9e3fa"><td class="memItemLeft" align="right" valign="top"><a id="a6cec3a7a67d41abaae70b8ffebe9e3fa" name="a6cec3a7a67d41abaae70b8ffebe9e3fa"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsFileExists</b> ()</td></tr>
+<tr class="separator:a6cec3a7a67d41abaae70b8ffebe9e3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998200df9cbe9b15f14a34c947caf58a" id="r_a998200df9cbe9b15f14a34c947caf58a"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a998200df9cbe9b15f14a34c947caf58a">IsDirExists</a> (const std::string &amp;path_dir)</td></tr>
+<tr class="memdesc:a998200df9cbe9b15f14a34c947caf58a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет существование каталога  <br /></td></tr>
+<tr class="separator:a998200df9cbe9b15f14a34c947caf58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bfef8f4eecf0c7a2f919d491e01b241" id="r_a2bfef8f4eecf0c7a2f919d491e01b241"><td class="memItemLeft" align="right" valign="top"><a id="a2bfef8f4eecf0c7a2f919d491e01b241" name="a2bfef8f4eecf0c7a2f919d491e01b241"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsDirExists</b> ()</td></tr>
+<tr class="separator:a2bfef8f4eecf0c7a2f919d491e01b241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eff4d042a458c06753a1a7d95a57991" id="r_a4eff4d042a458c06753a1a7d95a57991"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4eff4d042a458c06753a1a7d95a57991">CreateDir</a> (const std::string &amp;path_dir)</td></tr>
+<tr class="memdesc:a4eff4d042a458c06753a1a7d95a57991"><td class="mdescLeft">&#160;</td><td class="mdescRight">Создаёт каталог  <br /></td></tr>
+<tr class="separator:a4eff4d042a458c06753a1a7d95a57991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b4290ed3ac216b49dff5d5e29eb1a4f" id="r_a5b4290ed3ac216b49dff5d5e29eb1a4f"><td class="memItemLeft" align="right" valign="top"><a id="a5b4290ed3ac216b49dff5d5e29eb1a4f" name="a5b4290ed3ac216b49dff5d5e29eb1a4f"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CreateDir</b> ()</td></tr>
+<tr class="separator:a5b4290ed3ac216b49dff5d5e29eb1a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ab3df42f76511889f897eb2ec94273a" id="r_a3ab3df42f76511889f897eb2ec94273a"><td class="memItemLeft" align="right" valign="top"><a id="a3ab3df42f76511889f897eb2ec94273a" name="a3ab3df42f76511889f897eb2ec94273a"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CreateFile</b> (const std::string &amp;dir_name, const std::string &amp;file_name, const std::string &amp;string_data)</td></tr>
+<tr class="separator:a3ab3df42f76511889f897eb2ec94273a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f4a1172a936fc62292308f5f6f8e9d9" id="r_a5f4a1172a936fc62292308f5f6f8e9d9"><td class="memItemLeft" align="right" valign="top"><a id="a5f4a1172a936fc62292308f5f6f8e9d9" name="a5f4a1172a936fc62292308f5f6f8e9d9"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>CreateFile</b> ()</td></tr>
+<tr class="separator:a5f4a1172a936fc62292308f5f6f8e9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24748a7f423cf2df5394785fc8e3fc9" id="r_ac24748a7f423cf2df5394785fc8e3fc9"><td class="memItemLeft" align="right" valign="top"><a id="ac24748a7f423cf2df5394785fc8e3fc9" name="ac24748a7f423cf2df5394785fc8e3fc9"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveFile</b> (const std::string &amp;dir_name, const std::string &amp;file_name)</td></tr>
+<tr class="separator:ac24748a7f423cf2df5394785fc8e3fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f4c79d1347c95407ceb2a715dd6106" id="r_af5f4c79d1347c95407ceb2a715dd6106"><td class="memItemLeft" align="right" valign="top"><a id="af5f4c79d1347c95407ceb2a715dd6106" name="af5f4c79d1347c95407ceb2a715dd6106"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveFile</b> ()</td></tr>
+<tr class="separator:af5f4c79d1347c95407ceb2a715dd6106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a668e26dde15395ced91a012e60e4e847" id="r_a668e26dde15395ced91a012e60e4e847"><td class="memItemLeft" align="right" valign="top"><a id="a668e26dde15395ced91a012e60e4e847" name="a668e26dde15395ced91a012e60e4e847"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveDir</b> (const std::string &amp;dir_name)</td></tr>
+<tr class="separator:a668e26dde15395ced91a012e60e4e847"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e0a683bd92d76fe27cba8f2f4f3f5e2" id="r_a0e0a683bd92d76fe27cba8f2f4f3f5e2"><td class="memItemLeft" align="right" valign="top"><a id="a0e0a683bd92d76fe27cba8f2f4f3f5e2" name="a0e0a683bd92d76fe27cba8f2f4f3f5e2"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveDir</b> ()</td></tr>
+<tr class="separator:a0e0a683bd92d76fe27cba8f2f4f3f5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Класс для работы с файловой системой </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="ac165b5363f3eb892ea58695b1d982785" name="ac165b5363f3eb892ea58695b1d982785"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac165b5363f3eb892ea58695b1d982785">&#9670;&#160;</a></span>CombinePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::string FileSystemHelper::CombinePath </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dir_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file_name</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Комбинирует имя папки и имя файла в путь к файлу </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir_name</td><td></td></tr>
+    <tr><td class="paramname">file_name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a4eff4d042a458c06753a1a7d95a57991" name="a4eff4d042a458c06753a1a7d95a57991"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eff4d042a458c06753a1a7d95a57991">&#9670;&#160;</a></span>CreateDir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool FileSystemHelper::CreateDir </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path_dir</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Создаёт каталог </p>
+<dl class="section return"><dt>Возвращает</dt><dd>Результат создания нового каталога </dd></dl>
+
+</div>
+</div>
+<a id="a998200df9cbe9b15f14a34c947caf58a" name="a998200df9cbe9b15f14a34c947caf58a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a998200df9cbe9b15f14a34c947caf58a">&#9670;&#160;</a></span>IsDirExists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool FileSystemHelper::IsDirExists </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path_dir</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверяет существование каталога </p>
+<dl class="section return"><dt>Возвращает</dt><dd>true - существует; false - не существует </dd></dl>
+
+</div>
+</div>
+<a id="a752f9c022bae6f2dd30ea85f6e45d3e1" name="a752f9c022bae6f2dd30ea85f6e45d3e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a752f9c022bae6f2dd30ea85f6e45d3e1">&#9670;&#160;</a></span>IsFileExists() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool FileSystemHelper::IsFileExists </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dir_name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>file_name</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверяет существование файла </p>
+<dl class="section return"><dt>Возвращает</dt><dd>true - существует; false - не существует </dd></dl>
+
+</div>
+</div>
+<a id="a804bf0a281134f4a9e5474fdc523bf18" name="a804bf0a281134f4a9e5474fdc523bf18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a804bf0a281134f4a9e5474fdc523bf18">&#9670;&#160;</a></span>IsFileExists() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool FileSystemHelper::IsFileExists </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>path_file</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Проверяет существование файла </p>
+<dl class="section return"><dt>Возвращает</dt><dd>true - существует; false - не существует </dd></dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>HCSLib/CommonHelpers/<a class="el" href="../../d3/dd6/_file_system_helper_8hpp_source.html">FileSystemHelper.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../de/d34/class_file_system_helper.html">FileSystemHelper</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+\doxysection{Структура Cuda\+Helper}
+\hypertarget{struct_cuda_helper}{}\label{struct_cuda_helper}\index{CudaHelper@{CudaHelper}}
+
+
+Класс для хранения вспомогательных функций Cuda.  
+
+
+
+
+{\ttfamily \#include $<$Cuda\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{struct_cuda_helper_a07f7d0803e496e33de75d9ba452ff97a}{Is\+Errors}} ()
+\begin{DoxyCompactList}\small\item\em Проверка наличия ошибок \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{struct_cuda_helper_acfb993fd6f2458328efdd246feedcccd}{Is\+Cuda\+Supported}} ()
+\begin{DoxyCompactList}\small\item\em Определяет поддержку CUDA. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{struct_cuda_helper_a98c75205f07b42f7b7b31737bf2861ac}{Get\+Cuda\+Device\+Number}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает количество Cuda-\/совместимых устройств \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{struct_cuda_helper_ae9b2f2f91313696aaf6b3904f38dd408}{Set\+Device}} (unsigned device\+Id)
+\begin{DoxyCompactList}\small\item\em Устанавливает текущее устройство (GPU) \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_cuda_device_properties}{Cuda\+Device\+Properties}} \mbox{\hyperlink{struct_cuda_helper_a1806e65a5c5eb3c77adeaf2780a617e9}{Get\+Cuda\+Device\+Properties}} (int device\+Id=0)
+\begin{DoxyCompactList}\small\item\em Возвращает структуру с параметрами видеокарты \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{struct_cuda_helper_a6bfc2ab0ec60564d736193e1f984a1af}{Get\+Cuda\+Device\+Name}} (int device\+Id=0)
+\begin{DoxyCompactList}\small\item\em Возвращает имя GPU по переданному идентификатору \end{DoxyCompactList}\item 
+\Hypertarget{struct_cuda_helper_aa6ea536c532e4aa89cec44824cf27d3b}\label{struct_cuda_helper_aa6ea536c532e4aa89cec44824cf27d3b} 
+static void {\bfseries Print\+Cuda\+Device\+Properties} (int device\+Id=0)
+\item 
+\Hypertarget{struct_cuda_helper_ae18d36526b9c004837d8cc3b82ef4b9d}\label{struct_cuda_helper_ae18d36526b9c004837d8cc3b82ef4b9d} 
+static void {\bfseries Print\+Cuda\+Device\+Properties\+\_\+\+Console\+UI} ()
+\item 
+\Hypertarget{struct_cuda_helper_a9bce0116025b2ba9b446daa8232f9062}\label{struct_cuda_helper_a9bce0116025b2ba9b446daa8232f9062} 
+static void {\bfseries Write\+Gpu\+Specs} (std\+::ofstream \&out)
+\item 
+\Hypertarget{struct_cuda_helper_a35e2277bb57dd01ef9fefc47a66874f9}\label{struct_cuda_helper_a35e2277bb57dd01ef9fefc47a66874f9} 
+static void {\bfseries Write\+Gpu\+Specs\+To\+Txt\+File\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Записывает параметры видеокарты в текстовый файл gpu-\/specs.\+txt. \end{DoxyCompactList}\item 
+\Hypertarget{struct_cuda_helper_a317e670dc2d1b5dd8ceb3b411d581d68}\label{struct_cuda_helper_a317e670dc2d1b5dd8ceb3b411d581d68} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Cuda\+Free} (T \texorpdfstring{$\ast$}{*}dev\+\_\+arr)
+\item 
+\Hypertarget{struct_cuda_helper_a4642cbe4a3818865640f75cdb6b964b9}\label{struct_cuda_helper_a4642cbe4a3818865640f75cdb6b964b9} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Init\+By\+Value} (T \texorpdfstring{$\ast$}{*}array\+Gpu, unsigned long long length, T value)
+\item 
+\Hypertarget{struct_cuda_helper_aa8e88292fa0d845ae8b42fcdd71f95fc}\label{struct_cuda_helper_aa8e88292fa0d845ae8b42fcdd71f95fc} 
+{\footnotesize template$<$typename T, typename S$>$ }\\static void {\bfseries Multiply} (T \texorpdfstring{$\ast$}{*}array\+Gpu, unsigned long long length, S scalar)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для хранения вспомогательных функций Cuda. 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_cuda_helper_a6bfc2ab0ec60564d736193e1f984a1af}\index{CudaHelper@{CudaHelper}!GetCudaDeviceName@{GetCudaDeviceName}}
+\index{GetCudaDeviceName@{GetCudaDeviceName}!CudaHelper@{CudaHelper}}
+\doxysubsubsection{\texorpdfstring{GetCudaDeviceName()}{GetCudaDeviceName()}}
+{\footnotesize\ttfamily \label{struct_cuda_helper_a6bfc2ab0ec60564d736193e1f984a1af} 
+static std\+::string Cuda\+Helper\+::\+Get\+Cuda\+Device\+Name (\begin{DoxyParamCaption}\item[{int}]{device\+Id}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Возвращает имя GPU по переданному идентификатору 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em device\+Id} & Идентификатор GPU \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Имя GPU 
+\end{DoxyReturn}
+\Hypertarget{struct_cuda_helper_a98c75205f07b42f7b7b31737bf2861ac}\index{CudaHelper@{CudaHelper}!GetCudaDeviceNumber@{GetCudaDeviceNumber}}
+\index{GetCudaDeviceNumber@{GetCudaDeviceNumber}!CudaHelper@{CudaHelper}}
+\doxysubsubsection{\texorpdfstring{GetCudaDeviceNumber()}{GetCudaDeviceNumber()}}
+{\footnotesize\ttfamily \label{struct_cuda_helper_a98c75205f07b42f7b7b31737bf2861ac} 
+static int Cuda\+Helper\+::\+Get\+Cuda\+Device\+Number (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Возвращает количество Cuda-\/совместимых устройств 
+
+\begin{DoxyReturn}{Возвращает}
+Количество Cuda-\/совместимых устройств 
+\end{DoxyReturn}
+\Hypertarget{struct_cuda_helper_a1806e65a5c5eb3c77adeaf2780a617e9}\index{CudaHelper@{CudaHelper}!GetCudaDeviceProperties@{GetCudaDeviceProperties}}
+\index{GetCudaDeviceProperties@{GetCudaDeviceProperties}!CudaHelper@{CudaHelper}}
+\doxysubsubsection{\texorpdfstring{GetCudaDeviceProperties()}{GetCudaDeviceProperties()}}
+{\footnotesize\ttfamily \label{struct_cuda_helper_a1806e65a5c5eb3c77adeaf2780a617e9} 
+static \mbox{\hyperlink{struct_cuda_device_properties}{Cuda\+Device\+Properties}} Cuda\+Helper\+::\+Get\+Cuda\+Device\+Properties (\begin{DoxyParamCaption}\item[{int}]{device\+Id}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Возвращает структуру с параметрами видеокарты 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em device\+Id} & Идентификатор Cuda-\/устройства \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Объект \doxylink{struct_cuda_device_properties}{Cuda\+Device\+Properties} с параметрами видеокарты (поле Is\+Initialized = true в случае успеха, иначе Is\+Initialized = false) 
+\end{DoxyReturn}
+\Hypertarget{struct_cuda_helper_acfb993fd6f2458328efdd246feedcccd}\index{CudaHelper@{CudaHelper}!IsCudaSupported@{IsCudaSupported}}
+\index{IsCudaSupported@{IsCudaSupported}!CudaHelper@{CudaHelper}}
+\doxysubsubsection{\texorpdfstring{IsCudaSupported()}{IsCudaSupported()}}
+{\footnotesize\ttfamily \label{struct_cuda_helper_acfb993fd6f2458328efdd246feedcccd} 
+static bool Cuda\+Helper\+::\+Is\+Cuda\+Supported (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Определяет поддержку CUDA. 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ поддерживается, false -\/ не поддерживается 
+\end{DoxyReturn}
+\Hypertarget{struct_cuda_helper_a07f7d0803e496e33de75d9ba452ff97a}\index{CudaHelper@{CudaHelper}!IsErrors@{IsErrors}}
+\index{IsErrors@{IsErrors}!CudaHelper@{CudaHelper}}
+\doxysubsubsection{\texorpdfstring{IsErrors()}{IsErrors()}}
+{\footnotesize\ttfamily \label{struct_cuda_helper_a07f7d0803e496e33de75d9ba452ff97a} 
+static bool Cuda\+Helper\+::\+Is\+Errors (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Проверка наличия ошибок 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ ошибки; false -\/ успех, ошибок нет 
+\end{DoxyReturn}
+\Hypertarget{struct_cuda_helper_ae9b2f2f91313696aaf6b3904f38dd408}\index{CudaHelper@{CudaHelper}!SetDevice@{SetDevice}}
+\index{SetDevice@{SetDevice}!CudaHelper@{CudaHelper}}
+\doxysubsubsection{\texorpdfstring{SetDevice()}{SetDevice()}}
+{\footnotesize\ttfamily \label{struct_cuda_helper_ae9b2f2f91313696aaf6b3904f38dd408} 
+static bool Cuda\+Helper\+::\+Set\+Device (\begin{DoxyParamCaption}\item[{unsigned}]{device\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Устанавливает текущее устройство (GPU) 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em device\+Id} & Индекс устройства \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+true -\/ успех 
+\end{DoxyReturn}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Cuda/Cuda\+Helper.\+hpp\end{DoxyCompactItemize}

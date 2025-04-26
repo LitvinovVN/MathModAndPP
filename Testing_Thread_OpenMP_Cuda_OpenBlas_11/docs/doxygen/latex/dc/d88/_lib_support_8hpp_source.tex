@@ -1,0 +1,47 @@
+\doxysection{Lib\+Support.\+hpp}
+\hypertarget{_lib_support_8hpp_source}{}\label{_lib_support_8hpp_source}\index{HCSLib/CommonHelpers/LibSupport.hpp@{HCSLib/CommonHelpers/LibSupport.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }LibSupport}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsOpenMP\ \ \ =\ \textcolor{keyword}{false};\textcolor{comment}{//\ Поддержка\ OpenMP}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsCuda\ \ \ \ \ =\ \textcolor{keyword}{false};\textcolor{comment}{//\ Поддержка\ CUDA}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{bool}\ IsOpenBlas\ =\ \textcolor{keyword}{false};\textcolor{comment}{//\ Поддержка\ OpenBlas}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ LibSupport()}
+\DoxyCodeLine{00013\ \ \ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ OpenMP}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ IsOpenMP\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ CUDA\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ IsCuda\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ OpenBLAS}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ OPENBLAS\_VERSION}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ IsOpenBlas\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Supported\ libs:\ "{}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsOpenMP)\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}OpenMP\ "{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsCuda)\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CUDA\ "{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (IsOpenBlas)\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}OpenBlas\ "{}};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+
+\end{DoxyCode}

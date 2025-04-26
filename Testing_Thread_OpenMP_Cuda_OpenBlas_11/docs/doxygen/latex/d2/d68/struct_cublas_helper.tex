@@ -1,0 +1,92 @@
+\doxysection{Структура Cublas\+Helper}
+\hypertarget{struct_cublas_helper}{}\label{struct_cublas_helper}\index{CublasHelper@{CublasHelper}}
+
+
+Класс для хранения вспомогательных функций Cu\+BLAS.  
+
+
+
+
+{\ttfamily \#include $<$Cublas\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_cublas_helper_a84ef5f376b3384f9e6a7f25c6e82e492}\label{struct_cublas_helper_a84ef5f376b3384f9e6a7f25c6e82e492} 
+static void {\bfseries Check\+Cublas\+Status} (\mbox{\hyperlink{structcublas_status__t}{cublas\+Status\+\_\+t}} cublas\+Stat, std\+::string msg="{}CUBLAS error"{})
+\item 
+static \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} \mbox{\hyperlink{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512}{Cublas\+Create}} ()
+\begin{DoxyCompactList}\small\item\em Инициализирует Cu\+BLAS. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} \mbox{\hyperlink{struct_cublas_helper_a0e31d6c26589aabf53263feb5f3b28a6}{Cublas\+Create}} (int device\+Id)
+\begin{DoxyCompactList}\small\item\em Инициализирует Cu\+BLAS. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784}{Cublas\+Destroy}} (\mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} cublasH)
+\begin{DoxyCompactList}\small\item\em Освобождает ресурсы Cu\+BLAS. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{struct_cublas_helper_aaecbc32ec44e97cccbe48cf5f181654a}{Cublas\+Destroy}} (std\+::vector$<$ \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} $>$ cublas\+Handles)
+\begin{DoxyCompactList}\small\item\em Освобождает ресурсы Cu\+BLAS. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для хранения вспомогательных функций Cu\+BLAS. 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512}\index{CublasHelper@{CublasHelper}!CublasCreate@{CublasCreate}}
+\index{CublasCreate@{CublasCreate}!CublasHelper@{CublasHelper}}
+\doxysubsubsection{\texorpdfstring{CublasCreate()}{CublasCreate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512} 
+static \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} Cublas\+Helper\+::\+Cublas\+Create (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Инициализирует Cu\+BLAS. 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{struct_cublas_helper_a0e31d6c26589aabf53263feb5f3b28a6}\index{CublasHelper@{CublasHelper}!CublasCreate@{CublasCreate}}
+\index{CublasCreate@{CublasCreate}!CublasHelper@{CublasHelper}}
+\doxysubsubsection{\texorpdfstring{CublasCreate()}{CublasCreate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_cublas_helper_a0e31d6c26589aabf53263feb5f3b28a6} 
+static \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} Cublas\+Helper\+::\+Cublas\+Create (\begin{DoxyParamCaption}\item[{int}]{device\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Инициализирует Cu\+BLAS. 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784}\index{CublasHelper@{CublasHelper}!CublasDestroy@{CublasDestroy}}
+\index{CublasDestroy@{CublasDestroy}!CublasHelper@{CublasHelper}}
+\doxysubsubsection{\texorpdfstring{CublasDestroy()}{CublasDestroy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784} 
+static void Cublas\+Helper\+::\+Cublas\+Destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}}}]{cublasH}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Освобождает ресурсы Cu\+BLAS. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em cublasH} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_cublas_helper_aaecbc32ec44e97cccbe48cf5f181654a}\index{CublasHelper@{CublasHelper}!CublasDestroy@{CublasDestroy}}
+\index{CublasDestroy@{CublasDestroy}!CublasHelper@{CublasHelper}}
+\doxysubsubsection{\texorpdfstring{CublasDestroy()}{CublasDestroy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_cublas_helper_aaecbc32ec44e97cccbe48cf5f181654a} 
+static void Cublas\+Helper\+::\+Cublas\+Destroy (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{structcublas_handle__t}{cublas\+Handle\+\_\+t}} $>$}]{cublas\+Handles}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Освобождает ресурсы Cu\+BLAS. 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em cublas\+Handles} & \\
+\hline
+\end{DoxyParams}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Cuda/Cublas\+Helper.\+hpp\end{DoxyCompactItemize}

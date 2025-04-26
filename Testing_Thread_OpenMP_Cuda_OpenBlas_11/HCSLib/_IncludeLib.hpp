@@ -31,17 +31,12 @@ using namespace std::chrono;
 #include "Cuda/CublasHelper.hpp"
 ///////////// CUDA (конец) /////////////
 
-///// Вспомогательные типы (начало) /////
-#include "CommonHelpers/LibSupport.hpp"
-#include "CommonHelpers/FuncResult.hpp"
-#include "CommonHelpers/PrintParams.hpp"
-#include "CommonHelpers/ConsoleHelper.hpp"
-#include "CommonHelpers/FileSystemHelper.hpp"
-#include "CommonHelpers/DataTypeEnum.hpp"
-#include "CommonHelpers/DataType.hpp"
-#include "CommonHelpers/DataTypes.hpp"
-#include "CommonHelpers/DataLocation.hpp"
-///// Вспомогательные типы (конец) /////
+///// Вспомогательные типы
+#include "CommonHelpers/_IncludeCommonHelpers.hpp"
+
+///// Геометрия расчетной области
+#include "Geometry/_IncludeGeometry.hpp"
+
 
 ///// Параметры проведения тестов производительности (начало) /////
 #include "PerformanceTests/PerfTestParamsData.hpp"

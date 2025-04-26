@@ -1,0 +1,68 @@
+\doxysection{Класс IGeometry}
+\hypertarget{class_i_geometry}{}\label{class_i_geometry}\index{IGeometry@{IGeometry}}
+
+
+Абстрактный класс, моделирующий геометрию расчетной области  
+
+
+
+
+{\ttfamily \#include $<$IGeometry.\+hpp$>$}
+
+Граф наследования\+:IGeometry\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d0/dac/class_i_geometry}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_i_geometry_acd507f55969f2abd428f7d9c073cedca}{Print}} () const =0
+\begin{DoxyCompactList}\small\item\em Выводит в консоль сведения об объекте и его значение \end{DoxyCompactList}\item 
+Measurement\+Unit\+Enum \mbox{\hyperlink{class_i_geometry_abed33c5e4f844099106fd4faceacf15a}{Get\+Measurement\+Unit\+Enum}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает единицу измерения, используемую для описания объекта геометрии \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_i_geometry_a7b645ba1e07d2829d3f37e89198a6579}\label{class_i_geometry_a7b645ba1e07d2829d3f37e89198a6579} 
+Dimension {\bfseries dimension} = Dimension\+::\+D2
+\begin{DoxyCompactList}\small\item\em Размерность геометрии расчетной области \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Абстрактный класс, моделирующий геометрию расчетной области 
+
+\doxysubsection{Методы}
+\Hypertarget{class_i_geometry_abed33c5e4f844099106fd4faceacf15a}\index{IGeometry@{IGeometry}!GetMeasurementUnitEnum@{GetMeasurementUnitEnum}}
+\index{GetMeasurementUnitEnum@{GetMeasurementUnitEnum}!IGeometry@{IGeometry}}
+\doxysubsubsection{\texorpdfstring{GetMeasurementUnitEnum()}{GetMeasurementUnitEnum()}}
+{\footnotesize\ttfamily \label{class_i_geometry_abed33c5e4f844099106fd4faceacf15a} 
+Measurement\+Unit\+Enum IGeometry\+::\+Get\+Measurement\+Unit\+Enum (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает единицу измерения, используемую для описания объекта геометрии 
+
+\begin{DoxyReturn}{Возвращает}
+Measurement\+Unit\+Enum 
+\end{DoxyReturn}
+\Hypertarget{class_i_geometry_acd507f55969f2abd428f7d9c073cedca}\index{IGeometry@{IGeometry}!Print@{Print}}
+\index{Print@{Print}!IGeometry@{IGeometry}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_i_geometry_acd507f55969f2abd428f7d9c073cedca} 
+virtual void IGeometry\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Выводит в консоль сведения об объекте и его значение 
+
+
+
+Замещается в \mbox{\hyperlink{class_g2_d_rectangle_af4857f8fc3d9520945138213579a0d0c}{G2\+DRectangle}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Geometry/IGeometry.\+hpp\end{DoxyCompactItemize}

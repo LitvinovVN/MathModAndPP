@@ -1,0 +1,100 @@
+\doxysection{Класс Algorithm\+Implementation\+Executor}
+\hypertarget{class_algorithm_implementation_executor}{}\label{class_algorithm_implementation_executor}\index{AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}}
+
+
+Класс для запуска алгоритма на заданной вычислительной системе  
+
+
+
+
+{\ttfamily \#include $<$Algorithm\+Implementation\+Executor.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_algorithm_implementation_executor_a0badbbf3bc6d064c847232f4a3267b50}\label{class_algorithm_implementation_executor_a0badbbf3bc6d064c847232f4a3267b50} 
+{\bfseries Algorithm\+Implementation\+Executor} (\mbox{\hyperlink{class_computing_system_repository}{Computing\+System\+Repository}} \&computing\+System\+Repository, \mbox{\hyperlink{class_algorithm_implementation_repository}{Algorithm\+Implementation\+Repository}} \&algorithm\+Implementation\+Repository, \mbox{\hyperlink{class_alg_testing_result_repository}{Alg\+Testing\+Result\+Repository}} \&alg\+Testing\+Result\+Repository)
+\item 
+bool \mbox{\hyperlink{class_algorithm_implementation_executor_ad59978e63cde9eed46ab2ff2056e9c0e}{Is\+Configured}} ()
+\begin{DoxyCompactList}\small\item\em Проверяет готовность \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_algorithm_implementation_executor_a89fd4dd34e89a25bafcf8000bed50b61}{Set\+Computing\+System\+Id}} (unsigned id)
+\begin{DoxyCompactList}\small\item\em Устанавливает УИД текущей вычислительной системы \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_algorithm_implementation_executor_ad574d9344b4d090cd8a78f68d464add6}{Try\+Set\+Computing\+System\+Id}} (unsigned id)
+\begin{DoxyCompactList}\small\item\em Устанавливает УИД текущей вычислительной системы \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_alg_testing_result}{Alg\+Testing\+Result}} \mbox{\hyperlink{class_algorithm_implementation_executor_a566cc94c879154799772db0275e83a36}{Exec}} (unsigned Algorithm\+Implementation\+Id, \mbox{\hyperlink{struct_algorithm_implementation_exec_params}{Algorithm\+Implementation\+Exec\+Params}} params)
+\begin{DoxyCompactList}\small\item\em Запускает реализацию алгоритма с заданными параметрами на текущей вычислительной системе \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для запуска алгоритма на заданной вычислительной системе 
+
+\doxysubsection{Методы}
+\Hypertarget{class_algorithm_implementation_executor_a566cc94c879154799772db0275e83a36}\index{AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}!Exec@{Exec}}
+\index{Exec@{Exec}!AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}}
+\doxysubsubsection{\texorpdfstring{Exec()}{Exec()}}
+{\footnotesize\ttfamily \label{class_algorithm_implementation_executor_a566cc94c879154799772db0275e83a36} 
+\mbox{\hyperlink{struct_alg_testing_result}{Alg\+Testing\+Result}} Algorithm\+Implementation\+Executor\+::\+Exec (\begin{DoxyParamCaption}\item[{unsigned}]{Algorithm\+Implementation\+Id}{, }\item[{\mbox{\hyperlink{struct_algorithm_implementation_exec_params}{Algorithm\+Implementation\+Exec\+Params}}}]{params}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Запускает реализацию алгоритма с заданными параметрами на текущей вычислительной системе 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em Algorithm\+Implementation\+Id} & УИД реализации алгоритма \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_algorithm_implementation_executor_ad59978e63cde9eed46ab2ff2056e9c0e}\index{AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}!IsConfigured@{IsConfigured}}
+\index{IsConfigured@{IsConfigured}!AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}}
+\doxysubsubsection{\texorpdfstring{IsConfigured()}{IsConfigured()}}
+{\footnotesize\ttfamily \label{class_algorithm_implementation_executor_ad59978e63cde9eed46ab2ff2056e9c0e} 
+bool Algorithm\+Implementation\+Executor\+::\+Is\+Configured (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Проверяет готовность 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_algorithm_implementation_executor_a89fd4dd34e89a25bafcf8000bed50b61}\index{AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}!SetComputingSystemId@{SetComputingSystemId}}
+\index{SetComputingSystemId@{SetComputingSystemId}!AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}}
+\doxysubsubsection{\texorpdfstring{SetComputingSystemId()}{SetComputingSystemId()}}
+{\footnotesize\ttfamily \label{class_algorithm_implementation_executor_a89fd4dd34e89a25bafcf8000bed50b61} 
+void Algorithm\+Implementation\+Executor\+::\+Set\+Computing\+System\+Id (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает УИД текущей вычислительной системы 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em id} & УИД вычислительной системы \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_algorithm_implementation_executor_ad574d9344b4d090cd8a78f68d464add6}\index{AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}!TrySetComputingSystemId@{TrySetComputingSystemId}}
+\index{TrySetComputingSystemId@{TrySetComputingSystemId}!AlgorithmImplementationExecutor@{AlgorithmImplementationExecutor}}
+\doxysubsubsection{\texorpdfstring{TrySetComputingSystemId()}{TrySetComputingSystemId()}}
+{\footnotesize\ttfamily \label{class_algorithm_implementation_executor_ad574d9344b4d090cd8a78f68d464add6} 
+bool Algorithm\+Implementation\+Executor\+::\+Try\+Set\+Computing\+System\+Id (\begin{DoxyParamCaption}\item[{unsigned}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает УИД текущей вычислительной системы 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em id} & УИД вычислительной системы \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+true -\/ успех, false -\/ неудача 
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Algorithms/Algorithm\+Implementation\+Executor.\+hpp\end{DoxyCompactItemize}

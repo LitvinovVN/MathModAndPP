@@ -1,0 +1,39 @@
+\doxysection{Gpu\+Params.\+hpp}
+\hypertarget{_gpu_params_8hpp_source}{}\label{_gpu_params_8hpp_source}\index{HCSLib/ComputingSystem/GpuParams.hpp@{HCSLib/ComputingSystem/GpuParams.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_gpu_params}{GpuParams}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id}\{0\};}
+\DoxyCodeLine{00011\ \ \ \ \ std::string\ \mbox{\hyperlink{struct_gpu_params_a3bf7ffadbd8e630688eedd89cfda2e8e}{name}}\{\textcolor{stringliteral}{"{}"{}}\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{struct_gpu_params_a64c57ab561da6e6227af2e682b10f466}{VRamSizeGb}}\{0\};}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{struct_gpu_params_a26a9f170f2c34cfa02877fb7d2d9f5e5}{SmNumber}}\{0\};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_gpu_params_ab7df479ee5aa4670a17a5ef430b49a3f}{PeakMemoryBandwidthGbS}}\{0\};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}GpuParams::Print(PrintParams\ pp)"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}id"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_gpu_params_aa860c8f4288b8ccb769fe7608cfbd699}{id}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}name"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_gpu_params_a3bf7ffadbd8e630688eedd89cfda2e8e}{name}};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}VRamSizeGb"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_gpu_params_a64c57ab561da6e6227af2e682b10f466}{VRamSizeGb}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SmNumber"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_gpu_params_a26a9f170f2c34cfa02877fb7d2d9f5e5}{SmNumber}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}PeakMemoryBandwidthGbS"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_gpu_params_ab7df479ee5aa4670a17a5ef430b49a3f}{PeakMemoryBandwidthGbS}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \};}
+
+\end{DoxyCode}

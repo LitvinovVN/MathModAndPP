@@ -1,0 +1,49 @@
+\doxysection{Menu\+Command\+Item.\+hpp}
+\hypertarget{_menu_command_item_8hpp_source}{}\label{_menu_command_item_8hpp_source}\index{HCSLib/Menu/MenuCommandItem.hpp@{HCSLib/Menu/MenuCommandItem.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }MenuCommandItem}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ MenuCommand\ comm\ =\ MenuCommand::None;\textcolor{comment}{//\ Команда}}
+\DoxyCodeLine{00008\ \ \ \ \ std::vector<std::string>\ keys;\textcolor{comment}{//\ Список\ ключей}}
+\DoxyCodeLine{00009\ \ \ \ \ std::function<void()>\ func;\textcolor{comment}{//\ Вызываемая\ функция}}
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ desc;\textcolor{comment}{//\ Описание\ команды}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ MenuCommandItem()}
+\DoxyCodeLine{00013\ \ \ \ \ \{\}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ MenuCommandItem(MenuCommand\ comm,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ std::vector<std::string>\ keys,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::function<\textcolor{keywordtype}{void}()>\ func,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::string\ desc)}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ :\ comm(comm),\ keys(keys),\ func(func),\ desc(desc)}
+\DoxyCodeLine{00020\ \ \ \ \ \{\}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ Reset()}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ comm\ =\ MenuCommand::None;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ keys\ =\ \{\};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ func\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ desc\ =\ \textcolor{stringliteral}{"{}Command\ not\ choosed!"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ CheckKey(\textcolor{keyword}{const}\ std::string\&\ str)}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isKey\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ key\ :\ keys)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(key\ ==\ str)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isKey\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isKey;}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+
+\end{DoxyCode}

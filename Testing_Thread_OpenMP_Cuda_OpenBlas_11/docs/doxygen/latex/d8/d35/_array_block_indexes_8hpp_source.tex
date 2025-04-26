@@ -1,0 +1,38 @@
+\doxysection{Array\+Block\+Indexes.\+hpp}
+\hypertarget{_array_block_indexes_8hpp_source}{}\label{_array_block_indexes_8hpp_source}\index{HCSLib/Arrays/ArrayBlockIndexes.hpp@{HCSLib/Arrays/ArrayBlockIndexes.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_array_block_indexes}{ArrayBlockIndexes}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ Индекс\ блока}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ blockIndex\{\};}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Размер\ блока}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ blockLength\{\};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Локальный\ индекс\ элемента\ в\ блоке}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ localIndex\{\};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})}
+\DoxyCodeLine{00017\ \ \ \ \ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ pp.PrintStartMessage();}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ pp.PrintKeyValue(\textcolor{stringliteral}{"{}blockIndex"{}},\ blockIndex);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ pp.PrintSplitter();}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ pp.PrintKeyValue(\textcolor{stringliteral}{"{}blockLength"{}},\ blockLength);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ pp.PrintSplitter();}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ pp.PrintKeyValue(\textcolor{stringliteral}{"{}localIndex"{}},\ localIndex);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ pp.PrintEndMessage();}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ pp.PrintIsEndl();}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_array_block_indexes_a74e1fa1e9574cd0d72828fdf19f3fd08}{IsInitialized}}()}
+\DoxyCodeLine{00032\ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{bool})blockLength;}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \};}
+
+\end{DoxyCode}

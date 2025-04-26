@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Исходный файл HCSLib/Geometry/G2DRectangle.hpp</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d9/d89/_g2_d_rectangle_8hpp_source.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">G2DRectangle.hpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span></div>
+<div class="foldopen" id="foldopen00004" data-start="{" data-end="};">
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="../../d4/d5d/class_g2_d_rectangle.html">    4</a></span><span class="keyword">class </span><a class="code hl_function" href="../../d4/d5d/class_g2_d_rectangle.html#a8804567741abd9217159ab8ba838eb02">G2DRectangle</a> : <span class="keyword">public</span> <a class="code hl_class" href="../../d0/dac/class_i_geometry.html">IGeometry</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordtype">double</span> Lx;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordtype">double</span> Ly;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="../../d4/d5d/class_g2_d_rectangle.html#a8804567741abd9217159ab8ba838eb02">   15</a></span>    <a class="code hl_function" href="../../d4/d5d/class_g2_d_rectangle.html#a8804567741abd9217159ab8ba838eb02">G2DRectangle</a>(<span class="keywordtype">double</span> Lx, <span class="keywordtype">double</span> Ly)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        : Lx(Lx), Ly(Ly)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    {}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../d4/d5d/class_g2_d_rectangle.html#af4857f8fc3d9520945138213579a0d0c">   20</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d4/d5d/class_g2_d_rectangle.html#af4857f8fc3d9520945138213579a0d0c">Print</a>()<span class="keyword"> const override</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;ScalarRam object description:&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;type name: &quot;</span> &lt;&lt; <span class="keyword">typeid</span>(<span class="keyword">this</span>).name() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;address: &quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;dimension: &quot;</span> &lt;&lt; <a class="code hl_variable" href="../../d0/dac/class_i_geometry.html#a7b645ba1e07d2829d3f37e89198a6579">dimension</a>  &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Lx: &quot;</span> &lt;&lt; Lx  &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; <a class="code hl_function" href="../../d0/dac/class_i_geometry.html#abed33c5e4f844099106fd4faceacf15a">GetMeasurementUnitEnum</a>() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Ly: &quot;</span> &lt;&lt; Ly  &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; <a class="code hl_function" href="../../d0/dac/class_i_geometry.html#abed33c5e4f844099106fd4faceacf15a">GetMeasurementUnitEnum</a>() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+</div>
+<div class="ttc" id="aclass_g2_d_rectangle_html_a8804567741abd9217159ab8ba838eb02"><div class="ttname"><a href="../../d4/d5d/class_g2_d_rectangle.html#a8804567741abd9217159ab8ba838eb02">G2DRectangle::G2DRectangle</a></div><div class="ttdeci">G2DRectangle(double Lx, double Ly)</div><div class="ttdef"><b>Определения</b> G2DRectangle.hpp:15</div></div>
+<div class="ttc" id="aclass_g2_d_rectangle_html_af4857f8fc3d9520945138213579a0d0c"><div class="ttname"><a href="../../d4/d5d/class_g2_d_rectangle.html#af4857f8fc3d9520945138213579a0d0c">G2DRectangle::Print</a></div><div class="ttdeci">void Print() const override</div><div class="ttdoc">Выводит в консоль сведения об объекте</div><div class="ttdef"><b>Определения</b> G2DRectangle.hpp:20</div></div>
+<div class="ttc" id="aclass_i_geometry_html"><div class="ttname"><a href="../../d0/dac/class_i_geometry.html">IGeometry</a></div><div class="ttdoc">Абстрактный класс, моделирующий геометрию расчетной области</div><div class="ttdef"><b>Определения</b> IGeometry.hpp:5</div></div>
+<div class="ttc" id="aclass_i_geometry_html_a7b645ba1e07d2829d3f37e89198a6579"><div class="ttname"><a href="../../d0/dac/class_i_geometry.html#a7b645ba1e07d2829d3f37e89198a6579">IGeometry::dimension</a></div><div class="ttdeci">Dimension dimension</div><div class="ttdoc">Размерность геометрии расчетной области</div><div class="ttdef"><b>Определения</b> IGeometry.hpp:8</div></div>
+<div class="ttc" id="aclass_i_geometry_html_abed33c5e4f844099106fd4faceacf15a"><div class="ttname"><a href="../../d0/dac/class_i_geometry.html#abed33c5e4f844099106fd4faceacf15a">IGeometry::GetMeasurementUnitEnum</a></div><div class="ttdeci">MeasurementUnitEnum GetMeasurementUnitEnum() const</div><div class="ttdoc">Возвращает единицу измерения, используемую для описания объекта геометрии</div><div class="ttdef"><b>Определения</b> IGeometry.hpp:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../dir_9dbf5e2bd4b5bc9b346d40b8abff921e.html">HCSLib</a></li><li class="navelem"><a class="el" href="../../dir_6d54d5c113b41c0c4c273c4cdec8ed35.html">Geometry</a></li><li class="navelem"><b>G2DRectangle.hpp</b></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

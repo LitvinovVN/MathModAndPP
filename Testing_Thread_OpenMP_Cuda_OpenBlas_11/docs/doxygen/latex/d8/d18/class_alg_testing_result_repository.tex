@@ -1,0 +1,121 @@
+\doxysection{Класс Alg\+Testing\+Result\+Repository}
+\hypertarget{class_alg_testing_result_repository}{}\label{class_alg_testing_result_repository}\index{AlgTestingResultRepository@{AlgTestingResultRepository}}
+
+
+Репозиторий результатов тестовых запусков алгоритмов  
+
+
+
+
+{\ttfamily \#include $<$Alg\+Testing\+Result\+Repository.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_alg_testing_result_repository_a3053b398af08f5fd5a975d4399fd22d7}\label{class_alg_testing_result_repository_a3053b398af08f5fd5a975d4399fd22d7} 
+{\bfseries Alg\+Testing\+Result\+Repository} (bool is\+Initialized=true)
+\item 
+\Hypertarget{class_alg_testing_result_repository_acadcff2fc91d23f3e291f97188ce4083}\label{class_alg_testing_result_repository_acadcff2fc91d23f3e291f97188ce4083} 
+{\bfseries Alg\+Testing\+Result\+Repository} (std\+::string dir\+\_\+name)
+\item 
+\Hypertarget{class_alg_testing_result_repository_abab1cfb390ba721fa9a6f700fc172346}\label{class_alg_testing_result_repository_abab1cfb390ba721fa9a6f700fc172346} 
+void {\bfseries Print\+Config} ()
+\item 
+std\+::string \mbox{\hyperlink{class_alg_testing_result_repository_a33612a536f2ca221e9d5f5047039745d}{Get\+\_\+dir\+\_\+name}} ()
+\begin{DoxyCompactList}\small\item\em Считывает значение пути к каталогу с данными \end{DoxyCompactList}\item 
+\Hypertarget{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549}\label{class_alg_testing_result_repository_ae251f5c185e7c39ccd073525cf8af549} 
+std\+::string {\bfseries Get\+Full\+Path} ()
+\begin{DoxyCompactList}\small\item\em Возвращает полный путь к файлу с данными \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_alg_testing_result_repository_a483760489bfd568ac20ba4df1e334f7b}{Get\+Last\+Id}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает наибольший использованный УИД тестового запуска \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_alg_testing_result_repository_a73e67b7ff40f1b1833f968a1b5ee0277}{Set\+\_\+dir\+\_\+name}} (std\+::string dir)
+\begin{DoxyCompactList}\small\item\em Устанавливает значение пути к каталогу с данными \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_alg_testing_result_repository_a38a31951428fa8d713abb9a451721d84}{Add}} (\mbox{\hyperlink{struct_alg_testing_result}{Alg\+Testing\+Result}} \&data)
+\begin{DoxyCompactList}\small\item\em Записывает результаты тестового запуска в файл \end{DoxyCompactList}\item 
+\Hypertarget{class_alg_testing_result_repository_a9620ccac3cfc980f477f9ad6d3eecbd1}\label{class_alg_testing_result_repository_a9620ccac3cfc980f477f9ad6d3eecbd1} 
+void {\bfseries Add} ()
+\begin{DoxyCompactList}\small\item\em Запуск по команде меню \end{DoxyCompactList}\item 
+\Hypertarget{class_alg_testing_result_repository_a2cea7f4f3a25f0247300011044f1d10c}\label{class_alg_testing_result_repository_a2cea7f4f3a25f0247300011044f1d10c} 
+\mbox{\hyperlink{struct_alg_testing_result}{Alg\+Testing\+Result}} {\bfseries Find} (size\+\_\+t id)
+\item 
+\Hypertarget{class_alg_testing_result_repository_a30e79703ff809e96810b08f09b46ef97}\label{class_alg_testing_result_repository_a30e79703ff809e96810b08f09b46ef97} 
+void {\bfseries Find} ()
+\begin{DoxyCompactList}\small\item\em Поиск записи в файле по команде меню \end{DoxyCompactList}\item 
+\Hypertarget{class_alg_testing_result_repository_a68e1bf811ff6556c505b7083f8728e3e}\label{class_alg_testing_result_repository_a68e1bf811ff6556c505b7083f8728e3e} 
+bool {\bfseries Is\+Exists} (size\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Проверка существования записи с указанным id. \end{DoxyCompactList}\item 
+\Hypertarget{class_alg_testing_result_repository_a0634671dc502d76640a42336a39d27a0}\label{class_alg_testing_result_repository_a0634671dc502d76640a42336a39d27a0} 
+void {\bfseries Is\+Exists} ()
+\begin{DoxyCompactList}\small\item\em Проверка существования записи с указанным id по еоманде меню \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Репозиторий результатов тестовых запусков алгоритмов 
+
+\doxysubsection{Методы}
+\Hypertarget{class_alg_testing_result_repository_a38a31951428fa8d713abb9a451721d84}\index{AlgTestingResultRepository@{AlgTestingResultRepository}!Add@{Add}}
+\index{Add@{Add}!AlgTestingResultRepository@{AlgTestingResultRepository}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily \label{class_alg_testing_result_repository_a38a31951428fa8d713abb9a451721d84} 
+bool Alg\+Testing\+Result\+Repository\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_alg_testing_result}{Alg\+Testing\+Result}} \&}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Записывает результаты тестового запуска в файл 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em data} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_alg_testing_result_repository_a33612a536f2ca221e9d5f5047039745d}\index{AlgTestingResultRepository@{AlgTestingResultRepository}!Get\_dir\_name@{Get\_dir\_name}}
+\index{Get\_dir\_name@{Get\_dir\_name}!AlgTestingResultRepository@{AlgTestingResultRepository}}
+\doxysubsubsection{\texorpdfstring{Get\_dir\_name()}{Get\_dir\_name()}}
+{\footnotesize\ttfamily \label{class_alg_testing_result_repository_a33612a536f2ca221e9d5f5047039745d} 
+std\+::string Alg\+Testing\+Result\+Repository\+::\+Get\+\_\+dir\+\_\+name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Считывает значение пути к каталогу с данными 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em dir} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_alg_testing_result_repository_a483760489bfd568ac20ba4df1e334f7b}\index{AlgTestingResultRepository@{AlgTestingResultRepository}!GetLastId@{GetLastId}}
+\index{GetLastId@{GetLastId}!AlgTestingResultRepository@{AlgTestingResultRepository}}
+\doxysubsubsection{\texorpdfstring{GetLastId()}{GetLastId()}}
+{\footnotesize\ttfamily \label{class_alg_testing_result_repository_a483760489bfd568ac20ba4df1e334f7b} 
+size\+\_\+t Alg\+Testing\+Result\+Repository\+::\+Get\+Last\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает наибольший использованный УИД тестового запуска 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_alg_testing_result_repository_a73e67b7ff40f1b1833f968a1b5ee0277}\index{AlgTestingResultRepository@{AlgTestingResultRepository}!Set\_dir\_name@{Set\_dir\_name}}
+\index{Set\_dir\_name@{Set\_dir\_name}!AlgTestingResultRepository@{AlgTestingResultRepository}}
+\doxysubsubsection{\texorpdfstring{Set\_dir\_name()}{Set\_dir\_name()}}
+{\footnotesize\ttfamily \label{class_alg_testing_result_repository_a73e67b7ff40f1b1833f968a1b5ee0277} 
+void Alg\+Testing\+Result\+Repository\+::\+Set\+\_\+dir\+\_\+name (\begin{DoxyParamCaption}\item[{std\+::string}]{dir}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает значение пути к каталогу с данными 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em dir} & \\
+\hline
+\end{DoxyParams}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Alg\+Testing\+Results/Alg\+Testing\+Result\+Repository.\+hpp\end{DoxyCompactItemize}

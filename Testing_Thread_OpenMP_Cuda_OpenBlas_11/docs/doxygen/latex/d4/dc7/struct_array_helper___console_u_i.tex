@@ -1,0 +1,67 @@
+\doxysection{Структура Array\+Helper\+\_\+\+Console\+UI}
+\hypertarget{struct_array_helper___console_u_i}{}\label{struct_array_helper___console_u_i}\index{ArrayHelper\_ConsoleUI@{ArrayHelper\_ConsoleUI}}
+
+
+Структура для хранения консольного пользовательского интерфейса для методов класса \doxylink{struct_array_helper}{Array\+Helper}, обрабатывающих массивы T\texorpdfstring{$\ast$}{*}.  
+
+
+
+
+{\ttfamily \#include $<$Array\+Helper\+\_\+\+Console\+UI.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_array_helper___console_u_i_a38ab83154ea3ee2401cd8d64d6fea0f2}\label{struct_array_helper___console_u_i_a38ab83154ea3ee2401cd8d64d6fea0f2} 
+static void {\bfseries Create\+Array\+Ram\+Pinned\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Выделение закрепленной памяти \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a2ecf8328a6cb13a347ae45b418900f93}\label{struct_array_helper___console_u_i_a2ecf8328a6cb13a347ae45b418900f93} 
+static void {\bfseries Copy\+Ram\+To\+Gpu\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Копирование данных из RAM в GPU. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a273cd381007fae97f2cf97bc6e9ecca3}\label{struct_array_helper___console_u_i_a273cd381007fae97f2cf97bc6e9ecca3} 
+static void {\bfseries Copy\+Gpu\+To\+Ram\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Копирование данных из GPU в RAM. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_abc50275be06fe2563ba0905e9d795e25}\label{struct_array_helper___console_u_i_abc50275be06fe2563ba0905e9d795e25} 
+static void {\bfseries Sum\+Open\+MP\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Работа с функцией Sum\+Open\+MP. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a2b7c4d13f1d5cd195b6af9585a080354}\label{struct_array_helper___console_u_i_a2b7c4d13f1d5cd195b6af9585a080354} 
+static void {\bfseries Sum\+Cuda\+Multi\+Gpu\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Работа с функцией Sum\+Cuda\+Multi\+Gpu(std\+::vector$<$\+Array\+Gpu\+Processing\+Params$<$\+T$>$$>$ params) \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a356eefccfa863e7ba5860176d099e17b}\label{struct_array_helper___console_u_i_a356eefccfa863e7ba5860176d099e17b} 
+static void {\bfseries Sum\+Cublas\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Работа с функцией Sum\+Cublas. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a64dc78af0666c1bc42fd5c189c1a4a44}\label{struct_array_helper___console_u_i_a64dc78af0666c1bc42fd5c189c1a4a44} 
+static void {\bfseries Sum\+Cublas\+Multi\+Gpu\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Работа с функцией Sum\+Cublas\+Multi\+Gpu(std\+::vector$<$\+Array\+Gpu\+Processing\+Params$<$\+T$>$$>$ params) \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_ad542253993b0651ce5fe6de9f7c0ea25}\label{struct_array_helper___console_u_i_ad542253993b0651ce5fe6de9f7c0ea25} 
+static void {\bfseries Scalar\+Product\+Ram\+Seq\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в RAM. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_ab7c1a6bb539f42e8086d7dabe397273c}\label{struct_array_helper___console_u_i_ab7c1a6bb539f42e8086d7dabe397273c} 
+static void {\bfseries Scalar\+Product\+Ram\+Par\+Thread\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в RAM, параллельно, std\+::thread. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a66cb88a8bb3efed8f2bad22a821b03e3}\label{struct_array_helper___console_u_i_a66cb88a8bb3efed8f2bad22a821b03e3} 
+static void {\bfseries Scalar\+Product\+Ram\+Par\+Open\+MP\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в RAM, параллельно, Open\+MP. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a18043647ed31172bd2c036a743edfd11}\label{struct_array_helper___console_u_i_a18043647ed31172bd2c036a743edfd11} 
+static void {\bfseries Scalar\+Product\+Ram\+Open\+Blas\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в RAM, параллельно, Open\+Blas. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a26e1ecba831ea42d18658780865cadf8}\label{struct_array_helper___console_u_i_a26e1ecba831ea42d18658780865cadf8} 
+static void {\bfseries Scalar\+Product\+Gpu\+Par\+Cuda\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в GPU, параллельно, Cuda. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a1c7a792d98f5ad595f2529a1397c786a}\label{struct_array_helper___console_u_i_a1c7a792d98f5ad595f2529a1397c786a} 
+static void {\bfseries Scalar\+Product\+Multi\+Gpu\+Par\+Cuda\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в нескольких GPU, параллельно, Cuda. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a184cea93522c84ad80028c48dd9adad5}\label{struct_array_helper___console_u_i_a184cea93522c84ad80028c48dd9adad5} 
+static void {\bfseries Scalar\+Product\+Gpu\+Cublas\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Скалярное произведение векторов, расположенных в GPU, параллельно, Cublas. \end{DoxyCompactList}\item 
+\Hypertarget{struct_array_helper___console_u_i_a2ace99dfb61a635a1258f9b10bd8c2d7}\label{struct_array_helper___console_u_i_a2ace99dfb61a635a1258f9b10bd8c2d7} 
+static void {\bfseries Scalar\+Product\+Multi\+Gpu\+Cublas\+\_\+\+Console\+UI} ()
+\begin{DoxyCompactList}\small\item\em Работа с функцией Scalar\+Product\+Multi\+Gpu\+Cublas. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Структура для хранения консольного пользовательского интерфейса для методов класса \doxylink{struct_array_helper}{Array\+Helper}, обрабатывающих массивы T\texorpdfstring{$\ast$}{*}. 
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Arrays/Array\+Helper\+\_\+\+Console\+UI.\+hpp\end{DoxyCompactItemize}

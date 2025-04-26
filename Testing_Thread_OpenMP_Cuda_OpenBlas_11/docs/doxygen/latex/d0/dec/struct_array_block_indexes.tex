@@ -1,0 +1,55 @@
+\doxysection{Структура Array\+Block\+Indexes}
+\hypertarget{struct_array_block_indexes}{}\label{struct_array_block_indexes}\index{ArrayBlockIndexes@{ArrayBlockIndexes}}
+
+
+Индекс и размер блока, локальный индекс элемента в блоке  
+
+
+
+
+{\ttfamily \#include $<$Array\+Block\+Indexes.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_array_block_indexes_ae557f1a85da070da95aec290416503aa}\label{struct_array_block_indexes_ae557f1a85da070da95aec290416503aa} 
+void {\bfseries Print} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp=\mbox{\hyperlink{struct_print_params}{Print\+Params}}\{\})
+\item 
+bool \mbox{\hyperlink{struct_array_block_indexes_a74e1fa1e9574cd0d72828fdf19f3fd08}{Is\+Initialized}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает флаг инициализации объекта \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_array_block_indexes_a80ed5e720f30ffa46d9bf42ef12c3fb3}\label{struct_array_block_indexes_a80ed5e720f30ffa46d9bf42ef12c3fb3} 
+unsigned {\bfseries block\+Index} \{\}
+\item 
+\Hypertarget{struct_array_block_indexes_a396f0d916754de74af1b0470785e457a}\label{struct_array_block_indexes_a396f0d916754de74af1b0470785e457a} 
+unsigned long long {\bfseries block\+Length} \{\}
+\item 
+\Hypertarget{struct_array_block_indexes_ab3f322adcad82da54df04b0d28e705d7}\label{struct_array_block_indexes_ab3f322adcad82da54df04b0d28e705d7} 
+unsigned long long {\bfseries local\+Index} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Индекс и размер блока, локальный индекс элемента в блоке 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_array_block_indexes_a74e1fa1e9574cd0d72828fdf19f3fd08}\index{ArrayBlockIndexes@{ArrayBlockIndexes}!IsInitialized@{IsInitialized}}
+\index{IsInitialized@{IsInitialized}!ArrayBlockIndexes@{ArrayBlockIndexes}}
+\doxysubsubsection{\texorpdfstring{IsInitialized()}{IsInitialized()}}
+{\footnotesize\ttfamily \label{struct_array_block_indexes_a74e1fa1e9574cd0d72828fdf19f3fd08} 
+bool Array\+Block\+Indexes\+::\+Is\+Initialized (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает флаг инициализации объекта 
+
+\begin{DoxyReturn}{Возвращает}
+Успех, если размер блока \texorpdfstring{$>$}{>} 0 
+\end{DoxyReturn}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Arrays/Array\+Block\+Indexes.\+hpp\end{DoxyCompactItemize}

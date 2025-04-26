@@ -1,0 +1,42 @@
+\doxysection{Perf\+Test\+Params\+Cpu.\+hpp}
+\hypertarget{_perf_test_params_cpu_8hpp_source}{}\label{_perf_test_params_cpu_8hpp_source}\index{HCSLib/PerformanceTests/PerfTestParamsCpu.hpp@{HCSLib/PerformanceTests/PerfTestParamsCpu.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }PerfTestParamsCpu}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{//\ Минимальное\ количество\ потоков\ CPU\ \ \ \ }}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumMin\ =\ 1;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Максимальное\ количество\ потоков\ CPU}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumMax\ =\ 1;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Шаг\ изменения\ количества\ потоков\ CPU}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumStep\ =\ 1;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ PerfTestParamsCpu()}
+\DoxyCodeLine{00014\ \ \ \ \ \{\}}
+\DoxyCodeLine{00015\ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ PerfTestParamsCpu(\textcolor{keywordtype}{unsigned}\ cpuThreadsNumMin,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumMax,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumStep)\ :}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ cpuThreadsNumMin(cpuThreadsNumMin),}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ cpuThreadsNumMax(cpuThreadsNumMax),}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ cpuThreadsNumStep(cpuThreadsNumStep)}
+\DoxyCodeLine{00022\ \ \ \ \ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cpuThreadsNumMin"{}}\ <<\ pp.splitterKeyValue\ <<\ cpuThreadsNumMin;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cpuThreadsNumMax"{}}\ <<\ pp.splitterKeyValue\ <<\ cpuThreadsNumMax;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}cpuThreadsNumStep"{}}\ <<\ pp.splitterKeyValue\ <<\ cpuThreadsNumStep;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \};}
+
+\end{DoxyCode}

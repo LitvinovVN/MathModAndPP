@@ -1,0 +1,65 @@
+\doxysection{Шаблон структуры Func\+Expression\texorpdfstring{$<$}{<} E \texorpdfstring{$>$}{>}}
+\hypertarget{struct_func_expression}{}\label{struct_func_expression}\index{FuncExpression$<$ E $>$@{FuncExpression$<$ E $>$}}
+
+
+Функция (в выражении)  
+
+
+
+
+{\ttfamily \#include $<$Func\+Expression.\+hpp$>$}
+
+Граф наследования\+:Func\+Expression\texorpdfstring{$<$}{<} E \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d2/df2/struct_func_expression}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые типы}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_func_expression_a789526b6c0763f9271b72459bcd84ae0}\label{struct_func_expression_a789526b6c0763f9271b72459bcd84ae0} 
+typedef double(\texorpdfstring{$\ast$}{*} {\bfseries func\+\_\+t}) (double)
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые типы унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ E $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+typedef E {\bfseries Final\+Type}
+\item 
+typedef E {\bfseries Proxy\+Type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_func_expression_a1943695b05ecbbea0ca81212aca6c801}\label{struct_func_expression_a1943695b05ecbbea0ca81212aca6c801} 
+{\bfseries Func\+Expression} (const \mbox{\hyperlink{struct_expression}{Expression}}$<$ E $>$ \&expr, func\+\_\+t func)
+\item 
+\Hypertarget{struct_func_expression_aa0715b54f2e6d8a9971967708a5e4484}\label{struct_func_expression_aa0715b54f2e6d8a9971967708a5e4484} 
+double {\bfseries operator()} (double x) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ E $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Final\+Type \& {\bfseries Self} ()
+\item 
+const Final\+Type \& {\bfseries Self} () const
+\item 
+Proxy\+Type {\bfseries Get\+Proxy} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$class E$>$\newline
+struct Func\+Expression$<$ E $>$}
+Функция (в выражении) 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em E} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Math/Func\+Expression.\+hpp\end{DoxyCompactItemize}

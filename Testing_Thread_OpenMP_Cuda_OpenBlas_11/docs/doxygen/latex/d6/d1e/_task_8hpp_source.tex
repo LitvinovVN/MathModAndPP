@@ -1,0 +1,47 @@
+\doxysection{Task.\+hpp}
+\hypertarget{_task_8hpp_source}{}\label{_task_8hpp_source}\index{HCSLib/Tasks/Task.hpp@{HCSLib/Tasks/Task.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{enum\ class}\ Task}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ None,}
+\DoxyCodeLine{00008\ \ \ \ \ Init,\textcolor{comment}{//\ Инициализация}}
+\DoxyCodeLine{00009\ \ \ \ \ Copy,\textcolor{comment}{//\ Копирование}}
+\DoxyCodeLine{00010\ \ \ \ \ Sum,\ \textcolor{comment}{//\ Суммирование}}
+\DoxyCodeLine{00011\ \ \ \ \ Min,\ \textcolor{comment}{//\ Минимум}}
+\DoxyCodeLine{00012\ \ \ \ \ Max\ \ \textcolor{comment}{//\ Максимум}}
+\DoxyCodeLine{00013\ \};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ std::ostream\&\ operator<<(std::ostream\&\ os,\ Task\ tg)}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{switch}\ (tg)}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{case}\ Task::None:}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}None"{}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{case}\ Task::Init:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Init"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{case}\ Task::Copy:}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Copy"{}};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{case}\ Task::Sum:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Sum"{}};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{case}\ Task::Min:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Min"{}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{case}\ Task::Max:}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Max"{}};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}

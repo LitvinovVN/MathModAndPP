@@ -1,0 +1,44 @@
+\doxysection{Func\+Expression.\+hpp}
+\hypertarget{_func_expression_8hpp_source}{}\label{_func_expression_8hpp_source}\index{HCSLib/Math/FuncExpression.hpp@{HCSLib/Math/FuncExpression.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Expression.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ E>}
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }FuncExpression\ :\ \mbox{\hyperlink{struct_expression}{Expression}}<FuncExpression<E>>}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{typedef}\ double\ (*func\_t)(double);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ FuncExpression(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_expression}{Expression<E>}}\ \&expr,\ func\_t\ func)\ :}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ expr(expr.Self()),\ func(func)}
+\DoxyCodeLine{00014\ \ \ \ \ \{\}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ operator()(\textcolor{keywordtype}{double}\ x)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00017\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ func(expr(x));}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{const}\ E\ expr;}
+\DoxyCodeLine{00023\ \ \ \ \ func\_t\ func;}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ DEFINE\_FUNC(func)\ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{template<class\ E>\ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{FuncExpression<E>\ func(const\ Expression<E>\ \&expr)\ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ return\ FuncExpression<E>(expr,\ std::func);\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ DEFINE\_FUNC(sin)}
+\DoxyCodeLine{00035\ DEFINE\_FUNC(cos)}
+\DoxyCodeLine{00036\ DEFINE\_FUNC(tan)}
+\DoxyCodeLine{00037\ DEFINE\_FUNC(atan)}
+\DoxyCodeLine{00038\ DEFINE\_FUNC(exp)}
+\DoxyCodeLine{00039\ DEFINE\_FUNC(log)}
+\DoxyCodeLine{00040\ DEFINE\_FUNC(sqrt)}
+
+\end{DoxyCode}

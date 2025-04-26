@@ -1,0 +1,49 @@
+\doxysection{Matrix\+Data\+Location.\+hpp}
+\hypertarget{_matrix_data_location_8hpp_source}{}\label{_matrix_data_location_8hpp_source}\index{HCSLib/Matrices/MatrixDataLocation.hpp@{HCSLib/Matrices/MatrixDataLocation.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum\ class}\ MatrixDataLocation}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ None\ =\ -\/2,\ \ \ \ \ \textcolor{comment}{//\ Данные\ нигде\ не\ хранятся\ (нулевая,\ единичная\ матрицы\ и\ пр.)}}
+\DoxyCodeLine{00009\ \ \ \ \ RAM\ \ =\ -\/1,\ \ \ \ \ \ }
+\DoxyCodeLine{00010\ \ \ \ \ GPU0\ =\ 0,\ \textcolor{comment}{//\ Видеопамять\ GPU0}}
+\DoxyCodeLine{00011\ \ \ \ \ GPU1\ =\ 1,\ \textcolor{comment}{//\ Видеопамять\ GPU1}}
+\DoxyCodeLine{00012\ \ \ \ \ GPU2\ =\ 2,\ \textcolor{comment}{//\ Видеопамять\ GPU2}}
+\DoxyCodeLine{00013\ \ \ \ \ GPU3\ =\ 3\ \ \textcolor{comment}{//\ Видеопамять\ GPU3}}
+\DoxyCodeLine{00014\ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ std::ostream\&\ operator<<(std::ostream\&\ os,\ MatrixDataLocation\ fdt)}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{switch}\ (fdt)}
+\DoxyCodeLine{00019\ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixDataLocation::None:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixDataLocation::None"{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixDataLocation::RAM:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixDataLocation::RAM"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixDataLocation::GPU0:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixDataLocation::GPU0"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixDataLocation::GPU1:}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixDataLocation::GPU1"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixDataLocation::GPU2:}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixDataLocation::GPU2"{}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixDataLocation::GPU3:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixDataLocation::GPU3"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00044\ \}}
+
+\end{DoxyCode}

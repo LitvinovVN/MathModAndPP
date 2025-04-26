@@ -1,0 +1,120 @@
+\doxysection{Array\+Perf\+Test\+Helper.\+hpp}
+\hypertarget{_array_perf_test_helper_8hpp_source}{}\label{_array_perf_test_helper_8hpp_source}\index{HCSLib/Arrays/ArrayPerfTestHelper.hpp@{HCSLib/Arrays/ArrayPerfTestHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_array_perf_test_helper}{ArrayPerfTestHelper}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}\ PerfTest\_SumOpenMP(\mbox{\hyperlink{struct_perf_test_params}{PerfTestParams}}\ perfTestParams)}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ArrayPerfTestHelper::PerfTest\_SumOpenMP()\(\backslash\)n"{}};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrLengthMin\ \ =\ perfTestParams.perfTestParamsData.arrayLengthMin;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrLengthMax\ \ =\ perfTestParams.perfTestParamsData.arrayLengthMax;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrLengthStep\ =\ perfTestParams.perfTestParamsData.arrayLengthStep;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ dataLength\ =\ arrLengthMin;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ dataLength\ <=\ arrLengthMax;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ dataLength\ +=\ arrLengthStep)}
+\DoxyCodeLine{00019\ \ \ \ \ \{\textcolor{comment}{//\ Цикл\ по\ размеру\ массива\ (начало)}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ dataLength:\ "{}}\ <<\ dataLength\ <<\ std::endl;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ array\ =\ \mbox{\hyperlink{struct_array_helper_ae93a7d6bb2cdc1defb9b7d43714eeb2c}{ArrayHelper::CreateArrayRam<double>}}(dataLength);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a7d95a972a04dd9f6b5f43b84cb6b5653}{ArrayHelper::InitArrayRam}}(array,\ dataLength,\ 0.001);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cpuThreadNumMin\ =\ perfTestParams.perfTestParamsCpu.cpuThreadsNumMin;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cpuThreadNumMax\ =\ perfTestParams.perfTestParamsCpu.cpuThreadsNumMax;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cpuThreadNumStep\ =\ perfTestParams.perfTestParamsCpu.cpuThreadsNumStep;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ cpuThreadsNum\ =\ cpuThreadNumMin;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ cpuThreadsNum\ <=\ cpuThreadNumMax;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ cpuThreadsNum\ +=\ cpuThreadNumStep)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//\ Цикл\ по\ количеству\ потоков\ CPU\ (начало)}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/\ cpuThreadsNum:\ "{}}\ <<\ cpuThreadsNum\ <<\ std::endl;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<FuncResult<double>>\ results;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ iterNumber\ =\ perfTestParams.iterNumber;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ iterCnt\ =\ 0;\ iterCnt\ <\ iterNumber;\ iterCnt\ +=\ 1)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//\ Цикл\ по\ количеству\ итераций\ (начало)}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ ArrayHelperFuncResult::SumOpenMP(array,\ dataLength,\ cpuThreadsNum);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(result);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result.Print();}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ Цикл\ по\ количеству\ итераций\ (конец)}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ stat(results);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ stat.Print();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_parallel_calc_indicators}{ParallelCalcIndicators}}\ parallelCalcIndicators\{\};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ parallelCalcIndicators.Print();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;\ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ Цикл\ по\ количеству\ потоков\ CPU\ (конец)}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ ArrayHelper::DeleteArrayRam(array);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00054\ \ \ \ \ \}\textcolor{comment}{//\ Цикл\ по\ размеру\ массива\ (конец)}}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}\ results;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00062\ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}\ PerfTest\_SumCublas(\mbox{\hyperlink{struct_perf_test_params}{PerfTestParams}}\ perfTestParams)}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ArrayPerfTestHelper::PerfTest\_SumCublas()\(\backslash\)n"{}};}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\ cublasH\ =\ \mbox{\hyperlink{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512}{CublasHelper::CublasCreate}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrLengthMin\ \ =\ perfTestParams.perfTestParamsData.arrayLengthMin;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrLengthMax\ \ =\ perfTestParams.perfTestParamsData.arrayLengthMax;}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arrLengthStep\ =\ perfTestParams.perfTestParamsData.arrayLengthStep;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ dataLength\ =\ arrLengthMin;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ dataLength\ <=\ arrLengthMax;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ dataLength\ +=\ arrLengthStep)}
+\DoxyCodeLine{00076\ \ \ \ \ \{\textcolor{comment}{//\ Цикл\ по\ размеру\ массива\ (начало)}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ dataLength:\ "{}}\ <<\ dataLength\ <<\ std::endl;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ array\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{ArrayHelper::CreateArrayGpu<double>}}(dataLength);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(array,\ dataLength,\ 0.001);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ std::vector<FuncResult<double>>\ results;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ iterNumber\ =\ perfTestParams.iterNumber;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ iterCnt\ =\ 0;\ iterCnt\ <\ iterNumber;\ iterCnt\ +=\ 1)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//\ Цикл\ по\ количеству\ итераций\ (начало)}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ result\ =\ ArrayHelperFuncResult::SumCublas(cublasH,\ array,\ dataLength);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ results.push\_back(result);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ result.Print();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//\ Цикл\ по\ количеству\ итераций\ (конец)}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ stat(results);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ stat.Print();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_parallel_calc_indicators}{ParallelCalcIndicators}}\ parallelCalcIndicators\{\};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ parallelCalcIndicators.Print();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;\ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{ArrayHelper::DeleteArrayGpu}}(array);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00100\ \ \ \ \ \}\textcolor{comment}{//\ Цикл\ по\ размеру\ массива\ (конец)}}
+\DoxyCodeLine{00101\ \ \ \ \ }
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784}{CublasHelper::CublasDestroy}}(cublasH);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}\ results;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{return}\ results;}
+\DoxyCodeLine{00108\ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ }
+
+\end{DoxyCode}

@@ -1,0 +1,90 @@
+\doxysection{Структура Console\+Helper}
+\hypertarget{struct_console_helper}{}\label{struct_console_helper}\index{ConsoleHelper@{ConsoleHelper}}
+
+
+Вспомогательный класс для работы с консолью  
+
+
+
+
+{\ttfamily \#include $<$Console\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_console_helper_aee123e185ae68838d61800dc3a12fe31}\label{struct_console_helper_aee123e185ae68838d61800dc3a12fe31} 
+static void {\bfseries Print\+Line} (std\+::string string)
+\item 
+\Hypertarget{struct_console_helper_a58acbdfabc8f33f001bfa064ab0ee422}\label{struct_console_helper_a58acbdfabc8f33f001bfa064ab0ee422} 
+static void {\bfseries Wait\+Any\+Key} (std\+::string message="{}Press Enter to continue..."{})
+\item 
+\Hypertarget{struct_console_helper_a69f7ced2691e2d341314cc9b7ef840dc}\label{struct_console_helper_a69f7ced2691e2d341314cc9b7ef840dc} 
+{\footnotesize template$<$typename T$>$ }\\static void {\bfseries Print\+Key\+Value} (std\+::string key, T value, std\+::string splitter="{}\+: "{}, bool is\+Endl=true)
+\item 
+static std\+::string \mbox{\hyperlink{struct_console_helper_aefc2b24d5d56f5bc8e2753c3c99d1666}{Get\+String\+From\+User}} (std\+::string message)
+\begin{DoxyCompactList}\small\item\em Запрашивает у пользователя целое число \end{DoxyCompactList}\item 
+\Hypertarget{struct_console_helper_a8be68372b61ebff314c524e67d48530e}\label{struct_console_helper_a8be68372b61ebff314c524e67d48530e} 
+static bool {\bfseries Get\+Bool\+From\+User} (std\+::string message, std\+::string error\+Message="{}Error! Enter bool value (y, n, 0, 1)"{})
+\item 
+static int \mbox{\hyperlink{struct_console_helper_ad4d7a6a912f549731285cfb01209f7b1}{Get\+Int\+From\+User}} (std\+::string message, std\+::string error\+Message="{}Error! Enter integer number"{})
+\begin{DoxyCompactList}\small\item\em Запрашивает у пользователя целое число \end{DoxyCompactList}\item 
+\Hypertarget{struct_console_helper_a5d78f267abf8b66a379bd09a6e30a174}\label{struct_console_helper_a5d78f267abf8b66a379bd09a6e30a174} 
+static unsigned {\bfseries Get\+Unsigned\+Int\+From\+User} (std\+::string message, std\+::string error\+Message="{}Error! Enter integer number"{})
+\item 
+\Hypertarget{struct_console_helper_a8cabb8fd61e591c3473348a7d9f0322e}\label{struct_console_helper_a8cabb8fd61e591c3473348a7d9f0322e} 
+static size\+\_\+t {\bfseries Get\+Unsigned\+Long\+Long\+From\+User} (std\+::string message, std\+::string error\+Message="{}Error! Enter integer number"{})
+\item 
+\Hypertarget{struct_console_helper_a7b389ec0f8bac08cecf067bef65cceba}\label{struct_console_helper_a7b389ec0f8bac08cecf067bef65cceba} 
+static double {\bfseries Get\+Double\+From\+User} (std\+::string message="{}Enter double value\+: "{}, std\+::string error\+Message="{}Error! Enter double number"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Вспомогательный класс для работы с консолью 
+
+\doxysubsection{Методы}
+\Hypertarget{struct_console_helper_ad4d7a6a912f549731285cfb01209f7b1}\index{ConsoleHelper@{ConsoleHelper}!GetIntFromUser@{GetIntFromUser}}
+\index{GetIntFromUser@{GetIntFromUser}!ConsoleHelper@{ConsoleHelper}}
+\doxysubsubsection{\texorpdfstring{GetIntFromUser()}{GetIntFromUser()}}
+{\footnotesize\ttfamily \label{struct_console_helper_ad4d7a6a912f549731285cfb01209f7b1} 
+static int Console\+Helper\+::\+Get\+Int\+From\+User (\begin{DoxyParamCaption}\item[{std\+::string}]{message}{, }\item[{std\+::string}]{error\+Message}{ = {\ttfamily "{}Error!~Enter~integer~number"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Запрашивает у пользователя целое число 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em message} & Сообщение для пользователя \\
+\hline
+{\em error\+Message} & Сообщение об ошибке \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Введённое пользователем число 
+\end{DoxyReturn}
+\Hypertarget{struct_console_helper_aefc2b24d5d56f5bc8e2753c3c99d1666}\index{ConsoleHelper@{ConsoleHelper}!GetStringFromUser@{GetStringFromUser}}
+\index{GetStringFromUser@{GetStringFromUser}!ConsoleHelper@{ConsoleHelper}}
+\doxysubsubsection{\texorpdfstring{GetStringFromUser()}{GetStringFromUser()}}
+{\footnotesize\ttfamily \label{struct_console_helper_aefc2b24d5d56f5bc8e2753c3c99d1666} 
+static std\+::string Console\+Helper\+::\+Get\+String\+From\+User (\begin{DoxyParamCaption}\item[{std\+::string}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Запрашивает у пользователя целое число 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em message} & Сообщение для пользователя \\
+\hline
+{\em error\+Message} & Сообщение об ошибке \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Введённое пользователем число 
+\end{DoxyReturn}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Common\+Helpers/Console\+Helper.\+hpp\end{DoxyCompactItemize}

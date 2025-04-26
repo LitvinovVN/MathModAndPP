@@ -1,0 +1,137 @@
+\doxysection{Класс File\+System\+Helper}
+\hypertarget{class_file_system_helper}{}\label{class_file_system_helper}\index{FileSystemHelper@{FileSystemHelper}}
+
+
+Класс для работы с файловой системой  
+
+
+
+
+{\ttfamily \#include $<$File\+System\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::string \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{Combine\+Path}} (const std\+::string \&dir\+\_\+name, const std\+::string \&file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Комбинирует имя папки и имя файла в путь к файлу \end{DoxyCompactList}\item 
+\Hypertarget{class_file_system_helper_a822d8572cf33ccc17d355687ed5c84fa}\label{class_file_system_helper_a822d8572cf33ccc17d355687ed5c84fa} 
+static std\+::string {\bfseries Combine\+Path} ()
+\item 
+static bool \mbox{\hyperlink{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}{Is\+File\+Exists}} (const std\+::string \&path\+\_\+file)
+\begin{DoxyCompactList}\small\item\em Проверяет существование файла \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_file_system_helper_a752f9c022bae6f2dd30ea85f6e45d3e1}{Is\+File\+Exists}} (const std\+::string \&dir\+\_\+name, const std\+::string \&file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Проверяет существование файла \end{DoxyCompactList}\item 
+\Hypertarget{class_file_system_helper_a6cec3a7a67d41abaae70b8ffebe9e3fa}\label{class_file_system_helper_a6cec3a7a67d41abaae70b8ffebe9e3fa} 
+static bool {\bfseries Is\+File\+Exists} ()
+\item 
+static bool \mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{Is\+Dir\+Exists}} (const std\+::string \&path\+\_\+dir)
+\begin{DoxyCompactList}\small\item\em Проверяет существование каталога \end{DoxyCompactList}\item 
+\Hypertarget{class_file_system_helper_a2bfef8f4eecf0c7a2f919d491e01b241}\label{class_file_system_helper_a2bfef8f4eecf0c7a2f919d491e01b241} 
+static bool {\bfseries Is\+Dir\+Exists} ()
+\item 
+static bool \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{Create\+Dir}} (const std\+::string \&path\+\_\+dir)
+\begin{DoxyCompactList}\small\item\em Создаёт каталог \end{DoxyCompactList}\item 
+\Hypertarget{class_file_system_helper_a5b4290ed3ac216b49dff5d5e29eb1a4f}\label{class_file_system_helper_a5b4290ed3ac216b49dff5d5e29eb1a4f} 
+static bool {\bfseries Create\+Dir} ()
+\item 
+\Hypertarget{class_file_system_helper_a3ab3df42f76511889f897eb2ec94273a}\label{class_file_system_helper_a3ab3df42f76511889f897eb2ec94273a} 
+static bool {\bfseries Create\+File} (const std\+::string \&dir\+\_\+name, const std\+::string \&file\+\_\+name, const std\+::string \&string\+\_\+data)
+\item 
+\Hypertarget{class_file_system_helper_a5f4a1172a936fc62292308f5f6f8e9d9}\label{class_file_system_helper_a5f4a1172a936fc62292308f5f6f8e9d9} 
+static bool {\bfseries Create\+File} ()
+\item 
+\Hypertarget{class_file_system_helper_ac24748a7f423cf2df5394785fc8e3fc9}\label{class_file_system_helper_ac24748a7f423cf2df5394785fc8e3fc9} 
+static bool {\bfseries Remove\+File} (const std\+::string \&dir\+\_\+name, const std\+::string \&file\+\_\+name)
+\item 
+\Hypertarget{class_file_system_helper_af5f4c79d1347c95407ceb2a715dd6106}\label{class_file_system_helper_af5f4c79d1347c95407ceb2a715dd6106} 
+static bool {\bfseries Remove\+File} ()
+\item 
+\Hypertarget{class_file_system_helper_a668e26dde15395ced91a012e60e4e847}\label{class_file_system_helper_a668e26dde15395ced91a012e60e4e847} 
+static bool {\bfseries Remove\+Dir} (const std\+::string \&dir\+\_\+name)
+\item 
+\Hypertarget{class_file_system_helper_a0e0a683bd92d76fe27cba8f2f4f3f5e2}\label{class_file_system_helper_a0e0a683bd92d76fe27cba8f2f4f3f5e2} 
+static bool {\bfseries Remove\+Dir} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс для работы с файловой системой 
+
+\doxysubsection{Методы}
+\Hypertarget{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}\index{FileSystemHelper@{FileSystemHelper}!CombinePath@{CombinePath}}
+\index{CombinePath@{CombinePath}!FileSystemHelper@{FileSystemHelper}}
+\doxysubsubsection{\texorpdfstring{CombinePath()}{CombinePath()}}
+{\footnotesize\ttfamily \label{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785} 
+static std\+::string File\+System\+Helper\+::\+Combine\+Path (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dir\+\_\+name}{, }\item[{const std\+::string \&}]{file\+\_\+name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Комбинирует имя папки и имя файла в путь к файлу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em dir\+\_\+name} & \\
+\hline
+{\em file\+\_\+name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}\index{FileSystemHelper@{FileSystemHelper}!CreateDir@{CreateDir}}
+\index{CreateDir@{CreateDir}!FileSystemHelper@{FileSystemHelper}}
+\doxysubsubsection{\texorpdfstring{CreateDir()}{CreateDir()}}
+{\footnotesize\ttfamily \label{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991} 
+static bool File\+System\+Helper\+::\+Create\+Dir (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path\+\_\+dir}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Создаёт каталог 
+
+\begin{DoxyReturn}{Возвращает}
+Результат создания нового каталога 
+\end{DoxyReturn}
+\Hypertarget{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}\index{FileSystemHelper@{FileSystemHelper}!IsDirExists@{IsDirExists}}
+\index{IsDirExists@{IsDirExists}!FileSystemHelper@{FileSystemHelper}}
+\doxysubsubsection{\texorpdfstring{IsDirExists()}{IsDirExists()}}
+{\footnotesize\ttfamily \label{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a} 
+static bool File\+System\+Helper\+::\+Is\+Dir\+Exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path\+\_\+dir}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Проверяет существование каталога 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ существует; false -\/ не существует 
+\end{DoxyReturn}
+\Hypertarget{class_file_system_helper_a752f9c022bae6f2dd30ea85f6e45d3e1}\index{FileSystemHelper@{FileSystemHelper}!IsFileExists@{IsFileExists}}
+\index{IsFileExists@{IsFileExists}!FileSystemHelper@{FileSystemHelper}}
+\doxysubsubsection{\texorpdfstring{IsFileExists()}{IsFileExists()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_file_system_helper_a752f9c022bae6f2dd30ea85f6e45d3e1} 
+static bool File\+System\+Helper\+::\+Is\+File\+Exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dir\+\_\+name}{, }\item[{const std\+::string \&}]{file\+\_\+name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Проверяет существование файла 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ существует; false -\/ не существует 
+\end{DoxyReturn}
+\Hypertarget{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}\index{FileSystemHelper@{FileSystemHelper}!IsFileExists@{IsFileExists}}
+\index{IsFileExists@{IsFileExists}!FileSystemHelper@{FileSystemHelper}}
+\doxysubsubsection{\texorpdfstring{IsFileExists()}{IsFileExists()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18} 
+static bool File\+System\+Helper\+::\+Is\+File\+Exists (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{path\+\_\+file}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Проверяет существование файла 
+
+\begin{DoxyReturn}{Возвращает}
+true -\/ существует; false -\/ не существует 
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Common\+Helpers/File\+System\+Helper.\+hpp\end{DoxyCompactItemize}

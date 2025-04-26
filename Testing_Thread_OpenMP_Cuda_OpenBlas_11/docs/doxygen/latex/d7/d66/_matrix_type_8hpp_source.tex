@@ -1,0 +1,41 @@
+\doxysection{Matrix\+Type.\+hpp}
+\hypertarget{_matrix_type_8hpp_source}{}\label{_matrix_type_8hpp_source}\index{HCSLib/Matrices/MatrixType.hpp@{HCSLib/Matrices/MatrixType.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum\ class}\ MatrixType}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ Zero,\ \ \ \ \ \textcolor{comment}{//\ Нулевая\ матрица}}
+\DoxyCodeLine{00009\ \ \ \ \ E,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Единичная\ матрица}}
+\DoxyCodeLine{00010\ \ \ \ \ Diagonal,\ \textcolor{comment}{//\ Диагональная\ матрица}}
+\DoxyCodeLine{00011\ \ \ \ \ MatrixBlockRamGpus\ \textcolor{comment}{//\ Блочная\ матрица\ с\ размещением\ данных\ в\ RAM\ и\ нескольких\ GPU\ на\ одном\ вычислительном\ узле}}
+\DoxyCodeLine{00012\ \};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ std::ostream\&\ operator<<(std::ostream\&\ os,\ MatrixType\ fdt)}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{switch}\ (fdt)}
+\DoxyCodeLine{00017\ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixType::Zero:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixType::Zero"{}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixType::E:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixType::E"{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixType::Diagonal:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixType::Diagonal"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{case}\ MatrixType::MatrixBlockRamGpus:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatrixType::MatrixBlockRamGpus"{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}

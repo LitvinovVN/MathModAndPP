@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Класс AlgTestingResultRepository</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d8/d18/class_alg_testing_result_repository.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="../../d5/d03/class_alg_testing_result_repository-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Класс AlgTestingResultRepository</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Репозиторий результатов тестовых запусков алгоритмов  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d9/db6/_alg_testing_result_repository_8hpp_source.html">AlgTestingResultRepository.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a3053b398af08f5fd5a975d4399fd22d7" id="r_a3053b398af08f5fd5a975d4399fd22d7"><td class="memItemLeft" align="right" valign="top"><a id="a3053b398af08f5fd5a975d4399fd22d7" name="a3053b398af08f5fd5a975d4399fd22d7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AlgTestingResultRepository</b> (bool isInitialized=true)</td></tr>
+<tr class="separator:a3053b398af08f5fd5a975d4399fd22d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadcff2fc91d23f3e291f97188ce4083" id="r_acadcff2fc91d23f3e291f97188ce4083"><td class="memItemLeft" align="right" valign="top"><a id="acadcff2fc91d23f3e291f97188ce4083" name="acadcff2fc91d23f3e291f97188ce4083"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>AlgTestingResultRepository</b> (std::string dir_name)</td></tr>
+<tr class="separator:acadcff2fc91d23f3e291f97188ce4083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abab1cfb390ba721fa9a6f700fc172346" id="r_abab1cfb390ba721fa9a6f700fc172346"><td class="memItemLeft" align="right" valign="top"><a id="abab1cfb390ba721fa9a6f700fc172346" name="abab1cfb390ba721fa9a6f700fc172346"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>PrintConfig</b> ()</td></tr>
+<tr class="separator:abab1cfb390ba721fa9a6f700fc172346"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33612a536f2ca221e9d5f5047039745d" id="r_a33612a536f2ca221e9d5f5047039745d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33612a536f2ca221e9d5f5047039745d">Get_dir_name</a> ()</td></tr>
+<tr class="memdesc:a33612a536f2ca221e9d5f5047039745d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Считывает значение пути к каталогу с данными  <br /></td></tr>
+<tr class="separator:a33612a536f2ca221e9d5f5047039745d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae251f5c185e7c39ccd073525cf8af549" id="r_ae251f5c185e7c39ccd073525cf8af549"><td class="memItemLeft" align="right" valign="top"><a id="ae251f5c185e7c39ccd073525cf8af549" name="ae251f5c185e7c39ccd073525cf8af549"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetFullPath</b> ()</td></tr>
+<tr class="memdesc:ae251f5c185e7c39ccd073525cf8af549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает полный путь к файлу с данными <br /></td></tr>
+<tr class="separator:ae251f5c185e7c39ccd073525cf8af549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483760489bfd568ac20ba4df1e334f7b" id="r_a483760489bfd568ac20ba4df1e334f7b"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a483760489bfd568ac20ba4df1e334f7b">GetLastId</a> ()</td></tr>
+<tr class="memdesc:a483760489bfd568ac20ba4df1e334f7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает наибольший использованный УИД тестового запуска  <br /></td></tr>
+<tr class="separator:a483760489bfd568ac20ba4df1e334f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e67b7ff40f1b1833f968a1b5ee0277" id="r_a73e67b7ff40f1b1833f968a1b5ee0277"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73e67b7ff40f1b1833f968a1b5ee0277">Set_dir_name</a> (std::string dir)</td></tr>
+<tr class="memdesc:a73e67b7ff40f1b1833f968a1b5ee0277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает значение пути к каталогу с данными  <br /></td></tr>
+<tr class="separator:a73e67b7ff40f1b1833f968a1b5ee0277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38a31951428fa8d713abb9a451721d84" id="r_a38a31951428fa8d713abb9a451721d84"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38a31951428fa8d713abb9a451721d84">Add</a> (<a class="el" href="../../de/d8d/struct_alg_testing_result.html">AlgTestingResult</a> &amp;data)</td></tr>
+<tr class="memdesc:a38a31951428fa8d713abb9a451721d84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Записывает результаты тестового запуска в файл  <br /></td></tr>
+<tr class="separator:a38a31951428fa8d713abb9a451721d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9620ccac3cfc980f477f9ad6d3eecbd1" id="r_a9620ccac3cfc980f477f9ad6d3eecbd1"><td class="memItemLeft" align="right" valign="top"><a id="a9620ccac3cfc980f477f9ad6d3eecbd1" name="a9620ccac3cfc980f477f9ad6d3eecbd1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Add</b> ()</td></tr>
+<tr class="memdesc:a9620ccac3cfc980f477f9ad6d3eecbd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск по команде меню <br /></td></tr>
+<tr class="separator:a9620ccac3cfc980f477f9ad6d3eecbd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cea7f4f3a25f0247300011044f1d10c" id="r_a2cea7f4f3a25f0247300011044f1d10c"><td class="memItemLeft" align="right" valign="top"><a id="a2cea7f4f3a25f0247300011044f1d10c" name="a2cea7f4f3a25f0247300011044f1d10c"></a>
+<a class="el" href="../../de/d8d/struct_alg_testing_result.html">AlgTestingResult</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Find</b> (size_t id)</td></tr>
+<tr class="separator:a2cea7f4f3a25f0247300011044f1d10c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e79703ff809e96810b08f09b46ef97" id="r_a30e79703ff809e96810b08f09b46ef97"><td class="memItemLeft" align="right" valign="top"><a id="a30e79703ff809e96810b08f09b46ef97" name="a30e79703ff809e96810b08f09b46ef97"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Find</b> ()</td></tr>
+<tr class="memdesc:a30e79703ff809e96810b08f09b46ef97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поиск записи в файле по команде меню <br /></td></tr>
+<tr class="separator:a30e79703ff809e96810b08f09b46ef97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68e1bf811ff6556c505b7083f8728e3e" id="r_a68e1bf811ff6556c505b7083f8728e3e"><td class="memItemLeft" align="right" valign="top"><a id="a68e1bf811ff6556c505b7083f8728e3e" name="a68e1bf811ff6556c505b7083f8728e3e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsExists</b> (size_t id)</td></tr>
+<tr class="memdesc:a68e1bf811ff6556c505b7083f8728e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка существования записи с указанным id. <br /></td></tr>
+<tr class="separator:a68e1bf811ff6556c505b7083f8728e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0634671dc502d76640a42336a39d27a0" id="r_a0634671dc502d76640a42336a39d27a0"><td class="memItemLeft" align="right" valign="top"><a id="a0634671dc502d76640a42336a39d27a0" name="a0634671dc502d76640a42336a39d27a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>IsExists</b> ()</td></tr>
+<tr class="memdesc:a0634671dc502d76640a42336a39d27a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка существования записи с указанным id по еоманде меню <br /></td></tr>
+<tr class="separator:a0634671dc502d76640a42336a39d27a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Репозиторий результатов тестовых запусков алгоритмов </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="a38a31951428fa8d713abb9a451721d84" name="a38a31951428fa8d713abb9a451721d84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38a31951428fa8d713abb9a451721d84">&#9670;&#160;</a></span>Add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AlgTestingResultRepository::Add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/d8d/struct_alg_testing_result.html">AlgTestingResult</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Записывает результаты тестового запуска в файл </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a33612a536f2ca221e9d5f5047039745d" name="a33612a536f2ca221e9d5f5047039745d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33612a536f2ca221e9d5f5047039745d">&#9670;&#160;</a></span>Get_dir_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string AlgTestingResultRepository::Get_dir_name </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Считывает значение пути к каталогу с данными </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a483760489bfd568ac20ba4df1e334f7b" name="a483760489bfd568ac20ba4df1e334f7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a483760489bfd568ac20ba4df1e334f7b">&#9670;&#160;</a></span>GetLastId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t AlgTestingResultRepository::GetLastId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает наибольший использованный УИД тестового запуска </p>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a73e67b7ff40f1b1833f968a1b5ee0277" name="a73e67b7ff40f1b1833f968a1b5ee0277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e67b7ff40f1b1833f968a1b5ee0277">&#9670;&#160;</a></span>Set_dir_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AlgTestingResultRepository::Set_dir_name </td>
+          <td>(</td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>dir</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает значение пути к каталогу с данными </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>HCSLib/AlgTestingResults/<a class="el" href="../../d9/db6/_alg_testing_result_repository_8hpp_source.html">AlgTestingResultRepository.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d8/d18/class_alg_testing_result_repository.html">AlgTestingResultRepository</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

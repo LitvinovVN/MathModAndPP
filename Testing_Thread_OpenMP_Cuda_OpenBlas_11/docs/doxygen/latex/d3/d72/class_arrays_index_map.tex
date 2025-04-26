@@ -1,0 +1,67 @@
+\doxysection{Класс Arrays\+Index\+Map}
+\hypertarget{class_arrays_index_map}{}\label{class_arrays_index_map}\index{ArraysIndexMap@{ArraysIndexMap}}
+
+
+Карта индексов  
+
+
+
+
+{\ttfamily \#include $<$Arrays\+Index\+Map.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_arrays_index_map_a9bd663083b394f98380a6d4c21056b07}{Add\+Indexes}} (unsigned long long ind\+Start, unsigned long long ind\+End)
+\begin{DoxyCompactList}\small\item\em Добавляет строку индексов \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_array_block_indexes}{Array\+Block\+Indexes}} \mbox{\hyperlink{class_arrays_index_map_a3f06e0b67d16da9cc3ac4cca29cb4e07}{Get\+Array\+Block\+Indexes}} (unsigned long long global\+Index) const
+\begin{DoxyCompactList}\small\item\em Возвращает объект, содержащий индексы блока, размер блока и локальный индекс \end{DoxyCompactList}\item 
+\Hypertarget{class_arrays_index_map_a2184ef8019a778fc2fea1e48fd134f26}\label{class_arrays_index_map_a2184ef8019a778fc2fea1e48fd134f26} 
+void {\bfseries Print} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Карта индексов 
+
+\doxysubsection{Методы}
+\Hypertarget{class_arrays_index_map_a9bd663083b394f98380a6d4c21056b07}\index{ArraysIndexMap@{ArraysIndexMap}!AddIndexes@{AddIndexes}}
+\index{AddIndexes@{AddIndexes}!ArraysIndexMap@{ArraysIndexMap}}
+\doxysubsubsection{\texorpdfstring{AddIndexes()}{AddIndexes()}}
+{\footnotesize\ttfamily \label{class_arrays_index_map_a9bd663083b394f98380a6d4c21056b07} 
+void Arrays\+Index\+Map\+::\+Add\+Indexes (\begin{DoxyParamCaption}\item[{unsigned long long}]{ind\+Start}{, }\item[{unsigned long long}]{ind\+End}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Добавляет строку индексов 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em ind\+Start} & Индекс первого элемента \\
+\hline
+{\em ind\+End} & Индекс последнего элемента \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_arrays_index_map_a3f06e0b67d16da9cc3ac4cca29cb4e07}\index{ArraysIndexMap@{ArraysIndexMap}!GetArrayBlockIndexes@{GetArrayBlockIndexes}}
+\index{GetArrayBlockIndexes@{GetArrayBlockIndexes}!ArraysIndexMap@{ArraysIndexMap}}
+\doxysubsubsection{\texorpdfstring{GetArrayBlockIndexes()}{GetArrayBlockIndexes()}}
+{\footnotesize\ttfamily \label{class_arrays_index_map_a3f06e0b67d16da9cc3ac4cca29cb4e07} 
+\mbox{\hyperlink{struct_array_block_indexes}{Array\+Block\+Indexes}} Arrays\+Index\+Map\+::\+Get\+Array\+Block\+Indexes (\begin{DoxyParamCaption}\item[{unsigned long long}]{global\+Index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает объект, содержащий индексы блока, размер блока и локальный индекс 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em global\+Index} & Глобальный индекс элемента \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+\doxylink{struct_array_block_indexes}{Array\+Block\+Indexes} 
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Arrays/Arrays\+Index\+Map.\+hpp\end{DoxyCompactItemize}

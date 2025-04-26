@@ -1,0 +1,43 @@
+\doxysection{Algorithm\+Metrics.\+hpp}
+\hypertarget{_algorithm_metrics_8hpp_source}{}\label{_algorithm_metrics_8hpp_source}\index{HCSLib/Algorithms/AlgorithmMetrics.hpp@{HCSLib/Algorithms/AlgorithmMetrics.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_algorithm_metrics}{AlgorithmMetrics}}}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Объём\ дополнительной\ памяти\ ОЗУ}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ allocRam;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ Объём\ дополнительной\ памяти\ Gpu}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ allocGpu;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ количество\ считываний\ из\ памяти\ ОЗУ}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ readRam;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{comment}{//\ количество\ считываний\ из\ глобальной\ памяти\ Gpu}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ readGpu;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ количество\ суммирований\ и\ вычитаний}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arifmSumSub;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ количество\ умножений\ и\ делений}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ arifmMultDiv;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}allocRam"{}}\ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ allocRam\ <<\ pp.splitter;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}allocGpu"{}}\ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ allocGpu\ <<\ pp.splitter;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}readRam"{}}\ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ readRam\ <<\ pp.splitter;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}readGpu"{}}\ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ readGpu\ <<\ pp.splitter;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}arifmSumSub"{}}\ \ <<\ pp.splitterKeyValue\ <<\ arifmSumSub\ <<\ pp.splitter;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}arifmMultDiv"{}}\ <<\ pp.splitterKeyValue\ <<\ arifmMultDiv\ <<\ pp.splitter;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ \};}
+
+\end{DoxyCode}

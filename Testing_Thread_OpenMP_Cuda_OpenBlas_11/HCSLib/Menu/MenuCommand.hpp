@@ -24,6 +24,7 @@ enum class MenuCommand
     Testing_FileSystemHelper, // Тестирование вспомогательного класса для работы с файловой системой
     AlgorithmRepository,       // Тестирование репозитория алгоритмов
     AlgorithmImplementationRepository, // Работа с репозиторием реализаций алгоритмов
-    AlgorithmImplementationExecutor// Запуск различных реализаций алгоритмов
+    AlgorithmImplementationExecutor,// Запуск различных реализаций алгоритмов
+    GeometryHelper_ConsoleUI  // Работа с модулем Geometry
 };
 

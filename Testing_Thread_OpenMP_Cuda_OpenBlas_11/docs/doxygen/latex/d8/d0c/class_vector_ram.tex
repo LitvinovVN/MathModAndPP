@@ -1,0 +1,182 @@
+\doxysection{Шаблон класса Vector\+Ram\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{class_vector_ram}{}\label{class_vector_ram}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+Граф наследования\+:Vector\+Ram\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d8/d0c/class_vector_ram}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_ram_add917e559dc2b27f9a2d39cdd59b2a1a}\label{class_vector_ram_add917e559dc2b27f9a2d39cdd59b2a1a} 
+{\bfseries Vector\+Ram} (size\+\_\+t length)
+\item 
+void \mbox{\hyperlink{class_vector_ram_afc1682cc0c35a4ff6c6811da5193b626}{Init\+By\+Val}} (T val) override
+\begin{DoxyCompactList}\small\item\em Инициализирует все элементы вектора указанным значением \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_ram_a9af343253fce26bfabaed6ed5e7a1946}{Print}} () const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль сведения об объекте \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_ram_af546bba8a4faf86962f43a338ad0a865}{Print\+Data}} (unsigned long long ind\+Start, unsigned long long length) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль элементы вектора в заданном диапазоне \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_ram_a0defa68f47ac3d92c9f87f4f1e3358c3}{Print\+Data}} () const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль все элементы вектора \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_vector_ram_a687f3a88f0693848fd843878270359e9}{Length}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает длину вектора (количество элементов) \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_vector_ram_adf08bc1aeb748d9f34bcb431c9d26465}{Get\+Value}} (unsigned long long index) const override
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vector_ram_a01a33943ec76ae785598967dccb8de74}{Set\+Value}} (unsigned long long index, T value) override
+\begin{DoxyCompactList}\small\item\em Устанавливает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_ram_a49004cd951e2c4bf5f06be969527ea2f}{Clear\+Data}} () override
+\begin{DoxyCompactList}\small\item\em Очищает массивы данных и устанавливает размер вектора в 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Transpose} ()
+\begin{DoxyCompactList}\small\item\em Транспонирует вектор (вектор-\/столбец превращает в вектор-\/строку и наоборот) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_ram_a72a2a89b2c9aec53173e9bf8150f7527}\label{class_vector_ram_a72a2a89b2c9aec53173e9bf8150f7527} 
+T \texorpdfstring{$\ast$}{*} {\bfseries data}
+\item 
+\Hypertarget{class_vector_ram_a761413e7e9a0a6bb49b32c2355a3f649}\label{class_vector_ram_a761413e7e9a0a6bb49b32c2355a3f649} 
+size\+\_\+t {\bfseries length}
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые атрибуты унаследованные от \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Vector\+Type {\bfseries vector\+Type} = Vector\+Type\+::\+Vector\+Row
+\begin{DoxyCompactList}\small\item\em Тип вектора \end{DoxyCompactList}\item 
+Data\+Location {\bfseries data\+Location} = Data\+Location\+::\+RAM
+\begin{DoxyCompactList}\small\item\em Место расположения данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_vector_ram_a49004cd951e2c4bf5f06be969527ea2f}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!ClearData@{ClearData}}
+\index{ClearData@{ClearData}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ClearData()}{ClearData()}}
+{\footnotesize\ttfamily \label{class_vector_ram_a49004cd951e2c4bf5f06be969527ea2f} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Clear\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Очищает массивы данных и устанавливает размер вектора в 0. 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_adf08bc1aeb748d9f34bcb431c9d26465}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily \label{class_vector_ram_adf08bc1aeb748d9f34bcb431c9d26465} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_afc1682cc0c35a4ff6c6811da5193b626}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!InitByVal@{InitByVal}}
+\index{InitByVal@{InitByVal}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{InitByVal()}{InitByVal()}}
+{\footnotesize\ttfamily \label{class_vector_ram_afc1682cc0c35a4ff6c6811da5193b626} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Init\+By\+Val (\begin{DoxyParamCaption}\item[{T}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Инициализирует все элементы вектора указанным значением 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_a687f3a88f0693848fd843878270359e9}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!Length@{Length}}
+\index{Length@{Length}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Length()}{Length()}}
+{\footnotesize\ttfamily \label{class_vector_ram_a687f3a88f0693848fd843878270359e9} 
+template$<$typename T$>$ \\
+size\+\_\+t \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Length (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает длину вектора (количество элементов) 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_a9af343253fce26bfabaed6ed5e7a1946}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!Print@{Print}}
+\index{Print@{Print}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_vector_ram_a9af343253fce26bfabaed6ed5e7a1946} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль сведения об объекте 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_a0defa68f47ac3d92c9f87f4f1e3358c3}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_vector_ram_a0defa68f47ac3d92c9f87f4f1e3358c3} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль все элементы вектора 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a77101d3dc13514d6675335170a45ac65}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_af546bba8a4faf86962f43a338ad0a865}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_vector_ram_af546bba8a4faf86962f43a338ad0a865} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}\item[{unsigned long long}]{ind\+Start}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль элементы вектора в заданном диапазоне 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_a01a33943ec76ae785598967dccb8de74}\index{VectorRam$<$ T $>$@{VectorRam$<$ T $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!VectorRam$<$ T $>$@{VectorRam$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily \label{class_vector_ram_a01a33943ec76ae785598967dccb8de74} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Устанавливает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{IVector$<$ T $>$}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Vectors/Vector\+Ram.\+hpp\end{DoxyCompactItemize}

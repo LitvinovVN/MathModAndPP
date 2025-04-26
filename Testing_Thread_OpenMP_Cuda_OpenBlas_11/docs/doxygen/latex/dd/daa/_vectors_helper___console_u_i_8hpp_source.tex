@@ -1,0 +1,192 @@
+\doxysection{Vectors\+Helper\+\_\+\+Console\+UI.\+hpp}
+\hypertarget{_vectors_helper___console_u_i_8hpp_source}{}\label{_vectors_helper___console_u_i_8hpp_source}\index{HCSLib/Vectors/VectorsHelper\_ConsoleUI.hpp@{HCSLib/Vectors/VectorsHelper\_ConsoleUI.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\_IncludeVectors.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/DataLocation.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_vectors_helper___console_u_i}{VectorsHelper\_ConsoleUI}}}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ VectorRam\_Console\_UI()}
+\DoxyCodeLine{00011\ \ \ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}VectorRam\_Console\_UI"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}Creating\ VectorRam\ object\ with\ 10\ elements"{}});}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector_ram}{VectorRam<double>}}\ v1(10);}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_a9af343253fce26bfabaed6ed5e7a1946}{Print}}();}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_afc1682cc0c35a4ff6c6811da5193b626}{InitByVal}}(5);}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}v1.SetValue(1,\ -\/10.123)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_a01a33943ec76ae785598967dccb8de74}{SetValue}}(1,\ -\/10.123);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}v1.GetValue(1):\ "{}}\ <<\ v1.\mbox{\hyperlink{class_vector_ram_adf08bc1aeb748d9f34bcb431c9d26465}{GetValue}}(1)\ <<\ std::endl;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_af546bba8a4faf86962f43a338ad0a865}{PrintData}}(0,\ v1.\mbox{\hyperlink{class_vector_ram_a687f3a88f0693848fd843878270359e9}{Length}}());}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_vector}{IVector<double>}}*\ IVector1Ptr\ =\ \&v1;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ IVector1Ptr-\/>\mbox{\hyperlink{class_i_vector_a8cd6244939d676bd609905e77b3147dd}{Transpose}}();}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}typeid(IVector1Ptr).name():\ "{}}\ <<\ \textcolor{keyword}{typeid}(IVector1Ptr).name()\ <<\ std::endl;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ IVector1Ptr-\/>Print();}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ IVector1Ptr-\/>\mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{PrintData}}(0,\ IVector1Ptr-\/>\mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}}());}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_vector}{IVector<double>}}*\ IVectorSplitResultPtr\ =\ \mbox{\hyperlink{struct_i_vector_helper_a05a37970389a347e52c06182c2244a1c}{IVectorHelper::Split}}(IVector1Ptr,\ IVector1Ptr,\ DataLocation::RAM);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>Print();}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>\mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{PrintData}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}ClearData()"{}});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>\mbox{\hyperlink{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}{ClearData}}();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>Print();}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>\mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{PrintData}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ VectorRamGpus\_ConsoleUI()}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}VectorRamGpus\_ConsoleUI"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ res;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}VectorRamGpus<double>\ v1;"{}});}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector_ram_gpus}{VectorRamGpus<double>}}\ v1;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ConsoleHelper::WaitAnyKey();}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ N\_RAM\ =\ 800000000;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}N\_RAM"{}},\ N\_RAM);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}auto\ res\ =\ v1.Add(DataLocation::RAM,\ N\_RAM);"{}});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ res\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_a87380092cb49125e29a4fc4864bc91e8}{Add}}(DataLocation::RAM,\ N\_RAM);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}res"{}},\ res);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ConsoleHelper::WaitAnyKey();}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ N\_GPU0\ =\ 800000000;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}N\_GPU0"{}},\ N\_GPU0);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}res\ =\ v1.Add(DataLocation::GPU0,\ N\_GPU0);"{}});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ res\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_a87380092cb49125e29a4fc4864bc91e8}{Add}}(DataLocation::GPU0,\ N\_GPU0);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}res"{}},\ res);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ConsoleHelper::WaitAnyKey();}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ N\_GPU1\ =\ N\_GPU0;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}N\_GPU1"{}},\ N\_GPU1);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}res\ =\ v1.Add(DataLocation::GPU1,\ N\_GPU1);"{}});}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//res\ =\ v1.Add(DataLocation::GPU1,\ N\_GPU1);}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}res"{}},\ res);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ConsoleHelper::WaitAnyKey();}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}auto\ size\ =\ v1.Size();"{}});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_a1bfb82ed55f7f2b2b725415bc9ad270d}{Length}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}size"{}},\ size);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ ConsoleHelper::WaitAnyKey();}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.PrintData(0,\ size);"{}});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//v1.PrintData(0,\ size);}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.InitByVal(0.01);"{}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a5d09e0cbc12cccf580ca15395495ce83}{InitByVal}}(0.01);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.PrintData(0,\ size-\/1);"{}});}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{comment}{//v1.PrintData(0,\ size-\/1);}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Transpose();"{}});}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a8d672766adc1b0cb51901af7b6953786}{Transpose}}();}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}v1.PrintData(0,\ 5);"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}{PrintData}}(0,\ 5);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Transpose();"{}});}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a8d672766adc1b0cb51901af7b6953786}{Transpose}}();}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.PrintData(0,\ 5);"{}});}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}{PrintData}}(0,\ 5);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}bool\ isValueSetted\ =\ v1.SetValue(1,\ 123.45);"{}});}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isValueSetted\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321}{SetValue}}(1,\ 123.45);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}isValueSetted"{}},\ isValueSetted);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}auto\ 1\ =\ v1.GetValue(1);"{}});}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ val\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_ab59a63896022801583b474c4314df891}{GetValue}}(1);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}val"{}},\ val);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}bool\ isValueSetted\ =\ v1.SetValue(11,\ 23.455);"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ isValueSetted\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321}{SetValue}}(11,\ 23.455);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}isValueSetted"{}},\ isValueSetted);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.GetValue(11);"{}});}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ val\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_ab59a63896022801583b474c4314df891}{GetValue}}(11);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}val"{}},\ val);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}bool\ isValueSetted\ =\ v1.SetValue(size-\/1,\ 23.456);"{}});}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ isValueSetted\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321}{SetValue}}(size-\/1,\ 23.456);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}isValueSetted"{}},\ isValueSetted);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}val\ =\ v1.GetValue(size-\/1);"{}});}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ val\ =\ v1.\mbox{\hyperlink{class_vector_ram_gpus_ab59a63896022801583b474c4314df891}{GetValue}}(size-\/1);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}val"{}},\ val);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.PrintData(0,\ size);"{}});}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{comment}{//v1.PrintData(0,\ size);}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Multiply(2);"{}});}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start1\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ v1.Multiply(2);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop1\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<std::chrono::microseconds>(stop1\ -\/\ start1);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ time\_mks\ =\ duration.count();}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}time\_mks"{}},\ time\_mks);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.PrintData(N\_RAM\ -\/\ 10,\ 20);"{}});}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}{PrintData}}(N\_RAM\ -\/\ 10,\ 20);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Multiply(2,\ true);"{}});}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start2\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ v1.Multiply(2,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop2\ =\ std::chrono::high\_resolution\_clock::now();}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration2\ =\ duration\_cast<std::chrono::microseconds>(stop2\ -\/\ start2);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ time\_mks\ =\ duration2.count();}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintKeyValue(\textcolor{stringliteral}{"{}time\_mks"{}},\ time\_mks);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.PrintData(N\_RAM\ -\/\ 10,\ 20);"{}});}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}{PrintData}}(N\_RAM\ -\/\ 10,\ 20);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//bool\ isClear\ =\ ConsoleHelper::GetBoolFromUser("{}Do\ you\ want\ clear\ vector\ data?\ (y/n)"{});}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isClear\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isClear)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Clear();"{}});}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_ram_gpus_a6b3ea07a04e641e5c0a60d38febf6fb1}{Clear}}();}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ ConsoleHelper::PrintLine(\textcolor{stringliteral}{"{}v1.Print();"{}});}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ v1.Print();}
+\DoxyCodeLine{00184\ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \};}
+
+\end{DoxyCode}

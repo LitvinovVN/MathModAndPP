@@ -1,0 +1,33 @@
+\doxysection{Vector\+Type.\+hpp}
+\hypertarget{_vector_type_8hpp_source}{}\label{_vector_type_8hpp_source}\index{HCSLib/Vectors/VectorType.hpp@{HCSLib/Vectors/VectorType.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum\ class}\ VectorType}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ VectorRow,\ \ \ \textcolor{comment}{//\ Вектор-\/строка}}
+\DoxyCodeLine{00009\ \ \ \ \ VectorColumn\ \textcolor{comment}{//\ Вектор-\/столбец}}
+\DoxyCodeLine{00010\ \};}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ std::ostream\&\ operator<<(std::ostream\&\ os,\ VectorType\ vectorType)}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{switch}\ (vectorType)}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{case}\ VectorType::VectorRow:}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}VectorType::VectorRow"{}};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{case}\ VectorType::VectorColumn:}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}VectorType::VectorColumn"{}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00028\ \}}
+
+\end{DoxyCode}

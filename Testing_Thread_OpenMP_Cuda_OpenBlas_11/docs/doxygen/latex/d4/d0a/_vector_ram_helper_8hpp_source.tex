@@ -1,0 +1,81 @@
+\doxysection{Vector\+Ram\+Helper.\+hpp}
+\hypertarget{_vector_ram_helper_8hpp_source}{}\label{_vector_ram_helper_8hpp_source}\index{HCSLib/Vectors/VectorRamHelper.hpp@{HCSLib/Vectors/VectorRamHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/FuncResult.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}VectorRam.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vector_ram_helper}{VectorRamHelper}}}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ Sum(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd)}
+\DoxyCodeLine{00013\ \ \ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ calcStatus\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ T\ result\ =\ ArrayHelper::Sum(v.data,\ indStart,\ indEnd);}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<microseconds>(stop\ -\/\ start);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ duration.count();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}(calcStatus,\ result,\ t);}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ Sum(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v)}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Sum(v,\ 0,\ v.\mbox{\hyperlink{class_vector_ram_a687f3a88f0693848fd843878270359e9}{Length}}()\ -\/\ 1);}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ Sum(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00035\ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ calcStatus\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ T\ result\ =\ ArrayHelper::Sum(v.data,\ indStart,\ indEnd,\ threadsNum);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<microseconds>(stop\ -\/\ start);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ duration.count();}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}(calcStatus,\ result,\ t);}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ Sum(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Sum(v,\ 0,\ v.\mbox{\hyperlink{class_vector_ram_a687f3a88f0693848fd843878270359e9}{Length}}()\ -\/\ 1,\ threadsNum);}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ SumOpenMP(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ calcStatus\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ T\ result\ =\ ArrayHelper::SumOpenMP(v.data,\ indStart,\ indEnd,\ threadsNum);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<microseconds>(stop\ -\/\ start);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ duration.count();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}(calcStatus,\ result,\ t);}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{struct_func_result}{FuncResult<T>}}\ SumOpenMP(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\&\ v,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SumOpenMP(v,\ 0,\ v.\mbox{\hyperlink{class_vector_ram_a687f3a88f0693848fd843878270359e9}{Length}}()\ -\/\ 1,\ threadsNum);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,53 @@
+\doxysection{Function\+Data\+Type.\+hpp}
+\hypertarget{_function_data_type_8hpp_source}{}\label{_function_data_type_8hpp_source}\index{HCSLib/Functions/FunctionDataType.hpp@{HCSLib/Functions/FunctionDataType.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum\ class}\ FunctionDataType}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ fdt\_void,}
+\DoxyCodeLine{00009\ \ \ \ \ fdt\_int,}
+\DoxyCodeLine{00010\ \ \ \ \ fdt\_float,}
+\DoxyCodeLine{00011\ \ \ \ \ fdt\_ptr\_float,}
+\DoxyCodeLine{00012\ \ \ \ \ fdt\_double,}
+\DoxyCodeLine{00013\ \ \ \ \ fdt\_ptr\_double,}
+\DoxyCodeLine{00014\ \ \ \ \ fdt\_ull}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ std::ostream\&\ operator<<(std::ostream\&\ os,\ FunctionDataType\ fdt)}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{switch}\ (fdt)}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_void:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}void"{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_int:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}int"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_float:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}float"{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ptr\_float:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}float*"{}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_double:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}double"{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ptr\_double:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}double*"{}};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ull:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}size\_t"{}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00048\ \}}
+
+\end{DoxyCode}

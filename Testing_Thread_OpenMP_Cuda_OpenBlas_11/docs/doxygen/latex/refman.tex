@@ -1,0 +1,460 @@
+  % Handle batch mode
+  % to overcome problems with too many open files
+  \let\mypdfximage\pdfximage\def\pdfximage{\immediate\mypdfximage}
+  \RequirePackage{iftex}
+  \ifLuaTeX
+    \directlua{pdf.setminorversion(7)}
+  \fi
+  \ifXeTeX
+    \special{pdf:minorversion 7}
+  \fi
+  \ifPDFTeX
+    \pdfminorversion=7
+  \fi
+  % Set document class depending on configuration
+  \documentclass[twoside]{book}
+  %% moved from doxygen.sty due to workaround for LaTex 2019 version and unmaintained tabu package
+  \usepackage{ifthen}
+  \ifx\requestedLaTeXdate\undefined
+    \usepackage{array}
+  \else
+    \usepackage{array}[=2016-10-06]
+  \fi
+  %%
+  % Packages required by doxygen
+  \makeatletter
+  \providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
+  % suppress package identification of infwarerr as it contains the word "warning"
+  \let\@@protected@wlog\protected@wlog
+  \def\protected@wlog#1{\wlog{package info suppressed}}
+  \RequirePackage{infwarerr}
+  \let\protected@wlog\@@protected@wlog
+  \makeatother
+  \IfFormatAtLeastTF{2016/01/01}{}{\usepackage{fixltx2e}} % for \textsubscript
+  \ifPDFTeX
+    \IfFormatAtLeastTF{2015/01/01}{\pdfsuppresswarningpagegroup=1}{}
+  \fi
+  \usepackage{doxygen}
+  \usepackage{graphicx}
+  \iftutex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures={TeX}}
+    \usepackage{unicode-math}
+  \else
+    \usepackage[utf8]{inputenc}
+  \fi
+  \usepackage{makeidx}
+  \PassOptionsToPackage{warn}{textcomp}
+  \usepackage{textcomp}
+  \usepackage[nointegrals]{wasysym}
+  \usepackage{ifxetex}
+  % NLS support packages
+  \usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+  % Define default fonts
+  % Font selection
+  \iftutex
+  \else
+    \usepackage[T1]{fontenc}
+  \fi
+  % set main and monospaced font
+  \usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\renewcommand{\familydefault}{\sfdefault}
+  \doxyallsectionsfont{%
+    \fontseries{bc}\selectfont%
+    \color{darkgray}%
+  }
+  \renewcommand{\DoxyLabelFont}{%
+    \fontseries{bc}\selectfont%
+    \color{darkgray}%
+  }
+  \newcommand{\+}{\discretionary{\mbox{\scriptsize$\hookleftarrow$}}{}{}}
+   % Arguments of doxygenemoji:
+   % 1) ':<text>:' form of the emoji, already LaTeX-escaped
+   % 2) file with the name of the emoji without the .png extension
+   % in case image exist use this otherwise use the ':<text>:' form
+   \newcommand{\doxygenemoji}[2]{%
+     \IfFileExists{./#2.png}{\raisebox{-0.1em}{\includegraphics[height=0.9em]{./#2.png}}}{#1}%
+   }
+  % Page & text layout
+  \usepackage{geometry}
+  \geometry{%
+    a4paper,%
+    top=2.5cm,%
+    bottom=2.5cm,%
+    left=2.5cm,%
+    right=2.5cm%
+  }
+  \usepackage{changepage}
+  % Allow a bit of overflow to go unnoticed by other means
+  \tolerance=750
+  \hfuzz=15pt
+  \hbadness=750
+  \setlength{\emergencystretch}{15pt}
+  \setlength{\parindent}{0cm}
+  \newcommand{\doxynormalparskip}{\setlength{\parskip}{3ex plus 2ex minus 2ex}}
+  \newcommand{\doxytocparskip}{\setlength{\parskip}{1ex plus 0ex minus 0ex}}
+  \doxynormalparskip
+  % Redefine paragraph/subparagraph environments, using sectsty fonts
+  \makeatletter
+  \renewcommand{\paragraph}{%
+    \@startsection{paragraph}{4}{0ex}{-1.0ex}{1.0ex}{%
+      \normalfont\normalsize\bfseries\SS@parafont%
+    }%
+  }
+  \renewcommand{\subparagraph}{%
+    \@startsection{subparagraph}{5}{0ex}{-1.0ex}{1.0ex}{%
+      \normalfont\normalsize\bfseries\SS@subparafont%
+    }%
+  }
+  \makeatother
+  \makeatletter
+  \newcommand\hrulefilll{\leavevmode\leaders\hrule\hskip 0pt plus 1filll\kern\z@}
+  \makeatother
+  % Headers & footers
+  \usepackage{fancyhdr}
+  \pagestyle{fancyplain}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancypagestyle{fancyplain}{
+    \fancyhf{}
+    \fancyhead[LE, RO]{\bfseries\thepage}
+    \fancyhead[LO]{\bfseries\rightmark}
+    \fancyhead[RE]{\bfseries\leftmark}
+    \fancyfoot[LO, RE]{\bfseries\scriptsize Создано системой Doxygen }
+  }
+  \fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LO, RE]{\bfseries\scriptsize Создано системой Doxygen }
+    \renewcommand{\headrulewidth}{0pt}
+  }
+  \pagestyle{fancyplain}
+  \renewcommand{\chaptermark}[1]{%
+    \markboth{#1}{}%
+  }
+  \renewcommand{\sectionmark}[1]{%
+    \markright{\thesection\ #1}%
+  }
+  % ToC, LoF, LoT, bibliography, and index
+  % Indices & bibliography
+  \usepackage[numbers]{natbib}
+  \usepackage[titles]{tocloft}
+  \setcounter{tocdepth}{3}
+  \setcounter{secnumdepth}{5}
+  % creating indexes
+  \makeindex
+  \ifPDFTeX
+\usepackage{newunicodechar}
+  \makeatletter
+    \def\doxynewunicodechar#1#2{%
+    \@tempswafalse
+    \edef\nuc@tempa{\detokenize{#1}}%
+    \if\relax\nuc@tempa\relax
+      \nuc@emptyargerr
+    \else
+      \edef\@tempb{\expandafter\@car\nuc@tempa\@nil}%
+      \nuc@check
+      \if@tempswa
+        \@namedef{u8:\nuc@tempa}{#2}%
+      \fi
+    \fi
+  }
+  \makeatother
+  \doxynewunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \doxynewunicodechar{²}{${}^{2}$}% Superscript two
+  \doxynewunicodechar{³}{${}^{3}$}% Superscript three
+\fi
+  % Hyperlinks
+    % Hyperlinks (required, but should be loaded last)
+    \ifPDFTeX
+      \usepackage[pdftex,pagebackref=true]{hyperref}
+    \else
+      \ifXeTeX
+        \usepackage[xetex,pagebackref=true]{hyperref}
+      \else
+        \ifLuaTeX
+          \usepackage[luatex,pagebackref=true]{hyperref}
+        \else
+          \usepackage[ps2pdf,pagebackref=true]{hyperref}
+        \fi
+      \fi
+    \fi
+    \hypersetup{%
+      colorlinks=true,%
+      linkcolor=blue,%
+      citecolor=blue,%
+      unicode,%
+      pdftitle={HCSLib},%
+      pdfsubject={Math modeling and parallel programming lib for HCS}%
+    }
+  % Custom commands used by the header
+  % Custom commands
+  \newcommand{\clearemptydoublepage}{%
+    \newpage{\pagestyle{empty}\cleardoublepage}%
+  }
+  % caption style definition
+  \usepackage{caption}
+  \captionsetup{labelsep=space,justification=centering,font={bf},singlelinecheck=off,skip=4pt,position=top}
+  % in page table of contents
+  \IfFormatAtLeastTF{2023/05/01}{\usepackage[deeplevels]{etoc}}{\usepackage[deeplevels]{etoc_doxygen}}
+  \etocsettocstyle{\doxytocparskip}{\doxynormalparskip}
+  \etocsetlevel{subsubsubsection}{4}
+  \etocsetlevel{subsubsubsubsection}{5}
+  \etocsetlevel{subsubsubsubsubsection}{6}
+  \etocsetlevel{subsubsubsubsubsubsection}{7}
+  \etocsetlevel{paragraph}{8}
+  \etocsetlevel{subparagraph}{9}
+  % prevent numbers overlap the titles in toc
+  \renewcommand{\numberline}[1]{#1~}
+% End of preamble, now comes the document contents
+%===== C O N T E N T S =====
+\begin{document}
+  \raggedbottom
+  % Titlepage & ToC
+    % To avoid duplicate page anchors due to reuse of same numbers for
+    % the index (be it as roman numbers)
+    \hypersetup{pageanchor=false,
+                bookmarksnumbered=true,
+                pdfencoding=unicode
+               }
+  \pagenumbering{alph}
+  \begin{titlepage}
+  \vspace*{7cm}
+  \begin{center}%
+  {\Large HCSLib}\\
+  [1ex]\large 0.\+1 \\
+  \vspace*{1cm}
+  {\large Создано системой Doxygen 1.13.2}\\
+  \end{center}
+  \end{titlepage}
+  \clearemptydoublepage
+  \pagenumbering{roman}
+  \tableofcontents
+  \clearemptydoublepage
+  \pagenumbering{arabic}
+  % re-enable anchors again
+  \hypersetup{pageanchor=true}
+%--- Begin generated contents ---
+\chapter{Иерархический список классов}
+\input{hierarchy}
+\chapter{Алфавитный указатель классов}
+\input{annotated}
+\chapter{Список файлов}
+\input{files}
+\chapter{Классы}
+\input{d5/dac/struct_algorithm}
+\input{d9/dc4/class_algorithm_implementation}
+\input{da/d8b/struct_algorithm_implementation_exec_params}
+\input{d0/d1c/class_algorithm_implementation_executor}
+\input{db/da6/struct_algorithm_implementation_executor_helper}
+\input{d8/d80/class_algorithm_implementation_repository}
+\input{de/d1e/struct_algorithm_metrics}
+\input{d6/dc2/class_algorithm_repository}
+\input{de/d8d/struct_alg_testing_result}
+\input{d8/d18/class_alg_testing_result_repository}
+\input{d0/da3/class_app_config}
+\input{de/d6b/class_application}
+\input{d0/dec/struct_array_block_indexes}
+\input{d2/d4d/struct_array_gpu_processing_params}
+\input{d5/dc3/struct_array_helper}
+\input{d4/dc7/struct_array_helper___console_u_i}
+\input{da/d01/struct_array_helper_func_result}
+\input{d5/d4e/struct_array_perf_test_helper}
+\input{de/da7/struct_array_perf_test_helper___console_u_i}
+\input{d3/d72/class_arrays_index_map}
+\input{de/d37/struct_binary_expression}
+\input{d0/d59/struct_calculation_statistics}
+\input{d4/d5b/class_computing_system}
+\input{d2/d41/class_computing_system_node}
+\input{d8/d46/class_computing_system_repository}
+\input{dd/daf/struct_console_helper}
+\input{d8/dae/struct_constant}
+\input{de/d72/struct_cpu_params}
+\input{dc/da1/structcublas_handle__t}
+\input{d2/d68/struct_cublas_helper}
+\input{d3/d45/structcublas_status__t}
+\input{d2/d6c/struct_cuda_device_properties}
+\input{d3/db2/struct_cuda_helper}
+\input{d0/d25/struct_data_type}
+\input{d4/df3/class_data_types}
+\input{d3/dcc/struct_dev_mem_arr_pointer}
+\input{d0/d94/class_dev_mem_arr_pointers}
+\input{d5/db6/struct_expression}
+\input{de/d34/class_file_system_helper}
+\input{d2/df2/struct_func_expression}
+\input{dd/de7/struct_func_result}
+\input{d7/d29/class_function}
+\input{dd/ddf/struct_function_argument}
+\input{d6/d3d/class_function_arguments}
+\input{d0/d02/class_function_data_types}
+\input{d4/d5d/class_g2_d_rectangle}
+\input{d9/dcc/struct_geometry_helper___console_u_i}
+\input{d0/d32/struct_grid_operator_1_1_get_value_type}
+\input{df/d19/struct_gpu_params}
+\input{d1/d07/struct_grid_context}
+\input{de/d44/struct_grid_evaluable_object}
+\input{d8/d5e/struct_grid_operator}
+\input{d2/df4/struct_grid_operator_evaluator}
+\input{d0/dac/class_i_geometry}
+\input{d5/d5d/class_i_matrix}
+\input{d2/d61/class_i_scalar}
+\input{d3/dfb/class_i_vector}
+\input{de/ddc/struct_i_vector_helper}
+\input{d5/dc4/struct_lib_support}
+\input{d4/d04/class_main_menu}
+\input{db/d59/struct_math_helper}
+\input{db/d2e/struct_math_helper___console_u_i}
+\input{d8/dff/struct_math_object}
+\input{d7/d00/class_matrices_helper}
+\input{d6/d06/class_matrices_helper___console_u_i}
+\input{d8/dbe/class_matrix_block_ram_gpus}
+\input{d9/d8b/class_matrix_map}
+\input{db/d60/struct_matrix_map_element}
+\input{dd/d13/class_matrix_ram}
+\input{d1/d03/class_matrix_ram_e}
+\input{d5/d94/class_matrix_ram_zero}
+\input{d5/d54/struct_menu_command_item}
+\input{d2/d38/struct_menu_functions}
+\input{d7/dc6/struct_negate}
+\input{d1/de5/struct_parallel_calc_indicators}
+\input{d3/d4a/struct_perf_test_params}
+\input{db/d0b/struct_perf_test_params_cpu}
+\input{d1/dcd/struct_perf_test_params_data}
+\input{df/daf/struct_perf_test_params_gpu}
+\input{d9/dfc/struct_perf_test_results}
+\input{d1/d89/struct_print_params}
+\input{dc/da1/struct_ram_params}
+\input{d0/d8c/class_scalar_ram}
+\input{d8/def/struct_array_helper_1_1_sum_thread_args}
+\input{d1/ddf/struct_task_dimensions}
+\input{d9/d5a/class_test_helper}
+\input{dd/d62/struct_test_params}
+\input{d5/d35/struct_variable}
+\input{d0/d67/class_vector_gpu}
+\input{dd/d17/class_vector_gpu_helper}
+\input{d8/d0c/class_vector_ram}
+\input{da/d10/class_vector_ram_gpus}
+\input{d7/d43/struct_vector_ram_gpus_helper}
+\input{d2/d5c/class_vector_ram_helper}
+\input{df/dfd/struct_vectors_helper___console_u_i}
+\chapter{Файлы}
+\input{dc/dc6/___include_lib_8hpp_source}
+\input{dc/d83/_algorithm_8hpp_source}
+\input{d3/df0/_algorithm_data_location_8hpp_source}
+\input{da/d4a/_algorithm_implementation_8hpp_source}
+\input{d9/dca/_algorithm_implementation_exec_params_8hpp_source}
+\input{dc/d88/_algorithm_implementation_executor_8hpp_source}
+\input{d6/df9/_algorithm_implementation_executor_helper_8hpp_source}
+\input{de/df8/_algorithm_implementation_repository_8hpp_source}
+\input{da/d06/_algorithm_metrics_8hpp_source}
+\input{d4/dcb/_algorithm_repository_8hpp_source}
+\input{d9/db3/_algorithm_type_8hpp_source}
+\input{d0/d16/_alg_testing_result_8hpp_source}
+\input{d9/db6/_alg_testing_result_repository_8hpp_source}
+\input{d4/d77/_app_config_8hpp_source}
+\input{d2/dcb/_application_8hpp_source}
+\input{d8/d35/_array_block_indexes_8hpp_source}
+\input{d1/de5/_array_gpu_processing_params_8hpp_source}
+\input{d4/d61/_array_helper_8hpp_source}
+\input{d4/db8/_array_helper___console_u_i_8hpp_source}
+\input{d7/de1/_array_helper_func_result_8hpp_source}
+\input{d1/dd8/_array_perf_test_helper_8hpp_source}
+\input{d6/d11/_array_perf_test_helper___console_u_i_8hpp_source}
+\input{df/dea/_arrays_index_map_8hpp_source}
+\input{d7/d0c/_dev_mem_arr_pointer_8hpp_source}
+\input{d0/dfb/_dev_mem_arr_pointers_8hpp_source}
+\input{d6/d19/___include_common_helpers_8hpp_source}
+\input{dd/dfd/_console_helper_8hpp_source}
+\input{dd/d5b/_data_location_8hpp_source}
+\input{de/ddb/_data_type_8hpp_source}
+\input{dd/d8f/_data_type_enum_8hpp_source}
+\input{d9/d61/_data_types_8hpp_source}
+\input{d6/dc7/_dimension_enum_8hpp_source}
+\input{d3/dd6/_file_system_helper_8hpp_source}
+\input{db/d0f/_func_result_8hpp_source}
+\input{dc/d88/_lib_support_8hpp_source}
+\input{da/de7/_measurement_unit_enum_8hpp_source}
+\input{de/df5/_print_params_8hpp_source}
+\input{d8/de7/_computing_system_8hpp_source}
+\input{db/d53/_computing_system_node_8hpp_source}
+\input{d7/d7c/_computing_system_repository_8hpp_source}
+\input{d3/dd6/_cpu_params_8hpp_source}
+\input{de/d42/_gpu_params_8hpp_source}
+\input{d3/d77/_ram_params_8hpp_source}
+\input{d2/d22/_cublas_helper_8hpp_source}
+\input{de/dad/_cuda_device_properties_8hpp_source}
+\input{d1/d41/_cuda_helper_8hpp_source}
+\input{d4/ded/_function_8hpp_source}
+\input{d7/d27/_function_argument_8hpp_source}
+\input{da/d56/_function_arguments_8hpp_source}
+\input{dc/ddd/_function_data_type_8hpp_source}
+\input{d9/d61/_function_data_types_8hpp_source}
+\input{d4/d8f/___include_geometry_8hpp_source}
+\input{d9/d89/_g2_d_rectangle_8hpp_source}
+\input{d5/de6/_geometry_helper___console_u_i_8hpp_source}
+\input{dd/d85/_i_geometry_8hpp_source}
+\input{d4/d72/_global_test_functions_8hpp_source}
+\input{d9/d0d/_binary_expression_8hpp_source}
+\input{d3/dfe/_constant_8hpp_source}
+\input{da/dc2/_expression_8hpp_source}
+\input{d2/d89/_func_expression_8hpp_source}
+\input{d1/d51/_grid_context_8hpp_source}
+\input{d3/dd6/_grid_evaluable_object_8hpp_source}
+\input{d2/d53/_grid_operator_8hpp_source}
+\input{d9/d6d/_grid_operator_evaluator_8hpp_source}
+\input{d5/d87/_math_helper_8hpp_source}
+\input{d3/def/_math_helper___console_u_i_8hpp_source}
+\input{d9/d13/_math_object_8hpp_source}
+\input{dd/d9a/_negate_8hpp_source}
+\input{d6/d69/_variable_8hpp_source}
+\input{dd/ddc/_i_matrix_8hpp_source}
+\input{df/d23/_matrices_helper_8hpp_source}
+\input{d6/d84/_matrices_helper___console_u_i_8hpp_source}
+\input{d1/d27/_matrix_block_ram_gpus_8hpp_source}
+\input{dc/dc6/_matrix_data_location_8hpp_source}
+\input{d7/d50/_matrix_map_8hpp_source}
+\input{d9/de3/_matrix_map_element_8hpp_source}
+\input{d7/d81/_matrix_ram_8hpp_source}
+\input{d5/df3/_matrix_ram_e_8hpp_source}
+\input{dd/dbe/_matrix_ram_zero_8hpp_source}
+\input{d7/d66/_matrix_type_8hpp_source}
+\input{de/d98/_main_menu_8hpp_source}
+\input{d8/deb/_menu_command_8hpp_source}
+\input{d9/df1/_menu_command_item_8hpp_source}
+\input{dc/d48/_menu_functions_8hpp_source}
+\input{df/d43/_calculation_statistics_8hpp_source}
+\input{db/d2b/_parallel_calc_indicators_8hpp_source}
+\input{d5/de4/_perf_test_params_8hpp_source}
+\input{df/dc0/_perf_test_params_cpu_8hpp_source}
+\input{db/d4b/_perf_test_params_data_8hpp_source}
+\input{d2/d0f/_perf_test_params_gpu_8hpp_source}
+\input{d3/dde/_perf_test_results_8hpp_source}
+\input{d6/dd9/___include_scalars_8hpp_source}
+\input{de/da4/_i_scalar_8hpp_source}
+\input{d9/dc1/_scalar_ram_8hpp_source}
+\input{d6/d1e/_task_8hpp_source}
+\input{d2/d57/_task_dimensions_8hpp_source}
+\input{df/d48/_task_group_8hpp_source}
+\input{d2/de6/_test_helper_8hpp_source}
+\input{db/d94/_test_params_8hpp_source}
+\input{d2/d19/___include_vectors_8hpp_source}
+\input{da/d03/_i_vector_8hpp_source}
+\input{df/dc4/_i_vector_helper_8hpp_source}
+\input{d8/df3/_vector_gpu_8hpp_source}
+\input{de/d2f/_vector_gpu_helper_8hpp_source}
+\input{d2/dc6/_vector_ram_8hpp_source}
+\input{d7/d20/_vector_ram_gpus_8hpp_source}
+\input{dd/d3b/_vector_ram_gpus_helper_8hpp_source}
+\input{d4/d0a/_vector_ram_helper_8hpp_source}
+\input{dd/daa/_vectors_helper___console_u_i_8hpp_source}
+\input{d9/db5/_vector_type_8hpp_source}
+%--- End generated contents ---
+% Index
+  \backmatter
+  \newpage
+  \phantomsection
+  \clearemptydoublepage
+  \addcontentsline{toc}{chapter}{\indexname}
+  \printindex
+% Required for some languages (in combination with latexdocumentpre from the header)
+\end{document}

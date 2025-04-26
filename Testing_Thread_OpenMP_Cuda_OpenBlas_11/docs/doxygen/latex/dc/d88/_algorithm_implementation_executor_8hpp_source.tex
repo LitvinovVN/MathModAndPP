@@ -1,0 +1,82 @@
+\doxysection{Algorithm\+Implementation\+Executor.\+hpp}
+\hypertarget{_algorithm_implementation_executor_8hpp_source}{}\label{_algorithm_implementation_executor_8hpp_source}\index{HCSLib/Algorithms/AlgorithmImplementationExecutor.hpp@{HCSLib/Algorithms/AlgorithmImplementationExecutor.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\#include\ "{}../\_IncludeLib.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../AlgTestingResults/AlgTestingResult.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../AlgTestingResults/AlgTestingResultRepository.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }AlgorithmImplementationExecutor}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ Ссылка\ на\ репозиторий\ вычислительных\ систем}}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_computing_system_repository}{ComputingSystemRepository}}\&\ computingSystemRepository;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ УИД\ текущей\ вычислительной\ системы}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ computingSystemId\{\};}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{comment}{//\ Ссылка\ на\ репозиторий\ реализаций\ алгоритмов}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_algorithm_implementation_repository}{AlgorithmImplementationRepository}}\&\ algorithmImplementationRepository;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ Ссылка\ на\ репозиторий\ результатов\ тестовых\ запусков\ алгоритмов}}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_alg_testing_result_repository}{AlgTestingResultRepository}}\&\ algTestingResultRepository;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:\ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ AlgorithmImplementationExecutor(\mbox{\hyperlink{class_computing_system_repository}{ComputingSystemRepository}}\&\ computingSystemRepository,}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithm_implementation_repository}{AlgorithmImplementationRepository}}\&\ algorithmImplementationRepository,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_alg_testing_result_repository}{AlgTestingResultRepository}}\&\ algTestingResultRepository)}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ :\ computingSystemRepository(computingSystemRepository),}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ algorithmImplementationRepository(algorithmImplementationRepository),}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ algTestingResultRepository(algTestingResultRepository)}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_algorithm_implementation_executor_ad59978e63cde9eed46ab2ff2056e9c0e}{IsConfigured}}()}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!(\textcolor{keywordtype}{bool})computingSystemId)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_algorithm_implementation_executor_a89fd4dd34e89a25bafcf8000bed50b61}{SetComputingSystemId}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!computingSystemRepository.IsExists(\textcolor{keywordtype}{id}))}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}ComputingSystem\ not\ found!"{}});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ computingSystemId\ =\ id;}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_algorithm_implementation_executor_ad574d9344b4d090cd8a78f68d464add6}{TrySetComputingSystemId}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00054\ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!computingSystemRepository.IsExists(\textcolor{keywordtype}{id}))}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ computingSystemId\ =\ id;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ \mbox{\hyperlink{class_algorithm_implementation_executor_a566cc94c879154799772db0275e83a36}{Exec}}(\textcolor{keywordtype}{unsigned}\ AlgorithmImplementationId,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_algorithm_implementation_exec_params}{AlgorithmImplementationExecParams}}\ params)}
+\DoxyCodeLine{00068\ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_algorithm_implementation}{AlgorithmImplementation}}\ alg\ =\ algorithmImplementationRepository.Get(AlgorithmImplementationId);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_function}{Function}}\ func\ =\ alg.\mbox{\hyperlink{class_algorithm_implementation_aaa5e4cbd161b15d8b05b61e3aa61ff3b}{GetFunction}}();}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ соответствия\ тепов\ аргументов\ функции}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!func.\mbox{\hyperlink{class_function_a4c9eabc18d8bee233962376851e175c6}{CheckArgumentsTypes}}(params.functionArguments.GetFunctionArgumentsDataTypes()))}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nError\ in\ AlgorithmImplementationExecutor::Exec(...)!\ Arguments\ types\ not\ equals!\(\backslash\)n"{}};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Arguments\ types\ not\ equals!"{}});}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ res\ =\ alg.Exec(params);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ res.algorithmId\ =\ alg.\mbox{\hyperlink{class_algorithm_implementation_a04c6cfd36206a5c0d26de1ce0654985e}{GetId}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ res.compSystemId\ =\ computingSystemId;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ res.id\ =\ algTestingResultRepository.GetLastId()\ +\ 1;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ res.Print();}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ algTestingResultRepository.Add(res);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ }
+\DoxyCodeLine{00088\ \};}
+
+\end{DoxyCode}

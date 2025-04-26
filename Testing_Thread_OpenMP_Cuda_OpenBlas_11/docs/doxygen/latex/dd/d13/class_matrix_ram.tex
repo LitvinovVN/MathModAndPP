@@ -1,0 +1,121 @@
+\doxysection{Класс Matrix\+Ram}
+\hypertarget{class_matrix_ram}{}\label{class_matrix_ram}\index{MatrixRam@{MatrixRam}}
+
+
+Класс "{}Матрица в RAM"{}.  
+
+
+
+
+{\ttfamily \#include $<$Matrix\+Ram.\+hpp$>$}
+
+Граф наследования\+:Matrix\+Ram\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{dd/d13/class_matrix_ram}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix_ram_a01460b62f854b6823ee0148d77c9de4f}\label{class_matrix_ram_a01460b62f854b6823ee0148d77c9de4f} 
+{\bfseries Matrix\+Ram} (unsigned long long M, unsigned long long N)
+\item 
+unsigned long long \mbox{\hyperlink{class_matrix_ram_af4b9e8c17ed29fee19a13af2d650a6db}{Get\+Size}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает объём занятой оперативной памяти в байтах \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}} (\mbox{\hyperlink{struct_print_params}{Print\+Params}} pp=\mbox{\hyperlink{struct_print_params}{Print\+Params}}\{\}) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль сведения о матрице \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_matrix_ram_a7c4129d7b86fe043288ebabb23cb75fa}{Print\+Matrix}} () const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль значения элементов матрицы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_matrix_ram_adcfc17da01607563f542397e658caf41}{Print\+Matrix}} (unsigned long long ind\+\_\+row\+\_\+start, unsigned long long num\+\_\+rows, unsigned long long ind\+\_\+col\+\_\+start, unsigned long long num\+\_\+cols) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль значения элементов матрицы в указанном диапазоне \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_matrix_ram_a4e93c68ba36d53e3a1dbf896d61e9e5c}\label{class_matrix_ram_a4e93c68ba36d53e3a1dbf896d61e9e5c} 
+const unsigned long long {\bfseries M} \{\}
+\item 
+\Hypertarget{class_matrix_ram_a3a348911c2d7053a8d72d1a44eebf588}\label{class_matrix_ram_a3a348911c2d7053a8d72d1a44eebf588} 
+const unsigned long long {\bfseries N} \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс "{}Матрица в RAM"{}. 
+
+\doxysubsection{Методы}
+\Hypertarget{class_matrix_ram_af4b9e8c17ed29fee19a13af2d650a6db}\index{MatrixRam@{MatrixRam}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!MatrixRam@{MatrixRam}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_af4b9e8c17ed29fee19a13af2d650a6db} 
+unsigned long long Matrix\+Ram\+::\+Get\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает объём занятой оперативной памяти в байтах 
+
+\begin{DoxyReturn}{Возвращает}
+Объём занятой оперативной памяти в байтах 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_a15c9a029643f1ec6c49789f902b6db64}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}\index{MatrixRam@{MatrixRam}!Print@{Print}}
+\index{Print@{Print}!MatrixRam@{MatrixRam}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_matrix_ram_aa03cab78b07163b29620af740fcc0289} 
+void Matrix\+Ram\+::\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_print_params}{Print\+Params}}}]{pp}{ = {\ttfamily \mbox{\hyperlink{struct_print_params}{Print\+Params}}\{\}}}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль сведения о матрице 
+
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_ae3696895ee9f789f28870bb7df4ec7e1}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_a7c4129d7b86fe043288ebabb23cb75fa}\index{MatrixRam@{MatrixRam}!PrintMatrix@{PrintMatrix}}
+\index{PrintMatrix@{PrintMatrix}!MatrixRam@{MatrixRam}}
+\doxysubsubsection{\texorpdfstring{PrintMatrix()}{PrintMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_matrix_ram_a7c4129d7b86fe043288ebabb23cb75fa} 
+void Matrix\+Ram\+::\+Print\+Matrix (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль значения элементов матрицы 
+
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_a50bd03040cf48a2d04052f8abc172273}{IMatrix}}.
+
+\Hypertarget{class_matrix_ram_adcfc17da01607563f542397e658caf41}\index{MatrixRam@{MatrixRam}!PrintMatrix@{PrintMatrix}}
+\index{PrintMatrix@{PrintMatrix}!MatrixRam@{MatrixRam}}
+\doxysubsubsection{\texorpdfstring{PrintMatrix()}{PrintMatrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_matrix_ram_adcfc17da01607563f542397e658caf41} 
+void Matrix\+Ram\+::\+Print\+Matrix (\begin{DoxyParamCaption}\item[{unsigned long long}]{ind\+\_\+row\+\_\+start}{, }\item[{unsigned long long}]{num\+\_\+rows}{, }\item[{unsigned long long}]{ind\+\_\+col\+\_\+start}{, }\item[{unsigned long long}]{num\+\_\+cols}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль значения элементов матрицы в указанном диапазоне 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em ind\+\_\+row\+\_\+start} & Индекс стартовой строки \\
+\hline
+{\em num\+\_\+rows} & Количество строк \\
+\hline
+{\em ind\+\_\+col\+\_\+start} & Индекс стартового столбца \\
+\hline
+{\em num\+\_\+cols} & Количество столбцов \\
+\hline
+\end{DoxyParams}
+
+
+Замещает \mbox{\hyperlink{class_i_matrix_a5eea6be160a0eb89793b2130d40d1890}{IMatrix}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Matrices/Matrix\+Ram.\+hpp\end{DoxyCompactItemize}

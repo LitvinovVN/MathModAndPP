@@ -1,0 +1,37 @@
+\doxysection{Класс Test\+Helper}
+\hypertarget{class_test_helper}{}\label{class_test_helper}\index{TestHelper@{TestHelper}}
+
+
+Вспомогательный класс для запуска численных экспериментов  
+
+
+
+
+{\ttfamily \#include $<$Test\+Helper.\+hpp$>$}
+
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_test_helper_af4a94bb053c497304ec8c4ede4776d1b}\label{class_test_helper_af4a94bb053c497304ec8c4ede4776d1b} 
+{\footnotesize template$<$typename T$>$ }\\static std\+::vector$<$ \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ $>$ {\bfseries Launch\+Sum} (\mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$ \&v, \mbox{\hyperlink{struct_test_params}{Test\+Params}} p)
+\item 
+\Hypertarget{class_test_helper_a6f4251dff7f579ef86afdefc08432831}\label{class_test_helper_a6f4251dff7f579ef86afdefc08432831} 
+{\footnotesize template$<$typename T$>$ }\\static std\+::vector$<$ \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ $>$ {\bfseries Launch\+Sum} (\mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$ \&v, unsigned Nthreads, \mbox{\hyperlink{struct_test_params}{Test\+Params}} p)
+\item 
+\Hypertarget{class_test_helper_a0326708d7612bcb6342df4d9a5e1247e}\label{class_test_helper_a0326708d7612bcb6342df4d9a5e1247e} 
+{\footnotesize template$<$typename T$>$ }\\static std\+::vector$<$ \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ $>$ {\bfseries Launch\+Sum\+Open\+MP} (\mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$ \&v, unsigned Nthreads, \mbox{\hyperlink{struct_test_params}{Test\+Params}} p)
+\item 
+\Hypertarget{class_test_helper_ae1c80503c6ec9947308f91e31cca5579}\label{class_test_helper_ae1c80503c6ec9947308f91e31cca5579} 
+{\footnotesize template$<$typename T$>$ }\\static std\+::vector$<$ \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ $>$ {\bfseries Launch\+Sum\+Cuda} (\mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$ \&v, unsigned Num\+Blocks, unsigned Nthreads, \mbox{\hyperlink{struct_test_params}{Test\+Params}} p)
+\item 
+\Hypertarget{class_test_helper_acfb0847c09744755b4778ab1da810c9d}\label{class_test_helper_acfb0847c09744755b4778ab1da810c9d} 
+{\footnotesize template$<$typename T$>$ }\\static std\+::vector$<$ \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ $>$ {\bfseries Launch\+Sum\+Cuda\+Multi\+Gpu} (std\+::vector$<$ \mbox{\hyperlink{struct_array_gpu_processing_params}{Array\+Gpu\+Processing\+Params}}$<$ T $>$ $>$ params, \mbox{\hyperlink{struct_test_params}{Test\+Params}} p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Вспомогательный класс для запуска численных экспериментов 
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/Test\+Helper.\+hpp\end{DoxyCompactItemize}

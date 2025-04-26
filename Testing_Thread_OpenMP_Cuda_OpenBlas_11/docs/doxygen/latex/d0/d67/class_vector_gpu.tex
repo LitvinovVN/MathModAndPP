@@ -1,0 +1,225 @@
+\doxysection{Шаблон класса Vector\+Gpu\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{class_vector_gpu}{}\label{class_vector_gpu}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+
+
+Вектор (в GPU)  
+
+
+
+
+{\ttfamily \#include $<$Vector\+Gpu.\+hpp$>$}
+
+Граф наследования\+:Vector\+Gpu\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d0/d67/class_vector_gpu}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_gpu_a5ab899accdfeba58e1f10409c4ea3251}\label{class_vector_gpu_a5ab899accdfeba58e1f10409c4ea3251} 
+{\bfseries Vector\+Gpu} (size\+\_\+t size)
+\item 
+\Hypertarget{class_vector_gpu_a63a31a3137de8a91f6e71ef9d05ceb35}\label{class_vector_gpu_a63a31a3137de8a91f6e71ef9d05ceb35} 
+{\bfseries Vector\+Gpu} (\mbox{\hyperlink{class_vector_ram}{Vector\+Ram}}$<$ T $>$ vec\+Ram)
+\item 
+\Hypertarget{class_vector_gpu_aa08508d04fccf42c3bf441eece7e21bb}\label{class_vector_gpu_aa08508d04fccf42c3bf441eece7e21bb} 
+bool {\bfseries Check\+State} ()
+\begin{DoxyCompactList}\small\item\em Проверяет состояние вектора \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_gpu_a2337cc736ec48413d442008f72108203}{Clear\+\_\+dev\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает сумму элементов вектора \end{DoxyCompactList}\item 
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_vector_gpu_a8efd4773d526b3b08cde6161d2516f05}{Get\+\_\+dev\+\_\+data\+\_\+pointer}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает указатель на данные в видеопамяти \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_vector_gpu_aba9e782fb3e63b4db7fe96029fa149f4}{Length}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает длину вектора (количество элементов) \end{DoxyCompactList}\item 
+\Hypertarget{class_vector_gpu_afc5fdcd4b765031891b60731dfd3984b}\label{class_vector_gpu_afc5fdcd4b765031891b60731dfd3984b} 
+void {\bfseries Init\+By\+Val} (double value) override
+\begin{DoxyCompactList}\small\item\em Инициализирует вектор числом \end{DoxyCompactList}\item 
+\Hypertarget{class_vector_gpu_aed0ffeb97aec30b637d97962e0a9db0f}\label{class_vector_gpu_aed0ffeb97aec30b637d97962e0a9db0f} 
+void {\bfseries Init\+Vector\+By\+Range} (double start, double end)
+\begin{DoxyCompactList}\small\item\em Инициализирует вектор числами из диапазона от start до end. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_gpu_aee5f1cc2e88d05e34e8c7a9e00fcb563}{Print}} () const override
+\item 
+void \mbox{\hyperlink{class_vector_gpu_aa5134afbfbe5e35b30605cd110e5af2c}{Print\+Data}} (unsigned long long ind\+Start, unsigned long long length) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль элементы вектора в заданном диапазоне \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_gpu_a1a021fbc72bd0df0bb664495d4f755c3}{Print\+Data}} () const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль все элементы вектора \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_vector_gpu_af4e332bdde93b1c0edf4b0473a5ed03e}{Get\+Value}} (unsigned long long index) const override
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vector_gpu_a802efdc9c9480e3dda878b97b4fb550d}{Set\+Value}} (unsigned long long index, T value) override
+\begin{DoxyCompactList}\small\item\em Устанавливает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_gpu_afd79b62b5053f84161d6850fcaa93590}{Clear\+Data}} () override
+\begin{DoxyCompactList}\small\item\em Очищает массивы данных и устанавливает размер вектора в 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Transpose} ()
+\begin{DoxyCompactList}\small\item\em Транспонирует вектор (вектор-\/столбец превращает в вектор-\/строку и наоборот) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30}{Init\+By\+Val}} (T val)=0
+\begin{DoxyCompactList}\small\item\em Инициализирует все элементы вектора указанным значением \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_gpu_abfe10fbcad639448c39132bde6ca5f78}\label{class_vector_gpu_abfe10fbcad639448c39132bde6ca5f78} 
+size\+\_\+t {\bfseries \+\_\+size} = 0
+\item 
+\Hypertarget{class_vector_gpu_aa86dfef11e17ebf82f7cb9eba1ff666a}\label{class_vector_gpu_aa86dfef11e17ebf82f7cb9eba1ff666a} 
+T \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+dev\+\_\+data} = nullptr
+\item 
+\Hypertarget{class_vector_gpu_a0476cfb2b1a0ca2e10ae3d00bc5dfc41}\label{class_vector_gpu_a0476cfb2b1a0ca2e10ae3d00bc5dfc41} 
+bool {\bfseries \+\_\+is\+Initialized} = false
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые атрибуты унаследованные от \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Vector\+Type {\bfseries vector\+Type} = Vector\+Type\+::\+Vector\+Row
+\begin{DoxyCompactList}\small\item\em Тип вектора \end{DoxyCompactList}\item 
+Data\+Location {\bfseries data\+Location} = Data\+Location\+::\+RAM
+\begin{DoxyCompactList}\small\item\em Место расположения данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename T$>$\newline
+class Vector\+Gpu$<$ T $>$}
+Вектор (в GPU) 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & Тип элементов вектора \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_vector_gpu_a2337cc736ec48413d442008f72108203}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!Clear\_dev\_data@{Clear\_dev\_data}}
+\index{Clear\_dev\_data@{Clear\_dev\_data}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Clear\_dev\_data()}{Clear\_dev\_data()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_a2337cc736ec48413d442008f72108203} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Clear\+\_\+dev\+\_\+data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает сумму элементов вектора 
+
+Освобождаем массив в видеопамяти \Hypertarget{class_vector_gpu_afd79b62b5053f84161d6850fcaa93590}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!ClearData@{ClearData}}
+\index{ClearData@{ClearData}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ClearData()}{ClearData()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_afd79b62b5053f84161d6850fcaa93590} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Clear\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Очищает массивы данных и устанавливает размер вектора в 0. 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_gpu_a8efd4773d526b3b08cde6161d2516f05}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!Get\_dev\_data\_pointer@{Get\_dev\_data\_pointer}}
+\index{Get\_dev\_data\_pointer@{Get\_dev\_data\_pointer}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Get\_dev\_data\_pointer()}{Get\_dev\_data\_pointer()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_a8efd4773d526b3b08cde6161d2516f05} 
+template$<$typename T$>$ \\
+T \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Get\+\_\+dev\+\_\+data\+\_\+pointer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает указатель на данные в видеопамяти 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_vector_gpu_af4e332bdde93b1c0edf4b0473a5ed03e}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_af4e332bdde93b1c0edf4b0473a5ed03e} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_gpu_aba9e782fb3e63b4db7fe96029fa149f4}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!Length@{Length}}
+\index{Length@{Length}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Length()}{Length()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_aba9e782fb3e63b4db7fe96029fa149f4} 
+template$<$typename T$>$ \\
+size\+\_\+t \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Length (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает длину вектора (количество элементов) 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_gpu_aee5f1cc2e88d05e34e8c7a9e00fcb563}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!Print@{Print}}
+\index{Print@{Print}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_aee5f1cc2e88d05e34e8c7a9e00fcb563} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_gpu_a1a021fbc72bd0df0bb664495d4f755c3}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_vector_gpu_a1a021fbc72bd0df0bb664495d4f755c3} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль все элементы вектора 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a77101d3dc13514d6675335170a45ac65}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_gpu_aa5134afbfbe5e35b30605cd110e5af2c}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_vector_gpu_aa5134afbfbe5e35b30605cd110e5af2c} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}\item[{unsigned long long}]{ind\+Start}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль элементы вектора в заданном диапазоне 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_gpu_a802efdc9c9480e3dda878b97b4fb550d}\index{VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!VectorGpu$<$ T $>$@{VectorGpu$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily \label{class_vector_gpu_a802efdc9c9480e3dda878b97b4fb550d} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_vector_gpu}{Vector\+Gpu}}$<$ T $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Устанавливает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{IVector$<$ T $>$}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Vectors/Vector\+Gpu.\+hpp\end{DoxyCompactItemize}

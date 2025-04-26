@@ -1,0 +1,114 @@
+\doxysection{Calculation\+Statistics.\+hpp}
+\hypertarget{_calculation_statistics_8hpp_source}{}\label{_calculation_statistics_8hpp_source}\index{HCSLib/PerformanceTests/CalculationStatistics.hpp@{HCSLib/PerformanceTests/CalculationStatistics.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/FuncResult.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{struct\ }CalculationStatistics}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Количество\ запусков\ численного\ эксперимента}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ numIter\ =\ 0;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ Минимальное\ значение}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ minValue\ =\ 0;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ Среднее\ арифметическое}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{double}\ avg\ =\ 0;}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{comment}{//\ Медиана}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ median\ =\ 0;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ 95\ процентиль}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ percentile\_95\ =\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Максимальное\ значение}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ maxValue\ =\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//\ Среднеквадратическое\ отклонение}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{double}\ stdDev\ =\ 0;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ CalculationStatistics()}
+\DoxyCodeLine{00026\ \ \ \ \ \{\}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00029\ \ \ \ \ CalculationStatistics(std::vector<\mbox{\hyperlink{struct_func_result}{FuncResult<T>}}>\ results)}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ resultsSize\ =\ results.size();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (resultsSize\ ==\ 0)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}results\ size\ is\ 0"{}});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверяем\ корректность\ результатов\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i\ =\ 1;\ i\ <\ resultsSize;\ i++)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(results[i].status\ ==\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}results[i].Status\ =\ 0"{}});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ fabs((results[i].result\ -\/\ results[0].result)\ /\ (\textcolor{keywordtype}{double})results[0].result)\ >\ 0.0001\ )}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}fabs((results[i].result\ -\/\ results[0].result)\ /\ results[0].Result)\ >\ 0.0001"{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{comment}{//print(std::string("{}-\/-\/-\/Before\ sort-\/-\/-\/"{}),\ results);}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Сортируем\ results}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::sort(results.begin(),\ results.end(),\ FuncResult<T>::compare);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//print(std::string("{}-\/-\/-\/After\ sort-\/-\/-\/"{}),\ results);\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ minValue\ =\ results[0].time;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ maxValue\ =\ results[resultsSize\ -\/\ 1].time;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(resultsSize\ \%\ 2\ ==\ 0)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ median\ =\ (results[resultsSize\ /\ 2\ -\/\ 1].time\ +\ results[resultsSize\ /\ 2].time)/2;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ median\ =\ results[resultsSize\ /\ 2].time;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Вычисляем\ среднее\ арифметическое}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sum\ =\ 0;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ item\ :\ results)}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ sum\ +=\ item.time;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ avg\ =\ sum\ /\ resultsSize;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Вычисляем\ стандартное\ отклонение}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sumSq\ =\ 0;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ item\ :\ results)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ sumSq\ +=\ pow(item.time\ -\/\ avg,\ 2);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ stdDev\ =\ sqrt(sumSq\ /\ resultsSize);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Вычисляем\ 95\ перцентиль}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ rang95\ =\ 0.95*(resultsSize-\/1)\ +\ 1;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ rang95okrVniz\ =\ (unsigned)floor(rang95);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ percentile\_95\ =\ results[rang95okrVniz-\/1].time\ +\ (rang95-\/rang95okrVniz)*(results[rang95okrVniz].time\ -\/\ results[rang95okrVniz-\/1].time);\textcolor{comment}{//\ Доделать}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Print();}}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ std::cout\ \ \ <<\ \textcolor{stringliteral}{"{}numIter:\ "{}}\ <<\ numIter\ \ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}minValue:\ "{}}\ <<\ minValue\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}median:\ "{}}\ <<\ median\ \ \ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}avg:\ "{}}\ <<\ avg\ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}percentile\_95:\ "{}}\ <<\ percentile\_95\ \ \ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}maxValue:\ "{}}\ <<\ maxValue\ <<\ \textcolor{stringliteral}{"{};\ "{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}stdDev:\ "{}}\ <<\ stdDev\ \ \ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keyword}{friend}\ std::ofstream\&\ operator<<(std::ofstream\&\ fout,\ \textcolor{keyword}{const}\ CalculationStatistics\&\ data)}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ fout\ <<\ data.numIter\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.minValue\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.median\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.avg\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.percentile\_95\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.maxValue\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.stdDev\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fout;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+
+\end{DoxyCode}

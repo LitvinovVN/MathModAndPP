@@ -1,0 +1,87 @@
+\doxysection{Cublas\+Helper.\+hpp}
+\hypertarget{_cublas_helper_8hpp_source}{}\label{_cublas_helper_8hpp_source}\index{HCSLib/Cuda/CublasHelper.hpp@{HCSLib/Cuda/CublasHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#ifndef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\{\};}
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcublas_status__t}{cublasStatus\_t}}\{\};}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_cublas_helper}{CublasHelper}}}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CheckCublasStatus(\mbox{\hyperlink{structcublas_status__t}{cublasStatus\_t}}\ cublasStat,\ std::string\ msg\ =\ \textcolor{stringliteral}{"{}CUBLAS\ error"{}})}
+\DoxyCodeLine{00012\ \ \ \ \ \{}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cublasStat\ !=\ CUBLAS\_STATUS\_SUCCESS)}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ msg;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CublasHelper::CublasDestroy():\ CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\ \mbox{\hyperlink{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512}{CublasCreate}}()}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\ cublasH\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcublas_status__t}{cublasStatus\_t}}\ cublasStat\ =\ cublasCreate(\&cublasH);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ CublasHelper::CheckCublasStatus(cublasStat,\ \textcolor{stringliteral}{"{}CUBLAS\ initialization\ failed\(\backslash\)n"{}});}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cublasH;}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::string\ msg\{\textcolor{stringliteral}{"{}CublasHelper::CublasCreate():\ CUDA\ is\ not\ supported!"{}}\};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::cout\ <<\ msg\ <<\ std::endl;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\ \mbox{\hyperlink{struct_cublas_helper_a0e31d6c26589aabf53263feb5f3b28a6}{CublasCreate}}(\textcolor{keywordtype}{int}\ deviceId)}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\ cublasH\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structcublas_status__t}{cublasStatus\_t}}\ cublasStat;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ cublasH\ =\ \mbox{\hyperlink{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512}{CublasCreate}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cublasH;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cublasStat\ =\ cublasCreate(\&cublasH);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ CublasHelper::CheckCublasStatus(cublasStat,\ \textcolor{stringliteral}{"{}CUBLAS\ initialization\ failed\(\backslash\)n"{}});}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cublasH;}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::string\ msg\{\textcolor{stringliteral}{"{}CublasHelper::CublasCreate(int\ deviceId):\ CUDA\ is\ not\ supported!"{}}\};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ std::cout\ <<\ msg\ <<\ std::endl;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784}{CublasDestroy}}(\mbox{\hyperlink{structcublas_handle__t}{cublasHandle\_t}}\ cublasH)}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ cublasDestroy(cublasH);}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CublasHelper::CublasDestroy():\ CUDA\ is\ not\ supported!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_cublas_helper_aaecbc32ec44e97cccbe48cf5f181654a}{CublasDestroy}}(std::vector<cublasHandle\_t>\ cublasHandles)}
+\DoxyCodeLine{00084\ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ cublasHandles.size();\ i++)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784}{CublasDestroy}}(cublasHandles[i]);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \};}
+
+\end{DoxyCode}

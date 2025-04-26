@@ -1,0 +1,62 @@
+\doxysection{Binary\+Expression.\+hpp}
+\hypertarget{_binary_expression_8hpp_source}{}\label{_binary_expression_8hpp_source}\index{HCSLib/Math/BinaryExpression.hpp@{HCSLib/Math/BinaryExpression.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Expression.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ E1,\ \textcolor{keyword}{class}\ OP,\ \textcolor{keyword}{class}\ E2>}
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }BinaryExpression\ :}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{struct_expression}{Expression}}<BinaryExpression<E1,\ OP,\ E2>\ >}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ BinaryExpression(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_expression}{Expression<E1>}}\ \&expr1,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ OP\ \&op,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_expression}{Expression<E2>}}\ \&expr2)}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ :\ expr1(expr1.Self()),}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ op(op),}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ expr2(expr2.Self())}
+\DoxyCodeLine{00019\ \ \ \ \ \{\}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ operator()(\textcolor{keywordtype}{double}\ x)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ op(expr1(x),\ expr2(x));}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{const}\ E1\ expr1;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{const}\ OP\ op;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{const}\ E2\ expr2;}
+\DoxyCodeLine{00029\ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ DEFINE\_BIN\_OP(oper,\ OP)\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{template<class\ E1,\ class\ E2>\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{BinaryExpression<E1,\ std::OP<double>,\ E2>\ operator\ oper\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ (const\ Expression<E1>\ \&expr1,\ const\ Expression<E2>\ \&expr2)\ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ BinaryExpression<E1,\ std::OP<double>,\ E2>\ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ (expr1,\ std::OP<double>(),\ expr2);\ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\}\ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{template<class\ E>\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{BinaryExpression<E,\ std::OP<double>,\ Constant>\ operator\ oper\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ (const\ Expression<E>\ \&expr,\ double\ value)\ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ return\ BinaryExpression<E,\ std::OP<double>,\ Constant>\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ (expr,\ std::OP<double>(),\ Constant(value));\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\}\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{template<class\ E>\ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{BinaryExpression<Constant,\ std::OP<double>,\ E>\ operator\ oper\ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ (double\ value,\ const\ Expression<E>\ \&expr)\(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ return\ BinaryExpression<Constant,\ std::OP<double>,\ E>\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ (Constant(value),\ std::OP<double>(),\ expr);\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ DEFINE\_BIN\_OP(+,\ plus)}
+\DoxyCodeLine{00058\ DEFINE\_BIN\_OP(-\/,\ minus)}
+\DoxyCodeLine{00059\ DEFINE\_BIN\_OP(*,\ multiplies)}
+\DoxyCodeLine{00060\ DEFINE\_BIN\_OP(/,\ divides)}
+
+\end{DoxyCode}

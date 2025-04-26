@@ -1,0 +1,184 @@
+\doxysection{Шаблон класса IVector\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{class_i_vector}{}\label{class_i_vector}\index{IVector$<$ T $>$@{IVector$<$ T $>$}}
+
+
+Абстрактный класс, моделирующий вектор в N-\/мерном пространстве  
+
+
+
+
+{\ttfamily \#include $<$IVector.\+hpp$>$}
+
+Граф наследования\+:IVector\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d3/dfb/class_i_vector}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_i_vector_a8cd6244939d676bd609905e77b3147dd}\label{class_i_vector_a8cd6244939d676bd609905e77b3147dd} 
+void {\bfseries Transpose} ()
+\begin{DoxyCompactList}\small\item\em Транспонирует вектор (вектор-\/столбец превращает в вектор-\/строку и наоборот) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30}{Init\+By\+Val}} (T val)=0
+\begin{DoxyCompactList}\small\item\em Инициализирует все элементы вектора указанным значением \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_vector_a3fd012e6cdc71d616e23065b0404045c}{Print}} () const =0
+\item 
+virtual void \mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{Print\+Data}} (unsigned long long ind\+Start, unsigned long long length) const =0
+\begin{DoxyCompactList}\small\item\em Выводит в консоль элементы вектора в заданном диапазоне \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_vector_a77101d3dc13514d6675335170a45ac65}{Print\+Data}} () const =0
+\begin{DoxyCompactList}\small\item\em Выводит в консоль все элементы вектора \end{DoxyCompactList}\item 
+virtual size\+\_\+t \mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}} () const =0
+\begin{DoxyCompactList}\small\item\em Возвращает длину вектора (количество элементов) \end{DoxyCompactList}\item 
+virtual T \mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{Get\+Value}} (unsigned long long index) const =0
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{Set\+Value}} (unsigned long long index, T value)=0
+\begin{DoxyCompactList}\small\item\em Устанавливает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}{Clear\+Data}} ()=0
+\begin{DoxyCompactList}\small\item\em Очищает массивы данных и устанавливает размер вектора в 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_i_vector_a9aa3c065f2a78e5f416806c38fe0aaaf}\label{class_i_vector_a9aa3c065f2a78e5f416806c38fe0aaaf} 
+Vector\+Type {\bfseries vector\+Type} = Vector\+Type\+::\+Vector\+Row
+\begin{DoxyCompactList}\small\item\em Тип вектора \end{DoxyCompactList}\item 
+\Hypertarget{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}\label{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa} 
+Data\+Location {\bfseries data\+Location} = Data\+Location\+::\+RAM
+\begin{DoxyCompactList}\small\item\em Место расположения данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename T$>$\newline
+class IVector$<$ T $>$}
+Абстрактный класс, моделирующий вектор в N-\/мерном пространстве 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!ClearData@{ClearData}}
+\index{ClearData@{ClearData}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ClearData()}{ClearData()}}
+{\footnotesize\ttfamily \label{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Clear\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Очищает массивы данных и устанавливает размер вектора в 0. 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_gpu_afd79b62b5053f84161d6850fcaa93590}{Vector\+Gpu$<$ T $>$}}, \mbox{\hyperlink{class_vector_ram_a49004cd951e2c4bf5f06be969527ea2f}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_a348ff2fc45c027357bf590e003c9586b}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily \label{class_i_vector_a31e114704a23426ed1be234bed5a2c3c} 
+template$<$typename T$>$ \\
+virtual T \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Возвращает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_gpu_af4e332bdde93b1c0edf4b0473a5ed03e}{Vector\+Gpu$<$ T $>$}}, \mbox{\hyperlink{class_vector_ram_adf08bc1aeb748d9f34bcb431c9d26465}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_ab59a63896022801583b474c4314df891}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!InitByVal@{InitByVal}}
+\index{InitByVal@{InitByVal}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{InitByVal()}{InitByVal()}}
+{\footnotesize\ttfamily \label{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Init\+By\+Val (\begin{DoxyParamCaption}\item[{T}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Инициализирует все элементы вектора указанным значением 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_ram_afc1682cc0c35a4ff6c6811da5193b626}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_a5d09e0cbc12cccf580ca15395495ce83}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!Length@{Length}}
+\index{Length@{Length}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Length()}{Length()}}
+{\footnotesize\ttfamily \label{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002} 
+template$<$typename T$>$ \\
+virtual size\+\_\+t \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Length (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Возвращает длину вектора (количество элементов) 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_gpu_aba9e782fb3e63b4db7fe96029fa149f4}{Vector\+Gpu$<$ T $>$}}, \mbox{\hyperlink{class_vector_ram_a687f3a88f0693848fd843878270359e9}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_a1bfb82ed55f7f2b2b725415bc9ad270d}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_a3fd012e6cdc71d616e23065b0404045c}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!Print@{Print}}
+\index{Print@{Print}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_i_vector_a3fd012e6cdc71d616e23065b0404045c} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_ram_a9af343253fce26bfabaed6ed5e7a1946}{Vector\+Ram$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_a77101d3dc13514d6675335170a45ac65}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_i_vector_a77101d3dc13514d6675335170a45ac65} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Выводит в консоль все элементы вектора 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_gpu_a1a021fbc72bd0df0bb664495d4f755c3}{Vector\+Gpu$<$ T $>$}}, \mbox{\hyperlink{class_vector_ram_a0defa68f47ac3d92c9f87f4f1e3358c3}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_a7d90be7af35bf7539f33a7dc83b3922c}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_a35807044449b2799d85192e038b10e07}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_i_vector_a35807044449b2799d85192e038b10e07} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}\item[{unsigned long long}]{ind\+Start}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Выводит в консоль элементы вектора в заданном диапазоне 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_gpu_aa5134afbfbe5e35b30605cd110e5af2c}{Vector\+Gpu$<$ T $>$}}, \mbox{\hyperlink{class_vector_ram_af546bba8a4faf86962f43a338ad0a865}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+\Hypertarget{class_i_vector_aba2753ee31469e363142dea813a06060}\index{IVector$<$ T $>$@{IVector$<$ T $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!IVector$<$ T $>$@{IVector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily \label{class_i_vector_aba2753ee31469e363142dea813a06060} 
+template$<$typename T$>$ \\
+virtual bool \mbox{\hyperlink{class_i_vector}{IVector}}$<$ T $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Устанавливает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещается в \mbox{\hyperlink{class_vector_gpu_a802efdc9c9480e3dda878b97b4fb550d}{Vector\+Gpu$<$ T $>$}}, \mbox{\hyperlink{class_vector_ram_a01a33943ec76ae785598967dccb8de74}{Vector\+Ram$<$ T $>$}} и \mbox{\hyperlink{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321}{Vector\+Ram\+Gpus$<$ T $>$}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Vectors/IVector.\+hpp\end{DoxyCompactItemize}

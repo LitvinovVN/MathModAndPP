@@ -1,0 +1,37 @@
+\doxysection{Measurement\+Unit\+Enum.\+hpp}
+\hypertarget{_measurement_unit_enum_8hpp_source}{}\label{_measurement_unit_enum_8hpp_source}\index{HCSLib/CommonHelpers/MeasurementUnitEnum.hpp@{HCSLib/CommonHelpers/MeasurementUnitEnum.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{enum\ class}\ MeasurementUnitEnum}
+\DoxyCodeLine{00007\ \{\ \ \ }
+\DoxyCodeLine{00008\ \ \ \ \ Meter\ =\ 1,\ \textcolor{comment}{//\ Метры\ }}
+\DoxyCodeLine{00009\ \ \ \ \ Pascal\ =\ 2,\ \textcolor{comment}{//\ Паскали}}
+\DoxyCodeLine{00010\ \ \ \ \ Gramm\ =\ 3\ \ \textcolor{comment}{//\ Граммы}}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ std::ostream\&\ operator<<(std::ostream\&\ os,\ MeasurementUnitEnum\ mu)}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{switch}\ (mu)}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{case}\ MeasurementUnitEnum::Meter:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}m."{}};}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{case}\ MeasurementUnitEnum::Pascal:}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Pa."{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{case}\ MeasurementUnitEnum::Gramm:}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}g."{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00032\ \}}
+
+\end{DoxyCode}

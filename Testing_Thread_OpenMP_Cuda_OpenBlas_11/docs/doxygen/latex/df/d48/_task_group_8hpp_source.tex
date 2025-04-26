@@ -1,0 +1,56 @@
+\doxysection{Task\+Group.\+hpp}
+\hypertarget{_task_group_8hpp_source}{}\label{_task_group_8hpp_source}\index{HCSLib/Tasks/TaskGroup.hpp@{HCSLib/Tasks/TaskGroup.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{enum\ class}\ TaskGroup}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ None,}
+\DoxyCodeLine{00008\ \ \ \ \ Array,\textcolor{comment}{//\ Массив\ вида\ T*\ array}}
+\DoxyCodeLine{00009\ \ \ \ \ Vector,}
+\DoxyCodeLine{00010\ \ \ \ \ VecVec,}
+\DoxyCodeLine{00011\ \ \ \ \ Matrix,}
+\DoxyCodeLine{00012\ \ \ \ \ MatVec,}
+\DoxyCodeLine{00013\ \ \ \ \ VecMat,}
+\DoxyCodeLine{00014\ \ \ \ \ MatMat}
+\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ std::ostream\&\ operator<<(std::ostream\&\ os,\ TaskGroup\ tg)}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{switch}\ (tg)}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::None:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}None"{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::Array:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Array"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::Vector:}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Vector"{}};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::VecVec:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}VecVec"{}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::Matrix:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}Matrix"{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::MatVec:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatVec"{}};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::VecMat:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}VecMat"{}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{case}\ TaskGroup::MatMat:}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}MatMat"{}};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00045\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00051\ \}}
+
+\end{DoxyCode}

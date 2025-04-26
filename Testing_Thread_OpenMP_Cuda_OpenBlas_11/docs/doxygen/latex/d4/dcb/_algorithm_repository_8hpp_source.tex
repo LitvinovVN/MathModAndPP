@@ -1,0 +1,94 @@
+\doxysection{Algorithm\+Repository.\+hpp}
+\hypertarget{_algorithm_repository_8hpp_source}{}\label{_algorithm_repository_8hpp_source}\index{HCSLib/Algorithms/AlgorithmRepository.hpp@{HCSLib/Algorithms/AlgorithmRepository.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Algorithm.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }AlgorithmRepository}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ std::map<unsigned,\ Algorithm>\ data;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ Init();}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ AlgorithmRepository()}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ Init();}
+\DoxyCodeLine{00020\ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}void\ AlgorithmRepository::Print();\(\backslash\)n"{}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ element\ :\ data)}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ element.second.Print(pp);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pp.isEndl)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_algorithm_repository_ac1d953349a409d6776d3921cadcf3358}{IsExists}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data.count(\textcolor{keywordtype}{id})\ >\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{struct_algorithm}{Algorithm}}\ \mbox{\hyperlink{class_algorithm_repository_ac4103cbaf4bcae72b635d58d571c53d7}{Get}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[id];}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_algorithm_repository_a13ccfa39691eab5764e2649c439b0f62}{Get}}()}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id}\ =\ ConsoleHelper::GetUnsignedIntFromUser(\textcolor{stringliteral}{"{}Enter\ algorithm\ id:\ "{}});}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_algorithm}{Algorithm}}\ alg\ =\ \mbox{\hyperlink{class_algorithm_repository_a13ccfa39691eab5764e2649c439b0f62}{Get}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(alg.id\ ==\ \textcolor{keywordtype}{id}\ \&\&\ alg.id\ !=\ 0)}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ alg.Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\{\});}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Algorithm\ not\ found!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_algorithm_repository_a57f23bea8bb8df311600575379f575f8}{Add}}(\mbox{\hyperlink{struct_algorithm}{Algorithm}}\ alg)}
+\DoxyCodeLine{00065\ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (alg.id\ ==\ 0\ ||\ \mbox{\hyperlink{class_algorithm_repository_ac1d953349a409d6776d3921cadcf3358}{IsExists}}(alg.id))}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ data[alg.id]\ =\ alg;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{void}\ AlgorithmRepository::Init()}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ Algorithm\ alg1;}
+\DoxyCodeLine{00080\ \ \ \ \ alg1.id\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{00081\ \ \ \ \ alg1.taskGroup\ \ \ \ \ \ \ \ \ \ =\ TaskGroup::Array;}
+\DoxyCodeLine{00082\ \ \ \ \ alg1.task\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ Task::Sum;}
+\DoxyCodeLine{00083\ \ \ \ \ alg1.taskDimensions\ \ \ \ \ =\ TaskDimensions\{1\};}
+\DoxyCodeLine{00084\ \ \ \ \ alg1.dataTypeLength\ \ \ \ \ =\ \textcolor{keyword}{sizeof}(float);}
+\DoxyCodeLine{00085\ \ \ \ \ alg1.algorithmType\ \ \ \ \ \ =\ AlgorithmType::SeqCpu;}
+\DoxyCodeLine{00086\ \ \ \ \ alg1.dataLocationInput\ \ =\ AlgorithmDataLocation::Ram;}
+\DoxyCodeLine{00087\ \ \ \ \ alg1.dataLocationOutput\ =\ AlgorithmDataLocation::Ram;}
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{class_algorithm_repository_a57f23bea8bb8df311600575379f575f8}{Add}}(alg1);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ Algorithm\ alg2;}
+\DoxyCodeLine{00091\ \ \ \ \ alg2.id\ =\ 2;}
+\DoxyCodeLine{00092\ \ \ \ \ alg2.taskGroup\ \ \ \ \ \ \ \ \ \ =\ TaskGroup::Array;}
+\DoxyCodeLine{00093\ \ \ \ \ alg2.task\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ Task::Sum;}
+\DoxyCodeLine{00094\ \ \ \ \ alg2.taskDimensions\ \ \ \ \ =\ TaskDimensions\{1\};}
+\DoxyCodeLine{00095\ \ \ \ \ alg2.dataTypeLength\ \ \ \ \ =\ \textcolor{keyword}{sizeof}(double);}
+\DoxyCodeLine{00096\ \ \ \ \ alg2.algorithmType\ \ \ \ \ \ =\ AlgorithmType::SeqCpu;}
+\DoxyCodeLine{00097\ \ \ \ \ alg2.dataLocationInput\ \ =\ AlgorithmDataLocation::Ram;}
+\DoxyCodeLine{00098\ \ \ \ \ alg2.dataLocationOutput\ =\ AlgorithmDataLocation::Ram;}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{class_algorithm_repository_a57f23bea8bb8df311600575379f575f8}{Add}}(alg2);}
+\DoxyCodeLine{00100\ \}}
+
+\end{DoxyCode}

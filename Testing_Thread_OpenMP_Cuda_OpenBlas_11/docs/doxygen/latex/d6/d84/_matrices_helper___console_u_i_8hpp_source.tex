@@ -1,0 +1,84 @@
+\doxysection{Matrices\+Helper\+\_\+\+Console\+UI.\+hpp}
+\hypertarget{_matrices_helper___console_u_i_8hpp_source}{}\label{_matrices_helper___console_u_i_8hpp_source}\index{HCSLib/Matrices/MatricesHelper\_ConsoleUI.hpp@{HCSLib/Matrices/MatricesHelper\_ConsoleUI.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}MatricesHelper.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_matrices_helper___console_u_i}{MatricesHelper\_ConsoleUI}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_matrices_helper___console_u_i_ae9052e827c376a7084acd232eb66a3fb}{MatrixRamZeroTesting}}()}
+\DoxyCodeLine{00011\ \ \ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/\ void\ MatrixRamZeroTesting()\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_ram_zero}{MatrixRamZero}}\ z\{4,\ 6\};}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ z.\mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}}();}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_ram_zero}{MatrixRamZero}}*\ z\_ptr\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_matrix_ram_zero}{MatrixRamZero}}\{3,\ 5\};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ z\_ptr-\/>\mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}}();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_ram}{MatrixRam}}*\ mrz\_ptr\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_matrix_ram_zero}{MatrixRamZero}}\{2,\ 4\};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ mrz\_ptr-\/>\mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}}();}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_matrix}{IMatrix}}*\ iz\_ptr\ =\ (\mbox{\hyperlink{class_i_matrix}{IMatrix}}*)z\_ptr;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ iz\_ptr-\/>\mbox{\hyperlink{class_i_matrix_ae3696895ee9f789f28870bb7df4ec7e1}{Print}}();}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_matrices_helper___console_u_i_a129a793cfa8d942174997560ed91b6e5}{MatrixRamETesting}}()}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/\ void\ MatrixRamETesting()\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_ram_e}{MatrixRamE}}\ z\{4,\ 6\};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ z.\mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}}();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}z(0,0)\ =\ "{}}\ <<\ z(0,0)\ <<std::endl;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}z(0,1)\ =\ "{}}\ <<\ z(0,1)\ <<std::endl;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}z(1,0)\ =\ "{}}\ <<\ z(1,0)\ <<std::endl;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}z(1,1)\ =\ "{}}\ <<\ z(1,1)\ <<std::endl;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_ram_e}{MatrixRamE}}*\ z\_ptr\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_matrix_ram_e}{MatrixRamE}}\{3,\ 5\};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ z\_ptr-\/>\mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}}();}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_ram}{MatrixRam}}*\ mrz\_ptr\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_matrix_ram_e}{MatrixRamE}}\{2,\ 4\};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ mrz\_ptr-\/>\mbox{\hyperlink{class_matrix_ram_aa03cab78b07163b29620af740fcc0289}{Print}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_matrix}{IMatrix}}*\ iz\_ptr\ =\ (\mbox{\hyperlink{class_i_matrix}{IMatrix}}*)z\_ptr;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ iz\_ptr-\/>\mbox{\hyperlink{class_i_matrix_ae3696895ee9f789f28870bb7df4ec7e1}{Print}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_matrices_helper___console_u_i_a5ad12ed83de42b49da86b265ee4719cd}{MatrixBlockRamGpus\_ConsoleUI}}()}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}MatricesHelper\_ConsoleUI::MatrixBlockRamGpus\_ConsoleUI()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ mb\ =\ 4;\ \textcolor{comment}{//ConsoleHelper::GetUnsignedIntFromUser("{}Enter\ number\ of\ blocks\ by\ row,\ mb:\ "{});}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ nb\ =\ 4;\ \textcolor{comment}{//ConsoleHelper::GetUnsignedIntFromUser("{}Enter\ number\ of\ blocks\ by\ column,\ mb:\ "{});}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ block\_size\ =\ 5;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Создаём\ нулевую\ блочную\ матрицу\ нужной\ размерности}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_matrix_block_ram_gpus}{MatrixBlockRamGpus}}\ matrix(mb,\ nb,\ block\_size);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a01e56295df993b4d58df9260b3178360}{Print}}();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}matrix.AddE(1,2);"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a0bc152c503ebf2e03be09b1c61fa575f}{AddE}}(1,2);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a01e56295df993b4d58df9260b3178360}{Print}}();}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}matrix.AddE(1,1);"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a0bc152c503ebf2e03be09b1c61fa575f}{AddE}}(1,1);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a01e56295df993b4d58df9260b3178360}{Print}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}matrix.AddE(1,3);"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a0bc152c503ebf2e03be09b1c61fa575f}{AddE}}(1,3);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a01e56295df993b4d58df9260b3178360}{Print}}();}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ matrix.\mbox{\hyperlink{class_matrix_block_ram_gpus_a157f5190580e7ad462ec6de0bf3e275c}{PrintMatrix}}();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+
+\end{DoxyCode}

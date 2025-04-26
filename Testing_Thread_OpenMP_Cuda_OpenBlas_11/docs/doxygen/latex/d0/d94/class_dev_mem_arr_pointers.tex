@@ -1,0 +1,181 @@
+\doxysection{Шаблон класса Dev\+Mem\+Arr\+Pointers\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{class_dev_mem_arr_pointers}{}\label{class_dev_mem_arr_pointers}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_dev_mem_arr_pointers_a92d8c49a33c7ce19f14e00856aa07e42}\label{class_dev_mem_arr_pointers_a92d8c49a33c7ce19f14e00856aa07e42} 
+void {\bfseries Init\+By\+Val} (T value)
+\item 
+\Hypertarget{class_dev_mem_arr_pointers_a590b1d24eecd80a49fa9a6e2b062f649}\label{class_dev_mem_arr_pointers_a590b1d24eecd80a49fa9a6e2b062f649} 
+void {\bfseries Print} () const
+\item 
+\Hypertarget{class_dev_mem_arr_pointers_aefb008d513b609222c63a603254a7480}\label{class_dev_mem_arr_pointers_aefb008d513b609222c63a603254a7480} 
+size\+\_\+t {\bfseries Get\+Size} () const
+\item 
+auto \mbox{\hyperlink{class_dev_mem_arr_pointers_ae1ef05db9c935f973029310d00ab6607}{Get\+Data\+Pointers\+Num}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает количество выделенных блоков памяти \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$ \mbox{\hyperlink{class_dev_mem_arr_pointers_ab7f6f9aadc8209f37065c8268200ecd4}{Alloc\+Mem}} (unsigned id, Data\+Location data\+Location, unsigned long long length)
+\begin{DoxyCompactList}\small\item\em Выделяет непрерывный блок памяти \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_dev_mem_arr_pointers_af0096fa58863c6d2b2ba0576bfc03f72}{Add\+Block}} (Data\+Location data\+Location, unsigned long long length)
+\begin{DoxyCompactList}\small\item\em Добавляет непрерывный блок данных \end{DoxyCompactList}\item 
+\Hypertarget{class_dev_mem_arr_pointers_ac0575c28a10c1a56be320d7d76892e0c}\label{class_dev_mem_arr_pointers_ac0575c28a10c1a56be320d7d76892e0c} 
+void {\bfseries Clear} (\mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$ \&dev\+Mem\+Arr\+Pointer)
+\begin{DoxyCompactList}\small\item\em Освобождает зарезервированную память \end{DoxyCompactList}\item 
+\Hypertarget{class_dev_mem_arr_pointers_a43ccff3617fe50cc313f08993b6d16f5}\label{class_dev_mem_arr_pointers_a43ccff3617fe50cc313f08993b6d16f5} 
+void {\bfseries Clear} ()
+\begin{DoxyCompactList}\small\item\em Освобождает всю зарезервированную память \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_arrays_index_map}{Arrays\+Index\+Map}} \mbox{\hyperlink{class_dev_mem_arr_pointers_ac67b466e132aad23f34dfc2d277d62a3}{Get\+Arrays\+Index\+Map}} () const
+\begin{DoxyCompactList}\small\item\em Строит карту индексов \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_dev_mem_arr_pointers_a35fca260180780b26e408700b5079f7f}{Get\+Value}} (unsigned long long global\+Index) const
+\begin{DoxyCompactList}\small\item\em Возвращает значение по глобальному индексу \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_dev_mem_arr_pointers_a54c1514a1a3324f05f16af7b290da1b5}{Get\+Value}} (unsigned block\+Index, unsigned long long local\+Index) const
+\begin{DoxyCompactList}\small\item\em Возвращает значение по индексу блока и локальному индексу \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_dev_mem_arr_pointers_aea94080d5c89f5630391c27e9efbb43d}{Set\+Value}} (unsigned long long global\+Index, T value)
+\begin{DoxyCompactList}\small\item\em Устанавливает значение по глобальному индексу \end{DoxyCompactList}\item 
+\Hypertarget{class_dev_mem_arr_pointers_a6e4290ca237d87b8f12b3bfd190fee5d}\label{class_dev_mem_arr_pointers_a6e4290ca237d87b8f12b3bfd190fee5d} 
+bool {\bfseries Set\+Value} (unsigned block\+Index, unsigned long long local\+Index, T value)
+\item 
+\Hypertarget{class_dev_mem_arr_pointers_a3a34f6d0207d91fdfda2fe4bcce5d288}\label{class_dev_mem_arr_pointers_a3a34f6d0207d91fdfda2fe4bcce5d288} 
+{\footnotesize template$<$typename S$>$ }\\void {\bfseries Multiply} (S scalar, bool is\+Parallel=false)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_dev_mem_arr_pointers_af0096fa58863c6d2b2ba0576bfc03f72}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!AddBlock@{AddBlock}}
+\index{AddBlock@{AddBlock}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AddBlock()}{AddBlock()}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_af0096fa58863c6d2b2ba0576bfc03f72} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Add\+Block (\begin{DoxyParamCaption}\item[{Data\+Location}]{data\+Location}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Добавляет непрерывный блок данных 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em data\+Location} & Место расположения блока данных \\
+\hline
+{\em length} & Количество элементов в блоке \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+bool -\/ Результат выполнения операции (true -\/ успех) 
+\end{DoxyReturn}
+\Hypertarget{class_dev_mem_arr_pointers_ab7f6f9aadc8209f37065c8268200ecd4}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!AllocMem@{AllocMem}}
+\index{AllocMem@{AllocMem}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AllocMem()}{AllocMem()}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_ab7f6f9aadc8209f37065c8268200ecd4} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer}}$<$ T $>$ \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Alloc\+Mem (\begin{DoxyParamCaption}\item[{unsigned}]{id}{, }\item[{Data\+Location}]{data\+Location}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Выделяет непрерывный блок памяти 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em id} & Идентификатор блока \\
+\hline
+{\em data\+Location} & Место расположения блока данных \\
+\hline
+{\em length} & Количество элементов в блоке \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+\doxylink{struct_dev_mem_arr_pointer}{Dev\+Mem\+Arr\+Pointer} 
+\end{DoxyReturn}
+\Hypertarget{class_dev_mem_arr_pointers_ac67b466e132aad23f34dfc2d277d62a3}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!GetArraysIndexMap@{GetArraysIndexMap}}
+\index{GetArraysIndexMap@{GetArraysIndexMap}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetArraysIndexMap()}{GetArraysIndexMap()}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_ac67b466e132aad23f34dfc2d277d62a3} 
+template$<$typename T$>$ \\
+\mbox{\hyperlink{class_arrays_index_map}{Arrays\+Index\+Map}} \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Get\+Arrays\+Index\+Map (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Строит карту индексов 
+
+\begin{DoxyReturn}{Возвращает}
+std\+::vector$<$std\+::vector$<$unsigned long long$>$$>$ 
+\end{DoxyReturn}
+\Hypertarget{class_dev_mem_arr_pointers_ae1ef05db9c935f973029310d00ab6607}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!GetDataPointersNum@{GetDataPointersNum}}
+\index{GetDataPointersNum@{GetDataPointersNum}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetDataPointersNum()}{GetDataPointersNum()}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_ae1ef05db9c935f973029310d00ab6607} 
+template$<$typename T$>$ \\
+auto \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Get\+Data\+Pointers\+Num (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает количество выделенных блоков памяти 
+
+\begin{DoxyReturn}{Возвращает}
+size\+\_\+t 
+\end{DoxyReturn}
+\Hypertarget{class_dev_mem_arr_pointers_a54c1514a1a3324f05f16af7b290da1b5}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_a54c1514a1a3324f05f16af7b290da1b5} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned}]{block\+Index}{, }\item[{unsigned long long}]{local\+Index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает значение по индексу блока и локальному индексу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em block\+Index} & \\
+\hline
+{\em local\+Index} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_dev_mem_arr_pointers_a35fca260180780b26e408700b5079f7f}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_a35fca260180780b26e408700b5079f7f} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{global\+Index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает значение по глобальному индексу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em global\+Index} & Глобальный индекс \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_dev_mem_arr_pointers_aea94080d5c89f5630391c27e9efbb43d}\index{DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!DevMemArrPointers$<$ T $>$@{DevMemArrPointers$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily \label{class_dev_mem_arr_pointers_aea94080d5c89f5630391c27e9efbb43d} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_dev_mem_arr_pointers}{Dev\+Mem\+Arr\+Pointers}}$<$ T $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{global\+Index}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает значение по глобальному индексу 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em global\+Index} & \\
+\hline
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Arrays/Dev\+Mem\+Arr\+Pointers.\+hpp\end{DoxyCompactItemize}

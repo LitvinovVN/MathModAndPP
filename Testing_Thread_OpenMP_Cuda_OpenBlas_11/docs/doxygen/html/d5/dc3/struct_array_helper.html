@@ -1,0 +1,773 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Структура ArrayHelper</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d5/dc3/struct_array_helper.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Классы</a> &#124;
+<a href="#pub-static-methods">Открытые статические члены</a> &#124;
+<a href="../../da/db6/struct_array_helper-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Структура ArrayHelper</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Структура для хранения методов обработки массивов T*.  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d4/d61/_array_helper_8hpp_source.html">ArrayHelper.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Классы</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/def/struct_array_helper_1_1_sum_thread_args.html">SumThreadArgs</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Открытые статические члены</h2></td></tr>
+<tr class="memitem:ad4d3aa9e8614db492ed5e3e50ad68242" id="r_ad4d3aa9e8614db492ed5e3e50ad68242"><td class="memTemplParams" colspan="2"><a id="ad4d3aa9e8614db492ed5e3e50ad68242" name="ad4d3aa9e8614db492ed5e3e50ad68242"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ad4d3aa9e8614db492ed5e3e50ad68242"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>PrintArrayRam</b> (T *data, size_t indStart, size_t length)</td></tr>
+<tr class="separator:ad4d3aa9e8614db492ed5e3e50ad68242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5395629bb180cc83b4e8a5bafd3038f7" id="r_a5395629bb180cc83b4e8a5bafd3038f7"><td class="memTemplParams" colspan="2"><a id="a5395629bb180cc83b4e8a5bafd3038f7" name="a5395629bb180cc83b4e8a5bafd3038f7"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a5395629bb180cc83b4e8a5bafd3038f7"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>PrintArrayRam</b> (T *data, size_t length)</td></tr>
+<tr class="separator:a5395629bb180cc83b4e8a5bafd3038f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa79404471dcdaaeb36035d369bc757f6" id="r_aa79404471dcdaaeb36035d369bc757f6"><td class="memTemplParams" colspan="2"><a id="aa79404471dcdaaeb36035d369bc757f6" name="aa79404471dcdaaeb36035d369bc757f6"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:aa79404471dcdaaeb36035d369bc757f6"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>PrintArrayGpu</b> (T *data, size_t indStart, size_t length, int deviceId=0)</td></tr>
+<tr class="separator:aa79404471dcdaaeb36035d369bc757f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae93a7d6bb2cdc1defb9b7d43714eeb2c" id="r_ae93a7d6bb2cdc1defb9b7d43714eeb2c"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ae93a7d6bb2cdc1defb9b7d43714eeb2c"><td class="memTemplItemLeft" align="right" valign="top">static T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae93a7d6bb2cdc1defb9b7d43714eeb2c">CreateArrayRam</a> (unsigned long long size)</td></tr>
+<tr class="memdesc:ae93a7d6bb2cdc1defb9b7d43714eeb2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выделяет память для массива в RAM.  <br /></td></tr>
+<tr class="separator:ae93a7d6bb2cdc1defb9b7d43714eeb2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220cc0820236039fefeeaecd99610627" id="r_a220cc0820236039fefeeaecd99610627"><td class="memTemplParams" colspan="2"><a id="a220cc0820236039fefeeaecd99610627" name="a220cc0820236039fefeeaecd99610627"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a220cc0820236039fefeeaecd99610627"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DeleteArrayRam</b> (T *&amp;arrayRam)</td></tr>
+<tr class="separator:a220cc0820236039fefeeaecd99610627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a7128790f8c9645bda68410d620cbcc" id="r_a8a7128790f8c9645bda68410d620cbcc"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a8a7128790f8c9645bda68410d620cbcc"><td class="memTemplItemLeft" align="right" valign="top">static T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a8a7128790f8c9645bda68410d620cbcc">CreateArrayRamPinned</a> (unsigned long long size)</td></tr>
+<tr class="memdesc:a8a7128790f8c9645bda68410d620cbcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выделяет закреплённую память для массива в RAM.  <br /></td></tr>
+<tr class="separator:a8a7128790f8c9645bda68410d620cbcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adea061c377112eb104c47a25bee7e3c2" id="r_adea061c377112eb104c47a25bee7e3c2"><td class="memTemplParams" colspan="2"><a id="adea061c377112eb104c47a25bee7e3c2" name="adea061c377112eb104c47a25bee7e3c2"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:adea061c377112eb104c47a25bee7e3c2"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>DeleteArrayRamPinned</b> (T *&amp;arrayRamPinned)</td></tr>
+<tr class="separator:adea061c377112eb104c47a25bee7e3c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c803d53ead4a35b5fe1708880a2bb58" id="r_a9c803d53ead4a35b5fe1708880a2bb58"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a9c803d53ead4a35b5fe1708880a2bb58"><td class="memTemplItemLeft" align="right" valign="top">static T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9c803d53ead4a35b5fe1708880a2bb58">CreateArrayGpu</a> (unsigned long long size)</td></tr>
+<tr class="memdesc:a9c803d53ead4a35b5fe1708880a2bb58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выделяет память для массива на текущем GPU.  <br /></td></tr>
+<tr class="separator:a9c803d53ead4a35b5fe1708880a2bb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5c5960d16d663c231600b948dad7945" id="r_aa5c5960d16d663c231600b948dad7945"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:aa5c5960d16d663c231600b948dad7945"><td class="memTemplItemLeft" align="right" valign="top">static T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa5c5960d16d663c231600b948dad7945">CreateArrayGpu</a> (unsigned long long size, int deviceId)</td></tr>
+<tr class="memdesc:aa5c5960d16d663c231600b948dad7945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выделяет память для массива на GPU.  <br /></td></tr>
+<tr class="separator:aa5c5960d16d663c231600b948dad7945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f219e8f2f35ddb44b675ba637caba75" id="r_a2f219e8f2f35ddb44b675ba637caba75"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a2f219e8f2f35ddb44b675ba637caba75"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2f219e8f2f35ddb44b675ba637caba75">DeleteArrayGpu</a> (T *&amp;arrayGpu)</td></tr>
+<tr class="memdesc:a2f219e8f2f35ddb44b675ba637caba75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Освобождает массив на текущем GPU.  <br /></td></tr>
+<tr class="separator:a2f219e8f2f35ddb44b675ba637caba75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e6278064152665a3565c09656b2ec5" id="r_a62e6278064152665a3565c09656b2ec5"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a62e6278064152665a3565c09656b2ec5"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a62e6278064152665a3565c09656b2ec5">DeleteArrayGpu</a> (T *&amp;arrayGpu, int deviceId)</td></tr>
+<tr class="memdesc:a62e6278064152665a3565c09656b2ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Освобождает массив на GPU c.  <br /></td></tr>
+<tr class="separator:a62e6278064152665a3565c09656b2ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d95a972a04dd9f6b5f43b84cb6b5653" id="r_a7d95a972a04dd9f6b5f43b84cb6b5653"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a7d95a972a04dd9f6b5f43b84cb6b5653"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a7d95a972a04dd9f6b5f43b84cb6b5653">InitArrayRam</a> (T *array, unsigned long long size, T value)</td></tr>
+<tr class="memdesc:a7d95a972a04dd9f6b5f43b84cb6b5653"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализирует массив array значениями value.  <br /></td></tr>
+<tr class="separator:a7d95a972a04dd9f6b5f43b84cb6b5653"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b09b15928eea3d6a3b79ac47e856ccb" id="r_a5b09b15928eea3d6a3b79ac47e856ccb"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a5b09b15928eea3d6a3b79ac47e856ccb"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5b09b15928eea3d6a3b79ac47e856ccb">InitArrayGpu</a> (T *dev_array, unsigned long long size, T value)</td></tr>
+<tr class="memdesc:a5b09b15928eea3d6a3b79ac47e856ccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Заполняет массив dev_array на текущем GPU значением value.  <br /></td></tr>
+<tr class="separator:a5b09b15928eea3d6a3b79ac47e856ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59c01c24cb1af2c9e6fcd8f281d7877d" id="r_a59c01c24cb1af2c9e6fcd8f281d7877d"><td class="memTemplParams" colspan="2"><a id="a59c01c24cb1af2c9e6fcd8f281d7877d" name="a59c01c24cb1af2c9e6fcd8f281d7877d"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a59c01c24cb1af2c9e6fcd8f281d7877d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>InitArrayGpu</b> (T *dev_array, unsigned long long size, T value, int deviceId)</td></tr>
+<tr class="separator:a59c01c24cb1af2c9e6fcd8f281d7877d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc03dee6bc756dffa0dea55e08a1097" id="r_a1bc03dee6bc756dffa0dea55e08a1097"><td class="memTemplParams" colspan="2"><a id="a1bc03dee6bc756dffa0dea55e08a1097" name="a1bc03dee6bc756dffa0dea55e08a1097"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a1bc03dee6bc756dffa0dea55e08a1097"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>InitArray</b> (<a class="el" href="../../d3/dcc/struct_dev_mem_arr_pointer.html">DevMemArrPointer</a>&lt; T &gt; &amp;devMemArrPointer, T value)</td></tr>
+<tr class="separator:a1bc03dee6bc756dffa0dea55e08a1097"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88369c4d656ba7ccb6f6d7dfd29c4ffe" id="r_a88369c4d656ba7ccb6f6d7dfd29c4ffe"><td class="memTemplParams" colspan="2"><a id="a88369c4d656ba7ccb6f6d7dfd29c4ffe" name="a88369c4d656ba7ccb6f6d7dfd29c4ffe"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a88369c4d656ba7ccb6f6d7dfd29c4ffe"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetValueRAM</b> (T *arrayRam, unsigned long long index)</td></tr>
+<tr class="separator:a88369c4d656ba7ccb6f6d7dfd29c4ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bfa8b9a6fe749562d3713cd5dcd7c48" id="r_a0bfa8b9a6fe749562d3713cd5dcd7c48"><td class="memTemplParams" colspan="2"><a id="a0bfa8b9a6fe749562d3713cd5dcd7c48" name="a0bfa8b9a6fe749562d3713cd5dcd7c48"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a0bfa8b9a6fe749562d3713cd5dcd7c48"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>GetValueGPU</b> (T *arrayGpu, unsigned long long index, unsigned deviceId=0)</td></tr>
+<tr class="separator:a0bfa8b9a6fe749562d3713cd5dcd7c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6409862d7a528921343b5f591212c9a9" id="r_a6409862d7a528921343b5f591212c9a9"><td class="memTemplParams" colspan="2"><a id="a6409862d7a528921343b5f591212c9a9" name="a6409862d7a528921343b5f591212c9a9"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a6409862d7a528921343b5f591212c9a9"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetValueRAM</b> (T *arrayRam, unsigned long long index, T value)</td></tr>
+<tr class="separator:a6409862d7a528921343b5f591212c9a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a840c9d29122353c230eac1e40fcd7b0c" id="r_a840c9d29122353c230eac1e40fcd7b0c"><td class="memTemplParams" colspan="2"><a id="a840c9d29122353c230eac1e40fcd7b0c" name="a840c9d29122353c230eac1e40fcd7b0c"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a840c9d29122353c230eac1e40fcd7b0c"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetValueGPU</b> (T *arrayGpu, unsigned long long index, unsigned deviceId, T value)</td></tr>
+<tr class="separator:a840c9d29122353c230eac1e40fcd7b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89805b5d637bd3791f39a704ac472dfa" id="r_a89805b5d637bd3791f39a704ac472dfa"><td class="memTemplParams" colspan="2"><a id="a89805b5d637bd3791f39a704ac472dfa" name="a89805b5d637bd3791f39a704ac472dfa"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a89805b5d637bd3791f39a704ac472dfa"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CopyRamToGpu</b> (T *arrayRam, T *arrayGpu, size_t length)</td></tr>
+<tr class="separator:a89805b5d637bd3791f39a704ac472dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0db399385a30f01939dff10d3087e1c" id="r_ab0db399385a30f01939dff10d3087e1c"><td class="memTemplParams" colspan="2"><a id="ab0db399385a30f01939dff10d3087e1c" name="ab0db399385a30f01939dff10d3087e1c"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ab0db399385a30f01939dff10d3087e1c"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CopyRamToGpu</b> (T *arrayRam, T *arrayGpu, size_t ind_start, size_t length, int deviceId=0)</td></tr>
+<tr class="separator:ab0db399385a30f01939dff10d3087e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae03a9b82feef3f75b877530ba6f30b9b" id="r_ae03a9b82feef3f75b877530ba6f30b9b"><td class="memTemplParams" colspan="2"><a id="ae03a9b82feef3f75b877530ba6f30b9b" name="ae03a9b82feef3f75b877530ba6f30b9b"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ae03a9b82feef3f75b877530ba6f30b9b"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CopyGpuToRam</b> (T *arrayGpu, T *arrayRam, size_t length)</td></tr>
+<tr class="separator:ae03a9b82feef3f75b877530ba6f30b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a606bfa606ea79943496919239ec6ea0d" id="r_a606bfa606ea79943496919239ec6ea0d"><td class="memTemplParams" colspan="2"><a id="a606bfa606ea79943496919239ec6ea0d" name="a606bfa606ea79943496919239ec6ea0d"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a606bfa606ea79943496919239ec6ea0d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CopyGpuToRam</b> (T *arrayGpu, T *arrayRam, size_t ind_start, size_t length, int deviceId=0)</td></tr>
+<tr class="separator:a606bfa606ea79943496919239ec6ea0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09dcbb0dfc70b74429ba051e9268884d" id="r_a09dcbb0dfc70b74429ba051e9268884d"><td class="memTemplParams" colspan="2"><a id="a09dcbb0dfc70b74429ba051e9268884d" name="a09dcbb0dfc70b74429ba051e9268884d"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a09dcbb0dfc70b74429ba051e9268884d"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>IsEqualsRamRam</b> (T *arrayRam1, T *arrayRam2, size_t length, double eps=0.00000001)</td></tr>
+<tr class="separator:a09dcbb0dfc70b74429ba051e9268884d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e532ff8fdc6b7ff64431de23772c66a" id="r_a8e532ff8fdc6b7ff64431de23772c66a"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a8e532ff8fdc6b7ff64431de23772c66a"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a8e532ff8fdc6b7ff64431de23772c66a">IsEqualsRamGpu</a> (T *arrayRam, T *arrayGpu, size_t length, double eps=0.00000001)</td></tr>
+<tr class="memdesc:a8e532ff8fdc6b7ff64431de23772c66a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сравнивает содержимое массивов, расположенных на RAM и GPU.  <br /></td></tr>
+<tr class="separator:a8e532ff8fdc6b7ff64431de23772c66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e5b681158fba7d88ee30df7b0ee11cc" id="r_a1e5b681158fba7d88ee30df7b0ee11cc"><td class="memTemplParams" colspan="2"><a id="a1e5b681158fba7d88ee30df7b0ee11cc" name="a1e5b681158fba7d88ee30df7b0ee11cc"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a1e5b681158fba7d88ee30df7b0ee11cc"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Sum</b> (T *data, size_t indStart, size_t indEnd)</td></tr>
+<tr class="separator:a1e5b681158fba7d88ee30df7b0ee11cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae89b39227b4d842c9115b6690dd28b00" id="r_ae89b39227b4d842c9115b6690dd28b00"><td class="memTemplParams" colspan="2"><a id="ae89b39227b4d842c9115b6690dd28b00" name="ae89b39227b4d842c9115b6690dd28b00"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ae89b39227b4d842c9115b6690dd28b00"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Sum</b> (T *data, size_t size)</td></tr>
+<tr class="separator:ae89b39227b4d842c9115b6690dd28b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac02fb94d8f5d5cc9e63712dfe2a241f2" id="r_ac02fb94d8f5d5cc9e63712dfe2a241f2"><td class="memTemplParams" colspan="2"><a id="ac02fb94d8f5d5cc9e63712dfe2a241f2" name="ac02fb94d8f5d5cc9e63712dfe2a241f2"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ac02fb94d8f5d5cc9e63712dfe2a241f2"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumThread</b> (<a class="el" href="../../d8/def/struct_array_helper_1_1_sum_thread_args.html">SumThreadArgs</a>&lt; T &gt; args)</td></tr>
+<tr class="separator:ac02fb94d8f5d5cc9e63712dfe2a241f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdbc10a0c36cb1f5f6eeab865b66e6f2" id="r_acdbc10a0c36cb1f5f6eeab865b66e6f2"><td class="memTemplParams" colspan="2"><a id="acdbc10a0c36cb1f5f6eeab865b66e6f2" name="acdbc10a0c36cb1f5f6eeab865b66e6f2"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:acdbc10a0c36cb1f5f6eeab865b66e6f2"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Sum</b> (T *data, size_t indStart, size_t indEnd, unsigned threadsNum)</td></tr>
+<tr class="separator:acdbc10a0c36cb1f5f6eeab865b66e6f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad06223a77a3085422b00763d8f0f66e5" id="r_ad06223a77a3085422b00763d8f0f66e5"><td class="memTemplParams" colspan="2"><a id="ad06223a77a3085422b00763d8f0f66e5" name="ad06223a77a3085422b00763d8f0f66e5"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ad06223a77a3085422b00763d8f0f66e5"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Sum</b> (T *data, size_t size, unsigned threadsNum)</td></tr>
+<tr class="separator:ad06223a77a3085422b00763d8f0f66e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ccb00fa558881e0d5e4c0c733a3ff48" id="r_a8ccb00fa558881e0d5e4c0c733a3ff48"><td class="memTemplParams" colspan="2"><a id="a8ccb00fa558881e0d5e4c0c733a3ff48" name="a8ccb00fa558881e0d5e4c0c733a3ff48"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a8ccb00fa558881e0d5e4c0c733a3ff48"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumOpenMP</b> (T *data, size_t indStart, size_t indEnd, unsigned threadsNum)</td></tr>
+<tr class="separator:a8ccb00fa558881e0d5e4c0c733a3ff48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f24c5ff4a23d6fe330e7a5fee86a84f" id="r_a8f24c5ff4a23d6fe330e7a5fee86a84f"><td class="memTemplParams" colspan="2"><a id="a8f24c5ff4a23d6fe330e7a5fee86a84f" name="a8f24c5ff4a23d6fe330e7a5fee86a84f"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a8f24c5ff4a23d6fe330e7a5fee86a84f"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumOpenMP</b> (T *data, size_t size, unsigned threadsNum)</td></tr>
+<tr class="separator:a8f24c5ff4a23d6fe330e7a5fee86a84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85667d2b782cfdc6bac6798c36156f54" id="r_a85667d2b782cfdc6bac6798c36156f54"><td class="memTemplParams" colspan="2"><a id="a85667d2b782cfdc6bac6798c36156f54" name="a85667d2b782cfdc6bac6798c36156f54"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a85667d2b782cfdc6bac6798c36156f54"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCuda</b> (T *dev_arr, size_t indStart, size_t indEnd, unsigned blocksNum, unsigned threadsNum)</td></tr>
+<tr class="separator:a85667d2b782cfdc6bac6798c36156f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9cc9227879cf68fd0982d9031d5ed29" id="r_ab9cc9227879cf68fd0982d9031d5ed29"><td class="memTemplParams" colspan="2"><a id="ab9cc9227879cf68fd0982d9031d5ed29" name="ab9cc9227879cf68fd0982d9031d5ed29"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ab9cc9227879cf68fd0982d9031d5ed29"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCuda</b> (T *data, size_t size, unsigned blocksNum, unsigned threadsNum)</td></tr>
+<tr class="separator:ab9cc9227879cf68fd0982d9031d5ed29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5839ae768f6221a013f47c66981c9318" id="r_a5839ae768f6221a013f47c66981c9318"><td class="memTemplParams" colspan="2"><a id="a5839ae768f6221a013f47c66981c9318" name="a5839ae768f6221a013f47c66981c9318"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a5839ae768f6221a013f47c66981c9318"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCudaMultiGpu</b> (std::vector&lt; <a class="el" href="../../d2/d4d/struct_array_gpu_processing_params.html">ArrayGpuProcessingParams</a>&lt; T &gt; &gt; params)</td></tr>
+<tr class="separator:a5839ae768f6221a013f47c66981c9318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cd490df5a2810f1b2480c4c592ef2ee" id="r_a2cd490df5a2810f1b2480c4c592ef2ee"><td class="memTemplParams" colspan="2"><a id="a2cd490df5a2810f1b2480c4c592ef2ee" name="a2cd490df5a2810f1b2480c4c592ef2ee"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a2cd490df5a2810f1b2480c4c592ef2ee"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCublas</b> (<a class="el" href="../../dc/da1/structcublas_handle__t.html">cublasHandle_t</a> cublasH, T *dev_arr, size_t indStart, size_t indEnd)</td></tr>
+<tr class="separator:a2cd490df5a2810f1b2480c4c592ef2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f85a4ebcd254e8c9b00e3647703ec89" id="r_a2f85a4ebcd254e8c9b00e3647703ec89"><td class="memTemplParams" colspan="2"><a id="a2f85a4ebcd254e8c9b00e3647703ec89" name="a2f85a4ebcd254e8c9b00e3647703ec89"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a2f85a4ebcd254e8c9b00e3647703ec89"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCublas</b> (<a class="el" href="../../dc/da1/structcublas_handle__t.html">cublasHandle_t</a> cublasH, T *dev_arr, size_t length)</td></tr>
+<tr class="separator:a2f85a4ebcd254e8c9b00e3647703ec89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8de20d6cb696620a5760c3e51157c9f" id="r_ad8de20d6cb696620a5760c3e51157c9f"><td class="memTemplParams" colspan="2"><a id="ad8de20d6cb696620a5760c3e51157c9f" name="ad8de20d6cb696620a5760c3e51157c9f"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:ad8de20d6cb696620a5760c3e51157c9f"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCublas</b> (<a class="el" href="../../dc/da1/structcublas_handle__t.html">cublasHandle_t</a> cublasH, <a class="el" href="../../d2/d4d/struct_array_gpu_processing_params.html">ArrayGpuProcessingParams</a>&lt; T &gt; params)</td></tr>
+<tr class="separator:ad8de20d6cb696620a5760c3e51157c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af993e36263bddd3ddaf467645113d037" id="r_af993e36263bddd3ddaf467645113d037"><td class="memTemplParams" colspan="2"><a id="af993e36263bddd3ddaf467645113d037" name="af993e36263bddd3ddaf467645113d037"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:af993e36263bddd3ddaf467645113d037"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SumCublasMultiGpu</b> (std::vector&lt; <a class="el" href="../../dc/da1/structcublas_handle__t.html">cublasHandle_t</a> &gt; cublasHandles, std::vector&lt; T * &gt; dev_arrays, std::vector&lt; size_t &gt; indStarts, std::vector&lt; size_t &gt; indEnds)</td></tr>
+<tr class="separator:af993e36263bddd3ddaf467645113d037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50655493b7b94db47b9f56acc8ec555d" id="r_a50655493b7b94db47b9f56acc8ec555d"><td class="memTemplParams" colspan="2"><a id="a50655493b7b94db47b9f56acc8ec555d" name="a50655493b7b94db47b9f56acc8ec555d"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a50655493b7b94db47b9f56acc8ec555d"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductRamSeq</b> (T *arrayRam1, T *arrayRam2, size_t length)</td></tr>
+<tr class="separator:a50655493b7b94db47b9f56acc8ec555d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc6a28d32a9b9ae0fb828b787492aa8" id="r_a7bc6a28d32a9b9ae0fb828b787492aa8"><td class="memTemplParams" colspan="2"><a id="a7bc6a28d32a9b9ae0fb828b787492aa8" name="a7bc6a28d32a9b9ae0fb828b787492aa8"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a7bc6a28d32a9b9ae0fb828b787492aa8"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductRamParThread</b> (T *arrayRam1, T *arrayRam2, size_t length, unsigned threadsNum)</td></tr>
+<tr class="separator:a7bc6a28d32a9b9ae0fb828b787492aa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20c07ec1aa4872be50e5b2c46b9d07f" id="r_af20c07ec1aa4872be50e5b2c46b9d07f"><td class="memTemplParams" colspan="2"><a id="af20c07ec1aa4872be50e5b2c46b9d07f" name="af20c07ec1aa4872be50e5b2c46b9d07f"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:af20c07ec1aa4872be50e5b2c46b9d07f"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductRamParOpenMP</b> (T *array1Ram, T *array2Ram, size_t length, unsigned threadsNum)</td></tr>
+<tr class="separator:af20c07ec1aa4872be50e5b2c46b9d07f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d03bef808af52a487b8cd8bae9fe05" id="r_af7d03bef808af52a487b8cd8bae9fe05"><td class="memItemLeft" align="right" valign="top"><a id="af7d03bef808af52a487b8cd8bae9fe05" name="af7d03bef808af52a487b8cd8bae9fe05"></a>
+static double&#160;</td><td class="memItemRight" valign="bottom"><b>ScalarProductRamCublas</b> (double *arrayRam1, double *arrayRam2, size_t length)</td></tr>
+<tr class="separator:af7d03bef808af52a487b8cd8bae9fe05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08562efd9df2c94a625f386eca5f9104" id="r_a08562efd9df2c94a625f386eca5f9104"><td class="memTemplParams" colspan="2"><a id="a08562efd9df2c94a625f386eca5f9104" name="a08562efd9df2c94a625f386eca5f9104"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a08562efd9df2c94a625f386eca5f9104"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductGpuParCuda</b> (T *arrayGpu1, T *arrayGpu2, size_t length, unsigned kernelBlocks, unsigned kernelThreads)</td></tr>
+<tr class="separator:a08562efd9df2c94a625f386eca5f9104"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbd88b45d652947bd9f8f6bf2f32e892" id="r_abbd88b45d652947bd9f8f6bf2f32e892"><td class="memTemplParams" colspan="2"><a id="abbd88b45d652947bd9f8f6bf2f32e892" name="abbd88b45d652947bd9f8f6bf2f32e892"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:abbd88b45d652947bd9f8f6bf2f32e892"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="../../dd/de7/struct_func_result.html">FuncResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductGpuParCuda</b> (size_t length, unsigned kernelBlocks, unsigned kernelThreads)</td></tr>
+<tr class="separator:abbd88b45d652947bd9f8f6bf2f32e892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec74d6372263b86018e99f1f36c2c46c" id="r_aec74d6372263b86018e99f1f36c2c46c"><td class="memTemplParams" colspan="2"><a id="aec74d6372263b86018e99f1f36c2c46c" name="aec74d6372263b86018e99f1f36c2c46c"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:aec74d6372263b86018e99f1f36c2c46c"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductMultiGpuParCuda</b> (std::vector&lt; T * &gt; array1Gpus, std::vector&lt; T * &gt; array2Gpus, std::vector&lt; size_t &gt; lengthGpus, unsigned kernelBlocks, unsigned kernelThreads)</td></tr>
+<tr class="separator:aec74d6372263b86018e99f1f36c2c46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6be52cf6d101d2c7e8c1b0c6dcdd67dd" id="r_a6be52cf6d101d2c7e8c1b0c6dcdd67dd"><td class="memTemplParams" colspan="2"><a id="a6be52cf6d101d2c7e8c1b0c6dcdd67dd" name="a6be52cf6d101d2c7e8c1b0c6dcdd67dd"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a6be52cf6d101d2c7e8c1b0c6dcdd67dd"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="../../dd/de7/struct_func_result.html">FuncResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductMultiGpuParCuda</b> (size_t length, unsigned kernelBlocks, unsigned kernelThreads, std::vector&lt; double &gt; kGpuData)</td></tr>
+<tr class="separator:a6be52cf6d101d2c7e8c1b0c6dcdd67dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18e4560071d4e07d74650afeecbd6d7f" id="r_a18e4560071d4e07d74650afeecbd6d7f"><td class="memTemplParams" colspan="2"><a id="a18e4560071d4e07d74650afeecbd6d7f" name="a18e4560071d4e07d74650afeecbd6d7f"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a18e4560071d4e07d74650afeecbd6d7f"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductGpuCublas</b> (<a class="el" href="../../dc/da1/structcublas_handle__t.html">cublasHandle_t</a> cublasHandle, T *array1Gpu, T *array2Gpu, size_t length)</td></tr>
+<tr class="separator:a18e4560071d4e07d74650afeecbd6d7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28c7603752c27598ebe8f421e223484b" id="r_a28c7603752c27598ebe8f421e223484b"><td class="memTemplParams" colspan="2"><a id="a28c7603752c27598ebe8f421e223484b" name="a28c7603752c27598ebe8f421e223484b"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a28c7603752c27598ebe8f421e223484b"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="../../dd/de7/struct_func_result.html">FuncResult</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductGpuCublas</b> (size_t length)</td></tr>
+<tr class="separator:a28c7603752c27598ebe8f421e223484b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e7b288f9702bc2a41671c3bae68ab9c" id="r_a8e7b288f9702bc2a41671c3bae68ab9c"><td class="memTemplParams" colspan="2"><a id="a8e7b288f9702bc2a41671c3bae68ab9c" name="a8e7b288f9702bc2a41671c3bae68ab9c"></a>
+template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a8e7b288f9702bc2a41671c3bae68ab9c"><td class="memTemplItemLeft" align="right" valign="top">static T&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ScalarProductMultiGpuCublas</b> (std::vector&lt; <a class="el" href="../../dc/da1/structcublas_handle__t.html">cublasHandle_t</a> &gt; cublasHandles, std::vector&lt; T * &gt; dev_arrays_1, std::vector&lt; T * &gt; dev_arrays_2, std::vector&lt; size_t &gt; dev_arrays_lengths)</td></tr>
+<tr class="separator:a8e7b288f9702bc2a41671c3bae68ab9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ac06bbd1f55b125c633db1bcb6e6aef" id="r_a2ac06bbd1f55b125c633db1bcb6e6aef"><td class="memTemplParams" colspan="2"><a id="a2ac06bbd1f55b125c633db1bcb6e6aef" name="a2ac06bbd1f55b125c633db1bcb6e6aef"></a>
+template&lt;typename T, typename S&gt; </td></tr>
+<tr class="memitem:a2ac06bbd1f55b125c633db1bcb6e6aef"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>MultiplyRam</b> (T *arrayRam, unsigned long long length, S scalar)</td></tr>
+<tr class="separator:a2ac06bbd1f55b125c633db1bcb6e6aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c8c6d962750efea1d50bde3a329527" id="r_a74c8c6d962750efea1d50bde3a329527"><td class="memTemplParams" colspan="2"><a id="a74c8c6d962750efea1d50bde3a329527" name="a74c8c6d962750efea1d50bde3a329527"></a>
+template&lt;typename T, typename S&gt; </td></tr>
+<tr class="memitem:a74c8c6d962750efea1d50bde3a329527"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>MultiplyRamParallel</b> (T *arrayRam, unsigned long long length, S scalar, unsigned cpuThreadsNumber)</td></tr>
+<tr class="separator:a74c8c6d962750efea1d50bde3a329527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c3904b5c9b0d0089c6adb9050009cac" id="r_a8c3904b5c9b0d0089c6adb9050009cac"><td class="memTemplParams" colspan="2"><a id="a8c3904b5c9b0d0089c6adb9050009cac" name="a8c3904b5c9b0d0089c6adb9050009cac"></a>
+template&lt;typename T, typename S&gt; </td></tr>
+<tr class="memitem:a8c3904b5c9b0d0089c6adb9050009cac"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>MultiplyGpu</b> (T *arrayGpu, unsigned long long length, unsigned deviceId, S scalar)</td></tr>
+<tr class="separator:a8c3904b5c9b0d0089c6adb9050009cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c996da525487a23e2332a2e259520d" id="r_a76c996da525487a23e2332a2e259520d"><td class="memTemplParams" colspan="2"><a id="a76c996da525487a23e2332a2e259520d" name="a76c996da525487a23e2332a2e259520d"></a>
+template&lt;typename T, typename S&gt; </td></tr>
+<tr class="memitem:a76c996da525487a23e2332a2e259520d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Multiply</b> (<a class="el" href="../../d3/dcc/struct_dev_mem_arr_pointer.html">DevMemArrPointer</a>&lt; T &gt; devMemArrPointer, S scalar)</td></tr>
+<tr class="separator:a76c996da525487a23e2332a2e259520d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14b705e11e45094da1ebb09bd926f780" id="r_a14b705e11e45094da1ebb09bd926f780"><td class="memTemplParams" colspan="2"><a id="a14b705e11e45094da1ebb09bd926f780" name="a14b705e11e45094da1ebb09bd926f780"></a>
+template&lt;typename T, typename S&gt; </td></tr>
+<tr class="memitem:a14b705e11e45094da1ebb09bd926f780"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>MultiplyParallel</b> (<a class="el" href="../../d3/dcc/struct_dev_mem_arr_pointer.html">DevMemArrPointer</a>&lt; T &gt; devMemArrPointer, S scalar, unsigned cpuThreadsNumber)</td></tr>
+<tr class="separator:a14b705e11e45094da1ebb09bd926f780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Структура для хранения методов обработки массивов T*. </p>
+</div><h2 class="groupheader">Методы</h2>
+<a id="a9c803d53ead4a35b5fe1708880a2bb58" name="a9c803d53ead4a35b5fe1708880a2bb58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c803d53ead4a35b5fe1708880a2bb58">&#9670;&#160;</a></span>CreateArrayGpu() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T * ArrayHelper::CreateArrayGpu </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выделяет память для массива на текущем GPU. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Тип элементов массива </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Количество элементов </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на созданный массив </dd></dl>
+
+</div>
+</div>
+<a id="aa5c5960d16d663c231600b948dad7945" name="aa5c5960d16d663c231600b948dad7945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5c5960d16d663c231600b948dad7945">&#9670;&#160;</a></span>CreateArrayGpu() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T * ArrayHelper::CreateArrayGpu </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>deviceId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выделяет память для массива на GPU. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Тип элементов массива </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Количество элементов </td></tr>
+    <tr><td class="paramname">deviceId</td><td>Идентификатор устройства </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на созданный массив </dd></dl>
+
+</div>
+</div>
+<a id="ae93a7d6bb2cdc1defb9b7d43714eeb2c" name="ae93a7d6bb2cdc1defb9b7d43714eeb2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae93a7d6bb2cdc1defb9b7d43714eeb2c">&#9670;&#160;</a></span>CreateArrayRam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T * ArrayHelper::CreateArrayRam </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выделяет память для массива в RAM. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Тип элементов массива </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Количество элементов </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на созданный массив </dd></dl>
+
+</div>
+</div>
+<a id="a8a7128790f8c9645bda68410d620cbcc" name="a8a7128790f8c9645bda68410d620cbcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a7128790f8c9645bda68410d620cbcc">&#9670;&#160;</a></span>CreateArrayRamPinned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T * ArrayHelper::CreateArrayRamPinned </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выделяет закреплённую память для массива в RAM. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Тип элементов массива </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Количество элементов </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd>Указатель на созданный массив </dd></dl>
+
+</div>
+</div>
+<a id="a2f219e8f2f35ddb44b675ba637caba75" name="a2f219e8f2f35ddb44b675ba637caba75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f219e8f2f35ddb44b675ba637caba75">&#9670;&#160;</a></span>DeleteArrayGpu() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ArrayHelper::DeleteArrayGpu </td>
+          <td>(</td>
+          <td class="paramtype">T *&amp;</td>          <td class="paramname"><span class="paramname"><em>arrayGpu</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Освобождает массив на текущем GPU. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Указатель на массив в GPU </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a62e6278064152665a3565c09656b2ec5" name="a62e6278064152665a3565c09656b2ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62e6278064152665a3565c09656b2ec5">&#9670;&#160;</a></span>DeleteArrayGpu() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ArrayHelper::DeleteArrayGpu </td>
+          <td>(</td>
+          <td class="paramtype">T *&amp;</td>          <td class="paramname"><span class="paramname"><em>arrayGpu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>deviceId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Освобождает массив на GPU c. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Указатель на массив в GPU </td></tr>
+    <tr><td class="paramname">deviceId</td><td>Идентификатор GPU </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5b09b15928eea3d6a3b79ac47e856ccb" name="a5b09b15928eea3d6a3b79ac47e856ccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b09b15928eea3d6a3b79ac47e856ccb">&#9670;&#160;</a></span>InitArrayGpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ArrayHelper::InitArrayGpu </td>
+          <td>(</td>
+          <td class="paramtype">T *</td>          <td class="paramname"><span class="paramname"><em>dev_array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Заполняет массив dev_array на текущем GPU значением value. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Тип элементов массива </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dev_array</td><td>Указатель на инициализируемый массив </td></tr>
+    <tr><td class="paramname">size</td><td>Количество элементов массива </td></tr>
+    <tr><td class="paramname">value</td><td>Значение, присваиваемое всем элементам массива dev_array </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7d95a972a04dd9f6b5f43b84cb6b5653" name="a7d95a972a04dd9f6b5f43b84cb6b5653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d95a972a04dd9f6b5f43b84cb6b5653">&#9670;&#160;</a></span>InitArrayRam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void ArrayHelper::InitArrayRam </td>
+          <td>(</td>
+          <td class="paramtype">T *</td>          <td class="paramname"><span class="paramname"><em>array</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Инициализирует массив array значениями value. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td></td></tr>
+    <tr><td class="paramname">size</td><td></td></tr>
+    <tr><td class="paramname">value</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8e532ff8fdc6b7ff64431de23772c66a" name="a8e532ff8fdc6b7ff64431de23772c66a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e532ff8fdc6b7ff64431de23772c66a">&#9670;&#160;</a></span>IsEqualsRamGpu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ArrayHelper::IsEqualsRamGpu </td>
+          <td>(</td>
+          <td class="paramtype">T *</td>          <td class="paramname"><span class="paramname"><em>arrayRam</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *</td>          <td class="paramname"><span class="paramname"><em>arrayGpu</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>eps</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.00000001</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Сравнивает содержимое массивов, расположенных на RAM и GPU. </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arrayRam</td><td></td></tr>
+    <tr><td class="paramname">arrayGpu</td><td></td></tr>
+    <tr><td class="paramname">length</td><td></td></tr>
+    <tr><td class="paramname">eps</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+
+</div>
+</div>
+<hr/>Объявления и описания членов структуры находятся в файле:<ul>
+<li>HCSLib/Arrays/<a class="el" href="../../d4/d61/_array_helper_8hpp_source.html">ArrayHelper.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d5/dc3/struct_array_helper.html">ArrayHelper</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

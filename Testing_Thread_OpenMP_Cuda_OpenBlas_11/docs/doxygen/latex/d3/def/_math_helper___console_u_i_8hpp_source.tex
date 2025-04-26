@@ -1,0 +1,63 @@
+\doxysection{Math\+Helper\+\_\+\+Console\+UI.\+hpp}
+\hypertarget{_math_helper___console_u_i_8hpp_source}{}\label{_math_helper___console_u_i_8hpp_source}\index{HCSLib/Math/MathHelper\_ConsoleUI.hpp@{HCSLib/Math/MathHelper\_ConsoleUI.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}MathHelper.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ PI\ =\ 3.141592653589793238463;\ \ \ \ \textcolor{comment}{//value\ of\ pi}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ E>}
+\DoxyCodeLine{00009\ \textcolor{keywordtype}{void}\ f(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_expression}{Expression<E>}}\ \&expr0)}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{const}\ E\ \&expr\ =\ expr0.Self();}
+\DoxyCodeLine{00012\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}expr(3):\ "{}}\ <<\ expr(3)\ <<\ std::endl;}
+\DoxyCodeLine{00013\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}expr(1.5):\ "{}}\ <<\ expr(1.5)\ <<\ std::endl;}
+\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_math_helper___console_u_i}{MathHelper\_ConsoleUI}}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_math_helper___console_u_i_a48442233a7ac53829bb9fa0729bcc395}{MathObject\_ConsoleUI}}()}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/\ void\ MathObject\_ConsoleUI()\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*struct\ Scalar\ :\ MathObject<Scalar>}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ int\ value\ =\ 10;}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ \ \ \ \ \};}}
+\DoxyCodeLine{00028\ \textcolor{comment}{}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ Scalar\ a;}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}Scalar\ a;\ a.value:\ "{}\ <<\ a.value\ <<\ std::endl;}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}a.Self().value:\ "{}\ <<\ a.Self().value\ <<\ std::endl;}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}a.GetProxy().value:\ "{}\ <<\ a.GetProxy().value\ <<\ std::endl;*/}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_variable}{Variable}}\ x;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}f(x)\ =\ x"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ f(x);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}f(x)\ =\ x+1.5"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ expr1\ =\ x\ +\ 1.5;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ f(expr1);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ expr1(10);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}double\ res\ =\ expr1(10):\ "{}}\ <<\ res\ <<\ std::endl;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ f(sin(x\ *\ x\ +\ PI));}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ expr2\ =\ 5\ *\ cos(-\/x\ *\ (x\ +\ 1));}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ f(expr2);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Variable\ y;}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//auto\ expr\_x\_y\ =\ 2*x\ -\/\ y/3;}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout<<\ "{}f(x,y)\ =\ 2*x\ -\/\ y/3;\ f(10,\ 30)\ =\ "{}\ <<\ expr\_x\_y(10,\ 30)\ <<\ std::endl;//err}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+
+\end{DoxyCode}

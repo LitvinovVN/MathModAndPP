@@ -1,0 +1,81 @@
+\doxysection{IVector\+Helper.\+hpp}
+\hypertarget{_i_vector_helper_8hpp_source}{}\label{_i_vector_helper_8hpp_source}\index{HCSLib/Vectors/IVectorHelper.hpp@{HCSLib/Vectors/IVectorHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../Scalars/\_IncludeScalars.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\_IncludeVectors.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_i_vector_helper}{IVectorHelper}}}
+\DoxyCodeLine{00008\ \{\ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_i_vector}{IVector<T>}}*\ \mbox{\hyperlink{struct_i_vector_helper_a05a37970389a347e52c06182c2244a1c}{Split}}(\mbox{\hyperlink{class_i_vector}{IVector<T>}}*\ v1,\ \mbox{\hyperlink{class_i_vector}{IVector<T>}}*\ v2,}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ DataLocation\ newVectorDataLocation\ =\ DataLocation::RAM)}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ resultVectorLength\ =\ v1-\/>\mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}}()\ +\ v2-\/>\mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}}();}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_vector}{IVector<T>}}*\ IVectorSplitResultPtr\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ результирующий\ вектор\ должен\ располагпться\ в\ RAM}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(newVectorDataLocation\ ==\ DataLocation::RAM)}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ IVectorSplitResultPtr\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}(resultVectorLength);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ v1-\/>\mbox{\hyperlink{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}{dataLocation}}\ ==\ DataLocation::RAM\ \&\&}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v2-\/>\mbox{\hyperlink{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}{dataLocation}}\ ==\ DataLocation::RAM)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ 0;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ v1i\ =\ 0;\ v1i\ <\ v1-\/>\mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}}();\ v1i++)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ v1-\/>\mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{GetValue}}(v1i);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>\mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{SetValue}}(i,\ value);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ v2i\ =\ 0;\ v2i\ <\ v2-\/>\mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{Length}}();\ v2i++)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ v2-\/>\mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{GetValue}}(v2i);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IVectorSplitResultPtr-\/>\mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{SetValue}}(i,\ value);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i++;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ IVectorSplitResultPtr;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}IVectorHelper::Split():\ Not\ realized!"{}});}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{static}}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_i_scalar}{IScalar<T>}}*\ \mbox{\hyperlink{struct_i_vector_helper_a58e79e310761378726a6d5eaccffee02}{Dot}}(\mbox{\hyperlink{class_i_vector}{IVector<T>}}*\ v1,\ \mbox{\hyperlink{class_i_vector}{IVector<T>}}*\ v2,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ DataLocation\ resultDataLocation\ =\ DataLocation::RAM)}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_scalar}{IScalar<T>}}*\ resultPtr\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ результирующий\ объект\ должен\ располагаться\ в\ RAM}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(resultDataLocation\ ==\ DataLocation::RAM)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ resultPtr\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_scalar_ram}{ScalarRam<T>}}();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ v1-\/>\mbox{\hyperlink{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}{dataLocation}}\ ==\ DataLocation::RAM\ \&\&}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v2-\/>\mbox{\hyperlink{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}{dataLocation}}\ ==\ DataLocation::RAM)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ 0;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resultPtr;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}IVectorHelper::Sum():\ Not\ realized!"{}});}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,110 @@
+\doxysection{Класс Computing\+System}
+\hypertarget{class_computing_system}{}\label{class_computing_system}\index{ComputingSystem@{ComputingSystem}}
+
+
+Вычислительная система  
+
+
+
+
+{\ttfamily \#include $<$Computing\+System.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_computing_system_a8124e8214427b8590fe5afc462d3c7b9}\label{class_computing_system_a8124e8214427b8590fe5afc462d3c7b9} 
+{\bfseries Computing\+System} (int id, std\+::string name, std\+::string description, std\+::string file\+\_\+name="{}Computing\+System.\+txt"{})
+\item 
+\Hypertarget{class_computing_system_a0249625dba52409276a71a7817c9e089}\label{class_computing_system_a0249625dba52409276a71a7817c9e089} 
+void {\bfseries Add\+Node} (\mbox{\hyperlink{class_computing_system_node}{Computing\+System\+Node}} node)
+\begin{DoxyCompactList}\small\item\em Добавляет вычислительный узел в вычислительную систему \end{DoxyCompactList}\item 
+\Hypertarget{class_computing_system_a316ae02349c9eb59a9cf4ad8d049237e}\label{class_computing_system_a316ae02349c9eb59a9cf4ad8d049237e} 
+void {\bfseries Print} ()
+\begin{DoxyCompactList}\small\item\em Выводит в консоль сведения о вычислительной системе \end{DoxyCompactList}\item 
+unsigned \mbox{\hyperlink{class_computing_system_a7923645a469ca45eca8789f628c6a304}{Get\+Nodes\+Number}} ()
+\begin{DoxyCompactList}\small\item\em Возвращает количество узлов вычислительной системы \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_computing_system_af1e0666910f4dd2088395fe35f48d32a}{Get\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Возвращает идентификатор вычислительной системы \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_computing_system_a98c13ad3edc312f407b2958b7edfd500}{Set\+Id}} (int id)
+\begin{DoxyCompactList}\small\item\em Устанавливает идентификатор вычислительной системы \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_computing_system_ad440f5cc66f2213015aeda9b07fce974}{Serialize}} (const std\+::string \&dir\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Записать сведения о вычислительной системе \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые статические члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_computing_system_ae42fef02c92635035b420cfdbaffcb04}\label{class_computing_system_ae42fef02c92635035b420cfdbaffcb04} 
+static \mbox{\hyperlink{class_computing_system}{Computing\+System}} {\bfseries Deserialize} (const std\+::string \&dir\+\_\+name, const int id, const std\+::string \&file\+\_\+name="{}Computing\+System.\+txt"{})
+\item 
+\Hypertarget{class_computing_system_ac0741d2b039c4cb75f38d32bde047058}\label{class_computing_system_ac0741d2b039c4cb75f38d32bde047058} 
+static \mbox{\hyperlink{class_computing_system}{Computing\+System}} {\bfseries Get\+Data\+From\+User} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Вычислительная система 
+
+\doxysubsection{Методы}
+\Hypertarget{class_computing_system_af1e0666910f4dd2088395fe35f48d32a}\index{ComputingSystem@{ComputingSystem}!GetId@{GetId}}
+\index{GetId@{GetId}!ComputingSystem@{ComputingSystem}}
+\doxysubsubsection{\texorpdfstring{GetId()}{GetId()}}
+{\footnotesize\ttfamily \label{class_computing_system_af1e0666910f4dd2088395fe35f48d32a} 
+int Computing\+System\+::\+Get\+Id (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает идентификатор вычислительной системы 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_computing_system_a7923645a469ca45eca8789f628c6a304}\index{ComputingSystem@{ComputingSystem}!GetNodesNumber@{GetNodesNumber}}
+\index{GetNodesNumber@{GetNodesNumber}!ComputingSystem@{ComputingSystem}}
+\doxysubsubsection{\texorpdfstring{GetNodesNumber()}{GetNodesNumber()}}
+{\footnotesize\ttfamily \label{class_computing_system_a7923645a469ca45eca8789f628c6a304} 
+unsigned Computing\+System\+::\+Get\+Nodes\+Number (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Возвращает количество узлов вычислительной системы 
+
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_computing_system_ad440f5cc66f2213015aeda9b07fce974}\index{ComputingSystem@{ComputingSystem}!Serialize@{Serialize}}
+\index{Serialize@{Serialize}!ComputingSystem@{ComputingSystem}}
+\doxysubsubsection{\texorpdfstring{Serialize()}{Serialize()}}
+{\footnotesize\ttfamily \label{class_computing_system_ad440f5cc66f2213015aeda9b07fce974} 
+bool Computing\+System\+::\+Serialize (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{dir\+\_\+name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Записать сведения о вычислительной системе 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em dir\+\_\+name} & Каталог для записи \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+\Hypertarget{class_computing_system_a98c13ad3edc312f407b2958b7edfd500}\index{ComputingSystem@{ComputingSystem}!SetId@{SetId}}
+\index{SetId@{SetId}!ComputingSystem@{ComputingSystem}}
+\doxysubsubsection{\texorpdfstring{SetId()}{SetId()}}
+{\footnotesize\ttfamily \label{class_computing_system_a98c13ad3edc312f407b2958b7edfd500} 
+void Computing\+System\+::\+Set\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Устанавливает идентификатор вычислительной системы 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Computing\+System/Computing\+System.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,45 @@
+\doxysection{Algorithm\+Implementation\+Executor\+Helper.\+hpp}
+\hypertarget{_algorithm_implementation_executor_helper_8hpp_source}{}\label{_algorithm_implementation_executor_helper_8hpp_source}\index{HCSLib/Algorithms/AlgorithmImplementationExecutorHelper.hpp@{HCSLib/Algorithms/AlgorithmImplementationExecutorHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_algorithm_implementation_executor_helper}{AlgorithmImplementationExecutorHelper}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Exec(\mbox{\hyperlink{class_algorithm_implementation_executor}{AlgorithmImplementationExecutor}}\&\ algorithmImplementationExecutor)}
+\DoxyCodeLine{00008\ \ \ \ \ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}AlgorithmImplementationExecutorHelper::Exec()\(\backslash\)n"{}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ algorithmImplementationExecutor.\mbox{\hyperlink{class_algorithm_implementation_executor_a89fd4dd34e89a25bafcf8000bed50b61}{SetComputingSystemId}}(1);}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}IsConfigured():\ "{}}\ <<\ algorithmImplementationExecutor.\mbox{\hyperlink{class_algorithm_implementation_executor_ad59978e63cde9eed46ab2ff2056e9c0e}{IsConfigured}}();}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_void\{\};}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_int\{1\};}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_float\{2.f\};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_double\{2000.123\};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_ull\{12345678909ull\};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ arr\_float\ \{\textcolor{keyword}{new}\ \textcolor{keywordtype}{float}[10]\{1.1,\ 2.2,\ 3.3,\ 4,\ 5,\ 6,\ 7,\ 8,\ 9,\ 10\}\};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_ptr\_float\{arr\_float\};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ arr\_double\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{double}[10]\{0.1,\ 0.2,\ 0.3,\ 0.4,\ 5,\ 6,\ 7,\ 8,\ 9,\ 10\};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg\_ptr\_double\{arr\_double\};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_function_arguments}{FunctionArguments}}\ func\_args;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ func\_args.Add(arg\_ptr\_float);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ func\_args.Add(\mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\{0ull\});}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ func\_args.Add(\mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\{9ull\});}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ func\_args.Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\{\});}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_algorithm_implementation_exec_params}{AlgorithmImplementationExecParams}}\ execParams;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ execParams.functionArguments\ =\ func\_args;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_alg_testing_result}{AlgTestingResult}}\ res\ =\ algorithmImplementationExecutor.\mbox{\hyperlink{class_algorithm_implementation_executor_a566cc94c879154799772db0275e83a36}{Exec}}(1,\ execParams);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ res.Print();}
+\DoxyCodeLine{00037\ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \};}
+
+\end{DoxyCode}

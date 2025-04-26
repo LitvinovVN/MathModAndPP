@@ -1,0 +1,110 @@
+\doxysection{Шаблон класса IScalar\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{class_i_scalar}{}\label{class_i_scalar}\index{IScalar$<$ T $>$@{IScalar$<$ T $>$}}
+
+
+Абстрактный класс, моделирующий скалярное значение в разных видах памяти  
+
+
+
+
+{\ttfamily \#include $<$IScalar.\+hpp$>$}
+
+Граф наследования\+:IScalar\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d2/d61/class_i_scalar}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_i_scalar_a231093158ae16273174ffb16399d7e06}{Print}} () const =0
+\item 
+virtual T \mbox{\hyperlink{class_i_scalar_aece5640a2390886da93284b4d1f52be7}{Get\+Value}} () const =0
+\begin{DoxyCompactList}\small\item\em Возвращает значение скаляра \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_i_scalar_a1cc1bf09cd8d85553315f13d70e4a54c}{Set\+Value}} (T value)=0
+\begin{DoxyCompactList}\small\item\em Устанавливает значение скаляра \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_i_scalar_a74fa1e9059fd9bacb3ff1441f14b9731}{Clear\+Data}} ()=0
+\begin{DoxyCompactList}\small\item\em Очищает массивы данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_i_scalar_a5d407ce411b1f8ccf1fdd65a6e566e61}\label{class_i_scalar_a5d407ce411b1f8ccf1fdd65a6e566e61} 
+Data\+Location {\bfseries data\+Location} = Data\+Location\+::\+RAM
+\begin{DoxyCompactList}\small\item\em Место расположения данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$typename T$>$\newline
+class IScalar$<$ T $>$}
+Абстрактный класс, моделирующий скалярное значение в разных видах памяти 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em T} & \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_i_scalar_a74fa1e9059fd9bacb3ff1441f14b9731}\index{IScalar$<$ T $>$@{IScalar$<$ T $>$}!ClearData@{ClearData}}
+\index{ClearData@{ClearData}!IScalar$<$ T $>$@{IScalar$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ClearData()}{ClearData()}}
+{\footnotesize\ttfamily \label{class_i_scalar_a74fa1e9059fd9bacb3ff1441f14b9731} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_scalar}{IScalar}}$<$ T $>$\+::\+Clear\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Очищает массивы данных 
+
+
+
+Замещается в \mbox{\hyperlink{class_scalar_ram_ab1deb7b823e38be01c16b0d0aedb02ed}{Scalar\+Ram$<$ T $>$}}.
+
+\Hypertarget{class_i_scalar_aece5640a2390886da93284b4d1f52be7}\index{IScalar$<$ T $>$@{IScalar$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!IScalar$<$ T $>$@{IScalar$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily \label{class_i_scalar_aece5640a2390886da93284b4d1f52be7} 
+template$<$typename T$>$ \\
+virtual T \mbox{\hyperlink{class_i_scalar}{IScalar}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Возвращает значение скаляра 
+
+
+
+Замещается в \mbox{\hyperlink{class_scalar_ram_a3d1601c2f3a60d10cdf9dceb1d0bc3e8}{Scalar\+Ram$<$ T $>$}}.
+
+\Hypertarget{class_i_scalar_a231093158ae16273174ffb16399d7e06}\index{IScalar$<$ T $>$@{IScalar$<$ T $>$}!Print@{Print}}
+\index{Print@{Print}!IScalar$<$ T $>$@{IScalar$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_i_scalar_a231093158ae16273174ffb16399d7e06} 
+template$<$typename T$>$ \\
+virtual void \mbox{\hyperlink{class_i_scalar}{IScalar}}$<$ T $>$\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Замещается в \mbox{\hyperlink{class_scalar_ram_a67157b91bf9fc1ccb9b47ca4bac479c3}{Scalar\+Ram$<$ T $>$}}.
+
+\Hypertarget{class_i_scalar_a1cc1bf09cd8d85553315f13d70e4a54c}\index{IScalar$<$ T $>$@{IScalar$<$ T $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!IScalar$<$ T $>$@{IScalar$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily \label{class_i_scalar_a1cc1bf09cd8d85553315f13d70e4a54c} 
+template$<$typename T$>$ \\
+virtual bool \mbox{\hyperlink{class_i_scalar}{IScalar}}$<$ T $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Устанавливает значение скаляра 
+
+
+
+Замещается в \mbox{\hyperlink{class_scalar_ram_ad875af2f67d048b330a04bc432abef19}{Scalar\+Ram$<$ T $>$}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Scalars/IScalar.\+hpp\end{DoxyCompactItemize}

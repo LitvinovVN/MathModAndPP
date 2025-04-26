@@ -1,0 +1,40 @@
+\doxysection{Grid\+Operator\+Evaluator.\+hpp}
+\hypertarget{_grid_operator_evaluator_8hpp_source}{}\label{_grid_operator_evaluator_8hpp_source}\index{HCSLib/Math/GridOperatorEvaluator.hpp@{HCSLib/Math/GridOperatorEvaluator.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}GridEvaluableObject.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ GO,\ \textcolor{keyword}{class}\ EO>}
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }GridOperatorEvaluator\ :\ \mbox{\hyperlink{struct_grid_evaluable_object}{GridEvaluableObject}}<\ GridOperatorEvaluator<GO,\ EO>\ >}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{typedef}\ GridOperatorEvaluator\ type;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_grid_evaluable_object}{GridEvaluableObject<type>}}\ base\_type;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{typename}\ GO::template\ get\_value\_type<typename\ EO::value\_type>::type\ value\_type;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_grid_operator}{GridOperator<GO,\ typename\ GO::proxy\_type>}}\ op\_type;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_grid_evaluable_object}{GridEvaluableObject<EO,\ typename\ EO::proxy\_type>}}\ eobj\_type;}
+\DoxyCodeLine{00016\ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ GridOperatorEvaluator(\textcolor{keyword}{const}\ op\_type\&\ op,\ \textcolor{keyword}{const}\ eobj\_type\&\ eobj)}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ :\ op\_proxy(op.get\_proxy()),}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ eobj\_proxy(eobj.get\_proxy())}
+\DoxyCodeLine{00020\ \ \ \ \ \{\}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ GC>}
+\DoxyCodeLine{00023\ \ \ \ \ value\_type\ operator()(\textcolor{keywordtype}{size\_t}\ i,\ \textcolor{keywordtype}{size\_t}\ j,\ \textcolor{keywordtype}{size\_t}\ k,}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_grid_context}{GridContext<GC>}}\&\ context)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ op\_proxy(i,\ j,\ k,\ eobj\_proxy,\ context);}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ value\_type\ operator()(\textcolor{keywordtype}{size\_t}\ i,\ \textcolor{keywordtype}{size\_t}\ j,\ \textcolor{keywordtype}{size\_t}\ k)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ op\_proxy(i,\ j,\ k,\ eobj\_proxy);}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ GO::proxy\_type\ op\_proxy;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{typename}\ EO::proxy\_type\ eobj\_proxy;}
+\DoxyCodeLine{00037\ \};}
+
+\end{DoxyCode}

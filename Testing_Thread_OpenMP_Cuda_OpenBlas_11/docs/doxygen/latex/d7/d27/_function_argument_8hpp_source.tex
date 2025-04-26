@@ -1,0 +1,157 @@
+\doxysection{Function\+Argument.\+hpp}
+\hypertarget{_function_argument_8hpp_source}{}\label{_function_argument_8hpp_source}\index{HCSLib/Functions/FunctionArgument.hpp@{HCSLib/Functions/FunctionArgument.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Functions/FunctionDataType.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }FunctionArgument}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ FunctionDataType\ dataType;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{void}*\ data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ FunctionArgument()}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_void;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\{\});}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ FunctionArgument(\textcolor{keywordtype}{float}\ argument)}
+\DoxyCodeLine{00021\ \ \ \ \ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_float;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \textcolor{keyword}{new}\ float;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ *ptr\ =\ argument;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ data\ =\ (\textcolor{keywordtype}{void}*)ptr;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\{\});}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00030\ \ \ \ \ FunctionArgument(T\ argument)}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}FunctionArgument(T\ argument):\ argument\ =\ "{}}\ <<\ argument\ <<\ std::endl;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{int}))}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_int;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{float}))}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_float;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{float}*))}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_ptr\_float;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{double}))}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_double;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{double}*))}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_ptr\_double;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}))}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ dataType\ =\ FunctionDataType::fdt\_ull;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nError\ in\ FunctionArgument\ constructor!\(\backslash\)n"{}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}typeid(T):\ "{}\ <<\ typeid(argument).name()\ <<\ std::cout;}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Type\ not\ recognized!"{}});}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ptr\ =\ \textcolor{keyword}{new}\ T;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ *ptr\ =\ argument;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ data\ =\ (\textcolor{keywordtype}{void}*)ptr;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\{\});}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \string~FunctionArgument()}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (dataType)}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_float:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ (\textcolor{keywordtype}{float}*)data;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00072\ \ \ \ \ T\ GetValue()}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(T*)data;}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00078\ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ std::cout\ <<\ dataType;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ std::cout\ <<\ data;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (dataType)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_void:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}void"{}};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_int:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ GetValue<int>();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_float:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ GetValue<float>();}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ptr\_float:}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ GetValue<float*>();}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_double:}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ GetValue<double>();}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ptr\_double:}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ GetValue<double*>();}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ull:}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ GetValue<size\_t>();}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nError\ in\ FunctionArgument::Print()!\ Type\ not\ found!\(\backslash\)n"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Add\ type\ in\ switch\ of\ FunctionArgument::Print()"{}});}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//break;}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ std::ostream\&\ operator<<(std::ostream\&\ os,\ \mbox{\hyperlink{struct_function_argument}{FunctionArgument}}\ arg)}
+\DoxyCodeLine{00123\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{switch}\ (arg.dataType)}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_void:}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}void"{}};}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_float:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ os\ <<\ arg.GetValue<\textcolor{keywordtype}{float}>();}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ptr\_float:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ os\ <<\ arg.GetValue<\textcolor{keywordtype}{float}*>();}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_double:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ os\ <<\ arg.GetValue<\textcolor{keywordtype}{double}>();}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ptr\_double:}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ os\ <<\ arg.GetValue<\textcolor{keywordtype}{double}*>();}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{case}\ FunctionDataType::fdt\_ull:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ os\ <<\ arg.GetValue<\textcolor{keywordtype}{size\_t}>();}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ arg.dataType\ <<\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00152\ \}}
+
+\end{DoxyCode}

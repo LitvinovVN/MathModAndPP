@@ -1,0 +1,94 @@
+\doxysection{Array\+Perf\+Test\+Helper\+\_\+\+Console\+UI.\+hpp}
+\hypertarget{_array_perf_test_helper___console_u_i_8hpp_source}{}\label{_array_perf_test_helper___console_u_i_8hpp_source}\index{HCSLib/Arrays/ArrayPerfTestHelper\_ConsoleUI.hpp@{HCSLib/Arrays/ArrayPerfTestHelper\_ConsoleUI.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_array_perf_test_helper___console_u_i}{ArrayPerfTestHelper\_ConsoleUI}}}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SumOpenMP\_ConsoleUI()}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ArrayPerfTestHelper\_ConsoleUI::SumOpenMP\_ConsoleUI()\(\backslash\)n"{}};}
+\DoxyCodeLine{00011\ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ iterNum\ =\ ConsoleHelper::GetUnsignedIntFromUser(\textcolor{stringliteral}{"{}Enter\ iterations\ number:\ "{}});}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMin\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ array\ length\ min:\ "{}});}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMax\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ array\ length\ max:\ "{}});}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthStep\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ array\ length\ step:\ "{}});}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadNumMin\ =\ ConsoleHelper::GetUnsignedIntFromUser(\textcolor{stringliteral}{"{}Enter\ num\ cpu\ threads\ min:\ "{}});}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadNumMax\ =\ ConsoleHelper::GetUnsignedIntFromUser(\textcolor{stringliteral}{"{}Enter\ num\ cpu\ threads\ max:\ "{}});}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadNumStep\ =\ ConsoleHelper::GetUnsignedIntFromUser(\textcolor{stringliteral}{"{}Enter\ num\ cpu\ threads\ step:\ "{}});}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{/*std::cout\ }}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ arrayLengthMin\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ arrayLengthMax\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ arrayLengthStep\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ cpuThreadNumMin\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ cpuThreadNumMax\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ cpuThreadNumStep\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ iterNum\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ std::endl;*/}}
+\DoxyCodeLine{00032\ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_data_types}{DataTypes}}\ dataTypes;}
+\DoxyCodeLine{00034\ \ \ \ \ dataTypes.Add(DataTypeEnum::dt\_float);}
+\DoxyCodeLine{00035\ \ \ \ \ dataTypes.Add(DataTypeEnum::dt\_double);}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_data}{PerfTestParamsData}}\ perfTestParamsData(dataTypes,\ arrayLengthMin,\ arrayLengthMax,\ arrayLengthStep);}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_cpu}{PerfTestParamsCpu}}\ perfTestParamsCpu(cpuThreadNumMin,\ cpuThreadNumMax,\ cpuThreadNumStep);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params}{PerfTestParams}}\ perfTestParams(iterNum,\ perfTestParamsData,\ perfTestParamsCpu);}
+\DoxyCodeLine{00039\ \ \ \ \ perfTestParams.Print();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}\ results\ =\ ArrayPerfTestHelper::PerfTest\_SumOpenMP(perfTestParams);}
+\DoxyCodeLine{00042\ \ \ \ \ results.Print();}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SumCublas\_ConsoleUI()}
+\DoxyCodeLine{00047\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ArrayPerfTestHelper\_ConsoleUI::SumCublas\_ConsoleUI()\(\backslash\)n"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ iterNum\ =\ ConsoleHelper::GetUnsignedIntFromUser(\textcolor{stringliteral}{"{}Enter\ iterations\ number:\ "{}});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMin\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ array\ length\ min:\ "{}});}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthMax\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ array\ length\ max:\ "{}});}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ arrayLengthStep\ =\ ConsoleHelper::GetUnsignedLongLongFromUser(\textcolor{stringliteral}{"{}Enter\ array\ length\ step:\ "{}});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{/*unsigned\ cpuThreadNumMin\ =\ ConsoleHelper::GetUnsignedIntFromUser("{}Enter\ num\ cpu\ threads\ min:\ "{});}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ unsigned\ cpuThreadNumMax\ =\ ConsoleHelper::GetUnsignedIntFromUser("{}Enter\ num\ cpu\ threads\ max:\ "{});}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ \ unsigned\ cpuThreadNumStep\ =\ ConsoleHelper::GetUnsignedIntFromUser("{}Enter\ num\ cpu\ threads\ step:\ "{});*/}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{/*std::cout\ }}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ arrayLengthMin\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ arrayLengthMax\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ arrayLengthStep\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ cpuThreadNumMin\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ cpuThreadNumMax\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ cpuThreadNumStep\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ iterNum\ <<\ "{}\ "{}}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ \ \ \ <<\ std::endl;*/}}
+\DoxyCodeLine{00070\ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_data_types}{DataTypes}}\ dataTypes;}
+\DoxyCodeLine{00072\ \ \ \ \ dataTypes.Add(DataTypeEnum::dt\_float);}
+\DoxyCodeLine{00073\ \ \ \ \ dataTypes.Add(DataTypeEnum::dt\_double);}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params_data}{PerfTestParamsData}}\ perfTestParamsData(dataTypes,\ arrayLengthMin,\ arrayLengthMax,\ arrayLengthStep);}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//PerfTestParamsGpu\ perfTestParamsGpu(cpuThreadNumMin,\ cpuThreadNumMax,\ cpuThreadNumStep);}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{//PerfTestParams\ perfTestParams(iterNum,\ perfTestParamsData,\ perfTestParamsCpu);}}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_params}{PerfTestParams}}\ perfTestParams(iterNum,\ perfTestParamsData);}
+\DoxyCodeLine{00078\ \ \ \ \ perfTestParams.Print();}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{struct_perf_test_results}{PerfTestResults}}\ results\ =\ ArrayPerfTestHelper::PerfTest\_SumCublas(perfTestParams);}
+\DoxyCodeLine{00081\ \ \ \ \ results.Print();}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ }
+
+\end{DoxyCode}

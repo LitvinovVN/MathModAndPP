@@ -1,0 +1,56 @@
+\doxysection{Algorithm.\+hpp}
+\hypertarget{_algorithm_8hpp_source}{}\label{_algorithm_8hpp_source}\index{HCSLib/Algorithms/Algorithm.hpp@{HCSLib/Algorithms/Algorithm.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../Tasks/TaskGroup.hpp"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../Tasks/Task.hpp"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../Tasks/TaskDimensions.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}AlgorithmType.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}AlgorithmDataLocation.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_algorithm}{Algorithm}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ УИД\ алгоритма}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id}\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Группа\ задач}}
+\DoxyCodeLine{00018\ \ \ \ \ TaskGroup\ taskGroup;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ Задача}}
+\DoxyCodeLine{00020\ \ \ \ \ Task\ task;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ Размерности\ задачи}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{struct_task_dimensions}{TaskDimensions}}\ taskDimensions\ \{\};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Длина\ типа\ данных,\ используемая\ в\ алгоритме\ (float:\ 4;\ double:\ 8)}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ dataTypeLength\ =\ 0;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ Тип\ алгоритма\ (послед.,\ параллельный\ и\ пр.)}}
+\DoxyCodeLine{00026\ \ \ \ \ AlgorithmType\ algorithmType;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Место\ расположения\ исходных\ данных}}
+\DoxyCodeLine{00028\ \ \ \ \ AlgorithmDataLocation\ dataLocationInput;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ Место\ расположения\ результатов}}
+\DoxyCodeLine{00030\ \ \ \ \ AlgorithmDataLocation\ dataLocationOutput;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}id"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ \textcolor{keywordtype}{id}\ <<\ pp.splitter;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}taskGroup"{}}\ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ taskGroup\ <<\ pp.splitter;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}task"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ task\ <<\ pp.splitter;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}taskDimensions"{}}\ \ \ \ \ <<\ pp.splitterKeyValue;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ taskDimensions.Print(pp);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}dataTypeLength"{}}\ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ dataTypeLength\ <<\ pp.splitter;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}algorithmType"{}}\ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ algorithmType\ <<\ pp.splitter;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}dataLocationInput"{}}\ \ <<\ pp.splitterKeyValue\ <<\ dataLocationInput\ <<\ pp.splitter;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}dataLocationOutput"{}}\ <<\ pp.splitterKeyValue\ <<\ dataLocationOutput\ <<\ pp.splitter;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \};}
+
+\end{DoxyCode}

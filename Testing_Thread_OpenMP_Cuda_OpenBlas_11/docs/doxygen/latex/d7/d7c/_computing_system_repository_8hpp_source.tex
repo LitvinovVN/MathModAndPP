@@ -1,0 +1,304 @@
+\doxysection{Computing\+System\+Repository.\+hpp}
+\hypertarget{_computing_system_repository_8hpp_source}{}\label{_computing_system_repository_8hpp_source}\index{HCSLib/ComputingSystem/ComputingSystemRepository.hpp@{HCSLib/ComputingSystem/ComputingSystemRepository.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }ComputingSystemRepository}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{bool}\ isInitialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ std::string\ dir\_name\ =\ \textcolor{stringliteral}{"{}ComputingSystemRepository"{}};\textcolor{comment}{//\ Имя\ каталога\ со\ сведениями\ о\ вычислительных\ системах}}
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ file\_name\ =\ \textcolor{stringliteral}{"{}List.txt"{}};\textcolor{comment}{//\ Имя\ файла\ со\ сведениями\ о\ вычислительных\ системах}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ std::vector<int>\ computerSystemIds;\textcolor{comment}{//\ Вектор\ идентификаторов\ вычислительных\ систем}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ Кэш\ сведений\ о\ вычислительных\ системах}}
+\DoxyCodeLine{00015\ \ \ \ \ std::map<unsigned,\ ComputingSystem>\ computingSystemCache;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ CheckDirectories()}
+\DoxyCodeLine{00019\ \ \ \ \ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a998200df9cbe9b15f14a34c947caf58a}{FileSystemHelper::IsDirExists}}(dir\_name))}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_system_helper_a4eff4d042a458c06753a1a7d95a57991}{FileSystemHelper::CreateDir}}(dir\_name);}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ CheckFiles()}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_file_system_helper_a804bf0a281134f4a9e5474fdc523bf18}{FileSystemHelper::IsFileExists}}(dir\_name,\ file\_name))}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ result\ =\ FileSystemHelper::CreateFile(dir\_name,\ file\_name,\ \textcolor{stringliteral}{"{}ComputingSystemRepository"{}});}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!result)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}File\ "{}}\ +\ file\_name\ +\ \textcolor{stringliteral}{"{}\ in\ directory\ "{}}\ +\ dir\_name\ +\ \textcolor{stringliteral}{"{}\ is\ not\ created!"{}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ ReadFile()}
+\DoxyCodeLine{00040\ \ \ \ \ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::string\ filePath\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{FileSystemHelper::CombinePath}}(dir\_name,\ file\_name);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::ifstream\ f(filePath);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!f.is\_open())}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ message\ =\ \textcolor{stringliteral}{"{}File\ \(\backslash\)"{}"{}}\ +\ filePath\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ is\ not\ opened!"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ message\ <<\ std::endl;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Проверка\ формата\ файла}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::string\ str;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ f\ >>\ str;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str\ !=\ \textcolor{stringliteral}{"{}ComputingSystemRepository"{}})}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ message\ =\ \textcolor{stringliteral}{"{}File\ \(\backslash\)"{}"{}}\ +\ filePath\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ format\ is\ not\ AppConfig!"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ message\ <<\ std::endl;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Считываем\ пары\ "{}Параметр\ Значение"{}}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ value;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(f\ >>\ value)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ value\ <<\ std::endl;}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ computerSystemIds.push\_back(value);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{bool}\ AddIdToFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ new\_id)}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ std::string\ filePath\ =\ \mbox{\hyperlink{class_file_system_helper_ac165b5363f3eb892ea58695b1d982785}{FileSystemHelper::CombinePath}}(dir\_name,\ file\_name);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::ofstream\ fout(filePath,std::ios::app);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!fout.is\_open())}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ fout\ <<\ \textcolor{charliteral}{'\(\backslash\)n'}\ <<\ new\_id\ ;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ fout.close();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00093\ \ \ \ \ ComputingSystemRepository(\textcolor{keywordtype}{bool}\ isInitialized\ =\ \textcolor{keyword}{true})}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ :\ isInitialized(isInitialized)}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ CheckAndReadIfInitialized();}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ ComputingSystemRepository(std::string\ dir\_name)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ :\ dir\_name(dir\_name)}
+\DoxyCodeLine{00101\ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ isInitialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ CheckAndReadIfInitialized();}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{void}\ CheckAndReadIfInitialized()}
+\DoxyCodeLine{00107\ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isInitialized)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ CheckDirectories();}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ CheckFiles();}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ ReadFile();}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system_repository_a5dbe5d1ca83b2fbd811b1183a76c50ab}{Init}}();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_computing_system_repository_a63cb654ddfe519cc9af445e8d68433fa}{IsExists}}(\textcolor{keywordtype}{int}\ computingSystemId)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00118\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ \textcolor{keywordtype}{id}\ :\ computerSystemIds)}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id}\ ==\ computingSystemId)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{bool}\ TryAddComputingSystem(\mbox{\hyperlink{class_computing_system}{ComputingSystem}}\&\ computingSystem)}
+\DoxyCodeLine{00129\ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ new\_id\ =\ computingSystem.\mbox{\hyperlink{class_computing_system_af1e0666910f4dd2088395fe35f48d32a}{GetId}}();}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Если\ уже\ есть\ информация\ о\ вычислительной\ системе}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ с\ таким\ идентификатором,\ информацию\ не\ добавляем}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ и\ возвращаем\ false}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_computing_system_repository_a63cb654ddfe519cc9af445e8d68433fa}{IsExists}}(new\_id))}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Записать\ данные\ о\ выч.\ системе\ в\ каталог\ dir\_name}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ computingSystem.\mbox{\hyperlink{class_computing_system_ad440f5cc66f2213015aeda9b07fce974}{Serialize}}(dir\_name);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ AddIdToFile(new\_id);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ computerSystemIds.push\_back(new\_id);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{class_computing_system}{ComputingSystem}}\ GetComputingSystem(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_computing_system_repository_a63cb654ddfe519cc9af445e8d68433fa}{IsExists}}(\textcolor{keywordtype}{id}))}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(\textcolor{stringliteral}{"{}Computing\ system\ not\ found!"{}});}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ entry\ =\ computingSystemCache[id];}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ entry;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cerr\ <<\ e.what()\ <<\ '\(\backslash\)n';}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ComputingSystem::Deserialize(dir\_name,\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a619cd32a054c8966e514d2be21efbe78}{PrintConfig}}()}
+\DoxyCodeLine{00167\ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}dir\_name:\ "{}}\ \ <<\ dir\_name\ \ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}file\_name:\ "{}}\ <<\ file\_name\ <<\ std::endl;}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a337576de8ddb0bd000c6de064bcdfa66}{PrintList}}()}
+\DoxyCodeLine{00174\ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Computing\ system\ ids:\ ["{}};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ \textcolor{keywordtype}{id}\ :\ computerSystemIds)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{keywordtype}{id}\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}]"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a6292d973bdecca859b6a50d293e309fa}{PrintDetails}}()}
+\DoxyCodeLine{00183\ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}PrintDetails()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}\ =\ \mbox{\hyperlink{struct_console_helper_ad4d7a6a912f549731285cfb01209f7b1}{ConsoleHelper::GetIntFromUser}}(\textcolor{stringliteral}{"{}Enter\ computing\ system\ id:\ "{}});}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_computing_system_repository_a63cb654ddfe519cc9af445e8d68433fa}{IsExists}}(\textcolor{keywordtype}{id}))}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Not\ found!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system}{ComputingSystem}}\ computingSystem\ =\ GetComputingSystem(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ computingSystem.\mbox{\hyperlink{class_computing_system_a316ae02349c9eb59a9cf4ad8d049237e}{Print}}();}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a9de07c7dff4fb2ecd38cb8ced92fa5f5}{Add}}()}
+\DoxyCodeLine{00207\ \ \ \ \ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Add()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system}{ComputingSystem}}\ computingSystem\ =\ ComputingSystem::GetDataFromUser();\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(TryAddComputingSystem(computingSystem))}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Computing\ system\ "{}}\ <<\ computingSystem.\mbox{\hyperlink{class_computing_system_af1e0666910f4dd2088395fe35f48d32a}{GetId}}()\ <<\ \textcolor{stringliteral}{"{}\ added."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Error\ in\ adding\ computing\ system\ "{}}\ <<\ computingSystem.\mbox{\hyperlink{class_computing_system_af1e0666910f4dd2088395fe35f48d32a}{GetId}}()\ <<\ \textcolor{stringliteral}{"{}!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a63dd4d769eb0ba494148fe5b7e2f3f20}{Change}}()}
+\DoxyCodeLine{00223\ \ \ \ \ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ComputingSystemRepository::Change()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_afe69320e44937afd77eb25fed5821ee0}{Remove}}()}
+\DoxyCodeLine{00229\ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ComputingSystemRepository::Remove()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a63cb654ddfe519cc9af445e8d68433fa}{IsExists}}()}
+\DoxyCodeLine{00235\ \ \ \ \ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ compSystemId\ =\ \mbox{\hyperlink{struct_console_helper_ad4d7a6a912f549731285cfb01209f7b1}{ConsoleHelper::GetIntFromUser}}(\textcolor{stringliteral}{"{}Enter\ computing\ system\ id:\ "{}},\ \textcolor{stringliteral}{"{}Error!\ Enter\ integer\ number!"{}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isExists\ =\ \mbox{\hyperlink{class_computing_system_repository_a63cb654ddfe519cc9af445e8d68433fa}{IsExists}}(compSystemId);}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}id:\ "{}}\ \ \ \ \ \ \ <<\ compSystemId\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}isExists:\ "{}}\ <<\ isExists\ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_af86c3eda047de772bdb2fcb8dc739294}{Clear}}()}
+\DoxyCodeLine{00245\ \ \ \ \ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ComputingSystemRepository::Clear()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ result\ =\ FileSystemHelper::RemoveDir(dir\_name);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(result)}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Clearing\ success!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Clearing\ error!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_computing_system_repository_a5dbe5d1ca83b2fbd811b1183a76c50ab}{Init}}()}
+\DoxyCodeLine{00256\ \ \ \ \ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ComputingSystemRepository::Init()"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system}{ComputingSystem}}\ cs1\{1,\ \textcolor{stringliteral}{"{}i3-\/8G-\/MX250-\/2G"{}},\textcolor{stringliteral}{"{}Notebook\ i3-\/8G-\/MX250-\/2G"{}}\};}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_cpu_params}{CpuParams}}\ cpu1cs1n1\{\};}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ cpu1cs1n1.\mbox{\hyperlink{struct_cpu_params_ac2b169d9e34ce5e95e90d86a7f9d9575}{id}}\ =\ 0;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ cpu1cs1n1.name\ =\ \textcolor{stringliteral}{"{}Intel\ Core\ i3-\/10110U\ 2.1GHz"{}};}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ cpu1cs1n1.ThreadsNumber\ =\ 4;}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ram_params}{RamParams}}\ ramcs1n1\{\};}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ ramcs1n1.\mbox{\hyperlink{struct_ram_params_a803dba96340b839c60d0d5718f7c52b0}{RamSizeGb}}\ =\ 8;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ ramcs1n1.RamBandwidthGbS\ =\ 19.2;}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_gpu_params}{GpuParams}}\ gpu1cs1n1\{\};}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ gpu1cs1n1.\mbox{\hyperlink{struct_gpu_params_aa860c8f4288b8ccb769fe7608cfbd699}{id}}\ =\ 0;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ gpu1cs1n1.name\ =\ \textcolor{stringliteral}{"{}NVIDIA\ GeForce\ MX250"{}};}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ gpu1cs1n1.VRamSizeGb\ =\ 3.9;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ gpu1cs1n1.SmNumber\ =\ 3;}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ gpu1cs1n1.PeakMemoryBandwidthGbS\ =\ 48.064;}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system_node}{ComputingSystemNode}}\ cs1n1\{\};}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ cs1n1.AddGpu(gpu1cs1n1);}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ cs1n1.AddCpu(cpu1cs1n1);}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ cs1n1.AddRam(ramcs1n1);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ cs1.AddNode(cs1n1);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ computingSystemCache[cs1.GetId()]\ =\ cs1;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ computerSystemIds.push\_back(cs1.GetId());}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system}{ComputingSystem}}\ cs2\{2,\ \textcolor{stringliteral}{"{}i5-\/32G-\/RTX2060S-\/8G"{}},\textcolor{stringliteral}{"{}PC\ i5-\/32G-\/RTX2060S-\/8G"{}}\};}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_cpu_params}{CpuParams}}\ cpu1cs2n1\{\};}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ cpu1cs2n1.\mbox{\hyperlink{struct_cpu_params_ac2b169d9e34ce5e95e90d86a7f9d9575}{id}}\ =\ 0;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ cpu1cs2n1.name\ =\ \textcolor{stringliteral}{"{}Intel\ Core\ i5-\/6600\ 3.3GHz"{}};}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ cpu1cs2n1.ThreadsNumber\ =\ 4;}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_ram_params}{RamParams}}\ ramcs2n1\{\};}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ ramcs2n1.\mbox{\hyperlink{struct_ram_params_a803dba96340b839c60d0d5718f7c52b0}{RamSizeGb}}\ =\ 32;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ ramcs2n1.RamBandwidthGbS\ =\ 19.2;}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_gpu_params}{GpuParams}}\ gpu1cs2n1\{\};}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ gpu1cs2n1.\mbox{\hyperlink{struct_gpu_params_aa860c8f4288b8ccb769fe7608cfbd699}{id}}\ =\ 0;}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ gpu1cs2n1.name\ =\ \textcolor{stringliteral}{"{}NVIDIA\ GeForce\ RTX\ 2060\ SUPER"{}};}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ gpu1cs2n1.VRamSizeGb\ =\ 7.9;}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ gpu1cs2n1.SmNumber\ =\ 34;}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ gpu1cs2n1.PeakMemoryBandwidthGbS\ =\ 448.064;}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_computing_system_node}{ComputingSystemNode}}\ cs2n1\{\};}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ cs2n1.AddGpu(gpu1cs2n1);}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ cs2n1.AddCpu(cpu1cs2n1);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ cs2n1.AddRam(ramcs2n1);}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ cs2.AddNode(cs2n1);}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ computingSystemCache[cs2.GetId()]\ =\ cs2;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ computerSystemIds.push\_back(cs2.GetId());}
+\DoxyCodeLine{00316\ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \};}
+
+\end{DoxyCode}

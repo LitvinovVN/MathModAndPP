@@ -1,0 +1,199 @@
+\doxysection{Шаблон класса Vector\+Ram\+Gpus\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}}
+\hypertarget{class_vector_ram_gpus}{}\label{class_vector_ram_gpus}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+Граф наследования\+:Vector\+Ram\+Gpus\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{da/d10/class_vector_ram_gpus}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_vector_ram_gpus_a5d09e0cbc12cccf580ca15395495ce83}{Init\+By\+Val}} (T value) override
+\begin{DoxyCompactList}\small\item\em Инициализирует все элементы вектора указанным значением \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_ram_gpus_a91683f5d465106a3a4f494a1260aa9e2}{Print}} () const override
+\item 
+void \mbox{\hyperlink{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}{Print\+Data}} (unsigned long long ind\+Start, unsigned long long length) const override
+\begin{DoxyCompactList}\small\item\em Выводит в консоль элементы вектора в заданном диапазоне \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_ram_gpus_a7d90be7af35bf7539f33a7dc83b3922c}{Print\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Выводит в консоль все элементы вектора \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_vector_ram_gpus_a1bfb82ed55f7f2b2b725415bc9ad270d}{Length}} () const override
+\begin{DoxyCompactList}\small\item\em Возвращает количество элементов в векторе \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{class_vector_ram_gpus_ab59a63896022801583b474c4314df891}{Get\+Value}} (unsigned long long index) const override
+\begin{DoxyCompactList}\small\item\em Возвращает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321}{Set\+Value}} (unsigned long long index, T value) override
+\begin{DoxyCompactList}\small\item\em Устанавливает значение элемента вектора, расположенного по указанному индексу \end{DoxyCompactList}\item 
+\Hypertarget{class_vector_ram_gpus_a8d672766adc1b0cb51901af7b6953786}\label{class_vector_ram_gpus_a8d672766adc1b0cb51901af7b6953786} 
+void {\bfseries Transpose} ()
+\begin{DoxyCompactList}\small\item\em Транспонирует вектор \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_vector_ram_gpus_a87380092cb49125e29a4fc4864bc91e8}{Add}} (Data\+Location \mbox{\hyperlink{class_i_vector_aaf88523f0b6e89d3028fcb405447d8fa}{data\+Location}}, unsigned long long length)
+\begin{DoxyCompactList}\small\item\em Добавляет элементы в вектор \end{DoxyCompactList}\item 
+\Hypertarget{class_vector_ram_gpus_a6b3ea07a04e641e5c0a60d38febf6fb1}\label{class_vector_ram_gpus_a6b3ea07a04e641e5c0a60d38febf6fb1} 
+void {\bfseries Clear} ()
+\begin{DoxyCompactList}\small\item\em Освобождает всю зарезервированную память \end{DoxyCompactList}\item 
+\Hypertarget{class_vector_ram_gpus_a98552b156d3a2b878ed10bdd0ec7d612}\label{class_vector_ram_gpus_a98552b156d3a2b878ed10bdd0ec7d612} 
+{\footnotesize template$<$typename S$>$ }\\\mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}} \& {\bfseries Multiply} (S scalar, bool is\+Parallel=false)
+\item 
+void \mbox{\hyperlink{class_vector_ram_gpus_a348ff2fc45c027357bf590e003c9586b}{Clear\+Data}} () override
+\begin{DoxyCompactList}\small\item\em Очищает массивы данных и устанавливает размер вектора в 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries Transpose} ()
+\begin{DoxyCompactList}\small\item\em Транспонирует вектор (вектор-\/столбец превращает в вектор-\/строку и наоборот) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Открытые атрибуты унаследованные от \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Vector\+Type {\bfseries vector\+Type} = Vector\+Type\+::\+Vector\+Row
+\begin{DoxyCompactList}\small\item\em Тип вектора \end{DoxyCompactList}\item 
+Data\+Location {\bfseries data\+Location} = Data\+Location\+::\+RAM
+\begin{DoxyCompactList}\small\item\em Место расположения данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Методы}
+\Hypertarget{class_vector_ram_gpus_a87380092cb49125e29a4fc4864bc91e8}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!Add@{Add}}
+\index{Add@{Add}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a87380092cb49125e29a4fc4864bc91e8} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Add (\begin{DoxyParamCaption}\item[{Data\+Location}]{data\+Location}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Добавляет элементы в вектор 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em data\+Location} & Место расположения элементов вектора \\
+\hline
+{\em length} & Количество добавляемых элементов \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+bool -\/ Результат выполнения операции (true -\/ успех) 
+\end{DoxyReturn}
+\Hypertarget{class_vector_ram_gpus_a348ff2fc45c027357bf590e003c9586b}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!ClearData@{ClearData}}
+\index{ClearData@{ClearData}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{ClearData()}{ClearData()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a348ff2fc45c027357bf590e003c9586b} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Clear\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Очищает массивы данных и устанавливает размер вектора в 0. 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_ab6408bad796667cd5497674a0bdb5e5f}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_ab59a63896022801583b474c4314df891}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!GetValue@{GetValue}}
+\index{GetValue@{GetValue}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetValue()}{GetValue()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_ab59a63896022801583b474c4314df891} 
+template$<$typename T$>$ \\
+T \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Get\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a31e114704a23426ed1be234bed5a2c3c}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_a5d09e0cbc12cccf580ca15395495ce83}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!InitByVal@{InitByVal}}
+\index{InitByVal@{InitByVal}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{InitByVal()}{InitByVal()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a5d09e0cbc12cccf580ca15395495ce83} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Init\+By\+Val (\begin{DoxyParamCaption}\item[{T}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Инициализирует все элементы вектора указанным значением 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a86822a311be4db7fb2fbf7b13b366e30}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_a1bfb82ed55f7f2b2b725415bc9ad270d}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!Length@{Length}}
+\index{Length@{Length}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Length()}{Length()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a1bfb82ed55f7f2b2b725415bc9ad270d} 
+template$<$typename T$>$ \\
+size\+\_\+t \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Length (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Возвращает количество элементов в векторе 
+
+\begin{DoxyReturn}{Возвращает}
+size\+\_\+t 
+\end{DoxyReturn}
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a4418ae0da87c1a65ef82c5ff134e3002}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_a91683f5d465106a3a4f494a1260aa9e2}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!Print@{Print}}
+\index{Print@{Print}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a91683f5d465106a3a4f494a1260aa9e2} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_a7d90be7af35bf7539f33a7dc83b3922c}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a7d90be7af35bf7539f33a7dc83b3922c} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль все элементы вектора 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a77101d3dc13514d6675335170a45ac65}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!PrintData@{PrintData}}
+\index{PrintData@{PrintData}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{PrintData()}{PrintData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_a4c6d75123a5c23c66d3bf8f9b068e848} 
+template$<$typename T$>$ \\
+void \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Print\+Data (\begin{DoxyParamCaption}\item[{unsigned long long}]{ind\+Start}{, }\item[{unsigned long long}]{length}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Выводит в консоль элементы вектора в заданном диапазоне 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_a35807044449b2799d85192e038b10e07}{IVector$<$ T $>$}}.
+
+\Hypertarget{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321}\index{VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}!SetValue@{SetValue}}
+\index{SetValue@{SetValue}!VectorRamGpus$<$ T $>$@{VectorRamGpus$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetValue()}{SetValue()}}
+{\footnotesize\ttfamily \label{class_vector_ram_gpus_ab61f2706105d7ef686b4406387515321} 
+template$<$typename T$>$ \\
+bool \mbox{\hyperlink{class_vector_ram_gpus}{Vector\+Ram\+Gpus}}$<$ T $>$\+::\+Set\+Value (\begin{DoxyParamCaption}\item[{unsigned long long}]{index}{, }\item[{T}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Устанавливает значение элемента вектора, расположенного по указанному индексу 
+
+
+
+Замещает \mbox{\hyperlink{class_i_vector_aba2753ee31469e363142dea813a06060}{IVector$<$ T $>$}}.
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Vectors/Vector\+Ram\+Gpus.\+hpp\end{DoxyCompactItemize}

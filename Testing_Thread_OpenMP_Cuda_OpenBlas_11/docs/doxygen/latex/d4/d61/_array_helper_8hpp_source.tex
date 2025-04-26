@@ -1,0 +1,1433 @@
+\doxysection{Array\+Helper.\+hpp}
+\hypertarget{_array_helper_8hpp_source}{}\label{_array_helper_8hpp_source}\index{HCSLib/Arrays/ArrayHelper.hpp@{HCSLib/Arrays/ArrayHelper.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}DevMemArrPointer.hpp"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_array_helper}{ArrayHelper}}}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ PrintArrayRam(T*\ data,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ indStart;\ i\ <\ indStart+length-\/1;\ i++)}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ data[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ std::cout\ <<\ data[indStart+length-\/1];}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}]\(\backslash\)n"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ PrintArrayRam(T*\ data,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ PrintArrayRam(data,\ 0,\ length);}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ PrintArrayGpu(T*\ data,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{int}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ >\ 0)}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{[\&]()\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernel\_print<T><<<1,1>>>(data,\ indStart,\ length);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \}\};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ kernel\_print<T><<<1,1>>>(data,\ indStart,\ length);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ T*\ \mbox{\hyperlink{struct_array_helper_ae93a7d6bb2cdc1defb9b7d43714eeb2c}{CreateArrayRam}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size)}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ T[size];}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ DeleteArrayRam(T*\&\ arrayRam)}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(arrayRam\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ arrayRam;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ arrayRam\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ Работа\ с\ закреплённой\ памятью\ (начало)}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{static}\ T*\ \mbox{\hyperlink{struct_array_helper_a8a7128790f8c9645bda68410d620cbcc}{CreateArrayRamPinned}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size)}
+\DoxyCodeLine{00092\ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(size\ ==\ 0)}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ T*\ h\_aPinned\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bytes\ =\ size\ *\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ cudaMallocHost((\textcolor{keywordtype}{void}**)\&h\_aPinned,\ bytes);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_cuda_helper_a07f7d0803e496e33de75d9ba452ff97a}{CudaHelper::IsErrors}}())}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ h\_aPinned;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ DeleteArrayRamPinned(T*\&\ arrayRamPinned)}
+\DoxyCodeLine{00111\ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ cudaFreeHost(arrayRamPinned);}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ Работа\ с\ закреплённой\ памятью\ (конец)}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{static}\ T*\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size)}
+\DoxyCodeLine{00127\ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ mes\ =\ \textcolor{stringliteral}{"{}Cannot\ initialize\ array\ of\ 0\ elements"{}};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cerr\ <<\ mes\ <<\ std::endl;}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(mes);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}Allocating\ GPU\ memory:\ "{}\ <<\ size\ <<\ "{}\ *\ "{}\ <<\ sizeof(T)\ <<\ "{}\ =\ "{}\ <<\ size*sizeof(T)\ <<\ "{}\ bytes...\ "{};}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ T*\ dev\_array\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ cudaMalloc(\&dev\_array,\ size*\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ allocate\ device\ memory\ for\ GPU\ array:\ "{}});}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ msg\ +=\ std::to\_string(size*\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ msg\ +=\ \textcolor{stringliteral}{"{}\ bytes\ not\ allocated!\(\backslash\)n"{}};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ cudaCheckErrors(msg.c\_str());\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}OK\(\backslash\)n"{}};}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dev\_array;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keyword}{static}\ T*\ \mbox{\hyperlink{struct_array_helper_aa5c5960d16d663c231600b948dad7945}{CreateArrayGpu}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size,\ \textcolor{keywordtype}{int}\ deviceId)}
+\DoxyCodeLine{00164\ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ mes\ =\ \textcolor{stringliteral}{"{}Cannot\ initialize\ array\ of\ 0\ elements"{}};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cerr\ <<\ mes\ <<\ std::endl;}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(mes);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ T*\ dev\_array\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ dev\_array\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(size);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ CUDA\ device.}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//cudaSetDevice(deviceId);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//cudaCheckErrors("{}!!!Cannot\ set\ CUDA\ device\(\backslash\)n"{});}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_cuda_helper_ae9b2f2f91313696aaf6b3904f38dd408}{CudaHelper::SetDevice}}(deviceId))}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev\_array\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(size);}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dev\_array;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00199\ \ \ \ \ \}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(T*\&\ arrayGpu)}
+\DoxyCodeLine{00206\ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}Clearing\ gpu\ array\ "{}\ <<\ arrayGpu\ <<\ "{}:\ "{};}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (arrayGpu\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ cudaFree(arrayGpu);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ cudaCheckErrors(\textcolor{stringliteral}{"{}Error\ in\ cudaFree!"{}});}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ arrayGpu\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}OK\ ("{}\ <<\ arrayGpu\ <<\ "{})\(\backslash\)n"{};}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00219\ \ \ \ \ \}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_array_helper_a62e6278064152665a3565c09656b2ec5}{DeleteArrayGpu}}(T*\&\ arrayGpu,\ \textcolor{keywordtype}{int}\ deviceId)}
+\DoxyCodeLine{00226\ \ \ \ \ \{}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (deviceId\ ==\ 0)}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(arrayGpu);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaCheckErrors(\textcolor{stringliteral}{"{}Error\ in\ cudaSetDevice!"{}});}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(arrayGpu);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00247\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00252\ \ \ \ \ }
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_array_helper_a7d95a972a04dd9f6b5f43b84cb6b5653}{InitArrayRam}}(T*\ array,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size,}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ T\ value)}
+\DoxyCodeLine{00262\ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ i\ =\ 0ull;\ i\ <\ size;\ i++)}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ array[i]\ =\ value;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00268\ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(T*\ dev\_array,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size,}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ value)}
+\DoxyCodeLine{00279\ \ \ \ \ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ CudaHelper::InitByValue(dev\_array,\ size,\ value);}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(T*\ dev\_array,}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ size,}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ value,}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ deviceId)}
+\DoxyCodeLine{00288\ \ \ \ \ \{}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(dev\_array,\ size,\ value);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ curent\ CUDA\ device.}}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaError\_t\ cudaResult\ =\ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Cannot\ set\ current\ CUDA\ device,\ status\ =\ \%d:\ \%s\(\backslash\)n"{}},}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaResult,\ cudaGetErrorString(cudaResult));}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Cannot\ set\ current\ CUDA\ device"{}});}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(dev\_array,\ size,\ value);}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00316\ \ \ \ \ \}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ InitArray(DevMemArrPointer<T>\&\ devMemArrPointer,\ T\ value)}
+\DoxyCodeLine{00321\ \ \ \ \ \{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!devMemArrPointer.\mbox{\hyperlink{struct_dev_mem_arr_pointer_ac3b1a238878fde242cf0beed1e1948a4}{IsInitialized}}())}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}devMemArrPointer\ is\ not\ initialized!"{}});}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (devMemArrPointer.dataLocation)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::RAM:}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a7d95a972a04dd9f6b5f43b84cb6b5653}{InitArrayRam}}(devMemArrPointer.ptr,\ devMemArrPointer.length,\ value);}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU0:}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(devMemArrPointer.ptr,\ devMemArrPointer.length,\ value,\ 0);}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU1:}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(devMemArrPointer.ptr,\ devMemArrPointer.length,\ value,\ 1);}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU2:}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(devMemArrPointer.ptr,\ devMemArrPointer.length,\ value,\ 2);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU3:}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{InitArrayGpu}}(devMemArrPointer.ptr,\ devMemArrPointer.length,\ value,\ 3);}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00346\ \ \ \ \ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keyword}{static}\ T\ GetValueRAM(T*\ arrayRam,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index)}
+\DoxyCodeLine{00352\ \ \ \ \ \{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ arrayRam[index];}
+\DoxyCodeLine{00354\ \ \ \ \ \}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keyword}{static}\ T\ GetValueGPU(T*\ arrayGpu,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index,\ \textcolor{keywordtype}{unsigned}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00358\ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ T\ value;}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ CopyGpuToRam(arrayGpu\ +\ index,\ \&value,\ 1);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CopyGpuToRam(arrayGpu\ +\ index,\ \&value,\ 1);}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00379\ \ \ \ \ \}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetValueRAM(T*\ arrayRam,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index,\ T\ value)}
+\DoxyCodeLine{00386\ \ \ \ \ \{}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ arrayRam[index]\ =\ value;}
+\DoxyCodeLine{00388\ \ \ \ \ \}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SetValueGPU(T*\ arrayGpu,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index,\ \textcolor{keywordtype}{unsigned}\ deviceId,\ T\ value)}
+\DoxyCodeLine{00392\ \ \ \ \ \{}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ CopyRamToGpu(\&value,\ arrayGpu\ +\ index,\ 1);}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CopyRamToGpu(\&value,\ arrayGpu\ +\ index,\ 1);}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00413\ \ \ \ \ \}}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00418\ \ \ \ \ }
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CopyRamToGpu(T*\ arrayRam,\ T*\ arrayGpu,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00421\ \ \ \ \ \{}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dataSize\ =\ length\ *\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ cudaMemcpy(arrayGpu,\ arrayRam,\ dataSize,\ cudaMemcpyKind::cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ cudaCheckErrors(\textcolor{stringliteral}{"{}Error\ in\ cudaMemcpy()"{}});}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00431\ \ \ \ \ \}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \ \ \ \ }
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00435\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CopyRamToGpu(T*\ arrayRam,\ T*\ arrayGpu,}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ind\_start,\ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{int}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00437\ \ \ \ \ \{}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ CopyRamToGpu(arrayRam\ +\ ind\_start,\ arrayGpu\ +\ ind\_start,\ length);}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CopyRamToGpu(arrayRam\ +\ ind\_start,\ arrayGpu\ +\ ind\_start,\ length);}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00458\ \ \ \ \ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00461\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CopyGpuToRam(T*\ arrayGpu,\ T*\ arrayRam,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00462\ \ \ \ \ \{}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dataSize\ =\ length\ *\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ cudaMemcpy(arrayRam,\ arrayGpu,\ dataSize,\ cudaMemcpyKind::cudaMemcpyDeviceToHost);}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ cudaCheckErrors(\textcolor{stringliteral}{"{}Error\ in\ cudaMemcpy()"{}});}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00472\ \ \ \ \ \}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \ \ \ \ }
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ CopyGpuToRam(T*\ arrayGpu,\ T*\ arrayRam,}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ind\_start,\ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{int}\ deviceId\ =\ 0)}
+\DoxyCodeLine{00478\ \ \ \ \ \{}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ CopyGpuToRam(arrayGpu\ +\ ind\_start,\ arrayRam\ +\ ind\_start,\ length);}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(deviceId);}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CopyGpuToRam(arrayGpu\ +\ ind\_start,\ arrayRam\ +\ ind\_start,\ length);}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00497\ \ \ \ \ \}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ IsEqualsRamRam(T*\ arrayRam1,\ T*arrayRam2,}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{double}\ eps\ =\ 0.00000001)}
+\DoxyCodeLine{00507\ \ \ \ \ \{}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ length;\ i++)}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(fabs(arrayRam2[i]\ -\/\ arrayRam1[i])\ >\ eps)}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00514\ \ \ \ \ \}}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00524\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00525\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_array_helper_a8e532ff8fdc6b7ff64431de23772c66a}{IsEqualsRamGpu}}(T*\ arrayRam,\ T*\ arrayGpu,}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{double}\ eps\ =\ 0.00000001)}
+\DoxyCodeLine{00527\ \ \ \ \ \{}
+\DoxyCodeLine{00528\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isEquals\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ blockSize\ =\ 1000000;}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ blocksNum\ \ \ \ \ =\ length\ /\ blockSize;}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ lastBlockSize\ =\ length\ \%\ blockSize;}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ T*\ arrayRamTmp\ =\ \textcolor{keyword}{new}\ T[blockSize];}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ blockInd\ =\ 0;\ blockInd\ <\ blocksNum;\ blockInd++)}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ CopyGpuToRam(arrayGpu+blockInd*blockSize,\ arrayRamTmp,\ blockSize);}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ isEquals\ =\ IsEqualsRamRam(arrayRam+blockInd*blockSize,\ arrayRamTmp,\ blockSize);}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!isEquals)\ \textcolor{keywordflow}{break};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isEquals\ \&\&\ lastBlockSize\ >\ 0)}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ CopyGpuToRam(arrayGpu+blocksNum*blockSize,\ arrayRamTmp,\ lastBlockSize);}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ isEquals\ =\ IsEqualsRamRam(arrayRam+blocksNum*blockSize,\ arrayRamTmp,\ lastBlockSize);}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ arrayRamTmp;}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isEquals;}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00557\ \ \ \ \ \}}
+\DoxyCodeLine{00558\ \ \ \ \ }
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00568\ \ \ \ \ \textcolor{keyword}{static}\ T\ Sum(T*\ data,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd)}
+\DoxyCodeLine{00569\ \ \ \ \ \{}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ T\ result\ =\ 0;}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ indStart;\ i\ <=\ indEnd;\ i++)}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ result\ +=\ data[i];}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00576\ \ \ \ \ \}}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00579\ \ \ \ \ \textcolor{keyword}{static}\ T\ Sum(T*\ data,\ \textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00580\ \ \ \ \ \{}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ T\ result\ =\ Sum(data,\ 0,\ size-\/1);}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00583\ \ \ \ \ \}}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00587\ \ \ \ \ \textcolor{comment}{//\ Структура\ для\ передачи\ аргументов\ в\ потоковую\ функцию}}
+\DoxyCodeLine{00588\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keyword}{struct\ }SumThreadArgs}
+\DoxyCodeLine{00590\ \ \ \ \ \{}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ T*\ data;}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indStart;}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indEnd;}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ T\&\ sum;}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ std::mutex\&\ m;}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ SumThreadArgs(T*\ data,}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indStart,}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indEnd,}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \ \ \ \ T\&\ sum,}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ std::mutex\&\ m)\ :\ }
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data(data),}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indStart(indStart),}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indEnd(indEnd),}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum(sum),}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m(m)}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \{\}}
+\DoxyCodeLine{00608\ \ \ \ \ \};}
+\DoxyCodeLine{00609\ }
+\DoxyCodeLine{00610\ \ \ \ \ \textcolor{comment}{//\ Функция\ для\ исполнения\ потоком\ std::thread}}
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00612\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ SumThread(\mbox{\hyperlink{struct_array_helper_1_1_sum_thread_args}{SumThreadArgs<T>}}\ args)}
+\DoxyCodeLine{00613\ \ \ \ \ \{}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ T*\ data\ =\ args.data;}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ indStart\ =\ args.indStart;}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ indEnd\ =\ args.indEnd;}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ T\ local\_sum\ =\ 0;}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ indStart;\ i\ <=\ indEnd;\ i++)}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ local\_sum\ +=\ data[i];}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ lock(args.m);}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ \ \ args.sum\ +=\ local\_sum;}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00628\ \ \ \ \ \}}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00631\ \ \ \ \ \textcolor{keyword}{static}\ T\ Sum(T*\ data,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00632\ \ \ \ \ \{}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ std::mutex\ m;}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ T\ sum\ =\ 0;}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ blockSize\ =\ indEnd\ -\/\ indStart\ +\ 1;}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ thBlockSize\ =\ blockSize\ /\ threadsNum;}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ threadsNum;\ i++)}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ thIndStart\ =\ i\ *\ thBlockSize;}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ thIndEnd\ =\ thIndStart\ +\ thBlockSize\ -\/\ 1;}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ threadsNum\ -\/\ 1)}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thIndEnd\ =\ indEnd;}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_1_1_sum_thread_args}{SumThreadArgs<T>}}\ args(data,\ thIndStart,\ thIndEnd,\ sum,\ m);}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(std::thread(SumThread<T>,\ args));}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ th\ :\ threads)}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00656\ \ \ \ \ \}}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00659\ \ \ \ \ \textcolor{keyword}{static}\ T\ Sum(T*\ data,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00660\ \ \ \ \ \{}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Sum(data,\ 0,\ size\ -\/\ 1,\ threadsNum);}
+\DoxyCodeLine{00662\ \ \ \ \ \}}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00666\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumOpenMP(T*\ data,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00668\ \ \ \ \ \{}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ omp\_set\_num\_threads(threadsNum);}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ T\ sum\ =\ 0;}
+\DoxyCodeLine{00672\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ parallel\ for\ reduction(+:sum)}}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ i\ =\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})indStart;\ i\ <=\ (\textcolor{keywordtype}{long}\ long)indEnd;\ i++)}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \ \ \ \ sum\ +=\ data[i];}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00678\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}OpenMP\ not\ supported!"{}});}
+\DoxyCodeLine{00680\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00681\ \ \ \ \ \}}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumOpenMP(T*\ data,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00685\ \ \ \ \ \{}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SumOpenMP(data,\ 0,\ size\ -\/\ 1,\ threadsNum);}
+\DoxyCodeLine{00687\ \ \ \ \ \}}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ \textcolor{comment}{//\ Суммирование\ на\ одном\ GPU}}
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCuda(T*\ dev\_arr,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd,\ \textcolor{keywordtype}{unsigned}\ blocksNum,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00695\ \ \ \ \ \{}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length\ =\ indEnd\ -\/\ indStart\ +\ 1;}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00700\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}T\ Sum("{}}\ <<\ dev\_arr\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ length\ <<\ \textcolor{stringliteral}{"{},\ "{}}<<\ blocksNum\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ threadsNum\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<std::endl;}
+\DoxyCodeLine{00704\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ T\ sum\{0\};}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \textcolor{comment}{//T*\ dev\_sum;}}
+\DoxyCodeLine{00708\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cudaMalloc(\&dev\_sum,\ sizeof(T));}}
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cudaMemcpy(d,\ h,\ size,\ cudaMemcpyHostToDevice);}}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выделяем\ в\ распределяемой\ памяти\ каждого\ SM\ массив\ для\ хранения\ локальных\ сумм\ каждого\ потока\ блока}}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ shared\_mem\_size\ =\ threadsNum\ *\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{00713\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}shared\_mem\_size\ =\ "{}}\ <<\ shared\_mem\_size\ <<\ std::endl;}
+\DoxyCodeLine{00715\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выделяем\ в\ RAM\ и\ глобальной\ памяти\ GPU\ массив\ для\ локальных\ сумм\ каждого\ блока}}
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ T*\ block\_sum\ =\ (T*)malloc(blocksNum\ *\ \textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ T*\ dev\_block\_sum;}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ cudaMalloc(\&dev\_block\_sum,\ blocksNum\ *\ \textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ kernel\_sum<<<blocksNum,\ threadsNum,\ shared\_mem\_size>>>(dev\_arr,\ length,\ dev\_block\_sum);}
+\DoxyCodeLine{00721\ }
+\DoxyCodeLine{00722\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cudaMemcpy(\&sum,\ dev\_sum,\ sizeof(T),\ cudaMemcpyDeviceToHost);}}
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ cudaMemcpy(block\_sum,\ dev\_block\_sum,\ blocksNum\ *\ \textcolor{keyword}{sizeof}(T),\ cudaMemcpyDeviceToHost);}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ i=0;\ i<blocksNum;i++)}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}block\_sum["{}\ <<\ i\ <<\ "{}]\ =\ "{}\ <<\ block\_sum[i]\ <<\ std::endl;}}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \ \ \ \ sum\ +=\ block\_sum[i];}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00729\ }
+\DoxyCodeLine{00730\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ DEBUG}}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}SumCuda:\ Sum\ is\ "{}}\ <<\ sum\ <<\ std::endl;}
+\DoxyCodeLine{00732\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ free(block\_sum);}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ cudaFree(dev\_block\_sum);}
+\DoxyCodeLine{00736\ }
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00739\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00741\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00742\ \ \ \ \ \}}
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00745\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCuda(T*\ data,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{unsigned}\ blocksNum,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00746\ \ \ \ \ \{}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SumCuda(data,\ 0,\ size\ -\/\ 1,\ blocksNum,\ threadsNum);}
+\DoxyCodeLine{00748\ \ \ \ \ \}}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \ \ \textcolor{comment}{//\ Суммирование\ на\ нескольких\ GPU}}
+\DoxyCodeLine{00751\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00752\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>>\ params)}
+\DoxyCodeLine{00753\ \ \ \ \ \{}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}SumCudaMultiGpu(std::vector<ArrayGpuProcessingParams<T>>\ params)\(\backslash\)n\(\backslash\)n"{};}}
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ T\ sum\{0\};}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00759\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ gpuNum\ =\ params.size();}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ gpuNum;\ i++)}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(std::thread\{[i,\ \&mutex,\ \&params,\ \&sum]()\ \{}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(i);}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ gpu\_sum\ =\ SumCuda(params[i].dev\_arr,}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params[i].indStart,}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params[i].indEnd,}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params[i].blocksNum,}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params[i].threadsNum\ );}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.lock();}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}thread\ "{}\ <<\ i\ <<"{}:\ "{};}}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//params[i].Print();}}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}gpu\_sum\ =\ "{}\ <<\ gpu\_sum\ <<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\ +=\ gpu\_sum;}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.unlock();}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ \}\});}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00782\ \textcolor{comment}{\ \ \ \ \ \ \ \ unsigned\ deviceId;}}
+\DoxyCodeLine{00783\ \textcolor{comment}{\ \ \ \ \ \ \ \ T*\ dev\_arr;}}
+\DoxyCodeLine{00784\ \textcolor{comment}{\ \ \ \ \ \ \ \ size\_t\ indStart;}}
+\DoxyCodeLine{00785\ \textcolor{comment}{\ \ \ \ \ \ \ \ size\_t\ indEnd;}}
+\DoxyCodeLine{00786\ \textcolor{comment}{\ \ \ \ \ \ \ \ unsigned\ blocksNum;}}
+\DoxyCodeLine{00787\ \textcolor{comment}{\ \ \ \ \ \ \ \ unsigned\ threadsNum;}}
+\DoxyCodeLine{00788\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ thread\ :\ threads)}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ thread.join();}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00794\ }
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00798\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00800\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00801\ \ \ \ \ \}}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ \ \ \ \ \textcolor{comment}{//\ Суммирование\ на\ GPU\ cuBLAS}}
+\DoxyCodeLine{00804\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCublas(cublasHandle\_t\ cublasH,}
+\DoxyCodeLine{00806\ \ \ \ \ \ \ \ \ T*\ dev\_arr,\ \textcolor{keywordtype}{size\_t}\ indStart,\ \textcolor{keywordtype}{size\_t}\ indEnd)}
+\DoxyCodeLine{00807\ \ \ \ \ \{}
+\DoxyCodeLine{00808\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*std::cout\ <<\ "{}!!!SumCublas():\ cublasH:\ "{}\ <<\ cublasH}}
+\DoxyCodeLine{00811\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{};\ dev\_arr:\ "{}\ <<\ dev\_arr}}
+\DoxyCodeLine{00812\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{};\ indStart:\ "{}\ <<\ indStart}}
+\DoxyCodeLine{00813\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{};\ indEnd:\ "{}\ <<\ indEnd}}
+\DoxyCodeLine{00814\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;*/}}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ T\ result\ =\ 0;}
+\DoxyCodeLine{00817\ }
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cublasHandle\_t\ cublasH\ =\ nullptr;\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cublasStatus\_t\ cublasStat\ =\ cublasCreate(\&cublasH);}}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \textcolor{comment}{//CublasHelper::CheckCublasStatus(cublasStat,\ "{}CUBLAS\ initialization\ failed\(\backslash\)n"{});}}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ incx\ =\ 1;}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ cublasStatus\_t\ cublasStat;}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{double}))}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \ \ \ \ cublasStat\ =\ cublasDasum(cublasH,\ indEnd-\/indStart+1,\ (\textcolor{keywordtype}{double}*)dev\_arr,\ incx,\ \&result);}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{float}))}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ dev\_arr\_float\ =\ (\textcolor{keywordtype}{float}*)dev\_arr;}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ result\_float\ =\ 0;}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \ \ \ \ cublasStat\ =\ cublasSasum(cublasH,\ indEnd-\/indStart+1,\ dev\_arr\_float,\ incx,\ \&result\_float);}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (T)\ result\_float;}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}typeid(T)\ not\ supported\ by\ cublas!"{}});\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ CublasHelper::CheckCublasStatus(cublasStat,\ \textcolor{stringliteral}{"{}cublas\ sum\ failed\(\backslash\)n"{}});}
+\DoxyCodeLine{00837\ }
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00841\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00843\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00844\ \ \ \ \ \}}
+\DoxyCodeLine{00845\ \ \ \ \ }
+\DoxyCodeLine{00846\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00847\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCublas(cublasHandle\_t\ cublasH,}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ T*\ dev\_arr,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00849\ \ \ \ \ \{}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ SumCublas(cublasH,\ dev\_arr,\ 0,\ length-\/1);}
+\DoxyCodeLine{00851\ \ \ \ \ \}}
+\DoxyCodeLine{00852\ }
+\DoxyCodeLine{00853\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00854\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCublas(cublasHandle\_t\ cublasH,\ ArrayGpuProcessingParams<T>\ params)}
+\DoxyCodeLine{00855\ \ \ \ \ \{}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ T\ sum\ =\ SumCublas(cublasH,\ params.dev\_arr,\ params.indStart,\ params.indEnd);}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00858\ \ \ \ \ \}}
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{comment}{//\ Суммирование\ на\ нескольких\ GPU\ с\ помощью\ CuBLAS}}
+\DoxyCodeLine{00861\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00862\ \ \ \ \ \textcolor{keyword}{static}\ T\ SumCublasMultiGpu(std::vector<cublasHandle\_t>\ cublasHandles,}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ std::vector<T*>\ dev\_arrays,}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ indStarts,}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ indEnds)}
+\DoxyCodeLine{00866\ \ \ \ \ \{}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}SumCublasMultiGpu(std::vector<ArrayGpuProcessingParams<T>>\ params)\(\backslash\)n\(\backslash\)n"{};}}
+\DoxyCodeLine{00868\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ T\ sum\{0\};}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ gpuNum\ =\ cublasHandles.size();}
+\DoxyCodeLine{00873\ }
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ gpuNum;\ i++)}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ cublasHandle\_t\ cublasHandle\ =\ cublasHandles[i];}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ T*\ dev\_arr\ =\ dev\_arrays[i];}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indStart\ =\ indStarts[i];}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ indEnd\ =\ indEnds[i];}
+\DoxyCodeLine{00882\ }
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}!!!SumCublasMultiGpu():\ cublasHandle:\ "{}}\ <<\ cublasHandle}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ dev\_arr:\ "{}}\ <<\ dev\_arr}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ indStart:\ "{}}\ <<\ indStart}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ indEnd:\ "{}}\ <<\ indEnd}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*std::cout\ <<\ "{}!!!SumCublasMultiGpu():\ cublasHandles[i]:\ "{}\ <<\ cublasHandles[i]}}
+\DoxyCodeLine{00890\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{};\ dev\_arrays[i]:\ "{}\ <<\ dev\_arrays[i]}}
+\DoxyCodeLine{00891\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{};\ indStarts[i]:\ "{}\ <<\ indStarts[i]}}
+\DoxyCodeLine{00892\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ "{};\ indEnds[i]:\ "{}\ <<\ indEnds[i]}}
+\DoxyCodeLine{00893\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;*/}}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(std::thread\{[\&mutex,}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&sum,\ i,\ cublasHandle,}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev\_arr,\ indStart,\ indEnd]()\ \{}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(i);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ gpu\_sum\ =\ SumCublas(cublasHandle,}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev\_arr,}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indStart,}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ indEnd);}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.lock();}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}thread\ "{}\ <<\ i\ <<"{}:\ "{};}}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//params[i].Print();}}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}gpu\_sum\ =\ "{}\ <<\ gpu\_sum\ <<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sum\ +=\ gpu\_sum;}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.unlock();}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \ \ \ \ \}\});}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ thread\ :\ threads)}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \ \ \ \ thread.join();}
+\DoxyCodeLine{00915\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00916\ }
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sum;}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00920\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00922\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00923\ \ \ \ \ \}}
+\DoxyCodeLine{00924\ }
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \ \ \ \ }
+\DoxyCodeLine{00929\ \ \ \ \ }
+\DoxyCodeLine{00930\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00931\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductRamSeq(T*\ arrayRam1,\ T*\ arrayRam2,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00932\ \ \ \ \ \{}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ T\ scalarProduct\{0\};}
+\DoxyCodeLine{00934\ }
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ length;\ i++)}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \ \ \ \ scalarProduct\ +=\ arrayRam1[i]\ *\ arrayRam2[i];\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalarProduct;}
+\DoxyCodeLine{00940\ \ \ \ \ \}}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00942\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00943\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductRamParThread(T*\ arrayRam1,\ T*\ arrayRam2,\ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00944\ \ \ \ \ \{}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ T\ scalarProduct\{0\};}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ blockSize\ =\ length\ /\ threadsNum;}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ threadsNum;\ i++)}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\{}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [=,\ \&mutex,\ \&scalarProduct]()\{}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ localSum\ =\ ScalarProductRamSeq(arrayRam1\ +\ i*blockSize,}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayRam2\ +\ i*blockSize,}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i\ <\ threadsNum-\/1)\ ?\ blockSize\ :\ blockSize\ +\ length\ \%\ threadsNum);}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::lock\_guard<std::mutex>\ guard\{mutex\};}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalarProduct\ +=\ localSum;}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00969\ }
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ thread\ :\ threads)}
+\DoxyCodeLine{00971\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ \ \ thread.join();}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalarProduct;}
+\DoxyCodeLine{00976\ \ \ \ \ \}}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00979\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductRamParOpenMP(T*\ array1Ram,\ T*\ array2Ram,\ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{unsigned}\ threadsNum)}
+\DoxyCodeLine{00980\ \ \ \ \ \{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00981\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_OPENMP}}
+\DoxyCodeLine{00982\ \ \ \ \ \ \ \ \ omp\_set\_num\_threads(threadsNum);}
+\DoxyCodeLine{00983\ \ \ \ \ \ \ \ \ T\ scalarProduct\ =\ 0;}
+\DoxyCodeLine{00984\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#pragma\ omp\ parallel\ for\ reduction(+:scalarProduct)}}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ i\ =\ 0;\ i\ <\ (\textcolor{keywordtype}{long}\ long)length;\ i++)}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \ \ \ \ scalarProduct\ +=\ array1Ram[i]*array2Ram[i];}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalarProduct;}
+\DoxyCodeLine{00990\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00991\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}OpenMP\ not\ supported!"{}});}
+\DoxyCodeLine{00992\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00993\ \ \ \ \ \}}
+\DoxyCodeLine{00994\ }
+\DoxyCodeLine{00995\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ ScalarProductRamCublas(\textcolor{keywordtype}{double}*\ arrayRam1,\ \textcolor{keywordtype}{double}*\ arrayRam2,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{00996\ \ \ \ \ \{}
+\DoxyCodeLine{00997\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ OPENBLAS}}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ scalarProduct\ =\ cblas\_ddot(length,\ arrayRam1,\ 1,\ arrayRam2,\ 1);}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalarProduct;}
+\DoxyCodeLine{01000\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}OpenBlas\ not\ supported!"{}});}
+\DoxyCodeLine{01002\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01003\ \ \ \ \ \}}
+\DoxyCodeLine{01004\ \ \ \ \ }
+\DoxyCodeLine{01005\ \ \ \ \ }
+\DoxyCodeLine{01006\ }
+\DoxyCodeLine{01007\ }
+\DoxyCodeLine{01008\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01009\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductGpuParCuda(T*\ arrayGpu1,\ T*\ arrayGpu2,\ \textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ kernelBlocks,\ \textcolor{keywordtype}{unsigned}\ kernelThreads)}
+\DoxyCodeLine{01011\ \ \ \ \ \{}
+\DoxyCodeLine{01012\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01013\ }
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выделяем\ в\ распределяемой\ памяти\ каждого\ SM\ массив\ для\ хранения\ локальных\ сумм\ каждого\ потока\ блока}}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ shared\_mem\_size\ =\ kernelThreads\ *\ \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Выделяем\ в\ RAM\ и\ глобальной\ памяти\ GPU\ массив\ для\ локальных\ сумм\ каждого\ блока}}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ T*\ blockSumsRam\ =\ \mbox{\hyperlink{struct_array_helper_ae93a7d6bb2cdc1defb9b7d43714eeb2c}{CreateArrayRam<T>}}(kernelBlocks);}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ T*\ blockSumsGpu\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(kernelBlocks);}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Запуск\ ядра\ вычисления\ скалярного\ произведения}}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ kernel\_scalar\_product<<<kernelBlocks,\ kernelThreads,\ shared\_mem\_size>>>(arrayGpu1,\ arrayGpu2,\ length,\ blockSumsGpu);}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ cudaCheckErrors(\textcolor{stringliteral}{"{}Error\ in\ kernel\_scalar\_product!\(\backslash\)n"{}});}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Копируем\ частичные\ суммы\ из\ GPU\ в\ RAM}}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Starting\ CopyGpuToRam...\ "{}};}
+\DoxyCodeLine{01024\ \ \ \ \ \ \ \ \ CopyGpuToRam(blockSumsGpu,\ blockSumsRam,\ kernelBlocks);}
+\DoxyCodeLine{01025\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}OK\(\backslash\)n"{}};}
+\DoxyCodeLine{01026\ \ \ \ \ \ \ \ \ T\ result\ =\ Sum(blockSumsRam,\ kernelBlocks);}
+\DoxyCodeLine{01027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Освобождаем\ память\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ DeleteArrayRam(blockSumsRam);}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(blockSumsGpu);}
+\DoxyCodeLine{01030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{01031\ }
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01033\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01035\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01036\ \ \ \ \ \}}
+\DoxyCodeLine{01037\ }
+\DoxyCodeLine{01038\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01039\ \ \ \ \ \textcolor{keyword}{static}\ FuncResult<T>\ ScalarProductGpuParCuda(\textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ kernelBlocks,\ \textcolor{keywordtype}{unsigned}\ kernelThreads)}
+\DoxyCodeLine{01041\ \ \ \ \ \{}
+\DoxyCodeLine{01042\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01043\ }
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ T*\ arrayGpu1\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(length);}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ T*\ arrayGpu2\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(length);}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(arrayGpu1,\ length,\ (T)10.0);}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(arrayGpu2,\ length,\ (T)0.1);}
+\DoxyCodeLine{01048\ }
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ T\ scalarProduct\ =\ ScalarProductGpuParCuda(arrayGpu1,\ arrayGpu2,\ length,\ kernelBlocks,\ kernelThreads);}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<microseconds>(stop\ -\/\ start);}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ duration.count();}
+\DoxyCodeLine{01055\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(arrayGpu1);}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(arrayGpu2);}
+\DoxyCodeLine{01058\ }
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FuncResult<T>\{\textcolor{keyword}{true},\ scalarProduct,\ t\};}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01062\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01065\ \ \ \ \ \}}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ }
+\DoxyCodeLine{01068\ }
+\DoxyCodeLine{01069\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01070\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductMultiGpuParCuda(}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ std::vector<T*>\ array1Gpus,}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ std::vector<T*>\ array2Gpus,}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ lengthGpus,}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ kernelBlocks,}
+\DoxyCodeLine{01075\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ kernelThreads)}
+\DoxyCodeLine{01076\ \ \ \ \ \{}
+\DoxyCodeLine{01077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ T\ scalarProduct\{0\};}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ gpuNum\ =\ array1Gpus.size();}
+\DoxyCodeLine{01082\ }
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ gpuNum;\ i++)}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(std::thread\{}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [i,\ \&mutex,\ \&array1Gpus,\ \&array2Gpus,}
+\DoxyCodeLine{01089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&lengthGpus,\ kernelBlocks,\ kernelThreads,\ \&scalarProduct]()\{}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(i);}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ \ \ <<\ i\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ array1Gpus[i]\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{01094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ array2Gpus[i]\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ lengthGpus[i]\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ kernelBlocks\ <<\ \textcolor{stringliteral}{"{};\ "{}}}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ kernelThreads}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{01099\ }
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ gpu\_scalarProduct\ =\ ScalarProductGpuParCuda(}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array1Gpus[i],}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array2Gpus[i],}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lengthGpus[i],}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernelBlocks,}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kernelThreads}
+\DoxyCodeLine{01106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.lock();}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}thread\ "{}\ <<\ i\ <<"{}:\ "{};}}
+\DoxyCodeLine{01109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//params[i].Print();}}
+\DoxyCodeLine{01110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}scalarProduct\ =\ "{}\ <<\ scalarProduct\ <<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{01111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalarProduct\ +=\ gpu\_scalarProduct;}
+\DoxyCodeLine{01112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.unlock();}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \ \ \ \ \}\});}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{01115\ }
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ thread\ :\ threads)}
+\DoxyCodeLine{01117\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \ \ \ \ thread.join();}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalarProduct;}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01124\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01126\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01127\ \ \ \ \ \}}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01129\ }
+\DoxyCodeLine{01130\ \ \ \ \ }
+\DoxyCodeLine{01131\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01132\ \ \ \ \ \textcolor{keyword}{static}\ FuncResult<T>\ ScalarProductMultiGpuParCuda(\textcolor{keywordtype}{size\_t}\ length,}
+\DoxyCodeLine{01133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ kernelBlocks,\ \textcolor{keywordtype}{unsigned}\ kernelThreads,\ std::vector<double>\ kGpuData)}
+\DoxyCodeLine{01134\ \ \ \ \ \{}
+\DoxyCodeLine{01135\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01137\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ gpuDataLength;}
+\DoxyCodeLine{01138\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ gpuDataLengthDistribution\ =\ length;}
+\DoxyCodeLine{01139\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ gpuNum\ =\ kGpuData.size();}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ gpuNum;\ i++)}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}kGpuData["{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}]:\ "{}}\ <<\ kGpuData[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{01143\ }
+\DoxyCodeLine{01144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ gpuDataLengthElement\ =\ kGpuData[i]\ *\ length;}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ gpuNum\ -\/\ 1)}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpuDataLengthElement\ =\ gpuDataLengthDistribution;}
+\DoxyCodeLine{01148\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ \ \ \ \ \ \ gpuDataLength.push\_back(gpuDataLengthElement);}
+\DoxyCodeLine{01150\ \ \ \ \ \ \ \ \ \ \ \ \ gpuDataLengthDistribution\ -\/=\ gpuDataLengthElement;}
+\DoxyCodeLine{01151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01153\ \ \ \ \ \ \ \ \ std::vector<T*>\ array1Gpus;}
+\DoxyCodeLine{01154\ \ \ \ \ \ \ \ \ std::vector<T*>\ array2Gpus;}
+\DoxyCodeLine{01155\ }
+\DoxyCodeLine{01156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ gpuDataLength.size();\ i++)}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01158\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}GPU\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}:\ "{}}}
+\DoxyCodeLine{01159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ gpuDataLength[i]}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ from\ "{}}\ <<\ length\ <<\ std::endl;}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \ \ \ \ T*\ array1Gpu\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(gpuDataLength[i],\ i);}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \ \ \ \ array1Gpus.push\_back(array1Gpu);}
+\DoxyCodeLine{01163\ \ \ \ \ \ \ \ \ \ \ \ \ T*\ array2Gpu\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(gpuDataLength[i],\ i);}
+\DoxyCodeLine{01164\ \ \ \ \ \ \ \ \ \ \ \ \ array2Gpus.push\_back(array2Gpu);}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01166\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Arrays\ created!\(\backslash\)n"{}};}
+\DoxyCodeLine{01167\ }
+\DoxyCodeLine{01168\ }
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ gpuDataLength.size();\ i++)}
+\DoxyCodeLine{01170\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01171\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}GPU\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}:\ "{}}}
+\DoxyCodeLine{01172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ gpuDataLength[i]}
+\DoxyCodeLine{01173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ from\ "{}}\ <<\ length\ <<\ std::endl;}
+\DoxyCodeLine{01174\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(array1Gpus[i],\ gpuDataLength[i],\ (T)10.0,\ i);}
+\DoxyCodeLine{01175\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(array2Gpus[i],\ gpuDataLength[i],\ (T)0.1,\ i);}
+\DoxyCodeLine{01176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01177\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Arrays\ initialized!\(\backslash\)n"{}};}
+\DoxyCodeLine{01178\ }
+\DoxyCodeLine{01179\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01180\ }
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ T\ scalarProduct\ =\ ScalarProductMultiGpuParCuda(array1Gpus,\ array2Gpus,\ gpuDataLength,\ kernelBlocks,\ kernelThreads);}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{01184\ }
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<microseconds>(stop\ -\/\ start);}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ duration.count();}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ gpuDataLength.size();\ i++)}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}GPU\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}:\ "{}}}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ gpuDataLength[i]}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ from\ "{}}\ <<\ length\ <<\ std::endl;}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(array1Gpus[i],\ i);}
+\DoxyCodeLine{01195\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(array2Gpus[i],\ i);}
+\DoxyCodeLine{01196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Arrays\ deleted!\(\backslash\)n"{}};}
+\DoxyCodeLine{01198\ }
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FuncResult<T>\{\textcolor{keyword}{true},\ scalarProduct,\ t\};}
+\DoxyCodeLine{01200\ }
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01202\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01204\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01205\ \ \ \ \ \}}
+\DoxyCodeLine{01206\ }
+\DoxyCodeLine{01207\ }
+\DoxyCodeLine{01208\ }
+\DoxyCodeLine{01209\ }
+\DoxyCodeLine{01210\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01211\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductGpuCublas(cublasHandle\_t\ cublasHandle,}
+\DoxyCodeLine{01212\ \ \ \ \ \ \ \ \ T*\ array1Gpu,\ T*\ array2Gpu,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{01213\ \ \ \ \ \{}
+\DoxyCodeLine{01214\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01215\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01216\ \ \ \ \ \ \ \ \ T\ result\ =\ 0;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01217\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ incx\ =\ 1;}
+\DoxyCodeLine{01218\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ incy\ =\ 1;}
+\DoxyCodeLine{01219\ }
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ cublasStatus\_t\ cublasStatus;}
+\DoxyCodeLine{01221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{double}))}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ array1Gpu\_double\ =\ (\textcolor{keywordtype}{double}*)array1Gpu;}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}*\ array2Gpu\_double\ =\ (\textcolor{keywordtype}{double}*)array2Gpu;}
+\DoxyCodeLine{01225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ result\_double\ =\ 0;}
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ \ \ \ \ cublasStatus\ =\ cublasDdot(cublasHandle,\ length,}
+\DoxyCodeLine{01227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array1Gpu\_double,\ incx,}
+\DoxyCodeLine{01228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array2Gpu\_double,\ incy,}
+\DoxyCodeLine{01229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&result\_double);}
+\DoxyCodeLine{01230\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (T)\ result\_double;}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keyword}{typeid}(T)==\textcolor{keyword}{typeid}(\textcolor{keywordtype}{float}))}
+\DoxyCodeLine{01233\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01234\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ array1Gpu\_float\ =\ (\textcolor{keywordtype}{float}*)array1Gpu;}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ array2Gpu\_float\ =\ (\textcolor{keywordtype}{float}*)array2Gpu;}
+\DoxyCodeLine{01236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ result\_float\ =\ 0;}
+\DoxyCodeLine{01237\ \ \ \ \ \ \ \ \ \ \ \ \ cublasStatus\ =\ cublasSdot(cublasHandle,\ length,}
+\DoxyCodeLine{01238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array1Gpu\_float,\ incx,}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ array2Gpu\_float,\ incy,}
+\DoxyCodeLine{01240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&result\_float);}
+\DoxyCodeLine{01241\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (T)\ result\_float;}
+\DoxyCodeLine{01242\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}typeid(T)\ not\ supported\ by\ cublas!"{}});\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01245\ \ \ \ \ \ \ \ \ CublasHelper::CheckCublasStatus(cublasStatus,\ \textcolor{stringliteral}{"{}cublas\ dot\ failed\(\backslash\)n"{}});}
+\DoxyCodeLine{01246\ }
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{01248\ }
+\DoxyCodeLine{01249\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01250\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01252\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01253\ \ \ \ \ \}}
+\DoxyCodeLine{01254\ }
+\DoxyCodeLine{01255\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01256\ \ \ \ \ \textcolor{keyword}{static}\ FuncResult<T>\ ScalarProductGpuCublas(\textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{01257\ \ \ \ \ \{}
+\DoxyCodeLine{01258\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ cublasHandle\_t\ cublasHandle\ =\ \mbox{\hyperlink{struct_cublas_helper_aee7a2f728f4d914aceba5ba5cd78e512}{CublasHelper::CublasCreate}}();}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01261\ \ \ \ \ \ \ \ \ T*\ array1Gpu\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(length);}
+\DoxyCodeLine{01262\ \ \ \ \ \ \ \ \ T*\ array2Gpu\ =\ \mbox{\hyperlink{struct_array_helper_a9c803d53ead4a35b5fe1708880a2bb58}{CreateArrayGpu<T>}}(length);}
+\DoxyCodeLine{01263\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(array1Gpu,\ length,\ (T)10.0);}
+\DoxyCodeLine{01264\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a5b09b15928eea3d6a3b79ac47e856ccb}{ArrayHelper::InitArrayGpu}}(array2Gpu,\ length,\ (T)0.1);}
+\DoxyCodeLine{01265\ }
+\DoxyCodeLine{01266\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{01267\ \ \ \ \ \ \ \ \ T\ scalarProduct\ =\ ScalarProductGpuCublas(cublasHandle,\ array1Gpu,\ array2Gpu,\ length);}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ stop\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{01269\ }
+\DoxyCodeLine{01270\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ duration\ =\ duration\_cast<microseconds>(stop\ -\/\ start);}
+\DoxyCodeLine{01271\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ duration.count();}
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01273\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(array1Gpu);}
+\DoxyCodeLine{01274\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_array_helper_a2f219e8f2f35ddb44b675ba637caba75}{DeleteArrayGpu}}(array2Gpu);}
+\DoxyCodeLine{01275\ }
+\DoxyCodeLine{01276\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_cublas_helper_aad5321a82d40c0b01dc62dce00224784}{CublasHelper::CublasDestroy}}(cublasHandle);}
+\DoxyCodeLine{01277\ }
+\DoxyCodeLine{01278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FuncResult<T>\{\textcolor{keyword}{true},\ scalarProduct,\ t\};}
+\DoxyCodeLine{01279\ }
+\DoxyCodeLine{01280\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01281\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01283\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01284\ \ \ \ \ \}}
+\DoxyCodeLine{01285\ }
+\DoxyCodeLine{01286\ \ \ \ \ \textcolor{comment}{//\ Скалярное\ произведение\ на\ нескольких\ GPU\ с\ помощью\ CuBLAS}}
+\DoxyCodeLine{01287\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01288\ \ \ \ \ \textcolor{keyword}{static}\ T\ ScalarProductMultiGpuCublas(std::vector<cublasHandle\_t>\ cublasHandles,}
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ std::vector<T*>\ dev\_arrays\_1,}
+\DoxyCodeLine{01290\ \ \ \ \ \ \ \ \ std::vector<T*>\ dev\_arrays\_2,}
+\DoxyCodeLine{01291\ \ \ \ \ \ \ \ \ std::vector<size\_t>\ dev\_arrays\_lengths)}
+\DoxyCodeLine{01292\ \ \ \ \ \{}
+\DoxyCodeLine{01293\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}ScalarProductMultiGpuCublas(...)\(\backslash\)n\(\backslash\)n"{};}}
+\DoxyCodeLine{01294\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01295\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01296\ \ \ \ \ \ \ \ \ T\ scalarProduct\{0\};}
+\DoxyCodeLine{01297\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01298\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ gpuNum\ =\ cublasHandles.size();}
+\DoxyCodeLine{01299\ }
+\DoxyCodeLine{01300\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{01301\ \ \ \ \ \ \ \ \ std::mutex\ mutex;}
+\DoxyCodeLine{01302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ gpuNum;\ i++)}
+\DoxyCodeLine{01303\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ \ \ \ \ cublasHandle\_t\ cublasHandle\ =\ cublasHandles[i];}
+\DoxyCodeLine{01305\ \ \ \ \ \ \ \ \ \ \ \ \ T*\ dev\_arr\_1\ =\ dev\_arrays\_1[i];}
+\DoxyCodeLine{01306\ \ \ \ \ \ \ \ \ \ \ \ \ T*\ dev\_arr\_2\ =\ dev\_arrays\_2[i];}
+\DoxyCodeLine{01307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length\ =\ dev\_arrays\_lengths[i];}
+\DoxyCodeLine{01308\ }
+\DoxyCodeLine{01309\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}!!!ScalarProductMultiGpuCublas():"{}}}
+\DoxyCodeLine{01310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ cublasHandle:\ "{}}\ <<\ cublasHandle}
+\DoxyCodeLine{01311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ dev\_arr\_1:\ "{}}\ \ \ <<\ dev\_arr\_1}
+\DoxyCodeLine{01312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ dev\_arr\_2:\ "{}}\ \ \ <<\ dev\_arr\_2}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{};\ length:\ "{}}\ \ \ \ \ \ <<\ length}
+\DoxyCodeLine{01314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{01315\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(std::thread\{[\&mutex,}
+\DoxyCodeLine{01317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&scalarProduct,\ i,\ cublasHandle,}
+\DoxyCodeLine{01318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev\_arr\_1,\ dev\_arr\_2,\ length]()\ \{}
+\DoxyCodeLine{01319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cudaSetDevice(i);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ gpu\_scalarProduct\ =\ ScalarProductGpuCublas(cublasHandle,}
+\DoxyCodeLine{01321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev\_arr\_1,}
+\DoxyCodeLine{01322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dev\_arr\_2,}
+\DoxyCodeLine{01323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ length);}
+\DoxyCodeLine{01324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.lock();}
+\DoxyCodeLine{01325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}thread\ "{}\ <<\ i\ <<"{}:\ "{};}}
+\DoxyCodeLine{01326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//params[i].Print();}}
+\DoxyCodeLine{01327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}gpu\_scalarProduct\ =\ "{}\ <<\ gpu\_scalarProduct\ <<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{01328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ scalarProduct\ +=\ gpu\_scalarProduct;}
+\DoxyCodeLine{01329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mutex.unlock();}
+\DoxyCodeLine{01330\ \ \ \ \ \ \ \ \ \ \ \ \ \}\});}
+\DoxyCodeLine{01331\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{01332\ }
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ thread\ :\ threads)}
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01335\ \ \ \ \ \ \ \ \ \ \ \ \ thread.join();}
+\DoxyCodeLine{01336\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01337\ }
+\DoxyCodeLine{01338\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ scalarProduct;}
+\DoxyCodeLine{01339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01340\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{01341\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{01342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01343\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{01344\ \ \ \ \ \}}
+\DoxyCodeLine{01345\ }
+\DoxyCodeLine{01346\ }
+\DoxyCodeLine{01347\ }
+\DoxyCodeLine{01349\ }
+\DoxyCodeLine{01350\ }
+\DoxyCodeLine{01352\ \ \ \ \ }
+\DoxyCodeLine{01353\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{01354\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MultiplyRam(T*\ arrayRam,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length,\ S\ scalar)}
+\DoxyCodeLine{01355\ \ \ \ \ \{}
+\DoxyCodeLine{01356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ length;\ i++)}
+\DoxyCodeLine{01357\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01358\ \ \ \ \ \ \ \ \ \ \ \ \ arrayRam[i]\ *=\ scalar;}
+\DoxyCodeLine{01359\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01360\ \ \ \ \ \}}
+\DoxyCodeLine{01361\ }
+\DoxyCodeLine{01362\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{01363\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MultiplyRamParallel(T*\ arrayRam,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length,}
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ S\ scalar,\ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumber)}
+\DoxyCodeLine{01365\ \ \ \ \ \{}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ std::vector<std::thread>\ threads;}
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ blockSize\ =\ length/cpuThreadsNumber;}
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ blockSizeLast\ =\ length\ -\/\ blockSize\ *\ (cpuThreadsNumber-\/1);}
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ arrayRamTh\ =\ arrayRam;}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ cpuThreadsNumber;\ i++)}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ cpuThreadsNumber\ -\/\ 1)}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ blockSize\ =\ blockSizeLast;}
+\DoxyCodeLine{01375\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01376\ }
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \ \ \ \ threads.push\_back(}
+\DoxyCodeLine{01378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::thread(}
+\DoxyCodeLine{01379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [=]()\{}
+\DoxyCodeLine{01380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ blockSize;\ i++)}
+\DoxyCodeLine{01381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arrayRamTh[i]\ *=\ scalar;}
+\DoxyCodeLine{01383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{01386\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{01387\ }
+\DoxyCodeLine{01388\ \ \ \ \ \ \ \ \ \ \ \ \ arrayRamTh\ +=\ blockSize;}
+\DoxyCodeLine{01389\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01390\ }
+\DoxyCodeLine{01391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ thread\ :\ threads)}
+\DoxyCodeLine{01392\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01393\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(thread.joinable())}
+\DoxyCodeLine{01394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ thread.join();}
+\DoxyCodeLine{01395\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01396\ \ \ \ \ \}}
+\DoxyCodeLine{01397\ }
+\DoxyCodeLine{01398\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{01399\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MultiplyGpu(T*\ arrayGpu,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length,}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ deviceId,\ S\ scalar)}
+\DoxyCodeLine{01401\ \ \ \ \ \{}
+\DoxyCodeLine{01402\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_cuda_helper_acfb993fd6f2458328efdd246feedcccd}{CudaHelper::IsCudaSupported}}())}
+\DoxyCodeLine{01403\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01404\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(deviceId\ ==\ 0)}
+\DoxyCodeLine{01405\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CudaHelper::Multiply(arrayGpu,\ length,\ scalar);}
+\DoxyCodeLine{01407\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01408\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01409\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::thread\ th\{}
+\DoxyCodeLine{01411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//cudaSetDevice(deviceId);}}
+\DoxyCodeLine{01413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_cuda_helper_ae9b2f2f91313696aaf6b3904f38dd408}{CudaHelper::SetDevice}}(deviceId);}
+\DoxyCodeLine{01414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CudaHelper::Multiply(arrayGpu,\ length,\ scalar);}
+\DoxyCodeLine{01415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{01417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ th.join();}
+\DoxyCodeLine{01418\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01419\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{01422\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01423\ \ \ \ \ \}}
+\DoxyCodeLine{01424\ }
+\DoxyCodeLine{01425\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{01426\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Multiply(DevMemArrPointer<T>\ devMemArrPointer,\ S\ scalar)}
+\DoxyCodeLine{01427\ \ \ \ \ \{}
+\DoxyCodeLine{01428\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (devMemArrPointer.dataLocation)}
+\DoxyCodeLine{01429\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01430\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::RAM:}
+\DoxyCodeLine{01431\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyRam(devMemArrPointer.ptr,\ devMemArrPointer.length,\ scalar);}
+\DoxyCodeLine{01432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01433\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU0:}
+\DoxyCodeLine{01434\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 0,\ scalar);}
+\DoxyCodeLine{01435\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU1:}
+\DoxyCodeLine{01437\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 1,\ scalar);}
+\DoxyCodeLine{01438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01439\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU2:}
+\DoxyCodeLine{01440\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 2,\ scalar);}
+\DoxyCodeLine{01441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01442\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU3:}
+\DoxyCodeLine{01443\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 3,\ scalar);}
+\DoxyCodeLine{01444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01445\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01446\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{01447\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01448\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01449\ \ \ \ \ \}}
+\DoxyCodeLine{01450\ }
+\DoxyCodeLine{01451\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ S>}
+\DoxyCodeLine{01452\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ MultiplyParallel(DevMemArrPointer<T>\ devMemArrPointer,}
+\DoxyCodeLine{01453\ \ \ \ \ \ \ \ \ S\ scalar,}
+\DoxyCodeLine{01454\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cpuThreadsNumber)}
+\DoxyCodeLine{01455\ \ \ \ \ \{}
+\DoxyCodeLine{01456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (devMemArrPointer.dataLocation)}
+\DoxyCodeLine{01457\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01458\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::RAM:}
+\DoxyCodeLine{01459\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyRamParallel(devMemArrPointer.ptr,\ devMemArrPointer.length,\ scalar,\ cpuThreadsNumber);}
+\DoxyCodeLine{01460\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU0:}
+\DoxyCodeLine{01462\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 0,\ scalar);}
+\DoxyCodeLine{01463\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU1:}
+\DoxyCodeLine{01465\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 1,\ scalar);}
+\DoxyCodeLine{01466\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01467\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU2:}
+\DoxyCodeLine{01468\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 2,\ scalar);}
+\DoxyCodeLine{01469\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DataLocation::GPU3:}
+\DoxyCodeLine{01471\ \ \ \ \ \ \ \ \ \ \ \ \ MultiplyGpu(devMemArrPointer.ptr,\ devMemArrPointer.length,\ 3,\ scalar);}
+\DoxyCodeLine{01472\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01473\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01474\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{01475\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01476\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01477\ \ \ \ \ \}}
+\DoxyCodeLine{01478\ }
+\DoxyCodeLine{01480\ }
+\DoxyCodeLine{01481\ }
+\DoxyCodeLine{01482\ }
+\DoxyCodeLine{01483\ }
+\DoxyCodeLine{01484\ }
+\DoxyCodeLine{01485\ }
+\DoxyCodeLine{01486\ }
+\DoxyCodeLine{01487\ \ \ \ \ \textcolor{comment}{/*\ \ -\/-\/-\/\ \ \ Другие\ алгоритмы\ \ \ -\/-\/-\/\ \ */}}
+\DoxyCodeLine{01488\ }
+\DoxyCodeLine{01489\ }
+\DoxyCodeLine{01490\ }
+\DoxyCodeLine{01491\ }
+\DoxyCodeLine{01492\ }
+\DoxyCodeLine{01493\ \};}
+\DoxyCodeLine{01494\ }
+
+\end{DoxyCode}

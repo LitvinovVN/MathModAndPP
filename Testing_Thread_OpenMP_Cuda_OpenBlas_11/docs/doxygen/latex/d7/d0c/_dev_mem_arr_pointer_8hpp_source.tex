@@ -1,0 +1,98 @@
+\doxysection{Dev\+Mem\+Arr\+Pointer.\+hpp}
+\hypertarget{_dev_mem_arr_pointer_8hpp_source}{}\label{_dev_mem_arr_pointer_8hpp_source}\index{HCSLib/Arrays/DevMemArrPointer.hpp@{HCSLib/Arrays/DevMemArrPointer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/DataLocation.hpp"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00009\ \textcolor{keyword}{struct\ }DevMemArrPointer}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id}\ =\ 0;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Место\ расположения\ данных}}
+\DoxyCodeLine{00014\ \ \ \ \ DataLocation\ dataLocation\ =\ DataLocation::None;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Указатель\ на\ массив}}
+\DoxyCodeLine{00016\ \ \ \ \ T*\ ptr\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Количество\ элементов}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length\ =\ 0;\ \ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ DevMemArrPointer()}
+\DoxyCodeLine{00022\ \ \ \ \ \{\}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{struct_dev_mem_arr_pointer}{DevMemArrPointer}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ DataLocation\ dataLocation,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ T*\ ptr,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_a322863760bbe27fccbd9bf2790e5b981}{id}}(\mbox{\hyperlink{struct_dev_mem_arr_pointer_a322863760bbe27fccbd9bf2790e5b981}{id}}),\ dataLocation(dataLocation),}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ ptr(ptr),\ length(length)}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_ac3b1a238878fde242cf0beed1e1948a4}{IsInitialized}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \ \ \ dataLocation\ ==\ DataLocation::None}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ ptr\ \ \ \ \ \ \ \ \ \ ==\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ ||\ length\ \ \ \ \ \ \ ==\ 0)}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_a4677d8334d9e69a9103e2a02983ec2e8}{IsReset}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \ \ \ dataLocation\ ==\ DataLocation::None}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ ptr\ \ \ \ \ \ \ \ \ \ ==\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ length\ \ \ \ \ \ \ ==\ 0)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_af45d37675e056b1846bb3726b75ce987}{Reset}}()}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ dataLocation\ =\ DataLocation::None;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ ptr\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ length\ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_aa021d5389077f98dacb21dd636ee3495}{GetSizeStruct}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00073\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(*this);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_ab4971b5c863b21b225affab8928774a3}{GetSizeData}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{sizeof}(T)\ *\ length;}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_a8a078f374d666dc93a3e1904e0f5f233}{Print}}(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})\ \textcolor{keyword}{const}}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}id"{}}\ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_a322863760bbe27fccbd9bf2790e5b981}{id}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}dataLocation"{}}\ <<\ pp.splitterKeyValue\ <<\ dataLocation;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}ptr"{}}\ <<\ pp.splitterKeyValue\ <<\ ptr;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}length"{}}\ <<\ pp.splitterKeyValue\ <<\ length;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}GetSizeStruct()"{}}\ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_aa021d5389077f98dacb21dd636ee3495}{GetSizeStruct}}();}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}GetSizeData()"{}}\ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_dev_mem_arr_pointer_ab4971b5c863b21b225affab8928774a3}{GetSizeData}}();}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ \};}
+
+\end{DoxyCode}

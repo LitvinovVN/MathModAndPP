@@ -1,0 +1,77 @@
+\doxysection{Alg\+Testing\+Result.\+hpp}
+\hypertarget{_alg_testing_result_8hpp_source}{}\label{_alg_testing_result_8hpp_source}\index{HCSLib/AlgTestingResults/AlgTestingResult.hpp@{HCSLib/AlgTestingResults/AlgTestingResult.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}../PerformanceTests/CalculationStatistics.hpp"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }AlgTestingResult}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ УИД\ тестового\ запуска}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \textcolor{keywordtype}{id}\ =\ 0;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ УИД\ вычислительной\ системы}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ compSystemId\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ УИД\ алгоритма}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ algorithmId\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Количество\ потоков\ CPU}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ threadsNumCpu\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Количество\ блоков\ GPU}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ threadBlocksNumGpu\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ Количество\ нитей\ GPU\ в\ блоке}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ threadsNumGpu\ =\ 0;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ Статистики\ вычислительного\ эксперимента}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ calculationStatistics;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ AlgTestingResult()}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ AlgTestingResult(std::string\ strToParse)}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ std::stringstream\ obj\_ss(strToParse);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ id;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ compSystemId;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ algorithmId;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ threadsNumCpu;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ threadBlocksNumGpu;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ threadsNumGpu;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.numIter;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.minValue;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.median;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.avg;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.percentile\_95;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.maxValue;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ obj\_ss\ >>\ calculationStatistics.stdDev;}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()}
+\DoxyCodeLine{00047\ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}id:\ "{}}\ <<\ \textcolor{keywordtype}{id}\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}compSystemId:\ "{}}\ <<\ compSystemId\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}algorithmId:\ "{}}\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ algorithmId\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}threadsNumCpu:\ "{}}\ \ \ \ \ \ <<\ threadsNumCpu\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}threadBlocksNumGpu:\ "{}}\ <<\ threadBlocksNumGpu\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}threadsNumGpu:\ "{}}\ \ \ \ \ \ <<\ threadsNumGpu\ <<\ \textcolor{stringliteral}{"{};\ "{}};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ calculationStatistics.Print();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{friend}\ std::ofstream\&\ operator<<(std::ofstream\&\ fout,\ \textcolor{keyword}{const}\ AlgTestingResult\&\ data)}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ fout\ <<\ data.id\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.compSystemId\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.algorithmId\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.threadsNumCpu\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.threadBlocksNumGpu\ <<\ \textcolor{stringliteral}{"{}\ "{}}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ data.threadsNumGpu\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ fout\ <<\ data.calculationStatistics;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ fout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fout;}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+
+\end{DoxyCode}

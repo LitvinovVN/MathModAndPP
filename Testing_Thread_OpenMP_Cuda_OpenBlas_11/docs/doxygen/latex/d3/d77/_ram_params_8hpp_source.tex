@@ -1,0 +1,31 @@
+\doxysection{Ram\+Params.\+hpp}
+\hypertarget{_ram_params_8hpp_source}{}\label{_ram_params_8hpp_source}\index{HCSLib/ComputingSystem/RamParams.hpp@{HCSLib/ComputingSystem/RamParams.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../CommonHelpers/PrintParams.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_ram_params}{RamParams}}}
+\DoxyCodeLine{00007\ \{\ \ \ \ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{struct_ram_params_a803dba96340b839c60d0d5718f7c52b0}{RamSizeGb}}\{0\};}
+\DoxyCodeLine{00010\ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{struct_ram_params_af2abd280aa201815f64f8fbf0bc521fe}{RamBandwidthGbS}}\{0\};}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp)}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}CpuParams::Print(PrintParams\ pp)"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}RamSizeGb"{}}\ \ \ \ \ \ \ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_ram_params_a803dba96340b839c60d0d5718f7c52b0}{RamSizeGb}};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}RamBandwidthGbS"{}}\ \ <<\ pp.splitterKeyValue\ <<\ \mbox{\hyperlink{struct_ram_params_af2abd280aa201815f64f8fbf0bc521fe}{RamBandwidthGbS}};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \};}
+
+\end{DoxyCode}

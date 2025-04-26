@@ -1,0 +1,268 @@
+\doxysection{Vector\+Gpu.\+hpp}
+\hypertarget{_vector_gpu_8hpp_source}{}\label{_vector_gpu_8hpp_source}\index{HCSLib/Vectors/VectorGpu.hpp@{HCSLib/Vectors/VectorGpu.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }VectorGpu\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_vector}{IVector}}<T>}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ Количество\ элементов\ вектора}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_size\ =\ 0;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Указатель\ на\ массив\ в\ видеопамяти}}
+\DoxyCodeLine{00012\ \ \ \ \ T*\ \_dev\_data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Флаг\ инициализации\ вектора}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ false\ -\/\ неинициализирован,\ true\ -\/\ инициализирован}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isInitialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ VectorGpu(\textcolor{keywordtype}{size\_t}\ size)\ :\ \_size(size)}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}VectorGpu(size\_t\ size)\ constructor\ started...\(\backslash\)n"{};}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_size\ ==\ 0)}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ mes\ =\ \textcolor{stringliteral}{"{}Cannot\ initialize\ vector\ of\ \_size\ =\ 0"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cerr\ <<\ mes\ <<\ std::endl;}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(mes);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ cudaError\_t\ cudaResult\ =\ cudaMalloc(\&\_dev\_data,\ size*\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ allocate\ device\ memory\ for\ VectorGpu:\ "{}});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ +=\ cudaGetErrorString(cudaResult);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}VectorGpu(size\_t\ size):\ Device\ memory\ for\ VectorGpu\ allocated!\(\backslash\)n"{};}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ VectorGpu(\mbox{\hyperlink{class_vector_ram}{VectorRam<T>}}\ vecRam)\ :\ \_size(vecRam.GetSize())}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}VectorGpu(VectorRam<T>\ vecRam)\ constructor\ started...\(\backslash\)n"{}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_size\ ==\ 0)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ mes\ =\ \textcolor{stringliteral}{"{}Cannot\ initialize\ vector\ of\ \_size\ =\ 0"{}};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cerr\ <<\ mes\ <<\ std::endl;}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::logic\_error(mes);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ cudaError\_t\ cudaResult\ =\ cudaMalloc(\&\_dev\_data,\ \_size*\textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ allocate\ device\ memory\ for\ VectorGpu:\ "{}});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ +=\ cudaGetErrorString(cudaResult);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}VectorGpu(VectorRam<T>\ vecRam):\ Device\ memory\ for\ VectorGpu\ allocated!\(\backslash\)n"{}};}
+\DoxyCodeLine{00065\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Копируем\ данные\ в\ видеопамять}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ cudaResult\ =\ cudaMemcpy(\_dev\_data,\ vecRam.Get\_data\_pointer(),\ \_size*\textcolor{keyword}{sizeof}(T),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ copy\ data\ from\ RAM\ to\ device\ memory:\ "{}});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ +=\ cudaGetErrorString(cudaResult);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}cudaMemCpy\ OK!\(\backslash\)n"{};}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Устанавливаем\ флаг\ инициализации\ вектора}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \_isInitialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \string~VectorGpu()}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}\string~VectorGpu():\ "{}\ <<\ this\ <<\ "{}\ destructed!\(\backslash\)n"{};}}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_vector_gpu_aa08508d04fccf42c3bf441eece7e21bb}{CheckState}}()}
+\DoxyCodeLine{00091\ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\_isInitialized)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_size\ <\ 1)}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_dev\_data\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{/*FuncResultScalar<T>\ Sum(unsigned\ blocksNum,\ unsigned\ threadsNum)}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(!CheckState())}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ throw\ std::logic\_error("{}Vector\ is\ not\ initialized!"{});\ \ \ }}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ begin\ =\ std::chrono::steady\_clock::now();\ \ \ }}
+\DoxyCodeLine{00111\ \textcolor{comment}{}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ \ \ \ T\ result\ =\ CudaHelper<T>::Sum(\_dev\_data,\ \_size,\ blocksNum,\ threadsNum);\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00113\ \textcolor{comment}{}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::chrono::steady\_clock::time\_point\ end\ =\ std::chrono::steady\_clock::now();}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ \ \ \ //std::cout\ <<\ "{}Time\ difference\ =\ "{}\ <<\ std::chrono::duration\_cast<std::chrono::microseconds>(end\ -\/\ begin).count()\ <<\ "{}[us]"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00116\ \textcolor{comment}{}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ \ \ \ \ \ FuncResultScalar<T>\ res\{true,\ result,\ std::chrono::duration\_cast<std::chrono::microseconds>(end\ -\/\ begin).count()\};}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ \ \ \ \ \ //res.Print();}}
+\DoxyCodeLine{00119\ \textcolor{comment}{}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ res;}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_gpu_a2337cc736ec48413d442008f72108203}{Clear\_dev\_data}}()}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\_dev\_data\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ cudaFree(\_dev\_data);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \_dev\_data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \_isInitialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}Device\ memory\ for\ VectorGpu\ cleared!\(\backslash\)n"{};}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00142\ \ \ \ \ \_\_host\_\_\ \_\_device\_\_}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00144\ \ \ \ \ T*\ \mbox{\hyperlink{class_vector_gpu_a8efd4773d526b3b08cde6161d2516f05}{Get\_dev\_data\_pointer}}()}
+\DoxyCodeLine{00145\ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_dev\_data;}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{/*\#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ \ \ \ \_\_host\_\_\ \_\_device\_\_}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ \ \ \ \#endif*/}}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{class_vector_gpu_aba9e782fb3e63b4db7fe96029fa149f4}{Length}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00153\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_size;}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_gpu_afc5fdcd4b765031891b60731dfd3984b}{InitByVal}}(\textcolor{keywordtype}{double}\ value)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00159\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Создаём\ временный\ массив}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ T*\ tmp\ =\ \textcolor{keyword}{new}\ T[\_size];}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Инициализируем\ временный\ массив\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_size;\ i++)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ tmp[i]\ =\ value;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ tmp[i]\ <<\ "{}\ "{};}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ std::endl;}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Копируем\ данные\ из\ временного\ массива\ в\ видеопамять}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ cudaError\_t\ cudaResult\ =\ cudaMemcpy(\_dev\_data,\ tmp,\ \_size*\textcolor{keyword}{sizeof}(T),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ copy\ data\ from\ RAM\ to\ device\ memory:\ "{}});}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ +=\ cudaGetErrorString(cudaResult);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}cudaMemCpy\ OK!\(\backslash\)n"{};}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Освобождаем\ временный\ массив}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ tmp;}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Устанавливаем\ флаг\ инициализации\ вектора}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \_isInitialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_gpu_aed0ffeb97aec30b637d97962e0a9db0f}{InitVectorByRange}}(\textcolor{keywordtype}{double}\ start,\ \textcolor{keywordtype}{double}\ end)}
+\DoxyCodeLine{00196\ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Создаём\ временный\ массив}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ T*\ tmp\ =\ \textcolor{keyword}{new}\ T[\_size];}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cnt\ =\ 0;}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Инициализируем\ временный\ массив}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ step\ =\ (end-\/start)/(\_size-\/1);}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ i\ =\ start;\ i\ <\ end+step/2;\ i+=step)}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ tmp[cnt++]\ =\ i;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ tmp[cnt-\/1]\ <<\ "{}\ "{};}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Копируем\ данные\ из\ временного\ массива\ в\ видеопамять}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ cudaError\_t\ cudaResult\ =\ cudaMemcpy(\_dev\_data,\ tmp,\ \_size*\textcolor{keyword}{sizeof}(T),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaResult\ !=\ cudaSuccess)}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ msg(\textcolor{stringliteral}{"{}Could\ not\ copy\ data\ from\ RAM\ to\ device\ memory:\ "{}});}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ +=\ cudaGetErrorString(cudaResult);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(msg);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}cudaMemCpy\ OK!\(\backslash\)n"{};}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Освобождаем\ временный\ массив}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ tmp;}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Устанавливаем\ флаг\ инициализации\ вектора}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \_isInitialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00231\ \ \ \ \ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordtype}{void}\ Print()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00234\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ \_\_NVCC\_\_}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ kernel\_print<T><<<1,1>>>(\_dev\_data,\ 0,\ \_size);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#else}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}CUDA\ not\ supported!"{}});}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_gpu_aa5134afbfbe5e35b30605cd110e5af2c}{PrintData}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ indStart,}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ length)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00246\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ realized!"{}});}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_gpu_a1a021fbc72bd0df0bb664495d4f755c3}{PrintData}}()\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00252\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector_gpu_a1a021fbc72bd0df0bb664495d4f755c3}{PrintData}}(0,\ \mbox{\hyperlink{class_vector_gpu_aba9e782fb3e63b4db7fe96029fa149f4}{Length}}());}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00257\ \ \ \ \ T\ \mbox{\hyperlink{class_vector_gpu_af4e332bdde93b1c0edf4b0473a5ed03e}{GetValue}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00258\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ realized!"{}});}
+\DoxyCodeLine{00260\ \ \ \ \ \}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_vector_gpu_a802efdc9c9480e3dda878b97b4fb550d}{SetValue}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ index,\ T\ value)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00264\ \textcolor{keyword}{\ \ \ \ }\{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ realized!"{}});}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_gpu_afd79b62b5053f84161d6850fcaa93590}{ClearData}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00270\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Not\ realized!"{}});}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{comment}{//delete[]\ data;}}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{comment}{//data\ =\ nullptr;}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{comment}{//this-\/>length\ =\ 0;}}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \};}
+
+\end{DoxyCode}

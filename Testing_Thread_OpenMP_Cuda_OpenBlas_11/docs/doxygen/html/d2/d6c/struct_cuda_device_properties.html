@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Структура CudaDeviceProperties</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d2/d6c/struct_cuda_device_properties.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="../../de/d3c/struct_cuda_device_properties-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Структура CudaDeviceProperties</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Структура для хранения параметров видеокарты  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../de/dad/_cuda_device_properties_8hpp_source.html">CudaDeviceProperties.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a101ece547cd5b6920373bb2a1e7cd360" id="r_a101ece547cd5b6920373bb2a1e7cd360"><td class="memItemLeft" align="right" valign="top"><a id="a101ece547cd5b6920373bb2a1e7cd360" name="a101ece547cd5b6920373bb2a1e7cd360"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>GetPeakMemoryBandwidthGBs</b> ()</td></tr>
+<tr class="separator:a101ece547cd5b6920373bb2a1e7cd360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fbc8b1aaafa198df6dbfb15c32005ca" id="r_a0fbc8b1aaafa198df6dbfb15c32005ca"><td class="memItemLeft" align="right" valign="top"><a id="a0fbc8b1aaafa198df6dbfb15c32005ca" name="a0fbc8b1aaafa198df6dbfb15c32005ca"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Print</b> ()</td></tr>
+<tr class="separator:a0fbc8b1aaafa198df6dbfb15c32005ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:a6fd0de2d4a6ec6fc91bb0e10661d436f" id="r_a6fd0de2d4a6ec6fc91bb0e10661d436f"><td class="memItemLeft" align="right" valign="top"><a id="a6fd0de2d4a6ec6fc91bb0e10661d436f" name="a6fd0de2d4a6ec6fc91bb0e10661d436f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsInitialized</b> = false</td></tr>
+<tr class="separator:a6fd0de2d4a6ec6fc91bb0e10661d436f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f6f9e49df4055b451c8239cb2d8bd4c" id="r_a6f6f9e49df4055b451c8239cb2d8bd4c"><td class="memItemLeft" align="right" valign="top"><a id="a6f6f9e49df4055b451c8239cb2d8bd4c" name="a6f6f9e49df4055b451c8239cb2d8bd4c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Major</b></td></tr>
+<tr class="separator:a6f6f9e49df4055b451c8239cb2d8bd4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aa60fa9aad9c35c694cfe4f28ceacf4" id="r_a3aa60fa9aad9c35c694cfe4f28ceacf4"><td class="memItemLeft" align="right" valign="top"><a id="a3aa60fa9aad9c35c694cfe4f28ceacf4" name="a3aa60fa9aad9c35c694cfe4f28ceacf4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>Minor</b></td></tr>
+<tr class="separator:a3aa60fa9aad9c35c694cfe4f28ceacf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af228cd9d2db02b5f9d7e2c7585a0adba" id="r_af228cd9d2db02b5f9d7e2c7585a0adba"><td class="memItemLeft" align="right" valign="top"><a id="af228cd9d2db02b5f9d7e2c7585a0adba" name="af228cd9d2db02b5f9d7e2c7585a0adba"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b></td></tr>
+<tr class="separator:af228cd9d2db02b5f9d7e2c7585a0adba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20ba538ea195722301c07357027fe8fb" id="r_a20ba538ea195722301c07357027fe8fb"><td class="memItemLeft" align="right" valign="top"><a id="a20ba538ea195722301c07357027fe8fb" name="a20ba538ea195722301c07357027fe8fb"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>TotalGlobalMem</b></td></tr>
+<tr class="separator:a20ba538ea195722301c07357027fe8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6c37fd805301de73f82b1ef610c66c" id="r_a6a6c37fd805301de73f82b1ef610c66c"><td class="memItemLeft" align="right" valign="top"><a id="a6a6c37fd805301de73f82b1ef610c66c" name="a6a6c37fd805301de73f82b1ef610c66c"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>SharedMemoryPerBlock</b></td></tr>
+<tr class="separator:a6a6c37fd805301de73f82b1ef610c66c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b26b515727a9c3a88bbe83d7e9fcd63" id="r_a0b26b515727a9c3a88bbe83d7e9fcd63"><td class="memItemLeft" align="right" valign="top"><a id="a0b26b515727a9c3a88bbe83d7e9fcd63" name="a0b26b515727a9c3a88bbe83d7e9fcd63"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>RegsPerBlock</b></td></tr>
+<tr class="separator:a0b26b515727a9c3a88bbe83d7e9fcd63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a233ee1f1994d3374c796fa11656a9f8a" id="r_a233ee1f1994d3374c796fa11656a9f8a"><td class="memItemLeft" align="right" valign="top"><a id="a233ee1f1994d3374c796fa11656a9f8a" name="a233ee1f1994d3374c796fa11656a9f8a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>WarpSize</b></td></tr>
+<tr class="separator:a233ee1f1994d3374c796fa11656a9f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ca55044f59fd0edccc9d0b03658553" id="r_a25ca55044f59fd0edccc9d0b03658553"><td class="memItemLeft" align="right" valign="top"><a id="a25ca55044f59fd0edccc9d0b03658553" name="a25ca55044f59fd0edccc9d0b03658553"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>MemPitch</b></td></tr>
+<tr class="separator:a25ca55044f59fd0edccc9d0b03658553"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac5614df56dd6e979267776886f78873" id="r_aac5614df56dd6e979267776886f78873"><td class="memItemLeft" align="right" valign="top"><a id="aac5614df56dd6e979267776886f78873" name="aac5614df56dd6e979267776886f78873"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>MaxThreadsPerBlock</b></td></tr>
+<tr class="separator:aac5614df56dd6e979267776886f78873"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07ed0a413eb14742c0b94fe80e181af6" id="r_a07ed0a413eb14742c0b94fe80e181af6"><td class="memItemLeft" align="right" valign="top"><a id="a07ed0a413eb14742c0b94fe80e181af6" name="a07ed0a413eb14742c0b94fe80e181af6"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>MultiProcessorCount</b></td></tr>
+<tr class="separator:a07ed0a413eb14742c0b94fe80e181af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45bb28ed34e531e2dd0a7f4e1f0bd246" id="r_a45bb28ed34e531e2dd0a7f4e1f0bd246"><td class="memItemLeft" align="right" valign="top"><a id="a45bb28ed34e531e2dd0a7f4e1f0bd246" name="a45bb28ed34e531e2dd0a7f4e1f0bd246"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>DeviceOverlap</b></td></tr>
+<tr class="separator:a45bb28ed34e531e2dd0a7f4e1f0bd246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c8fc9d31ab542c3b51d32502cb6922d" id="r_a9c8fc9d31ab542c3b51d32502cb6922d"><td class="memItemLeft" align="right" valign="top"><a id="a9c8fc9d31ab542c3b51d32502cb6922d" name="a9c8fc9d31ab542c3b51d32502cb6922d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>AsyncEngineCount</b></td></tr>
+<tr class="separator:a9c8fc9d31ab542c3b51d32502cb6922d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b63a0d42720cebba062f870d3b35702" id="r_a5b63a0d42720cebba062f870d3b35702"><td class="memItemLeft" align="right" valign="top"><a id="a5b63a0d42720cebba062f870d3b35702" name="a5b63a0d42720cebba062f870d3b35702"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryClockRate</b></td></tr>
+<tr class="separator:a5b63a0d42720cebba062f870d3b35702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb2fececd50ea485ac2ebc42e36ffe47" id="r_adb2fececd50ea485ac2ebc42e36ffe47"><td class="memItemLeft" align="right" valign="top"><a id="adb2fececd50ea485ac2ebc42e36ffe47" name="adb2fececd50ea485ac2ebc42e36ffe47"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryBusWidth</b></td></tr>
+<tr class="separator:adb2fececd50ea485ac2ebc42e36ffe47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><p>Структура для хранения параметров видеокарты </p>
+</div><hr/>Объявления и описания членов структуры находятся в файле:<ul>
+<li>HCSLib/Cuda/<a class="el" href="../../de/dad/_cuda_device_properties_8hpp_source.html">CudaDeviceProperties.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d2/d6c/struct_cuda_device_properties.html">CudaDeviceProperties</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

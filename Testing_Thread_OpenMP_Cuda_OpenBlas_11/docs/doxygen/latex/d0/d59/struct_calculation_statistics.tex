@@ -1,0 +1,58 @@
+\doxysection{Структура Calculation\+Statistics}
+\hypertarget{struct_calculation_statistics}{}\label{struct_calculation_statistics}\index{CalculationStatistics@{CalculationStatistics}}
+
+
+Статистические параметры результатов численного эксперимента  
+
+
+
+
+{\ttfamily \#include $<$Calculation\+Statistics.\+hpp$>$}
+
+\doxysubsubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_calculation_statistics_a718d724896de95d185399d5d19599171}\label{struct_calculation_statistics_a718d724896de95d185399d5d19599171} 
+{\footnotesize template$<$typename T$>$ }\\{\bfseries Calculation\+Statistics} (std\+::vector$<$ \mbox{\hyperlink{struct_func_result}{Func\+Result}}$<$ T $>$ $>$ results)
+\item 
+\Hypertarget{struct_calculation_statistics_ad741c1289d548883e5e59a9fc8012cb1}\label{struct_calculation_statistics_ad741c1289d548883e5e59a9fc8012cb1} 
+void {\bfseries Print} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_calculation_statistics_a2d0984686d81a0ddc415525430e8b315}\label{struct_calculation_statistics_a2d0984686d81a0ddc415525430e8b315} 
+unsigned {\bfseries num\+Iter} = 0
+\item 
+\Hypertarget{struct_calculation_statistics_abe8684bd82aac704816778441496d1ce}\label{struct_calculation_statistics_abe8684bd82aac704816778441496d1ce} 
+double {\bfseries min\+Value} = 0
+\item 
+\Hypertarget{struct_calculation_statistics_a5e40214a92cd52a65f8e4580af93ffdc}\label{struct_calculation_statistics_a5e40214a92cd52a65f8e4580af93ffdc} 
+double {\bfseries avg} = 0
+\item 
+\Hypertarget{struct_calculation_statistics_a3523caf121765ba3fc7836986b5824e0}\label{struct_calculation_statistics_a3523caf121765ba3fc7836986b5824e0} 
+double {\bfseries median} = 0
+\item 
+\Hypertarget{struct_calculation_statistics_a7a2cd5f1e044c857f8419c7d58c5bceb}\label{struct_calculation_statistics_a7a2cd5f1e044c857f8419c7d58c5bceb} 
+double {\bfseries percentile\+\_\+95} = 0
+\item 
+\Hypertarget{struct_calculation_statistics_a2cd0a0a7f5a1d294b9a6666aeefbd4e5}\label{struct_calculation_statistics_a2cd0a0a7f5a1d294b9a6666aeefbd4e5} 
+double {\bfseries max\+Value} = 0
+\item 
+\Hypertarget{struct_calculation_statistics_a8b9f9fe078917b4fe9246f99c87d5351}\label{struct_calculation_statistics_a8b9f9fe078917b4fe9246f99c87d5351} 
+double {\bfseries std\+Dev} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Друзья}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_calculation_statistics_a533955cef3dcce5060265d2e3f0532d4}\label{struct_calculation_statistics_a533955cef3dcce5060265d2e3f0532d4} 
+std\+::ofstream \& {\bfseries operator$<$$<$} (std\+::ofstream \&fout, const \mbox{\hyperlink{struct_calculation_statistics}{Calculation\+Statistics}} \&data)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Статистические параметры результатов численного эксперимента 
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Performance\+Tests/Calculation\+Statistics.\+hpp\end{DoxyCompactItemize}

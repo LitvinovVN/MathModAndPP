@@ -1,0 +1,53 @@
+\doxysection{Шаблон структуры Grid\+Evaluable\+Object\texorpdfstring{$<$}{<} EO, Proxy \texorpdfstring{$>$}{>}}
+\hypertarget{struct_grid_evaluable_object}{}\label{struct_grid_evaluable_object}\index{GridEvaluableObject$<$ EO, Proxy $>$@{GridEvaluableObject$<$ EO, Proxy $>$}}
+
+
+Объект, вычисляемый на сетке. Маркерный класс.  
+
+
+
+
+{\ttfamily \#include $<$Grid\+Evaluable\+Object.\+hpp$>$}
+
+Граф наследования\+:Grid\+Evaluable\+Object\texorpdfstring{$<$}{<} EO, Proxy \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{de/d44/struct_grid_evaluable_object}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Дополнительные унаследованные члены}
+\doxysubsection*{Открытые типы унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ EO, EO $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+typedef EO {\bfseries Final\+Type}
+\item 
+typedef EO {\bfseries Proxy\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Открытые члены унаследованные от \mbox{\hyperlink{struct_math_object}{Math\+Object$<$ EO, EO $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+Final\+Type \& {\bfseries Self} ()
+\item 
+const Final\+Type \& {\bfseries Self} () const
+\item 
+Proxy\+Type {\bfseries Get\+Proxy} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+\subsubsection*{template$<$class EO, class Proxy = EO$>$\newline
+struct Grid\+Evaluable\+Object$<$ EO, Proxy $>$}
+Объект, вычисляемый на сетке. Маркерный класс. 
+
+
+\begin{DoxyTemplParams}{Параметры шаблона}
+{\em EO} & Тип вычисляемого объекта \\
+\hline
+{\em Proxy} & Прокси-\/объект (облегченный) \\
+\hline
+\end{DoxyTemplParams}
+
+
+Объявления и описания членов структуры находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+HCSLib/\+Math/Grid\+Evaluable\+Object.\+hpp\end{DoxyCompactItemize}

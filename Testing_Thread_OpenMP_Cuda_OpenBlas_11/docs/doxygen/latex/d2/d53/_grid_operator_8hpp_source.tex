@@ -1,0 +1,40 @@
+\doxysection{Grid\+Operator.\+hpp}
+\hypertarget{_grid_operator_8hpp_source}{}\label{_grid_operator_8hpp_source}\index{HCSLib/Math/GridOperator.hpp@{HCSLib/Math/GridOperator.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}MathObject.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Предварительное\ определение\ GridOperatorEvaluator}}
+\DoxyCodeLine{00006\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ GO,\ \textcolor{keyword}{class}\ EO>}
+\DoxyCodeLine{00007\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_grid_operator_evaluator}{GridOperatorEvaluator}};}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ GO,\ \textcolor{keyword}{class}\ Proxy>}
+\DoxyCodeLine{00012\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_grid_operator}{GridOperator}}\ :\ \mbox{\hyperlink{struct_math_object}{MathObject}}<GO,\ Proxy>}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_grid_operator_1_1_get_value_type}{GetValueType}}}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ T\ type;}
+\DoxyCodeLine{00018\ \ \ \ \ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ EO>}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{struct_grid_operator_evaluator}{GridOperatorEvaluator<GO,\ EO>}}}
+\DoxyCodeLine{00022\ \ \ \ \ operator()(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_grid_evaluable_object}{GridEvaluableObject<EO,\ typename\ EO::proxy\_type>}}\&\ eobj)\ }
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_grid_operator_evaluator}{GridOperatorEvaluator<GO,\ EO>}}(*\textcolor{keyword}{this},\ eobj);}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ REIMPLEMENT\_GRID\_EVAL\_OPERATOR()\ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{template<class\ EO>\ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{GridOperatorEvaluator<type,\ EO>\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{operator()(const\ GridEvaluableObject<EO,\ typename\ EO::proxy\_type>\&\ eobj)\ const\ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ return\ base\_type::operator()(eobj);\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\}}}
+
+\end{DoxyCode}

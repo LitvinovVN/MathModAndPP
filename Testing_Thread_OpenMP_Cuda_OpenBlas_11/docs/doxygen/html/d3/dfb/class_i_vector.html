@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.2"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>HCSLib: Шаблон класса IVector&lt; T &gt;</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<link href="../../navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../navtreedata.js"></script>
+<script type="text/javascript" src="../../navtree.js"></script>
+<script type="text/javascript" src="../../resize.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">HCSLib<span id="projectnumber">&#160;0.1</span>
+   </div>
+   <div id="projectbrief">Math modeling and parallel programming lib for HCS</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="Поиск" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.13.2 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(1); });
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('d3/dfb/class_i_vector.html','../../'); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Загрузка...</div>
+<div class="SRStatus" id="Searching">Поиск...</div>
+<div class="SRStatus" id="NoMatches">Не найдено</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pub-attribs">Открытые атрибуты</a> &#124;
+<a href="../../dd/d99/class_i_vector-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle"><div class="title">Шаблон класса IVector&lt; T &gt;<span class="mlabels"><span class="mlabel abstract">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Абстрактный класс, моделирующий вектор в N-мерном пространстве  
+ <a href="#details">Подробнее...</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../da/d03/_i_vector_8hpp_source.html">IVector.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Граф наследования:IVector&lt; T &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="../../d3/dfb/class_i_vector.png" usemap="#IVector_3C_20T_20_3E_map" alt=""/>
+  <map id="IVector_3C_20T_20_3E_map" name="IVector_3C_20T_20_3E_map">
+<area href="../../d0/d67/class_vector_gpu.html" title="Вектор (в GPU)" alt="VectorGpu&lt; T &gt;" shape="rect" coords="0,56,134,80"/>
+<area href="../../d8/d0c/class_vector_ram.html" alt="VectorRam&lt; T &gt;" shape="rect" coords="144,56,278,80"/>
+<area href="../../da/d10/class_vector_ram_gpus.html" alt="VectorRamGpus&lt; T &gt;" shape="rect" coords="288,56,422,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a8cd6244939d676bd609905e77b3147dd" id="r_a8cd6244939d676bd609905e77b3147dd"><td class="memItemLeft" align="right" valign="top"><a id="a8cd6244939d676bd609905e77b3147dd" name="a8cd6244939d676bd609905e77b3147dd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Transpose</b> ()</td></tr>
+<tr class="memdesc:a8cd6244939d676bd609905e77b3147dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Транспонирует вектор (вектор-столбец превращает в вектор-строку и наоборот) <br /></td></tr>
+<tr class="separator:a8cd6244939d676bd609905e77b3147dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86822a311be4db7fb2fbf7b13b366e30" id="r_a86822a311be4db7fb2fbf7b13b366e30"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a86822a311be4db7fb2fbf7b13b366e30">InitByVal</a> (T val)=0</td></tr>
+<tr class="memdesc:a86822a311be4db7fb2fbf7b13b366e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализирует все элементы вектора указанным значением  <br /></td></tr>
+<tr class="separator:a86822a311be4db7fb2fbf7b13b366e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fd012e6cdc71d616e23065b0404045c" id="r_a3fd012e6cdc71d616e23065b0404045c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3fd012e6cdc71d616e23065b0404045c">Print</a> () const =0</td></tr>
+<tr class="separator:a3fd012e6cdc71d616e23065b0404045c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35807044449b2799d85192e038b10e07" id="r_a35807044449b2799d85192e038b10e07"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35807044449b2799d85192e038b10e07">PrintData</a> (unsigned long long indStart, unsigned long long length) const =0</td></tr>
+<tr class="memdesc:a35807044449b2799d85192e038b10e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль элементы вектора в заданном диапазоне  <br /></td></tr>
+<tr class="separator:a35807044449b2799d85192e038b10e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77101d3dc13514d6675335170a45ac65" id="r_a77101d3dc13514d6675335170a45ac65"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77101d3dc13514d6675335170a45ac65">PrintData</a> () const =0</td></tr>
+<tr class="memdesc:a77101d3dc13514d6675335170a45ac65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выводит в консоль все элементы вектора  <br /></td></tr>
+<tr class="separator:a77101d3dc13514d6675335170a45ac65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4418ae0da87c1a65ef82c5ff134e3002" id="r_a4418ae0da87c1a65ef82c5ff134e3002"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4418ae0da87c1a65ef82c5ff134e3002">Length</a> () const =0</td></tr>
+<tr class="memdesc:a4418ae0da87c1a65ef82c5ff134e3002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает длину вектора (количество элементов)  <br /></td></tr>
+<tr class="separator:a4418ae0da87c1a65ef82c5ff134e3002"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31e114704a23426ed1be234bed5a2c3c" id="r_a31e114704a23426ed1be234bed5a2c3c"><td class="memItemLeft" align="right" valign="top">virtual T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31e114704a23426ed1be234bed5a2c3c">GetValue</a> (unsigned long long index) const =0</td></tr>
+<tr class="memdesc:a31e114704a23426ed1be234bed5a2c3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Возвращает значение элемента вектора, расположенного по указанному индексу  <br /></td></tr>
+<tr class="separator:a31e114704a23426ed1be234bed5a2c3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba2753ee31469e363142dea813a06060" id="r_aba2753ee31469e363142dea813a06060"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba2753ee31469e363142dea813a06060">SetValue</a> (unsigned long long index, T value)=0</td></tr>
+<tr class="memdesc:aba2753ee31469e363142dea813a06060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Устанавливает значение элемента вектора, расположенного по указанному индексу  <br /></td></tr>
+<tr class="separator:aba2753ee31469e363142dea813a06060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6408bad796667cd5497674a0bdb5e5f" id="r_ab6408bad796667cd5497674a0bdb5e5f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6408bad796667cd5497674a0bdb5e5f">ClearData</a> ()=0</td></tr>
+<tr class="memdesc:ab6408bad796667cd5497674a0bdb5e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очищает массивы данных и устанавливает размер вектора в 0.  <br /></td></tr>
+<tr class="separator:ab6408bad796667cd5497674a0bdb5e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Открытые атрибуты</h2></td></tr>
+<tr class="memitem:a9aa3c065f2a78e5f416806c38fe0aaaf" id="r_a9aa3c065f2a78e5f416806c38fe0aaaf"><td class="memItemLeft" align="right" valign="top"><a id="a9aa3c065f2a78e5f416806c38fe0aaaf" name="a9aa3c065f2a78e5f416806c38fe0aaaf"></a>
+VectorType&#160;</td><td class="memItemRight" valign="bottom"><b>vectorType</b> = VectorType::VectorRow</td></tr>
+<tr class="memdesc:a9aa3c065f2a78e5f416806c38fe0aaaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Тип вектора <br /></td></tr>
+<tr class="separator:a9aa3c065f2a78e5f416806c38fe0aaaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf88523f0b6e89d3028fcb405447d8fa" id="r_aaf88523f0b6e89d3028fcb405447d8fa"><td class="memItemLeft" align="right" valign="top"><a id="aaf88523f0b6e89d3028fcb405447d8fa" name="aaf88523f0b6e89d3028fcb405447d8fa"></a>
+DataLocation&#160;</td><td class="memItemRight" valign="bottom"><b>dataLocation</b> = DataLocation::RAM</td></tr>
+<tr class="memdesc:aaf88523f0b6e89d3028fcb405447d8fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Место расположения данных <br /></td></tr>
+<tr class="separator:aaf88523f0b6e89d3028fcb405447d8fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class IVector&lt; T &gt;</div><p>Абстрактный класс, моделирующий вектор в N-мерном пространстве </p>
+<dl class="tparams"><dt>Параметры шаблона</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">Методы</h2>
+<a id="ab6408bad796667cd5497674a0bdb5e5f" name="ab6408bad796667cd5497674a0bdb5e5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6408bad796667cd5497674a0bdb5e5f">&#9670;&#160;</a></span>ClearData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::ClearData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Очищает массивы данных и устанавливает размер вектора в 0. </p>
+
+<p>Замещается в <a class="el" href="../../d0/d67/class_vector_gpu.html#afd79b62b5053f84161d6850fcaa93590">VectorGpu&lt; T &gt;</a>, <a class="el" href="../../d8/d0c/class_vector_ram.html#a49004cd951e2c4bf5f06be969527ea2f">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#a348ff2fc45c027357bf590e003c9586b">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a31e114704a23426ed1be234bed5a2c3c" name="a31e114704a23426ed1be234bed5a2c3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31e114704a23426ed1be234bed5a2c3c">&#9670;&#160;</a></span>GetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual T <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::GetValue </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает значение элемента вектора, расположенного по указанному индексу </p>
+
+<p>Замещается в <a class="el" href="../../d0/d67/class_vector_gpu.html#af4e332bdde93b1c0edf4b0473a5ed03e">VectorGpu&lt; T &gt;</a>, <a class="el" href="../../d8/d0c/class_vector_ram.html#adf08bc1aeb748d9f34bcb431c9d26465">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#ab59a63896022801583b474c4314df891">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a86822a311be4db7fb2fbf7b13b366e30" name="a86822a311be4db7fb2fbf7b13b366e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86822a311be4db7fb2fbf7b13b366e30">&#9670;&#160;</a></span>InitByVal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::InitByVal </td>
+          <td>(</td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>val</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Инициализирует все элементы вектора указанным значением </p>
+
+<p>Замещается в <a class="el" href="../../d8/d0c/class_vector_ram.html#afc1682cc0c35a4ff6c6811da5193b626">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#a5d09e0cbc12cccf580ca15395495ce83">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a4418ae0da87c1a65ef82c5ff134e3002" name="a4418ae0da87c1a65ef82c5ff134e3002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4418ae0da87c1a65ef82c5ff134e3002">&#9670;&#160;</a></span>Length()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual size_t <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::Length </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Возвращает длину вектора (количество элементов) </p>
+
+<p>Замещается в <a class="el" href="../../d0/d67/class_vector_gpu.html#aba9e782fb3e63b4db7fe96029fa149f4">VectorGpu&lt; T &gt;</a>, <a class="el" href="../../d8/d0c/class_vector_ram.html#a687f3a88f0693848fd843878270359e9">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#a1bfb82ed55f7f2b2b725415bc9ad270d">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a3fd012e6cdc71d616e23065b0404045c" name="a3fd012e6cdc71d616e23065b0404045c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fd012e6cdc71d616e23065b0404045c">&#9670;&#160;</a></span>Print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::Print </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="../../d8/d0c/class_vector_ram.html#a9af343253fce26bfabaed6ed5e7a1946">VectorRam&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a77101d3dc13514d6675335170a45ac65" name="a77101d3dc13514d6675335170a45ac65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77101d3dc13514d6675335170a45ac65">&#9670;&#160;</a></span>PrintData() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::PrintData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль все элементы вектора </p>
+
+<p>Замещается в <a class="el" href="../../d0/d67/class_vector_gpu.html#a1a021fbc72bd0df0bb664495d4f755c3">VectorGpu&lt; T &gt;</a>, <a class="el" href="../../d8/d0c/class_vector_ram.html#a0defa68f47ac3d92c9f87f4f1e3358c3">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#a7d90be7af35bf7539f33a7dc83b3922c">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a35807044449b2799d85192e038b10e07" name="a35807044449b2799d85192e038b10e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35807044449b2799d85192e038b10e07">&#9670;&#160;</a></span>PrintData() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::PrintData </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>indStart</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Выводит в консоль элементы вектора в заданном диапазоне </p>
+
+<p>Замещается в <a class="el" href="../../d0/d67/class_vector_gpu.html#aa5134afbfbe5e35b30605cd110e5af2c">VectorGpu&lt; T &gt;</a>, <a class="el" href="../../d8/d0c/class_vector_ram.html#af546bba8a4faf86962f43a338ad0a865">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#a4c6d75123a5c23c66d3bf8f9b068e848">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<a id="aba2753ee31469e363142dea813a06060" name="aba2753ee31469e363142dea813a06060"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba2753ee31469e363142dea813a06060">&#9670;&#160;</a></span>SetValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a>&lt; T &gt;::SetValue </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long long</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel pure-virtual">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Устанавливает значение элемента вектора, расположенного по указанному индексу </p>
+
+<p>Замещается в <a class="el" href="../../d0/d67/class_vector_gpu.html#a802efdc9c9480e3dda878b97b4fb550d">VectorGpu&lt; T &gt;</a>, <a class="el" href="../../d8/d0c/class_vector_ram.html#a01a33943ec76ae785598967dccb8de74">VectorRam&lt; T &gt;</a> и <a class="el" href="../../da/d10/class_vector_ram_gpus.html#ab61f2706105d7ef686b4406387515321">VectorRamGpus&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>HCSLib/Vectors/<a class="el" href="../../da/d03/_i_vector_8hpp_source.html">IVector.hpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="../../d3/dfb/class_i_vector.html">IVector</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
+  </ul>
+</div>
+</body>
+</html>

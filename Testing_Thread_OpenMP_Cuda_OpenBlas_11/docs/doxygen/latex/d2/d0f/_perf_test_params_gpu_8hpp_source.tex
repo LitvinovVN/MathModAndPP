@@ -1,0 +1,61 @@
+\doxysection{Perf\+Test\+Params\+Gpu.\+hpp}
+\hypertarget{_perf_test_params_gpu_8hpp_source}{}\label{_perf_test_params_gpu_8hpp_source}\index{HCSLib/PerformanceTests/PerfTestParamsGpu.hpp@{HCSLib/PerformanceTests/PerfTestParamsGpu.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{struct\ }PerfTestParamsGpu}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{//\ Минимальное\ количество\ блоков\ GPU\ \ \ \ }}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuBlockNumMin\ =\ 1;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Максимальное\ количество\ блоков\ GPU}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuBlockNumMax\ =\ 1;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Шаг\ изменения\ количества\ блоков\ GPU}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuBlockNumStep\ =\ 1;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Минимальное\ количество\ потоков\ GPU\ \ \ \ }}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuThreadNumMin\ =\ 1;}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Максимальное\ количество\ потоков\ GPU}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuThreadNumMax\ =\ 1;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Шаг\ изменения\ количества\ потоков\ GPU}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuThreadNumStep\ =\ 1;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ PerfTestParamsGpu()}
+\DoxyCodeLine{00021\ \ \ \ \ \{\}}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ PerfTestParamsGpu(\textcolor{keywordtype}{unsigned}\ gpuBlockNumMin,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuBlockNumMax,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuBlockNumStep,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuThreadNumMin,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuThreadNumMax,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ gpuThreadNumStep)\ :}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ gpuBlockNumMin(gpuBlockNumMin),}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ gpuBlockNumMax(gpuBlockNumMax),}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ gpuBlockNumStep(gpuBlockNumStep),}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ gpuThreadNumMin(gpuThreadNumMin),}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ gpuThreadNumMax(gpuThreadNumMax),}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ gpuThreadNumStep(gpuThreadNumStep)}
+\DoxyCodeLine{00035\ \ \ \ \ \{\}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ Print(\mbox{\hyperlink{struct_print_params}{PrintParams}}\ pp\ =\ \mbox{\hyperlink{struct_print_params}{PrintParams}}\{\})}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.startMes;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}gpuBlockNumMin"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ gpuBlockNumMin;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}gpuBlockNumMax"{}}\ \ \ <<\ pp.splitterKeyValue\ <<\ gpuBlockNumMax;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}gpuBlockNumStep"{}}\ \ <<\ pp.splitterKeyValue\ <<\ gpuBlockNumStep;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}gpuThreadNumMin"{}}\ \ <<\ pp.splitterKeyValue\ <<\ gpuThreadNumMin;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}gpuThreadNumMax"{}}\ \ <<\ pp.splitterKeyValue\ <<\ gpuThreadNumMax;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.splitter;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}gpuThreadNumStep"{}}\ <<\ pp.splitterKeyValue\ <<\ gpuThreadNumStep;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ std::cout\ <<\ pp.endMes;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pp.isEndl)}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \};}
+
+\end{DoxyCode}

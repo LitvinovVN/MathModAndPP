@@ -1,0 +1,186 @@
+\doxysection{Global\+Test\+Functions.\+hpp}
+\hypertarget{_global_test_functions_8hpp_source}{}\label{_global_test_functions_8hpp_source}\index{HCSLib/GlobalTestFunctions.hpp@{HCSLib/GlobalTestFunctions.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{bool}\ TestVectorGpu()}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Добавить\ разные\ тесты}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_vector_gpu}{VectorGpu<double>}}\ v1\{350000\};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ v1.\mbox{\hyperlink{class_vector_gpu_afc5fdcd4b765031891b60731dfd3984b}{InitByVal}}(0.001);}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//v1.Print();\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ 5;\ i++)}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 1;\ j\ <=\ 5;\ j++)}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ res\ =\ ArrayHelper::SumCuda(v1.Get\_dev\_data\_pointer(),\ v1.Length(),i,j);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ i\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ j\ <<\ \textcolor{stringliteral}{"{}:\ "{}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//res.Print();}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ res\ <<\ std::endl;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{bool}\ TestSum()}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{struct_test_params}{TestParams}}\ testParams;}
+\DoxyCodeLine{00040\ \ \ \ \ testParams.IterNum\ =\ 1;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ 1.\ Подготовка\ данных}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ Nthreads\ =\ 10;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\ =\ 1000000000;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{double}\ elVal\ =\ 0.001;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_vector_ram}{VectorRam<double>}}\ v(size);}
+\DoxyCodeLine{00047\ \ \ \ \ v.InitByVal(elVal);}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//v.Print();}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_vector_gpu}{VectorGpu<double>}}*\ vGpu\_p\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ vGpu\_p\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_vector_gpu}{VectorGpu<double>}}(size);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ vGpu\_p-\/>\mbox{\hyperlink{class_vector_gpu_afc5fdcd4b765031891b60731dfd3984b}{InitByVal}}(elVal);}
+\DoxyCodeLine{00055\ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{comment}{//\ 2.\ Запуск\ тестов\ и\ получение\ массива\ результатов}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ 2.1\ Последовательный\ алгоритм}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{auto}\ testResults\_seq\ =\ TestHelper::LaunchSum(v,\ testParams);}
+\DoxyCodeLine{00064\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Seq:\ testResults\_seq\ size\ =\ "{}}\ <<\ testResults\_seq.size()\ <<\ std::endl;}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ res\ :\ testResults\_seq)}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ res.Print();}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ 2.2\ Параллельный\ алгоритм\ std::thread}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{auto}\ testResults\_par\ =\ TestHelper::LaunchSum(v,\ Nthreads,\ testParams);}
+\DoxyCodeLine{00069\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Parallel:\ testResults\ size\ =\ "{}}\ <<\ testResults\_par.size()\ <<\ std::endl;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ res\ :\ testResults\_par)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ res.Print();}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ 2.3\ Параллельный\ алгоритм\ OpenMP}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keyword}{auto}\ testResults\_par\_OpenMP\ =\ TestHelper::LaunchSumOpenMP(v,\ Nthreads,\ testParams);}
+\DoxyCodeLine{00074\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Parallel\ OpenMP:\ testResults\ size\ =\ "{}}\ <<\ testResults\_par\_OpenMP.size()\ <<\ std::endl;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ res\ :\ testResults\_par\_OpenMP)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ res.Print();}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ 2.4\ Параллельный\ алгоритм\ Cuda}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{int}\ numBlocks\ =\ 10;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{auto}\ testResults\_par\_Cuda\ =\ TestHelper::LaunchSumCuda(*vGpu\_p,\ numBlocks,\ Nthreads,\ testParams);}
+\DoxyCodeLine{00081\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Parallel\ CUDA:\ testResults\ size\ =\ "{}}\ <<\ testResults\_par\_Cuda.size()\ <<\ std::endl;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ res\ :\ testResults\_par\_Cuda)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ res.Print();}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ 2.5\ Параллельный\ алгоритм\ Cuda\ на\ 1\ GPU\ с\ двумя\ видеочипами}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//int\ numBlocks\ =\ 37;}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{/*auto\ testResults\_par2\_Cuda\ =\ TestHelper::LaunchSumCudaMultiGpu(testParamsGpu);}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ std::cout\ \ \ <<\ "{}Parallel\ CUDA\ LaunchSumCudaMultiGpu:\ testResults\ size\ =\ "{}}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ testResults\_par2\_Cuda.size()\ <<\ std::endl;}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ \ for(auto\&\ res\ :\ testResults\_par2\_Cuda)}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ \ \ \ \ \ res.Print();*/}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Освобождаем\ видеопамять}}
+\DoxyCodeLine{00094\ \ \ \ \ vGpu\_p-\/>\mbox{\hyperlink{class_vector_gpu_a2337cc736ec48413d442008f72108203}{Clear\_dev\_data}}();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ 3.\ Статистическая\ обработка\ результатов}}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ stat\_seq\{testResults\_seq\};}
+\DoxyCodeLine{00098\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CalculationStatistics\ seq:\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00099\ \ \ \ \ stat\_seq.Print();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ stat\_par\{testResults\_par\};}
+\DoxyCodeLine{00102\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CalculationStatistics\ parallel\ std::thread:\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00103\ \ \ \ \ stat\_par.Print();}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ stat\_par\_OpenMP;}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00107\ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ stat\_par\_OpenMP\ =\ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\{testResults\_par\_OpenMP\};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CalculationStatistics\ parallel\ OpenMP:\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ stat\_par\_OpenMP.Print();}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00113\ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\ stat\_par\_Cuda;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ stat\_par\_Cuda\ =\ \mbox{\hyperlink{struct_calculation_statistics}{CalculationStatistics}}\{testResults\_par\_Cuda\};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CalculationStatistics\ parallel\ Cuda:\ "{}}\ <<\ std::endl;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ stat\_par\_Cuda.Print();}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{/*CalculationStatistics\ stat\_par2\_Cuda;}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ try}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ \ \ \ \ \ stat\_par2\_Cuda\ =\ CalculationStatistics\{testResults\_par2\_Cuda\};}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}CalculationStatistics\ parallel\ Cuda\ LaunchSumCudaDevNum1GpuNum2:\ "{}\ <<\ std::endl;}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ \ \ \ \ \ stat\_par2\_Cuda.Print();}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ \ catch(const\ std::exception\&\ e)}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ '\(\backslash\)n';}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00140\ \ \ \ \ }
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{comment}{//\ 4.\ Вычисляем\ ускорение\ и\ эффективность}}
+\DoxyCodeLine{00143\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/\ std::thread\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{struct_parallel_calc_indicators}{ParallelCalcIndicators}}\ parallelCalcIndicators(stat\_seq,\ stat\_par,\ Nthreads);}
+\DoxyCodeLine{00145\ \ \ \ \ parallelCalcIndicators.Print();}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/\ OpenMP\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_parallel_calc_indicators}{ParallelCalcIndicators}}\ parallelCalcIndicators\_OpenMP(stat\_seq,\ stat\_par\_OpenMP,\ Nthreads);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ parallelCalcIndicators\_OpenMP.Print();}
+\DoxyCodeLine{00152\ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00154\ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00160\ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/\ CUDA\ -\/-\/-\/"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_parallel_calc_indicators}{ParallelCalcIndicators}}\ parallelCalcIndicators\_Cuda(stat\_seq,\ stat\_par\_Cuda,\ numBlocks*Nthreads);}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ parallelCalcIndicators\_Cuda.Print();}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ std::exception\&\ e)}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{comment}{/*try}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}-\/-\/-\/\ CUDA,\ 1\ dev,\ 2\ videochips\ -\/-\/-\/"{}\ <<\ std::endl;}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ \ \ \ \ \ \ ParallelCalcIndicators\ parallelCalcIndicators\_Cuda2(stat\_seq,\ stat\_par2\_Cuda,\ numBlocks*Nthreads);}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ \ \ \ \ \ \ \ parallelCalcIndicators\_Cuda2.Print();}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ \ \ \ catch(const\ std::exception\&\ e)}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cerr\ <<\ e.what()\ <<\ '\(\backslash\)n';}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ \ \ \ \ \ \ \ return\ false;}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00184\ \}}
+
+\end{DoxyCode}
