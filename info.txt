@@ -1,0 +1,3 @@
+set PATH=%PATH%;C:\mingw64\bin
+
+ssh-keygen -o -t rsa -C "windows-ssh@mcnz.com"
