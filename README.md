@@ -24,6 +24,8 @@
 
 [Введение в программирование графических ускорителей с использованием технологии NVIDIA CUDA](Parallel_programming/CUDA/README.md)
 
+[Описание библиотеки HCSLib](https://litvinovvn.github.io/MathModAndPP/Testing_Thread_OpenMP_Cuda_OpenBlas_11/docs/doxygen/html/index.html)
+
 ### Задачи
 
 1. Разработать структуру "Одномерный динамический массив"
