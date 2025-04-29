@@ -1,9 +1,15 @@
 #pragma once
 
-/// @brief Абстрактный класс, моделирующий геометрию расчетной области
-class IGeometry
+#include <vector>
+
+#include "../CommonHelpers/_IncludeCommonHelpers.hpp"
+#include "IGeometryLocation.hpp"
+
+/// @brief Абстрактный класс, моделирующий размещение объектов геометрии в пространстве
+class IGeometryComposition
 {
-public:    
+    std::vector<IGeometryLocation> elements;
+public:        
     /// @brief Выводит в консоль сведения об объекте и его значение
     virtual void Print() const = 0;
 
