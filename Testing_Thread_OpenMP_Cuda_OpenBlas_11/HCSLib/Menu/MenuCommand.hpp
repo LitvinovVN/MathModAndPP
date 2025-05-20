@@ -25,6 +25,7 @@ enum class MenuCommand
     AlgorithmRepository,       // Тестирование репозитория алгоритмов
     AlgorithmImplementationRepository, // Работа с репозиторием реализаций алгоритмов
     AlgorithmImplementationExecutor,// Запуск различных реализаций алгоритмов
-    GeometryHelper_ConsoleUI  // Работа с модулем Geometry
+    GeometryHelper_ConsoleUI,  // Работа с модулем Geometry
+    DifferentialEquations_ConsoleUI // Работа с модулем DifferentialEquations
 };
 

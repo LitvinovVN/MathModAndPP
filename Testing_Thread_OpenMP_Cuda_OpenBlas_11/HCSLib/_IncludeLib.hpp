@@ -34,6 +34,9 @@ using namespace std::chrono;
 ///// Вспомогательные типы
 #include "CommonHelpers/_IncludeCommonHelpers.hpp"
 
+///// Дифференциальные уравнения
+#include "DifferentialEquations/_IncludeDifferentialEquations.hpp"
+
 ///// Геометрия расчетной области
 #include "Geometry/_IncludeGeometry.hpp"
 
