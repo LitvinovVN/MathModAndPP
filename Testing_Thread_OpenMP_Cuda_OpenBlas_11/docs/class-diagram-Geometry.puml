@@ -31,11 +31,14 @@ class Location2D
 'Абстрактный класс, моделирующий геометрию расчетной области
 class IGeometry
 {    
-        
+    ' Виртуальный деструктор
+    + virtual ~IGeometry() = default 
     ' Выводит в консоль сведения об объекте и его значение
-    virtual void Print() const = 0;
+    + virtual void Print() const = 0
     ' Возвращает размерность объекта геометрии
-    virtual Dimension GetDimension() const = 0; 
+    + virtual Dimension GetDimension() const = 0
+    ' Возвращает единицу измерения, используемую для описания объекта геометрии
+    + MeasurementUnitEnum GetMeasurementUnitEnum() const
 }
 
 'Прямоугольник

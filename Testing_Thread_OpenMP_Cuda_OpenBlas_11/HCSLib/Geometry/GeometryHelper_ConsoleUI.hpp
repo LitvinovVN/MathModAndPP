@@ -11,5 +11,6 @@ struct GeometryHelper_ConsoleUI
         std::cout << "Geometry2DRectangle_Console_UI()\n";
         IGeometry* g2dRectangle = new G2DRectangle(2, 1);
         g2dRectangle->Print();
+        delete g2dRectangle;
     }
 };

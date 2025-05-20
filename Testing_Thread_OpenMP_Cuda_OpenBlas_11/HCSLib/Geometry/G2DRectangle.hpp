@@ -16,6 +16,11 @@ public:
         : Lx(Lx), Ly(Ly)
     {}
 
+    ~G2DRectangle()
+    {
+        //std::cout << "G2DRectangle::~G2DRectangle()\n";
+    }
+
     /// @brief Возвращает размерность объекта геометрии
     Dimension GetDimension() const override
     {

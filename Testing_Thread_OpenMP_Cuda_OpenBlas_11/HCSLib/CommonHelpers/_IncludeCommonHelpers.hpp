@@ -11,3 +11,4 @@
 #include "DataLocation.hpp"
 #include "DimensionEnum.hpp"
 #include "MeasurementUnitEnum.hpp"
+#include "PhysicalQuantityEnum.hpp"

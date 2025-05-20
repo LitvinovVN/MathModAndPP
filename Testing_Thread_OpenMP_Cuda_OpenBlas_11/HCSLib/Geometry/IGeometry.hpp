@@ -3,7 +3,10 @@
 /// @brief Абстрактный класс, моделирующий геометрию расчетной области
 class IGeometry
 {
-public:    
+public:
+    /// @brief Виртуальный деструктор
+    virtual ~IGeometry() = default;
+
     /// @brief Выводит в консоль сведения об объекте и его значение
     virtual void Print() const = 0;
 
