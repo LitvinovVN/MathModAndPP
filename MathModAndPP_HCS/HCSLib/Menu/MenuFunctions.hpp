@@ -1167,8 +1167,8 @@ struct MenuFunctions
         std::cout   << "----- DifferntialEquations_ConsoleUI -----\n"
                     << "1 Back to main menu\n"
                     << "2 Poisson2D\n"
-                    //<< "3 VectorsHelper_ConsoleUI::MatrixRamETesting\n"
-                    //<< "4 VectorsHelper_ConsoleUI::SumCublas\n"
+                    << "3 DiffEqFunc2DPointSources\n"
+                    << "4 DiffEqFunc2D\n"
                     //<< "5 VectorsHelper_ConsoleUI::SumCublasMultiGpu\n"
                     //<< "6 VectorsHelper_ConsoleUI::CopyRamToGpu\n"
                     //<< "7 VectorsHelper_ConsoleUI::CopyGpuToRam\n"
@@ -1207,12 +1207,12 @@ struct MenuFunctions
                 DifferentialEquations_ConsoleUI::Poisson2D_ConsoleUI();
                 break;
             case 3:
-                std::cout   << "Command: 3 VectorsHelper_ConsoleUI::MatrixRamETesting()\n";
-                //VectorsHelper_ConsoleUI::MatrixRamETesting();
+                std::cout   << "Command: 3 DiffEqFunc2DPointSources\n";
+                DifferentialEquations_ConsoleUI::DiffEqFunc2DPointSources_ConsoleUI();
                 break;
             case 4:
-                std::cout   << "Command: 4 VectorsHelper_ConsoleUI::SumCublas()\n";
-                //VectorsHelper_ConsoleUI::SumCublas_ConsoleUI();
+                std::cout   << "Command: 4 DiffEqFunc2D\n";
+                DifferentialEquations_ConsoleUI::DiffEqFunc2D_ConsoleUI();
                 break;
             case 5:
                 std::cout   << "Command: 5 VectorsHelper_ConsoleUI::SumCublasMultiGpu()\n";
