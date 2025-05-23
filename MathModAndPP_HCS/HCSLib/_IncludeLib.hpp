@@ -148,6 +148,9 @@ using namespace std::chrono;
 #include "GlobalTestFunctions.hpp"
 ////////// Глобальные функции (конец) ////////////
 
+///// Решения модельных задач
+#include "ModelProblems/_IncludeModelProblems.hpp"
+
 ///////////// Приложение (начало) ////////////////
 // Конфигурация приложения
 #include "AppConfig.hpp"

@@ -6,9 +6,9 @@
 #include "IGeometryLocation.hpp"
 
 /// @brief Размещение объектов геометрии в двумерном пространстве
-class GeometryComposition2D : IGeometryComposition
+class GeometryComposition2D : public IGeometryComposition
 {
-    std::vector<IGeometryLocation> elements;
+    
 public:        
     /// @brief Выводит в консоль сведения об объекте и его значение
     void Print() const override

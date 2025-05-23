@@ -1261,5 +1261,105 @@ struct MenuFunctions
         }
     }
 
+    /// @brief Работа с модулем ModelProblems
+    static void ModelProblems_ConsoleUI()
+    {                
+        std::cout   << "----- ModelProblems_ConsoleUI -----\n"
+                    << "1 Back to main menu\n"
+                    << "2 Poisson2D in rectangle (border cond. 1111)\n"
+                    //<< "3 DiffEqFunc2DPointSources\n"
+                    //<< "4 DiffEqFunc2D\n"
+                    //<< "5 VectorsHelper_ConsoleUI::SumCublasMultiGpu\n"
+                    //<< "6 VectorsHelper_ConsoleUI::CopyRamToGpu\n"
+                    //<< "7 VectorsHelper_ConsoleUI::CopyGpuToRam\n"
+                    //<< "8 VectorsHelper_ConsoleUI::ScalarProductRamSeq\n"
+                    //<< "9 VectorsHelper_ConsoleUI::ScalarProductRamParThread\n"
+                    //<< "10 VectorRamGpus\n"
+                    //<< "11 VectorsHelper_ConsoleUI::ScalarProductGpuParCuda\n"
+                    //<< "12 VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda\n"
+                    //<< "13 VectorsHelper_ConsoleUI::ScalarProductGpuCublas\n"
+                    //<< "14 VectorsHelper_ConsoleUI::ScalarProductMultiGpuCublas\n";
+                    ;
+
+        int command = 0;
+        while(command != 1)
+        {
+            std::cout << ">> ";
+            std::string commandString;
+            std::cin >> commandString;
+            
+            try
+            {
+                command = std::stoi(commandString);
+            }
+            catch(const std::exception& e)
+            {
+                command = 0;
+            }
+                        
+            switch (command)
+            {
+            case 1:
+                std::cout << "Back to main menu" << std::endl;
+                break;
+            case 2:
+                std::cout   << "Command: Poisson2D in rectangle (border cond. 1111)\n";                
+                ModelProblems_ConsoleUI::Poisson2D_Rectangle_bc1111_ConsoleUI();
+                break;
+            case 3:
+                std::cout   << "Command: 3 DiffEqFunc2DPointSources\n";
+                //DifferentialEquations_ConsoleUI::DiffEqFunc2DPointSources_ConsoleUI();
+                break;
+            case 4:
+                std::cout   << "Command: 4 DiffEqFunc2D\n";
+                //DifferentialEquations_ConsoleUI::DiffEqFunc2D_ConsoleUI();
+                break;
+            case 5:
+                std::cout   << "Command: 5 VectorsHelper_ConsoleUI::SumCublasMultiGpu()\n";
+                //VectorsHelper_ConsoleUI::SumCublasMultiGpu_ConsoleUI();
+                break;
+            case 6:
+                std::cout << "Command: 6 VectorsHelper_ConsoleUI::CopyRamToGpu()\n";
+                //VectorsHelper_ConsoleUI::CopyRamToGpu_ConsoleUI();
+                break;
+            case 7:
+                std::cout   << "Command: 7 VectorsHelper_ConsoleUI::CopyGpuToRam()\n";
+                //VectorsHelper_ConsoleUI::CopyGpuToRam_ConsoleUI();               
+                break;
+            case 8:
+                std::cout   << "Command: 8 VectorsHelper_ConsoleUI::ScalarProductRamSeq\n";
+                //VectorsHelper_ConsoleUI::ScalarProductRamSeq_ConsoleUI();
+                break;
+            case 9:
+                std::cout   << "Command: 9 VectorsHelper_ConsoleUI::ScalarProductRamParThread\n";
+                //VectorsHelper_ConsoleUI::ScalarProductRamParThread_ConsoleUI();
+                break;
+            case 10:
+                std::cout   << "Command: 10 VectorRamGpus\n";
+                VectorsHelper_ConsoleUI::VectorRamGpus_ConsoleUI();
+                break;
+            case 11:
+                std::cout   << "Command: 11 VectorsHelper_ConsoleUI::ScalarProductGpuParCuda\n";
+                //VectorsHelper_ConsoleUI::ScalarProductGpuParCuda_ConsoleUI();
+                break;
+            case 12:
+                std::cout   << "Command: 12 VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda\n";
+                //VectorsHelper_ConsoleUI::ScalarProductMultiGpuParCuda_ConsoleUI();
+                break;
+            case 13:
+                std::cout   << "Command: 13 VectorsHelper_ConsoleUI::ScalarProductGpuCublas\n";
+                //VectorsHelper_ConsoleUI::ScalarProductGpuCublas_ConsoleUI();
+                break;
+            case 14:
+                std::cout   << "Command: 14 VectorsHelper_ConsoleUI::ScalarProductMultiGpuCublas\n";
+                //VectorsHelper_ConsoleUI::ScalarProductMultiGpuCublas_ConsoleUI();
+                break;
+            default:
+                std::cout << "Command not recognized!" << std::endl;
+                break;
+            }
+        }
+    }
+
 };
 

@@ -19,4 +19,9 @@ public:
     {
         delete this->geometry;
     }
+
+    ILocation* GetLocation() override
+    {
+        return &location;
+    }
 };

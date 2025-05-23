@@ -30,12 +30,12 @@ public:
     /// @brief Выводит в консоль сведения об объекте
     void Print() const override
     {
-        std::cout << "ScalarRam object description:" << std::endl;
-        std::cout << "type name: " << typeid(this).name() << std::endl;
-        std::cout << "address: "   << this << std::endl;
-        std::cout << "dimension: " << GetDimension()  << std::endl;
-        std::cout << "Lx: " << Lx  << " " << GetMeasurementUnitEnum() << std::endl;
-        std::cout << "Ly: " << Ly  << " " << GetMeasurementUnitEnum() << std::endl;
+        std::cout << "G2DRectangle object description:" << std::endl;
+        std::cout << "- type name: " << typeid(this).name() << std::endl;
+        std::cout << "- address: "   << this << std::endl;
+        std::cout << "- dimension: " << GetDimension()  << std::endl;
+        std::cout << "- Lx: " << Lx  << " " << GetMeasurementUnitEnum() << std::endl;
+        std::cout << "- Ly: " << Ly  << " " << GetMeasurementUnitEnum() << std::endl;
     }
 
 };

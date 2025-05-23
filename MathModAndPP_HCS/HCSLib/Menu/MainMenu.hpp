@@ -270,6 +270,16 @@ public:
                 "DifferentialEquations module (DifferentialEquations_ConsoleUI)"
             }
         );
+
+        menuCommands.push_back(
+            MenuCommandItem
+            {
+                MenuCommand::ModelProblems_ConsoleUI,
+                {std::to_string((int)MenuCommand::ModelProblems_ConsoleUI),"mod-prob"},
+                MenuFunctions::ModelProblems_ConsoleUI,
+                "ModelProblems module (ModelProblems_ConsoleUI)"
+            }
+        );
     }
 
     /// @brief Запуск главного меню
