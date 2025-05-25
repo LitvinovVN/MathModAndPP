@@ -9,6 +9,8 @@
 // nvcc main.cpp -o app -x cu -Xcompiler="/openmp" -O3  -lcublas -allow-unsupported-compiler -DOPENBLAS -lopenblas -I"C:\OpenBLAS\include" -L"C:\OpenBLAS\lib"
 // --- nvcc, g++, ubuntu ---
 // nvcc main.cpp -o app -x cu -Xcompiler="-fopenmp" -O3 -lcublas
+// --- Код после препроцессинга ---
+// g++ -E main.cpp -o main.ii
 
 #include "HCSLib/_IncludeLib.hpp"
 
