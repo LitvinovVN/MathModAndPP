@@ -1,0 +1,26 @@
+@startuml DifferentialEquations
+
+title
+Диаграмма классов модуля "DifferentialEquations"
+end title
+
+' Интерфейс функции правой части
+class IDiffEqFunction
+{
+    ' Возвращает значение функции в точке (1D)
+    + double GetValue(double x)
+    ' Возвращает значение функции в точке (2D)
+    + double GetValue(double x, doble y)
+    ' Возвращает значение функции в точке (3D)
+    + double GetValue(double x, doble y, double z)
+    ' Возвращает размерность объекта функции
+    + virtual Dimension GetDimension() const = 0
+}
+
+class DiffEqFunc2DPointSources
+{
+    + double GetValue(double x, double y)
+    + Dimension GetDimension() const
+}
+
+DiffEqFunc2DPointSources --|> IDiffEqFunction

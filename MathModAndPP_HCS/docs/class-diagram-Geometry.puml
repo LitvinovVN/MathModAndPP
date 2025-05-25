@@ -1,0 +1,103 @@
+@startuml name Geometry
+
+title
+Диаграмма классов модуля "Geometry"
+end title
+
+' Размерность для геометрии и пр.
+enum Dimension
+{
+    '1D
+    + D1 = 1
+    '2D
+    + D2 = 2
+    '3D
+    + D3 = 3
+}
+
+class ILocation
+{
+    + std::vector<double> GetCoordinates();
+    ' Возвращает размерность объекта геометрии
+    + virtual Dimension GetDimension() const = 0;
+}
+
+class Location2D
+{
+    + double x
+    + double y
+}
+
+'Абстрактный класс, моделирующий геометрию расчетной области
+class IGeometry
+{    
+    ' Виртуальный деструктор
+    + virtual ~IGeometry() = default 
+    ' Выводит в консоль сведения об объекте и его значение
+    + virtual void Print() const = 0
+    ' Возвращает размерность объекта геометрии
+    + virtual Dimension GetDimension() const = 0
+    ' Возвращает единицу измерения, используемую для описания объекта геометрии
+    + MeasurementUnitEnum GetMeasurementUnitEnum() const
+}
+
+'Прямоугольник
+class G2DRectangle
+{
+    ' Длина
+    - double Lx
+    ' Ширина
+    - double Ly
+    + G2DRectangle(double Lx, double Ly)
+    + void Print() const override
+    ' Возвращает размерность объекта геометрии
+    + Dimension GetDimension() const override 
+}
+
+class IGeometryLocation
+{
+    IGeometry* geometry
+    ILocation GetLocation()
+}
+
+class GeometryLocation2D
+{
+    '- IGeometry* geometry
+    - Location2D location;
+    + GeometryLocation2D(IGeometry* geometry, double x, double y)
+    + ~GeometryLocation2D()
+}
+
+
+' Абстрактный класс, моделирующий размещение объектов геометрии в пространстве
+class IGeometryComposition
+{
+    - std::vector<IGeometryLocation> elements;
+    ' Выводит в консоль сведения об объекте и его значение
+    + virtual void Print() const = 0;
+    ' Возвращает размерность объекта геометрии
+    + virtual Dimension GetDimension() const = 0;
+    ' Возвращает единицу измерения, используемую для описания объекта геометрии
+    + MeasurementUnitEnum GetMeasurementUnitEnum() const
+}
+
+class GeometryComposition2D
+{
+    - std::vector<IGeometryLocation> elements      
+    ' Выводит в консоль сведения об объекте и его значение
+    + void Print() const override
+    ' Возвращает размерность объектов геометрии
+    + Dimension GetDimension() const override
+    ' Возвращает единицу измерения, используемую для описания объекта геометрии
+    + MeasurementUnitEnum GetMeasurementUnitEnum() const
+}
+
+Location2D -up-|> ILocation
+G2DRectangle -up-|> IGeometry
+GeometryLocation2D -up-|> IGeometryLocation
+GeometryComposition2D -up-|> IGeometryComposition
+IGeometryLocation *.. IGeometry
+IGeometryLocation *.. ILocation
+IGeometryComposition *.. IGeometryLocation
+
+@enduml
