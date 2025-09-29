@@ -1,0 +1,768 @@
+\documentclass[12pt]{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{pythonstyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstdefinestyle{cppstyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{red},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\title{Семинар: Градиент поля физической величины}
+\author{Профессор кафедры теоретической физики}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Введение}
+	
+	\textbf{Градиент} — фундаментальное понятие векторного анализа, характеризующее скорость и направление наибольшего изменения скалярного поля. В физике градиент используется для описания:
+	\begin{itemize}
+		\item Градиента температуры в теории теплопроводности
+		\item Градиента давления в гидродинамике
+		\item Градиента потенциала в электродинамике
+		\item Градиента концентрации в физической химии
+	\end{itemize}
+	
+	\section{Оператор "набла"}
+	
+	\subsection{Определение и свойства}
+	
+	\textbf{Оператор набла} (оператор Гамильтона) — векторный дифференциальный оператор, обозначаемый символом $\nabla$. В декартовой системе координат:
+	
+	\[
+	\nabla = \left(\frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}\right)
+	\]
+	
+	%\begin{figure}[H]
+	%	\centering
+	%	\begin{tikzpicture}
+		%		\draw[->] (0,0) -- (4,0) node[right] {$x$};
+		%		\draw[->] (0,0) -- (0,3) node[above] {$y$};
+		%		\node at (2,1.5) {$\nabla = \mathbf{i}\frac{\partial}{\partial x} + \mathbf{j}\frac{\partial}{\partial y} + \mathbf{k}\frac{\partial}{\partial z}$};
+		%		\draw[->, thick, blue] (1,1) -- (2,2) node[midway, above] {$\nabla$};
+		%	\end{tikzpicture}
+	%	\caption{Геометрическая интерпретация оператора набла}
+	%\end{figure}
+	
+	\subsection{Применение оператора набла}
+	
+	При действии на скалярное поле $\varphi(x,y,z)$ оператор набла дает градиент:
+	
+	\[
+	\nabla \varphi = \left(\frac{\partial \varphi}{\partial x}, \frac{\partial \varphi}{\partial y}, \frac{\partial \varphi}{\partial z}\right)
+	\]
+	
+	
+	\section{Определение скалярного поля}
+	
+	\textbf{Скалярное поле} — это функция, которая каждой точке пространства ставит в соответствие некоторое числовое значение (скаляр). Формально, для трёхмерного пространства скалярное поле задаётся как:
+	
+	\[
+	\varphi: \mathbb{R}^3 \rightarrow \mathbb{R}
+	\]
+	\[
+	(x, y, z) \mapsto \varphi(x, y, z)
+	\]
+	
+	где $\varphi(x, y, z)$ — скалярная величина в точке с координатами $(x, y, z)$.
+	
+	\section{Примеры скалярных полей в физике}
+	
+	\subsection{Температурное поле}
+	
+	Распределение температуры в пространстве:
+	
+	\[
+	T(x, y, z) = T_0 + \Delta T \cdot e^{-\alpha(x^2 + y^2 + z^2)}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			% Coordinate system
+			\draw[->] (0,0) -- (5,0) node[right] {$x$};
+			\draw[->] (0,0) -- (0,4) node[above] {$T(x)$};
+			
+			% Temperature distribution
+			\draw[domain=0:4.5,smooth,variable=\x,blue,thick] plot ({\x},{0.5 + 2.5*exp(-0.3*(\x-2.5)^2)});
+			
+			% Temperature labels
+			\foreach \x in {0.5,1.5,2.5,3.5,4.5} {
+				\draw[dashed] (\x,0) -- (\x,{0.5 + 2.5*exp(-0.3*(\x-2.5)^2)});
+				\node[below] at (\x,0) {\x};
+			}
+			
+			\node[blue,right] at (4,3) {$T(x) = T_0 + \Delta T \cdot e^{-\alpha x^2}$};
+			\node at (2.5,-0.7) {Одномерное температурное поле};
+		\end{tikzpicture}
+		\caption{Пример одномерного скалярного поля — распределение температуры}
+	\end{figure}
+	
+	\subsection{Электростатический потенциал}
+	
+	Потенциал точечного заряда:
+	
+	\[
+	\varphi(x, y, z) = \frac{1}{4\pi\varepsilon_0} \frac{q}{\sqrt{x^2 + y^2 + z^2}}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Coordinate system
+			\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+			\draw[->] (0,-3) -- (0,3) node[above] {$y$};
+			
+			% Charge
+			\filldraw[red] (0,0) circle (2pt) node[above right] {$q$};
+			
+			% Equipotential lines
+			\foreach \r in {0.5,1,1.5,2,2.5} {
+				\draw[blue,dashed] (0,0) circle (\r);
+				\node[blue,above] at (\r,0) {$\varphi=\frac{kq}{\r}$};
+			}
+			
+			% Field description
+			\node[text width=6cm] at (4,2) {
+				Эквипотенциальные поверхности — сферы с центром в точке заряда
+			};
+			
+		\end{tikzpicture}
+		\caption{Скалярное поле электростатического потенциала}
+	\end{figure}
+	
+	\subsection{Поле давления в жидкости}
+	
+	Распределение давления в несжимаемой жидкости:
+	
+	\[
+	P(x, y, z) = P_0 + \rho g z
+	\]
+	
+	\section{Свойства скалярных полей}
+	
+	\subsection{Поверхности уровня}
+	
+	\textbf{Поверхностью уровня} скалярного поля называется множество точек, в которых поле принимает постоянное значение:
+	
+	\[
+	S_c = \{(x, y, z) \in \mathbb{R}^3 : \varphi(x, y, z) = c\}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.7]
+			% 3D coordinate system
+			\draw[->] (0,0,0) -- (3,0,0) node[right] {$x$};
+			\draw[->] (0,0,0) -- (0,3,0) node[above] {$y$};
+			\draw[->] (0,0,0) -- (0,0,3) node[below left] {$z$};
+			
+			% Level surfaces
+			\draw[blue,opacity=0.7] (0,0,1) -- (2,0,1) -- (2,2,1) -- (0,2,1) -- cycle;
+			\draw[red,opacity=0.7] (0,0,2) -- (2,0,2) -- (2,2,2) -- (0,2,2) -- cycle;
+			\draw[green,opacity=0.7] (0,0,0.5) -- (2,0,0.5) -- (2,2,0.5) -- (0,2,0.5) -- cycle;
+			
+			% Labels
+			\node[blue,right] at (2,0,1) {$\varphi = c_1$};
+			\node[red,right] at (2,0,2) {$\varphi = c_2$};
+			\node[green,right] at (2,0,0.5) {$\varphi = c_3$};
+			
+		\end{tikzpicture}
+		\caption{Поверхности уровня скалярного поля}
+	\end{figure}
+	
+	\subsection{Непрерывность и дифференцируемость}
+	
+	Скалярное поле называется:
+	\begin{itemize}
+		\item \textbf{Непрерывным}, если малому изменению координат соответствует малое изменение значения поля
+		\item \textbf{Дифференцируемым}, если существуют все частные производные $\frac{\partial\varphi}{\partial x}$, $\frac{\partial\varphi}{\partial y}$, $\frac{\partial\varphi}{\partial z}$
+	\end{itemize}
+	
+	\section{Визуализация скалярных полей}
+	
+	\subsection{Методы представления}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Методы визуализации скалярных полей}
+		\begin{tabular}{|p{0.3\textwidth}|p{0.6\textwidth}|}
+			\hline
+			\textbf{Метод} & \textbf{Описание} \\
+			\hline
+			Поверхности уровня & Множество точек с одинаковым значением поля \\
+			\hline
+			Цветовые карты (heat maps) & Цветовое кодирование значений поля \\
+			\hline
+			Графики сечений & Графики поля вдоль определённых направлений \\
+			\hline
+			Объёмная визуализация & Трёхмерное представление с прозрачностью \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Heat map
+			\foreach \x in {0,1,2,3,4} {
+				\foreach \y in {0,1,2,3,4} {
+					\pgfmathsetmacro{\intensity}{100 - 20*(\x + \y)}
+					\fill[red!\intensity!blue] (\x,\y) rectangle (\x+0.8,\y+0.8);
+				}
+			}
+			
+			% Labels
+			\node at (2,-0.5) {Цветовая карта скалярного поля};
+			\draw[<->] (0,5) -- (1,5) node[midway,above] {Низкие значения};
+			\draw[<->] (3,5) -- (4,5) node[midway,above] {Высокие значения};
+			
+		\end{tikzpicture}
+		\caption{Визуализация скалярного поля с помощью цветовой карты}
+	\end{figure}
+	
+	\section{Физический смысл и приложения}
+	
+	\subsection{Физические величины, описываемые скалярными полями}
+	
+	\begin{itemize}
+		\item \textbf{Температура} $T(x,y,z)$ — распределение тепловой энергии
+		\item \textbf{Давление} $P(x,y,z)$ — силовая характеристика в жидкостях и газах
+		\item \textbf{Потенциал} $\varphi(x,y,z)$ — энергетическая характеристика поля
+		\item \textbf{Концентрация} $C(x,y,z)$ — распределение вещества
+		\item \textbf{Плотность} $\rho(x,y,z)$ — массовая характеристика
+	\end{itemize}
+	
+	\subsection{Важность в физике}
+	
+	Скалярные поля являются фундаментальным понятием в физике потому, что:
+	
+	\begin{enumerate}
+		\item Они описывают \textbf{интенсивные свойства} систем
+		\item Позволяют анализировать \textbf{пространственные распределения}
+		\item Являются основой для определения \textbf{векторных полей} через градиент
+		\item Описывают \textbf{потенциальную энергию} в консервативных полях
+	\end{enumerate}
+	
+	\section{Математический аппарат}
+	
+	\subsection{Основные операции}
+	
+	Для скалярных полей определены следующие операции:
+	
+	\begin{itemize}
+		\item \textbf{Градиент}: $\nabla\varphi = \left(\frac{\partial\varphi}{\partial x}, \frac{\partial\varphi}{\partial y}, \frac{\partial\varphi}{\partial z}\right)$
+		\item \textbf{Производная по направлению}: $\frac{\partial\varphi}{\partial\vec{l}} = \nabla\varphi \cdot \vec{l}_0$
+		\item \textbf{Лапласиан}: $\nabla^2\varphi = \frac{\partial^2\varphi}{\partial x^2} + \frac{\partial^2\varphi}{\partial y^2} + \frac{\partial^2\varphi}{\partial z^2}$
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			% Scalar field representation
+			\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+			\draw[->] (0,-2) -- (0,2) node[above] {$y$};
+			
+			% Level curves
+			\foreach \r in {0.3,0.6,0.9,1.2,1.5} {
+				\draw[blue] (0,0) circle (\r);
+			}
+			
+			% Gradient vectors
+			\foreach \angle in {0,45,90,135,180,225,270,315} {
+				\draw[red,->,thick] ({0.7*cos(\angle)},{0.7*sin(\angle)}) -- 
+				({1.3*cos(\angle)},{1.3*sin(\angle)});
+			}
+			
+			\node[blue,right] at (2,1) {Поверхности уровня};
+			\node[red,right] at (2,0.5) {Векторы градиента};
+			
+		\end{tikzpicture}
+		\caption{Связь скалярного поля с его градиентом}
+	\end{figure}
+	
+	\section*{Заключение}
+	
+	Скалярное поле — это фундаментальное понятие математической физики, позволяющее описывать пространственное распределение физических величин, имеющих только числовое значение. Понимание свойств скалярных полей необходимо для изучения более сложных векторных и тензорных полей, а также для решения практических задач в различных разделах физики и инженерии.
+	
+	\textbf{Ключевые особенности} скалярных полей:
+	\begin{itemize}
+		\item Инвариантность относительно преобразований координат
+		\item Возможность визуализации через поверхности уровня
+		\item Связь с векторными полями через операцию градиента
+		\item Широкое применение в описании физических явлений
+	\end{itemize}
+	
+	
+	
+	\section{Численные методы аппроксимации производных}
+	
+	\subsection{Методы конечных разностей}
+	
+	Для численного вычисления градиентов используются методы конечных разностей:
+	
+	\begin{itemize}
+		\item \textbf{Прямая разность}: $\frac{\partial f}{\partial x} \approx \frac{f(x+h) - f(x)}{h}$
+		\item \textbf{Обратная разность}: $\frac{\partial f}{\partial x} \approx \frac{f(x) - f(x-h)}{h}$
+		\item \textbf{Центральная разность}: $\frac{\partial f}{\partial x} \approx \frac{f(x+h) - f(x-h)}{2h}$
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\draw[->] (0,0) -- (5,0) node[right] {$x$};
+			\draw[->] (0,0) -- (0,3) node[above] {$f(x)$};
+			\draw[domain=0.5:4.5,smooth,variable=\x,blue] plot ({\x},{0.5 + 0.3*(\x-2.5)^2});
+			\node[circle,fill=red] at (2,0.95) {};
+			\node[circle,fill=green] at (2.5,1.1) {};
+			\node[circle,fill=green] at (1.5,1.1) {};
+			\draw[dashed] (2,0) node[below] {$x$} -- (2,0.95);
+			\draw[dashed] (2.5,0) node[below] {$x+h$} -- (2.5,1.1);
+			\draw[dashed] (1.5,0) node[below] {$x-h$} -- (1.5,1.1);
+			\draw[<->,red] (2,1.2) -- (2.5,1.2) node[midway,above] {forward};
+			\draw[<->,red] (1.5,1.2) -- (2,1.2) node[midway,above] {backward};
+			\draw[<->,green] (1.5,1.4) -- (2.5,1.4) node[midway,above] {central};
+		\end{tikzpicture}
+		\caption{Методы конечных разностей для аппроксимации производной}
+	\end{figure}
+	
+	\section{Одномерный случай}
+	
+	\subsection{Введение и пример}
+	
+	В одномерном случае градиент сводится к обычной производной:
+	\[
+	\nabla f(x) = \frac{df}{dx}
+	\]
+	
+	\textbf{Пример:} Распределение температуры вдоль стержня:
+	\[
+	T(x) = 300 + 50\sin\left(\frac{\pi x}{L}\right), \quad L = 10\text{ м}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\draw[->] (0,0) -- (11,0) node[right] {$x$ (м)};
+			\draw[->] (0,0) -- (0,4) node[above] {$T(x)$ (K)};
+			\draw[domain=0:10,smooth,variable=\x,blue,thick] plot ({\x},{1 + 2*sin(deg(\x*3.14159/10))});
+			\foreach \x in {1,3,5,7,9} {
+				\draw[red,->,thick] (\x,{1 + 2*sin(deg(\x*3.14159/10))}) -- ({\x+0.8},{1 + 2*sin(deg(\x*3.14159/10)) + 0.8*2*3.14159/10*cos(deg(\x*3.14159/10))});
+			}
+			\node[blue] at (5,3.5) {Temperature $T(x)$};
+			\node[red] at (7,0.5) {Gradient $\nabla T$};
+		\end{tikzpicture}
+		\caption{Градиент температуры вдоль стержня}
+	\end{figure}
+	
+	\subsection{Таблица расчетных значений}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Значения температуры и градиента вдоль стержня}
+		\begin{tabular}{cccc}
+			\toprule
+			$x$ (м) & $T(x)$ (K) & $\nabla T$ (K/м) & Направление \\
+			\midrule
+			0.0 & 300.0 & 15.71 & RT \\
+			2.0 & 340.5 & 9.70 & RT \\
+			4.0 & 350.0 & 0.00 & →R \\
+			6.0 & 340.5 & -9.70 & LD \\
+			8.0 & 320.2 & -15.71 & LD \\
+			10.0 & 300.0 & -15.71 & LD \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Программа на Python для аналитической функции}
+	
+	\lstset{style=pythonstyle}
+	\begin{lstlisting}[language=Python, caption=Gradient computation in 1D (Python)]
+		import numpy as np
+		import matplotlib.pyplot as plt
+		
+		def gradient_1d_analytic(f, x, h=1e-6):
+		"""Compute gradient using central difference method"""
+		return (f(x + h) - f(x - h)) / (2 * h)
+		
+		def temperature(x, L=10):
+		"""Temperature distribution along a rod"""
+		return 300 + 50 * np.sin(np.pi * x / L)
+		
+		# Compute gradient at specific points
+		x_points = np.array([0.0, 2.0, 4.0, 6.0, 8.0, 10.0])
+		temperatures = temperature(x_points)
+		gradients = [gradient_1d_analytic(temperature, x) for x in x_points]
+		
+		# Display results in table format
+		print("Temperature Gradient Analysis")
+		print("=" * 50)
+		print(f"{'x (m)':<8} {'T(x) (K)':<12} {'Nabla T (K/m)':<12} {'Direction':<10}")
+		print("-" * 50)
+		
+		for i, x in enumerate(x_points):
+		T = temperatures[i]
+		grad = gradients[i]
+		direction = "RT" if grad > 0.1 else "LD" if grad < -0.1 else "R"
+		print(f"{x:<8.1f} {T:<12.1f} {grad:<12.2f} {direction:<10}")
+		
+		# Visualization
+		x_plot = np.linspace(0, 10, 100)
+		T_plot = temperature(x_plot)
+		grad_plot = [gradient_1d_analytic(temperature, x) for x in x_plot]
+		
+		plt.figure(figsize=(10, 6))
+		plt.subplot(2, 1, 1)
+		plt.plot(x_plot, T_plot, 'b-', linewidth=2)
+		plt.ylabel('Temperature (K)')
+		plt.title('Temperature Distribution Along Rod')
+		plt.grid(True)
+		
+		plt.subplot(2, 1, 2)
+		plt.plot(x_plot, grad_plot, 'r-', linewidth=2)
+		plt.xlabel('Position x (m)')
+		plt.ylabel('Gradient nabla T (K/m)')
+		plt.title('Temperature Gradient')
+		plt.grid(True)
+		
+		plt.tight_layout()
+		plt.show()
+	\end{lstlisting}
+	
+	\section{Двумерный случай}
+	
+	\subsection{Введение и пример}
+	
+	В двумерном случае градиент — вектор, показывающий направление наибольшего роста:
+	\[
+	\nabla f(x,y) = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right)
+	\]
+	
+	\textbf{Пример:} Температурное поле на пластине:
+	\[
+	T(x,y) = 300 + 20e^{-0.1(x^2 + y^2)}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.8]
+			\draw[->] (-3,0) -- (3,0) node[right] {$x$};
+			\draw[->] (0,-3) -- (0,3) node[above] {$y$};
+			\foreach \x in {-2,-1,0,1,2} {
+				\foreach \y in {-2,-1,0,1,2} {
+					\draw[red,->] (\x,\y) -- ({\x + 0.3*(-0.2*\x)}, {\y + 0.3*(-0.2*\y)});
+				}
+			}
+			\foreach \r in {0.5,1,1.5,2} {
+				\draw[blue,dashed] (0,0) circle (\r);
+			}
+			\node[blue] at (2.2,2.2) {Изотермы};
+			\node[red] at (2,-2) {$\nabla T$};
+			\node at (0,0) [circle,fill=orange] {};
+			\node at (0,0) [above] {max};
+		\end{tikzpicture}
+		\caption{Градиент температурного поля и изотермы}
+	\end{figure}
+	
+	\subsection{Таблица расчетных значений}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Градиент температуры на пластине}
+		\begin{tabular}{ccccc}
+			\toprule
+			$(x,y)$ & $T(x,y)$ (K) & $\frac{\partial T}{\partial x}$ & $\frac{\partial T}{\partial y}$ & $|\nabla T|$ \\
+			\midrule
+			(0,0) & 320.0 & 0.00 & 0.00 & 0.00 \\
+			(1,0) & 318.1 & -3.98 & 0.00 & 3.98 \\
+			(0,1) & 318.1 & 0.00 & -3.98 & 3.98 \\
+			(1,1) & 316.2 & -3.16 & -3.16 & 4.47 \\
+			(2,0) & 312.7 & -6.27 & 0.00 & 6.27 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Программа на Python для данных на сетке}
+	
+	\begin{lstlisting}[language=Python, caption=2D gradient from grid data (Python)]
+		import numpy as np
+		import matplotlib.pyplot as plt
+		
+		def gradient_2d_grid(f_grid, dx, dy):
+		"""Compute 2D gradient from grid data using central differences"""
+		n, m = f_grid.shape
+		grad_x = np.zeros((n, m))
+		grad_y = np.zeros((n, m))
+		
+		# Interior points - central difference
+		for i in range(1, n-1):
+		for j in range(1, m-1):
+		grad_x[i,j] = (f_grid[i, j+1] - f_grid[i, j-1]) / (2 * dx)
+		grad_y[i,j] = (f_grid[i+1, j] - f_grid[i-1, j]) / (2 * dy)
+		
+		return grad_x, grad_y
+		
+		def temperature_2d(x, y):
+		"""2D temperature field"""
+		return 300 + 20 * np.exp(-0.1 * (x**2 + y**2))
+		
+		# Create computational grid
+		n, m = 20, 20
+		x = np.linspace(-3, 3, m)
+		y = np.linspace(-3, 3, n)
+		X, Y = np.meshgrid(x, y)
+		
+		# Compute temperature field
+		T = temperature_2d(X, Y)
+		
+		dx = x[1] - x[0]
+		dy = y[1] - y[0]
+		
+		# Compute gradients
+		dT_dx, dT_dy = gradient_2d_grid(T, dx, dy)
+		grad_magnitude = np.sqrt(dT_dx**2 + dT_dy**2)
+		
+		# Display results table
+		print("2D Temperature Gradient Analysis")
+		print("=" * 70)
+		print(f"{'Position':<12} {'T (K)':<10} {'dT/dx':<10} {'dT/dy':<10} {'|nabla T|':<10}")
+		print("-" * 70)
+		
+		positions = [(0,0), (1,0), (0,1), (1,1), (2,0)]
+		for pos in positions:
+		i = np.argmin(np.abs(y - pos[1]))
+		j = np.argmin(np.abs(x - pos[0]))
+		
+		print(f"({pos[0]},{pos[1]})     {T[i,j]:<10.1f} {dT_dx[i,j]:<10.2f} "
+		f"{dT_dy[i,j]:<10.2f} {grad_magnitude[i,j]:<10.2f}")
+		
+		# Visualization
+		plt.figure(figsize=(15, 5))
+		
+		plt.subplot(1, 3, 1)
+		plt.contourf(X, Y, T, levels=20, cmap='hot')
+		plt.colorbar(label='Temperature (K)')
+		plt.title('Temperature Field')
+		plt.xlabel('x')
+		plt.ylabel('y')
+		
+		plt.subplot(1, 3, 2)
+		plt.quiver(X[::2, ::2], Y[::2, ::2], 
+		dT_dx[::2, ::2], dT_dy[::2, ::2], 
+		scale=30, color='blue')
+		plt.title('Temperature Gradient Vectors')
+		plt.xlabel('x')
+		plt.ylabel('y')
+		
+		plt.subplot(1, 3, 3)
+		plt.contourf(X, Y, grad_magnitude, levels=20, cmap='viridis')
+		plt.colorbar(label='|Nabla T| (K/m)')
+		plt.title('Gradient Magnitude')
+		plt.xlabel('x')
+		plt.ylabel('y')
+		
+		plt.tight_layout()
+		plt.show()
+	\end{lstlisting}
+	
+	\section{Трёхмерный случай}
+	
+	\subsection{Введение и пример}
+	
+	В трёхмерном пространстве градиент имеет три компоненты:
+	\[
+	\nabla f(x,y,z) = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right)
+	\]
+	
+	\textbf{Пример:} Электростатический потенциал точечного заряда:
+	\[
+	\varphi(x,y,z) = \frac{kQ}{\sqrt{x^2 + y^2 + z^2}}, \quad k = 9\times10^9, Q = 10^{-9}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\draw[->] (-2,0) -- (2,0) node[right] {$x$};
+			\draw[->] (0,-2) -- (0,2) node[above] {$y$};
+			\draw (0,0) circle (0.1) node[above] {$Q$};
+			%\foreach \angle in {0,45,90,135,180,225,270,315} {
+			%	\draw[red,->,thick] ({\cos(\angle)},{\sin(\angle)}) -- 
+			%	({1.8*cos(\angle)},{1.8*sin(\angle)});
+			%}
+			\foreach \r in {0.3,0.6,0.9,1.2} {
+				\draw[blue,dashed] (0,0) circle (\r);
+			}
+			\node[red] at (1.5,-1.5) {$\vec{E} = -\nabla\varphi$};
+			\node[blue] at (0,1.5) {Эквипотенциали};
+		\end{tikzpicture}
+		\caption{Градиент потенциала и электрическое поле точечного заряда}
+	\end{figure}
+	
+	\subsection{Таблица расчетных значений}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Градиент электрического потенциала}
+		\begin{tabular}{cccccc}
+			\toprule
+			$(x,y,z)$ & $\varphi$ (В) & $E_x$ (В/м) & $E_y$ (В/м) & $E_z$ (В/м) & $|\vec{E}|$ (В/м) \\
+			\midrule
+			(1,0,0) & 9.00 & -9.00 & 0.00 & 0.00 & 9.00 \\
+			(0,1,0) & 9.00 & 0.00 & -9.00 & 0.00 & 9.00 \\
+			(0,0,1) & 9.00 & 0.00 & 0.00 & -9.00 & 9.00 \\
+			(1,1,0) & 6.36 & -3.18 & -3.18 & 0.00 & 4.50 \\
+			(1,1,1) & 5.20 & -1.73 & -1.73 & -1.73 & 3.00 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\subsection{Программа на Python для 3D сетки}
+	
+	\begin{lstlisting}[language=Python, caption=3D gradient from grid data (Python)]
+		import numpy as np
+		
+		def gradient_3d_grid(f_grid, dx, dy, dz):
+		"""Compute 3D gradient from volumetric data"""
+		nz, ny, nx = f_grid.shape
+		grad_x = np.zeros_like(f_grid)
+		grad_y = np.zeros_like(f_grid)
+		grad_z = np.zeros_like(f_grid)
+		
+		# Interior points - central differences
+		for i in range(1, nz-1):
+		for j in range(1, ny-1):
+		for k in range(1, nx-1):
+		grad_x[i,j,k] = (f_grid[i,j,k+1] - f_grid[i,j,k-1]) / (2 * dx)
+		grad_y[i,j,k] = (f_grid[i,j+1,k] - f_grid[i,j-1,k]) / (2 * dy)
+		grad_z[i,j,k] = (f_grid[i+1,j,k] - f_grid[i-1,j,k]) / (2 * dz)
+		
+		return grad_x, grad_y, grad_z
+		
+		def electric_potential(x, y, z, Q=1e-9, k=9e9):
+		"""Electric potential of point charge"""
+		r = np.sqrt(x**2 + y**2 + z**2)
+		return k * Q / r if r > 0 else 0
+		
+		# Create 3D grid
+		nx, ny, nz = 15, 15, 15
+		x = np.linspace(-2, 2, nx)
+		y = np.linspace(-2, 2, ny)
+		z = np.linspace(-2, 2, nz)
+		X, Y, Z = np.meshgrid(x, y, z, indexing='ij')
+		
+		# Compute potential
+		R = np.sqrt(X**2 + Y**2 + Z**2)
+		phi = 9e9 * 1e-9 / np.where(R > 0, R, 1e-10)
+		
+		dx = x[1] - x[0]
+		dy = y[1] - y[0]
+		dz = z[1] - z[0]
+		
+		# Compute gradient (electric field)
+		dphi_dx, dphi_dy, dphi_dz = gradient_3d_grid(phi, dx, dy, dz)
+		E_x, E_y, E_z = -dphi_dx, -dphi_dy, -dphi_dz
+		E_magnitude = np.sqrt(E_x**2 + E_y**2 + E_z**2)
+		
+		# Display results table
+		print("3D Electric Field from Potential Gradient")
+		print("=" * 85)
+		print(f"{'Position':<12} {'phi (V)':<10} {'Ex (V/m)':<12} {'Ey (V/m)':<12} {'Ez (V/m)':<12} {'|E| (V/m)':<12}")
+		print("-" * 85)
+		
+		positions = [(1,0,0), (0,1,0), (0,0,1), (1,1,0), (1,1,1)]
+		for pos in positions:
+		i = np.argmin(np.abs(x - pos[0]))
+		j = np.argmin(np.abs(y - pos[1]))
+		k = np.argmin(np.abs(z - pos[2]))
+		
+		print(f"({pos[0]},{pos[1]},{pos[2]})  {phi[i,j,k]:<10.2f} {E_x[i,j,k]:<12.2f} "
+		f"{E_y[i,j,k]:<12.2f} {E_z[i,j,k]:<12.2f} {E_magnitude[i,j,k]:<12.2f}")
+		
+		# Verify theoretical values
+		print("\nTheoretical verification:")
+		print("At (1,0,0): E = kQ/(r*r) =", 9e9 * 1e-9 / 1**2, "V/m")
+	\end{lstlisting}
+	
+	\section*{Заключение}
+	
+	Градиент является мощным математическим инструментом для анализа скалярных полей в физике. Ключевые выводы:
+	
+	\begin{itemize}
+		\item Оператор набла $\nabla$ — универсальный инструмент для описания пространственных изменений
+		\item Методы конечных разностей позволяют численно вычислять градиенты для экспериментальных данных
+		\item Градиент всегда направлен в сторону наибольшего роста функции
+		\item Модуль градиента характеризует скорость изменения поля
+	\end{itemize}
+	
+	\textbf{Физические приложения оператора набла:}
+	\begin{itemize}
+		\item \textbf{Градиент}: $\nabla\varphi$ — наибольшая скорость изменения
+		\item \textbf{Дивергенция}: $\nabla\cdot\vec{A}$ — плотность источников поля  
+		\item \textbf{Ротор}: $\nabla\times\vec{A}$ — вихревая характеристика поля
+		\item \textbf{Лапласиан}: $\nabla^2\varphi$ — divergence of gradient
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\node[draw, rounded corners, fill=blue!10] at (0,0) {Градиент $\nabla\varphi$};
+			\node[draw, rounded corners, fill=green!10] at (4,0) {Дивергенция $\nabla\cdot\vec{A}$};
+			\node[draw, rounded corners, fill=red!10] at (8,0) {Ротор $\nabla\times\vec{A}$};
+			\draw[->, thick] (1.5,0) -- (2.0,0);
+			\draw[->, thick] (6.0,0) -- (6.5,0);
+			\node at (2,0.5) {Векторное поле};
+			\node at (6,0.5) {Скалярное поле};
+		\end{tikzpicture}
+		\caption{Основные операции векторного анализа с оператором набла}
+	\end{figure}
+	
+\end{document}
