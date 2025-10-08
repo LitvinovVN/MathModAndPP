@@ -1,0 +1,3 @@
+D:/MyProjects/bmp_show/build/CMakeFiles/bmp_show.dir
+D:/MyProjects/bmp_show/build/CMakeFiles/edit_cache.dir
+D:/MyProjects/bmp_show/build/CMakeFiles/rebuild_cache.dir
