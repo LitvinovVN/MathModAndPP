@@ -1,0 +1,169 @@
+@startuml SVGClassDiagram
+
+' Настройки отображения
+skinparam groupInheritance 2
+skinparam nodesep 10
+skinparam ranksep 20
+left to right direction
+
+' Пакеты/пространства имен
+package "SVG Namespace" {
+
+  ' Базовый класс и интерфейсы
+  abstract class SvgElement {
+    {abstract} +toString(): string
+  }
+
+  ' Классы данных
+  class Color {
+    -r: int
+    -g: int
+    -b: int
+    -a: int
+    +Color()
+    +Color(red, green, blue, alpha)
+    +fromHex(hex: string): Color
+    +toHex(): string
+    +toString(): string
+  }
+
+  class Point {
+    -x: double
+    -y: double
+    +Point()
+    +Point(x, y)
+    +getX(): double
+    +getY(): double
+    +setX(newX): void
+    +setY(newY): void
+    +toString(): string
+  }
+
+  class Style {
+    -fill: Color
+    -stroke: Color
+    -strokeWidth: double
+    -fillOpacity: double
+    -strokeOpacity: double
+    +Style()
+    +setFill(color): Style&
+    +setStroke(color): Style&
+    +setStrokeWidth(width): Style&
+    +setFillOpacity(opacity): Style&
+    +setStrokeOpacity(opacity): Style&
+    +toString(): string
+  }
+
+  ' Графические элементы
+  class Rectangle {
+    -x: double
+    -y: double
+    -width: double
+    -height: double
+    -style: Style
+    +Rectangle(x, y, width, height, style)
+    +toString(): string
+  }
+
+  class Circle {
+    -cx: double
+    -cy: double
+    -r: double
+    -style: Style
+    +Circle(cx, cy, r, style)
+    +toString(): string
+  }
+
+  class Line {
+    -x1: double
+    -y1: double
+    -x2: double
+    -y2: double
+    -style: Style
+    +Line(x1, y1, x2, y2, style)
+    +toString(): string
+  }
+
+  class Polyline {
+    -points: vector<Point>
+    -style: Style
+    -close: bool
+    +Polyline(points, style, close)
+    +addPoint(point): void
+    +toString(): string
+  }
+
+  class Text {
+    -x: double
+    -y: double
+    -content: string
+    -style: Style
+    -fontFamily: string
+    -fontSize: int
+    +Text(x, y, content, style, fontFamily, fontSize)
+    +toString(): string
+  }
+
+  ' Главный класс
+  class SvgWriter {
+    -width: int
+    -height: int
+    -backgroundColor: string
+    -elements: vector<unique_ptr<SvgElement>>
+    -file: ofstream
+    +SvgWriter(width, height, backgroundColor)
+    +~SvgWriter()
+    +addRectangle(x, y, width, height, style): void
+    +addCircle(cx, cy, r, style): void
+    +addLine(x1, y1, x2, y2, style): void
+    +addPolyline(points, style): void
+    +addPolygon(points, style): void
+    +addText(x, y, content, style, fontFamily, fontSize): void
+    +saveToFile(filename): bool
+    +clear(): void
+    +getWidth(): int
+    +getHeight(): int
+    -writeHeader(): void
+    -writeElements(): void
+    -writeFooter(): void
+  }
+}
+
+' Наследование
+SvgElement <|-- Rectangle
+SvgElement <|-- Circle
+SvgElement <|-- Line
+SvgElement <|-- Polyline
+SvgElement <|-- Text
+
+' Композиция и агрегация
+SvgWriter *-- "many" SvgElement : contains
+Rectangle *-- Style : has
+Circle *-- Style : has
+Line *-- Style : has
+Polyline *-- Style : has
+Text *-- Style : has
+Polyline *-- "many" Point : contains
+Style *-- Color : uses
+
+' Зависимости
+Text ..> Color : uses
+Style ..> Color : uses
+Point ..> string : converts to
+
+' Группировка для лучшей визуализации
+'package "Graphic Elements" {
+'  Rectangle
+'  Circle
+'  Line
+'  Polyline
+'  Text
+'}
+
+'package "Data Types" {
+'  Color
+'  Point
+'  Style
+'}
+
+@enduml
