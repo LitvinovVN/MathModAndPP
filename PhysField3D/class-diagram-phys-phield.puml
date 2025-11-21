@@ -1,0 +1,23 @@
+@startuml
+
+class PhysField3D
+{
+    - size_t Nx, Ny, Nz;
+    - double* data = nullptr;
+    - inline size_t GetIndex(size_t i, size_t j, size_t k) const
+    - inline size_t GetIndexX(size_t globalInd) const
+    - inline size_t GetIndexY(size_t globalInd) const
+    - inline size_t GetIndexZ(size_t globalInd) const    
+    + PhysField3D(size_t Nx, size_t Ny, size_t Nz)
+    + ~PhysField3D()
+    + inline size_t GetNx() const
+    + inline size_t GetNy() const
+    + inline size_t GetNz() const
+    + inline void SetValue(size_t i, size_t j, size_t k, double value)
+    + inline double GetValue(size_t i, size_t j, size_t k) const
+    + void PrintDataArray(size_t indStart, size_t indEnd) const
+    + void PrintDataArray() const
+    + void PrintValue(size_t i, size_t j, size_t k) const
+}
+
+@enduml
