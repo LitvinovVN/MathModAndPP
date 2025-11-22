@@ -4,7 +4,9 @@
 
 class PhysField3D : IPhysField3D
 {
+    std::string Description;
     size_t Nx, Ny, Nz;
+    double Hx, Hy, Hz; 
     double* data = nullptr;
 
     inline size_t GetIndex(size_t i, size_t j, size_t k) const
@@ -28,16 +30,24 @@ class PhysField3D : IPhysField3D
     }
 
 public:
-    PhysField3D(size_t Nx, size_t Ny, size_t Nz)
-        : Nx(Nx), Ny(Ny), Nz(Nz)
+    PhysField3D(size_t Nx, size_t Ny, size_t Nz,
+        double Hx, double Hy, double Hz, std::string Description = "")
+            : Nx(Nx), Ny(Ny), Nz(Nz), Hx(Hx), Hy(Hy), Hz(Hz), Description(Description)
     {
         data = new double[Nx*Ny*Nz];
     }
     ~PhysField3D() override
     {
+        std::cout << "~PhysField3D()...";
         if(data == nullptr) return;
 
         delete[] data;
+        std::cout << "OK\n";
+    }
+
+    std::string GetDescription() const override
+    {
+        return Description;
     }
 
     inline size_t GetNx() const override
@@ -54,16 +64,40 @@ public:
     {
         return Nz;
     }
-    
-    inline void SetValue(size_t i, size_t j, size_t k, double value) override
+
+    inline double GetHx() const override
     {
-        data[GetIndex(i,j,k)] = value;
+        return Hx;
+    }
+
+    inline double GetHy() const override
+    {
+        return Hy;
+    }
+
+    inline double GetHz() const override
+    {
+        return Hz;
     }
 
     inline double GetValue(size_t i, size_t j, size_t k) const override
     {
         return data[GetIndex(i,j,k)];
     }
+    
+    inline void SetValue(size_t i, size_t j, size_t k, double value) override
+    {
+        data[GetIndex(i,j,k)] = value;
+    }
+
+    void Print() const override
+    {
+        std::cout << "Description: " << Description << "\n";
+        std::cout << " - object type: PhysField3D\n";
+        std::cout << " - object address: " << this << "\n";
+        std::cout << " - data address: " << data << "\n";
+    }
+    
 
     void PrintDataArray(size_t indStart, size_t indEnd) const override
     {
