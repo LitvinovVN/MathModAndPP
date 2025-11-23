@@ -6,40 +6,14 @@
 
 #include "PhysField3D.hpp"
 #include "PhysField3DZ.hpp"
+#include "PhysField3DAlgGrad.hpp"
 
 using namespace std::chrono;
 using namespace std::chrono_literals;
 
-inline void InitByGlobalIndex(IPhysField3D *physField3D)
-{
-    size_t Nx = physField3D->GetNx();
-    size_t Ny = physField3D->GetNy();
-    size_t Nz = physField3D->GetNz();
-
-#pragma omp parallel for
-    // for (size_t k = 0; k < Nz; k++) // Медленно
-    for (size_t i = 0; i < Nx; i++)
-    {
-        //size_t offsetNyNz = i * Nz * Ny;
-        for (size_t j = 0; j < Ny; j++)
-        {
-            //size_t offsetNyNzNz = offsetNyNz + j * Nz;
-            for (size_t k = 0; k < Nz; k++) // Быстро
-            {
-                double val = k;
-                //double val = k + j * Nz + i * Nz * Ny;
-                //double val = k + offsetNyNzNz;
-                physField3D->SetValue(i, j, k, val);
-                // std::cout << physField3D->GetValue(i, j, k) << " ";
-            }
-        }
-    }
-    // std::cout << std::endl;
-}
-
 void TestInitArray(size_t N)
 {
-    std::cout << "TestInitArray(" << TestInitArray << "): ";
+    std::cout << "----- TestInitArray(" << N << ") START -----\n";
     double *arr = new double[N];
     auto start = high_resolution_clock::now();
 #pragma omp parallel for
@@ -52,6 +26,138 @@ void TestInitArray(size_t N)
     std::cout << duration.count() << " mks\n"
               << std::endl;
     delete[] arr;
+    std::cout << "----- TestInitArray(" << N << ") END -----\n\n";
+}
+
+void PrintArray3D(double* arr, size_t Nx, size_t Ny, size_t Nz)
+{
+    for (size_t i = 0; i < Nx; i++)
+    {
+        std::cout << "i = " << i << "\n";
+        for (size_t j = 0; j < Ny; j++)
+        {
+            std::cout << "j = " << j << " | ";
+            for (size_t k = 0; k < Nz; k++)
+            {
+                size_t m0 = k + j*Nz + i*Nz*Ny;  
+                std::cout << arr[m0] << " ";
+            }
+            std::cout << "\n";
+        }
+    }    
+}
+
+void TestGradArray(size_t Nx, size_t Ny, size_t Nz, size_t N,
+    double Hx, double Hy, double Hz)
+{
+    std::cout << "----- TestGradArray(" << N << ") START -----\n";
+    double *arr = new double[N];
+    double *arr_grad = new double[N];    
+    double khx = 1/Hx;
+    double k2hx = 1/(2*Hx);
+    double khy = 1/Hy;
+    double k2hy = 1/(2*Hy);
+    double khz = 1/Hz;
+    double k2hz = 1/(2*Hz);
+
+    auto start = high_resolution_clock::now();
+    #pragma omp parallel for
+    for (size_t i = 0; i < N; i++)
+    {
+        arr[i] = i;
+    }
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    std::cout << "arr init:" << duration.count() << " mks\n";
+    if(N < 200)
+        PrintArray3D(arr,Nx,Ny,Nz);    
+
+    // Градиент для 1D
+    /*start = high_resolution_clock::now();    
+    #pragma omp parallel for
+    for (size_t i = 0; i < N; i++)
+    {
+        if(i==0)
+        {
+            arr_grad[0] = khx*(arr[1]-arr[0]);
+        }
+        else if(i==N-1)
+        {
+            arr_grad[N-1] = khx*(arr[N-1]-arr[N-2]);
+        }
+        else
+        {
+            arr_grad[i] = k2hx*(arr[i+1] - arr[i-1]);
+        }        
+    }
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    std::cout << "arr gradient 1D:" << duration.count() << " mks\n";
+    if(N < 200)
+        PrintArray3D(arr_grad,Nx,Ny,Nz);//*/
+
+    // Градиент для 3D
+    // du/dx
+    start = high_resolution_clock::now();    
+    #pragma omp parallel for
+    for (size_t i = 1; i < Nx-1; i++)
+    for (size_t j = 1; j < Ny-1; j++)
+    for (size_t k = 0; k < Nz; k++)
+    {
+        size_t m0 = k + j*Nz + i*Nz*Ny;
+        size_t m6 = m0 - Nz*Ny;
+        size_t m5 = m0 + Nz*Ny;
+        arr_grad[m0] = k2hx*(arr[m5] - arr[m6]);
+    }
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    std::cout << "arr gradient 3D by Ox:" << duration.count() << " mks\n";
+    std::cout << "grad("<< N-1 <<"): "<< arr_grad[N-1] <<"\n";
+    if(N < 200)
+        PrintArray3D(arr_grad,Nx,Ny,Nz);
+
+    // du/dy
+    start = high_resolution_clock::now();    
+    #pragma omp parallel for
+    for (size_t i = 1; i < Nx-1; i++)
+    for (size_t j = 1; j < Ny-1; j++)
+    for (size_t k = 1; k < Nz-1; k++)
+    {
+        size_t m0 = k + j*Nz + i*Nz*Ny;
+        size_t m4 = m0 - Nz;
+        size_t m3 = m0 + Nz;
+        arr_grad[m0] = k2hy*(arr[m3] - arr[m4]);
+    }    
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    std::cout << "arr gradient 3D by Oy:" << duration.count() << " mks\n";
+    std::cout << "grad("<< N-1 <<"): "<< arr_grad[N-1] <<"\n";
+    if(N < 200)
+        PrintArray3D(arr_grad,Nx,Ny,Nz);
+
+    // du/dz
+    start = high_resolution_clock::now();    
+    #pragma omp parallel for
+    for (size_t i = 1; i < Nx-1; i++)
+    for (size_t j = 1; j < Ny-1; j++)
+    for (size_t k = 1; k < Nz-1; k++)
+    {
+        size_t m0 = k + j*Nz + i*Nz*Ny;
+        size_t m2 = m0 - 1;
+        size_t m1 = m0 + 1;
+        arr_grad[m0] = k2hz*(arr[m1] - arr[m2]);
+    }    
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    std::cout << "arr gradient 3D by Ox:" << duration.count() << " mks\n";
+    std::cout << "grad("<< N-1 <<"): "<< arr_grad[N-1] <<"\n";
+    if(N < 200)
+        PrintArray3D(arr_grad,Nx,Ny,Nz);
+
+    ////////////////////////
+    delete[] arr;
+    delete[] arr_grad;
+    std::cout << "----- TestGradArray(" << N << ") END -----\n\n";
 }
 
 void CalcGradCx(IPhysField3D *C, IPhysField3D *gradCx)
@@ -186,7 +292,7 @@ void TestGradPhysField3D(size_t Nx,size_t Ny,size_t Nz,size_t N,double Hx,double
     IPhysField3D *C = (IPhysField3D *)new PhysField3D(Nx, Ny, Nz, Hx, Hy, Hz);
 
     auto start = high_resolution_clock::now();
-    InitByGlobalIndex(C);
+    PhysField3DAlgGrad::InitByGlobalIndex(C);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     std::cout << "Duration of InitByGlobalIndex, mks: " << duration.count() << std::endl;
@@ -233,7 +339,7 @@ void TestGradPhysField3DZ(size_t Nbx,size_t Nby,size_t Nbz,
     C->Print();
 
     auto start = high_resolution_clock::now();
-    InitByGlobalIndex(C);
+    PhysField3DAlgGrad::InitByGlobalIndex(C);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     std::cout << "Duration of InitByGlobalIndex, mks: " << duration.count() << std::endl;
@@ -250,22 +356,31 @@ void TestGradPhysField3DZ(size_t Nbx,size_t Nby,size_t Nbz,
     C->PrintValue(2, 3, 4);
 
     std::cout << "--- CalcGradCx ---\n";
-    IPhysField3D *gradCx = (IPhysField3D*)new PhysField3D(Nx, Ny, Nz, Hx, Hy, Hz);
-    CalcGradCx(C, gradCx);
-    gradCx->PrintDataArray(0, N < 5 ? N : 5);
-    //gradCx->PrintDataArray();
+    IPhysField3D *gradCx = (IPhysField3D*)new PhysField3DZ(Nbx, Nby, Nbz,
+        Nnbx, Nnby, Nnbz, Hx, Hy, Hz, "gradCx");
+    start = high_resolution_clock::now();
+    //CalcGradCx(C, gradCx);// Неэффективная реализация
+    PhysField3DAlgGrad::GradX((PhysField3DZ*)C, (PhysField3DZ*)gradCx);
+    stop = high_resolution_clock::now();
+    duration = duration_cast<microseconds>(stop - start);
+    std::cout << "Duration of PhysField3DAlgGrad::GradX((PhysField3DZ*)C, (PhysField3DZ*)gradCx), mks: " << duration.count() << std::endl;
+        
+    if(N < 200)
+        gradCx->PrintDataArray();
+    else
+        gradCx->PrintDataArray(0, 10);
     delete gradCx;
 
     std::cout << "--- CalcGradCy ---\n";
     IPhysField3D *gradCy = (IPhysField3D*)new PhysField3D(Nx, Ny, Nz, Hx, Hy, Hz);
-    CalcGradCy(C, gradCy);
+    //CalcGradCy(C, gradCy);// Неэффективная реализация
     gradCy->PrintDataArray(0, N < 5 ? N : 5);
     //gradCy->PrintDataArray();
     delete gradCy;
 
     std::cout << "--- CalcGradCz ---\n";
     IPhysField3D *gradCz = (IPhysField3D*)new PhysField3D(Nx, Ny, Nz, Hx, Hy, Hz);
-    CalcGradCz(C, gradCz);
+    //CalcGradCz(C, gradCz);// Неэффективная реализация
     gradCz->PrintDataArray(0, N < 5 ? N : 5);
     //gradCz->PrintDataArray();
     delete gradCz;
@@ -294,8 +409,9 @@ int main()
     std::cout << "Hy: " << Hy << "; ";
     std::cout << "Hz: " << Hz << "\n";
 
-    TestInitArray(N);
-    TestGradPhysField3D(Nx,Ny,Nz,N,Hx,Hy,Hz);
+    //TestInitArray(N);
+    TestGradArray(Nx,Ny,Nz,N,Hx,Hy,Hz);
+    //TestGradPhysField3D(Nx,Ny,Nz,N,Hx,Hy,Hz);
     TestGradPhysField3DZ(Nbx,Nby,Nbz,Nnbx,Nnby,Nnbz,Nx,Ny,Nz,N,Hx,Hy,Hz);
     
     std::cout << "-----Success Exit -----\n";

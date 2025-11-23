@@ -8,7 +8,7 @@ class PhysField3DZ : public IPhysField3D
     size_t Nbx, Nby, Nbz;// Количество блоков сетки    
     size_t Nnbx, Nnby, Nnbz;// Количество узлов в блоке
     size_t Nx, Ny, Nz;
-    double Hx, Hy, Hz; 
+    double Hx, Hy, Hz;
     double* data = nullptr;
 
     inline size_t GetIndex(size_t i, size_t j, size_t k) const
@@ -83,6 +83,11 @@ public:
         std::cout << "OK\n";
     }
 
+    double* GetData()
+    {
+        return data;
+    }
+
     std::string GetDescription() const override
     {
         return Description;
@@ -101,6 +106,36 @@ public:
     inline size_t GetNz() const override
     {
         return Nz;
+    }
+
+    inline size_t GetNbx() const
+    {
+        return Nbx;
+    }
+
+    inline size_t GetNby() const
+    {
+        return Nby;
+    }
+
+    inline size_t GetNbz() const
+    {
+        return Nbz;
+    }
+
+    inline size_t GetNnbx() const
+    {
+        return Nnbx;
+    }
+
+    inline size_t GetNnby() const
+    {
+        return Nnby;
+    }
+
+    inline size_t GetNnbz() const
+    {
+        return Nnbz;
     }
 
     inline double GetHx() const override
