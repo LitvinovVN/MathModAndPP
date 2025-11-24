@@ -146,11 +146,12 @@ struct PhysField3DAlgGrad
         {
             //std::cout << "gb_zOy: " << gb_zOy << "\n";
             // Перебираем блоки вдоль оси Ox
+            size_t p0offset = gb_zOy*Nnb;
             for (size_t i = 0; i < Nbx; i++)
             {
                 //std::cout << "  i: " << i << "; ";
                 // Смещение начала блока сетки (точки 0 (0,0,0)) относительно начала массива
-                size_t p0offset = gb_zOy*Nnb + i*blockOffsetX;
+                //size_t p0offset = gb_zOy*Nnb + i*blockOffsetX;
                 //std::cout << "p0offset: " << p0offset << "\n";
                 // Указатель на начало блока сетки - точка 0 (0,0,0)
                 p0 = data_src + p0offset;
@@ -278,6 +279,8 @@ struct PhysField3DAlgGrad
                 *ptr_p5gradX_res = p5gradX;
                 *ptr_p6gradX_res = p6gradX;
                 *ptr_p7gradX_res = p7gradX;
+
+                p0offset += blockOffsetX;// Перемещаем указатель к следующему блоку
             }
         }
 

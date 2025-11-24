@@ -73,7 +73,7 @@ void TestGradArray(size_t Nx, size_t Ny, size_t Nz, size_t N,
         PrintArray3D(arr,Nx,Ny,Nz);    
 
     // Градиент для 1D
-    /*start = high_resolution_clock::now();    
+    start = high_resolution_clock::now();    
     #pragma omp parallel for
     for (size_t i = 0; i < N; i++)
     {
@@ -92,22 +92,27 @@ void TestGradArray(size_t Nx, size_t Ny, size_t Nz, size_t N,
     }
     stop = high_resolution_clock::now();
     duration = duration_cast<microseconds>(stop - start);
-    std::cout << "arr gradient 1D:" << duration.count() << " mks\n";
+    std::cout << "arr gradient 1D:" << duration.count() << " mks" << std::endl;
     if(N < 200)
-        PrintArray3D(arr_grad,Nx,Ny,Nz);//*/
+        PrintArray3D(arr_grad,Nx,Ny,Nz);
 
     // Градиент для 3D
     // du/dx
     start = high_resolution_clock::now();    
     #pragma omp parallel for
     for (size_t i = 1; i < Nx-1; i++)
-    for (size_t j = 1; j < Ny-1; j++)
+    for (size_t j = 0; j < Ny; j++)
     for (size_t k = 0; k < Nz; k++)
     {
         size_t m0 = k + j*Nz + i*Nz*Ny;
         size_t m6 = m0 - Nz*Ny;
         size_t m5 = m0 + Nz*Ny;
-        arr_grad[m0] = k2hx*(arr[m5] - arr[m6]);
+        if(k==0)
+            arr_grad[m0] = khx*(arr[m5] - arr[0]);
+        else if (k==Nz-1)
+            arr_grad[m0] = khx*(arr[m0] - arr[m6]);
+        else
+            arr_grad[m0] = k2hx*(arr[m5] - arr[m6]);
     }
     stop = high_resolution_clock::now();
     duration = duration_cast<microseconds>(stop - start);
@@ -393,7 +398,7 @@ int main()
 {
     std::cout << "----- Pole 3D -----\n";
     //size_t Nbx = 2, Nby = 2, Nbz = 3;// Количество блоков сетки
-    size_t Nbx = 500, Nby = 500, Nbz = 500;// Количество блоков сетки
+    size_t Nbx = 300, Nby = 300, Nbz = 300;// Количество блоков сетки
     std::cout << "Nbx: " << Nbx << "; " << "Nby: " << Nby << "; "<< "Nbz: " << Nbz << "\n";
     size_t Nnbx = 2, Nnby = 2, Nnbz = 2;// Количество узлов в блоке
     std::cout << "Nnbx: " << Nnbx << "; " << "Nnby: " << Nnby << "; "<< "Nnbz: " << Nnbz << "\n";
@@ -404,14 +409,14 @@ int main()
     std::cout << "N: " << N << "\n";
     double Hx = 0.1;
     double Hy = 0.2;
-    double Hz = 0.3;    
+    double Hz = 0.3;
     std::cout << "Hx: " << Hx << "; ";
     std::cout << "Hy: " << Hy << "; ";
     std::cout << "Hz: " << Hz << "\n";
 
-    //TestInitArray(N);
+    TestInitArray(N);
     TestGradArray(Nx,Ny,Nz,N,Hx,Hy,Hz);
-    //TestGradPhysField3D(Nx,Ny,Nz,N,Hx,Hy,Hz);
+    TestGradPhysField3D(Nx,Ny,Nz,N,Hx,Hy,Hz);
     TestGradPhysField3DZ(Nbx,Nby,Nbz,Nnbx,Nnby,Nnbz,Nx,Ny,Nz,N,Hx,Hy,Hz);
     
     std::cout << "-----Success Exit -----\n";
