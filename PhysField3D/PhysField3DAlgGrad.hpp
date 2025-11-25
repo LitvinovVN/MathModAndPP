@@ -102,6 +102,7 @@ struct PhysField3DAlgGrad
         double *p5prev = nullptr;
         double *p6prev = nullptr;
         double *p7prev = nullptr;
+        //double* prevBlockData = new double[Nnb];
         // Текущий блок
         double *p0 = nullptr;
         double *p1 = nullptr;
@@ -111,6 +112,7 @@ struct PhysField3DAlgGrad
         double *p5 = nullptr;
         double *p6 = nullptr;
         double *p7 = nullptr;
+        //double* curBlockData = new double[Nnb];
         // Следующий блок
         double *p0next = nullptr;
         double *p1next = nullptr;
@@ -120,6 +122,7 @@ struct PhysField3DAlgGrad
         double *p5next = nullptr;
         double *p6next = nullptr;
         double *p7next = nullptr;
+        //double* nextBlockData = new double[Nnb];
 
         // Градиенты по оси Ox
         double p0gradX = 0;
@@ -139,6 +142,7 @@ struct PhysField3DAlgGrad
         double *ptr_p5gradX_res = nullptr;
         double *ptr_p6gradX_res = nullptr;
         double *ptr_p7gradX_res = nullptr;
+        //double* curBlockGradData = new double[Nnb];
 
         // 1. Перебираем блоки сетки в плоскости zOy
         #pragma omp parallel for
@@ -225,7 +229,7 @@ struct PhysField3DAlgGrad
                     p4gradX = k2hx * ( (*p0next) - (*p0) );
                     p5gradX = k2hx * ( (*p1next) - (*p1) );
                     p6gradX = k2hx * ( (*p2next) - (*p2) );
-                    p7gradX = k2hx * ( (*p3next) - (*p3) );                    
+                    p7gradX = k2hx * ( (*p3next) - (*p3) );
                 }
                 else if(i == Nbx-1)// Вычисляем градиент для последнего блока
                 {
@@ -281,9 +285,16 @@ struct PhysField3DAlgGrad
                 *ptr_p7gradX_res = p7gradX;
 
                 p0offset += blockOffsetX;// Перемещаем указатель к следующему блоку
+
+
             }
         }
 
+        // Освобождаем память
+        //delete[] prevBlockData;
+        //delete[] curBlockData;
+        //delete[] nextBlockData;
+        //delete[] curBlockGradData;
         //std::cout << "--- END PhysField3DAlgGrad::GradX(const PhysField3DZ& src, PhysField3DZ& res) END ---\n\n";
     }
 };
